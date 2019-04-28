@@ -70,6 +70,8 @@ Plug 'Yggdroot/LeaderF'
 Plug 'voldikss/vim-search-me'
 Plug 'voldikss/dict.vim'
 Plug 'ahonn/fileheader.nvim', {'on': ['AddFileHeader', 'UpdateFileHeader']}
+Plug 'voldikss/vim-translate-me'
+Plug 'ahonn/fileheader.nvim'
 Plug 'inkarkat/vim-mark', {'on': '<Plug>MarkSet'}
 Plug 'inkarkat/vim-ingo-library'
 Plug 'moll/vim-bbye'
@@ -309,13 +311,14 @@ else
     nnoremap <silent> ,n        :edit term://zsh<CR>
 endif
 " Customized function [[[2
-noremap  <silent> <F4>  <Esc>:call <SID>FileExplore()<CR>
-noremap  <silent> <F5>  <Esc>:call <SID>QuickRun()<CR>
-noremap! <silent> <F5>  <Esc>:call <SID>QuickRun()<CR>
-nnoremap <expr>   <CR>  <SID>NormalMapForEnter() . "\<Esc>"
-inoremap <expr>   <CR>  <SID>InsertMapForEnter()
-inoremap <expr>   ;<CR> <SID>MapForSemicolonEnter()
-inoremap <expr>   ;p    <SID>MapForSemicolonP()
+noremap  <silent> <F4>         <Esc>:call <SID>FileExplore()<CR>
+noremap  <silent> <F5>         <Esc>:call <SID>QuickRun()<CR>
+noremap! <silent> <F5>         <Esc>:call <SID>QuickRun()<CR>
+noremap  <silent> <Leader>x    <Esc>:call <SID>QuickRun()<CR>
+nnoremap <expr>   <CR>         <SID>NormalMapForEnter() . "\<Esc>"
+inoremap <expr>   <CR>         <SID>InsertMapForEnter()
+inoremap <expr>   <Leader><CR> <SID>MapForSemicolonEnter()
+inoremap <expr>   <Leader>p    <SID>MapForSemicolonP()
 " Autocmd: [[[1
 augroup AutocmdGroup
     autocmd!
@@ -412,6 +415,7 @@ command! ToggleAutoformat call <SID>ToggleAutoformat()
 
 command! -nargs=+ Grep        call <SID>Grep(<q-args>)
 command! -nargs=+ -complete=command TabMessage call <SID>TabMessage(<q-args>)
+command! -nargs=1 QuickRunPythonInterpretor  let g:asyncrun_python_interpretor=<q-args>
 " GitOperation: [[[2
 command! Gap  Git add -p
 command! Cd   Gcd
@@ -476,6 +480,10 @@ function! s:QuickRun()
     elseif &filetype == 'sh'
         AsyncRun bash %
     elseif &filetype == 'python'
+        if exists('g:asyncrun_python_interpretor')
+            exec 'AsyncRun ' . '-raw ' .  g:asyncrun_python_interpretor . ' %'
+            return
+        endif
         if has("unix")
             AsyncRun -raw python3 %
         else
@@ -747,13 +755,6 @@ if exists("*coc#add_extension")
         \'coc-vimtex',
         \)
 endif
-" dict.vim [[[2
-nmap <silent> ,t                 <Plug>DictSearch
-vmap <silent> ,t                 <Plug>DictVSearch
-nmap <silent> <Plug>DisableDictWSearch  <Plug>DictWSearch
-vmap <silent> <Plug>DisableDictWVSearch <Plug>DictWVSearch
-nmap <silent> <Plug>DisableDictRSearch  <Plug>DictRSearch
-vmap <silent> <Plug>DisableDictRVSearch <Plug>DictRVSearch
 " fileheader.nvim [[[2
 let g:fileheader_auto_add = 0
 let g:fileheader_auto_update = 0
@@ -840,7 +841,6 @@ let NERDTreeIgnore = [
 	        \ '\.DS_Store$', '\.sass-cache$', '__pycache__$', '\.egg-info$', '\.cache$'
 	        \ ]
 let NERDTreeShowBookmarks = 1
-let NERDTreeQuitOnOpen = 3
 let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
 " 如果只剩下NERDTree则关闭vim
@@ -1048,6 +1048,14 @@ let g:table_mode_corner = '|'
 let g:templates_directory            = ['~/.vim/templates']
 let g:templates_no_autocmd           = 1
 let g:templates_no_builtin_templates = 1
+" vim-translate-me [[[2
+nmap <silent>    ,t        <Plug>Translate
+nmap <silent>    ,w        <Plug>TranslateW
+nmap <silent>    ,r        <Plug>TranslateR
+vmap <silent>    ,t        <Plug>TranslateV
+vmap <silent>    ,w        <Plug>TranslateWV
+vmap <silent>    ,r        <Plug>TranslateRV
+let g:vtm_default_api = 'youdao'
 " vimtex [[[2
 let g:tex_flavor='latex'
 let g:vimtex_view_method='zathura'
