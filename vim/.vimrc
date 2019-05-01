@@ -771,6 +771,8 @@ let g:fileheader_by_git_config = 1
 let g:fileheader_new_line_at_end = 1
 let g:fileheader_last_modified_by = 1
 let g:fileheader_last_modified_time = 1
+nnoremap <silent> <F1> :UpdateFileHeader<CR>
+vnoremap <silent> <F1> <Esc>:UpdateFileHeader<CR>
 " git-messenger [[[2
 let g:git_messenger_include_diff = 'current'
 " git-p.nvim [[[2
