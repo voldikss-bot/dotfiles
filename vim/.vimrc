@@ -60,7 +60,6 @@ Plug 'rhysd/git-messenger.vim'
 Plug 'iamcco/sran.nvim', { 'do': { -> sran#util#install() } }
 Plug 'iamcco/git-p.nvim'
 Plug 'cohama/agit.vim'
-Plug 'airblade/vim-gitgutter',
 Plug 'mattn/gist-vim', {'on': 'Gist'}
 Plug 'mattn/webapi-vim'
 " Enhancements [[[2
@@ -737,6 +736,12 @@ nmap <silent> <Leader>ci <Plug>(coc-implementation)
 nmap <silent> <Leader>cr <Plug>(cc-references)
 nmap <silent> <Leader>cf <Plug>(coc-fix-current)
 
+" coc-git
+nmap <C-up> <Plug>(coc-git-prevchunk)
+nmap <C-down> <Plug>(coc-git-nextchunk)
+nmap <Leader>hs :CocCommand git.chunkStage<CR>
+nmap <Leader>hu :CocCommand git.chunkUndo<CR>
+
 " Install coc extensions
 if exists("*coc#add_extension")
     call coc#add_extension(
@@ -753,6 +758,7 @@ if exists("*coc#add_extension")
         \'coc-snippets',
         \'coc-emmet',
         \'coc-vimtex',
+        \'coc-git'
         \)
 endif
 " fileheader.nvim [[[2
@@ -961,15 +967,6 @@ nmap <silent> cx  <Plug>(Exchange)
 xmap <silent> X   <Plug>(Exchange)
 nmap <silent> cxc <Plug>(ExchangeClear)
 nmap <silent> cxx <Plug>(ExchangeLine)
-" vim-gitgutter [[[2
-nmap <silent> <C-Up>        <Plug>GitGutterPrevHunk
-nmap <silent> <C-Down>      <Plug>GitGutterNextHunk
-imap <silent> <C-Up>   <Esc><Plug>GitGutterPrevHunk
-imap <silent> <C-Down> <Esc><Plug>GitGutterNextHunk
-" highlights are managed by git-p.nvim
-" highlight GitGutterAdd    guifg=#009900 guibg=237
-" highlight GitGutterChange guifg=#bbbb00 guibg=237
-" highlight GitGutterDelete guifg=#ff2222 guibg=237
 " vim-gutentags [[[2
 " gutentags 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
 let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project','.idea']
@@ -1098,8 +1095,8 @@ let g:VM_maps["Select All"] = '<Leader>A'
 " <C-down>          Diff 跳转
 " <C-left>          交换单词
 " <C-right>         交换单词
-" <C-up>            <Plug>(GitGutterPrevHunk)
-" <C-down>          <Plug>(GitGutterNextHunk)
+" <C-up>            <Plug>(coc-git-prevchunk)
+" <C-down>          <Plug>(coc-git-nextchunk)
 
 " <M-h>             窗口间移动光标
 " <M-j>             窗口间移动光标
