@@ -1,4 +1,5 @@
 " -----------------------------------------------------------------------------
+" Maintainer: VOLDIKSS <dyzplus@gmail.com>
 " File: gruvbox.vim
 " Description: Retro groove color scheme for Vim
 " Author: morhetz <morhetz@gmail.com>
@@ -295,6 +296,8 @@ if has('nvim')
 
   let g:terminal_color_7 = s:fg4[0]
   let g:terminal_color_15 = s:fg1[0]
+elseif has('terminal')
+  let g:terminal_ansi_colors = [ s:bg0[0], s:gb.neutral_red[0], s:gb.neutral_green[0], s:gb.neutral_yellow[0], s:gb.neutral_blue[0], s:gb.neutral_purple[0], s:gb.neutral_aqua[0], s:fg4[0],s:gray[0], s:red[0], s:green[0], s:yellow[0], s:blue[0], s:purple[0], s:aqua[0], s:fg1[0] ]
 endif
 
 " }}}
@@ -1156,8 +1159,9 @@ hi! link jsClassKeyword GruvboxAqua
 hi! link jsExtendsKeyword GruvboxAqua
 hi! link jsExportDefault GruvboxAqua
 hi! link jsTemplateBraces GruvboxAqua
-hi! link jsGlobalNodeObjects GruvboxFg1
-hi! link jsGlobalObjects GruvboxFg1
+hi! link jsGlobalNodeObjects GruvboxBlue
+hi! link jsGlobalObjects GruvboxBlue
+hi! link jsObjectKey GruvboxGreenBold
 hi! link jsFunction GruvboxAqua
 hi! link jsFuncParens GruvboxFg3
 hi! link jsParens GruvboxFg3
