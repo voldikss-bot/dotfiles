@@ -1,7 +1,7 @@
 {
     "suggest.noselect": false,
     "suggest.echodocSupport": true,
-    "suggest.triggerAfterInsertEnter": true,
+    "suggest.triggerAfterInsertEnter": false,
     "languageserver": {
         "ccls": {
             "command": "/home/voldikss/Applications/ccls/Release/ccls",
