@@ -33,7 +33,6 @@ Plug 'cespare/vim-toml', {'for': 'toml'}
 Plug 'voldikss/vim-mma', {'for':'mma'}
 Plug 'aperezdc/vim-template', {'on': 'Template'}
 " Completion [[[2
-Plug 'honza/vim-snippets'
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile', 'frozen':1}
 Plug 'Shougo/neco-vim', {'for': 'vim'}
 Plug 'neoclide/coc-neco', {'for': 'vim'}

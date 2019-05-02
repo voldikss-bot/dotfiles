@@ -2,6 +2,11 @@
     "suggest.noselect": false,
     "suggest.echodocSupport": true,
     "suggest.triggerAfterInsertEnter": false,
+    "python.autoComplete.addBrackets": true,
+    "snippets.ultisnips.directories": [
+        "snippets",
+        "UltiSnips"
+    ],
     "languageserver": {
         "ccls": {
             "command": "/home/voldikss/Applications/ccls/Release/ccls",
@@ -12,24 +17,6 @@
                     "directory": "/home/voldikss/.vim/.cache/.ccls-cache"
                 }
             }
-        },
-        // "cquery": {
-        //     "command": "/home/voldikss/Applications/cquery/build/release/bin/cquery",
-        //     "args": ["--log-file=/tmp/cq.log"],
-        //     "filetypes": ["c", "cpp"],
-        //     "rootPatterns": ["compile_flags.txt", "compile_commands.json", ".vim/", ".git/", ".hg/"],
-        //     "initializationOptions": {
-        //         "cacheDirectory": "/tmp/cquery"
-        //     }
-        // },
-        // "flow": {
-        //     "command": "flow",
-        //     "args": ["lsp"],
-        //     "filetypes": ["javascript", "javascriptreact"],
-        //     "initializationOptions": {},
-        //     "requireRootPattern": true,
-        //     "settings": {},
-        //     "rootPatterns": [".flowconfig"]
-        // }
+        }
     }
 }
