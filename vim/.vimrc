@@ -288,7 +288,7 @@ inoremap ;u <C-u>
 inoremap ;c <Esc>C
 inoremap ;i <Esc>I
 " SaveAndQuit: [[[2
-nnoremap <silent> <Leader>w :w<CR>
+nnoremap <silent> <Leader>w :wa<CR>
 nnoremap <silent> <Leader>q :q<CR>
 nnoremap <silent> <Leader>Q :qa!<CR>
 nnoremap <silent> Q         :qa!<CR>
