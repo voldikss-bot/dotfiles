@@ -16,7 +16,6 @@ Plug 'octol/vim-cpp-enhanced-highlight', {'for': ['c', 'cpp']}
 Plug 'cpiger/NeoDebug', {'for':['c', 'cpp']}
 Plug 'godlygeek/tabular', {'for': 'markdown'}
 Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
-Plug 'mzlogin/vim-markdown-toc', {'for': 'markdown'}
 Plug 'iamcco/markdown-preview.nvim', {'for':'markdown', 'do': {-> mkdp#util#install()}, 'frozen': 1}
 Plug 'dhruvasagar/vim-table-mode',{'for': 'markdown', 'do': ':TableFormat'}
 Plug 'rstacruz/sparkup', {'for':'html'}
@@ -24,7 +23,6 @@ Plug 'othree/html5.vim', {'for':'html'}
 Plug 'jaxbot/browserlink.vim', {'for': 'html'}
 Plug 'alvan/vim-closetag', {'for': ['html', 'xml']}
 Plug 'pangloss/vim-javascript', {'for': 'javascript'}
-Plug 'elzr/vim-json' ,{'for':'json'}
 Plug 'MTDL9/vim-log-highlighting', {'for': 'log'}
 Plug 'vim-python/python-syntax', {'for':'python'}
 Plug 'numirias/semshi', {'for':'python', 'do': ':UpdateRemotePlugins'}
@@ -33,7 +31,6 @@ Plug 'cespare/vim-toml', {'for': 'toml'}
 Plug 'voldikss/vim-mma', {'for':'mma'}
 Plug 'aperezdc/vim-template', {'on': 'Template'}
 " Completion [[[2
-Plug 'honza/vim-snippets'
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile', 'frozen':1}
 Plug 'Shougo/neco-vim', {'for': 'vim'}
 Plug 'neoclide/coc-neco', {'for': 'vim'}
@@ -44,7 +41,6 @@ Plug 'scrooloose/nerdtree', {'on': ['NERDTreeToggle', 'NERDTreeCWD']}
 Plug 'Xuyuanp/nerdtree-git-plugin', {'on':['NERDTreeToggle', 'NERDTreeCWD']}
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight', {'on':['NERDTreeToggle', 'NERDTreeCWD']}
 Plug 'mhinz/vim-startify'
-Plug 'junegunn/goyo.vim', {'on': 'Goyo'}
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'ryanoasis/vim-devicons'
@@ -72,6 +68,7 @@ Plug 'inkarkat/vim-mark', {'on': '<Plug>MarkSet'}
 Plug 'inkarkat/vim-ingo-library'
 Plug 'moll/vim-bbye'
 Plug 'junegunn/vim-peekaboo'
+Plug 'liuchengxu/vista.vim'
 " Move [[[2
 Plug 'easymotion/vim-easymotion'
 Plug 'andymass/vim-matchup'
@@ -978,9 +975,6 @@ let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
 let g:javascript_plugin_jsdoc = 1
 let g:javascript_plugin_ngdoc = 1
 let g:javascript_plugin_flow  = 1
-" vim-json [[[2
-" 避免引号被隐藏
-let g:vim_json_syntax_conceal = 0
 " vim-mark [[[2
 " 和 visual-star-search 有 <Leader>* 冲突(MarkSet)
 " 以及其他冲突
@@ -1070,6 +1064,8 @@ let g:VM_leader             = ";"
 let g:VM_default_mappings   = 0
 let g:VM_maps               = {}
 let g:VM_maps["Select All"] = '<Leader>A'
+" vista.vim [[[2
+nnoremap <silent> <F10> :Vista!!<CR>
 " CheatSheet: [[[1
 " J                 移动整行
 " K                 移动整行
