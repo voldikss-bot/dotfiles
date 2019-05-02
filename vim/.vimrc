@@ -736,8 +736,8 @@ nmap <silent> <Leader>cr <Plug>(cc-references)
 nmap <silent> <Leader>cf <Plug>(coc-fix-current)
 
 " coc-git
-nnoremap <expr> <C-up>   &diff==1 ? '[c' : '<Plug>(coc-git-prevchunk)'
-nnoremap <expr> <C-down> &diff==1 ? ']c' : '<Plug>(coc-git-nextchunk)'
+nmap <expr> <C-up>   &diff==1 ? '[c' : '<Plug>(coc-git-prevchunk)'
+nmap <expr> <C-down> &diff==1 ? ']c' : '<Plug>(coc-git-nextchunk)'
 nnoremap <Leader>hs :CocCommand git.chunkStage<CR>
 nnoremap <Leader>hu :CocCommand git.chunkUndo<CR>
 
