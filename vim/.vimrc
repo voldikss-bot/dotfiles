@@ -33,6 +33,7 @@ Plug 'cespare/vim-toml', {'for': 'toml'}
 Plug 'voldikss/vim-mma', {'for':'mma'}
 Plug 'aperezdc/vim-template', {'on': 'Template'}
 " Completion [[[2
+Plug 'honza/vim-snippets'
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile', 'frozen':1}
 Plug 'Shougo/neco-vim', {'for': 'vim'}
 Plug 'neoclide/coc-neco', {'for': 'vim'}
@@ -344,8 +345,8 @@ augroup AutocmdGroup
 " KeywordHighlight: [[[2
     autocmd Syntax *
         \ call matchadd('Todo',  '\W\zs\(TODO\|Todo\|todo\|FIXME\|CHANGED\|XXX\|BUG\|HACK\)') |
+        \ call matchadd('Todo',  '\W\zs\(NOTE\|Note\|INFO\|IDEA\|NOTICE\)') |
         \ call matchadd('Debug', '\W\zs\(Debug\|DEBUG\)') |
-        \ call matchadd('Note',  '\W\zs\(NOTE\|Note\|INFO\|IDEA\|NOTICE\)') |
 " AutoChdir: [[[2
     autocmd BufEnter * silent! lcd %:p:h
 " GitIgnore: [[[2
