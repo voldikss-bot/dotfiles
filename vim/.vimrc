@@ -736,10 +736,10 @@ nmap <silent> <Leader>cr <Plug>(cc-references)
 nmap <silent> <Leader>cf <Plug>(coc-fix-current)
 
 " coc-git
-nmap <C-up> <Plug>(coc-git-prevchunk)
-nmap <C-down> <Plug>(coc-git-nextchunk)
-nmap <Leader>hs :CocCommand git.chunkStage<CR>
-nmap <Leader>hu :CocCommand git.chunkUndo<CR>
+nnoremap <expr> <C-up>   &diff==1 ? '[c' : '<Plug>(coc-git-prevchunk)'
+nnoremap <expr> <C-down> &diff==1 ? ']c' : '<Plug>(coc-git-nextchunk)'
+nnoremap <Leader>hs :CocCommand git.chunkStage<CR>
+nnoremap <Leader>hu :CocCommand git.chunkUndo<CR>
 
 " Install coc extensions
 if exists("*coc#add_extension")
