@@ -18,7 +18,7 @@ Plug 'godlygeek/tabular', {'for': 'markdown'}
 Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
 Plug 'mzlogin/vim-markdown-toc', {'for': 'markdown'}
 Plug 'iamcco/markdown-preview.nvim', {'for':'markdown', 'do': {-> mkdp#util#install()}, 'frozen': 1}
-Plug 'dhruvasagar/vim-table-mode',{'for': 'markdown'}
+Plug 'dhruvasagar/vim-table-mode',{'for': 'markdown', 'do': ':TableFormat'}
 Plug 'rstacruz/sparkup', {'for':'html'}
 Plug 'othree/html5.vim', {'for':'html'}
 Plug 'jaxbot/browserlink.vim', {'for': 'html'}
@@ -39,7 +39,6 @@ Plug 'Shougo/neco-vim', {'for': 'vim'}
 Plug 'neoclide/coc-neco', {'for': 'vim'}
 " Style [[[2
 Plug 'ap/vim-css-color'
-Plug 'Chiel92/vim-autoformat', {'on': 'Autoformat'}
 Plug 'Yggdroot/indentLine'
 Plug 'scrooloose/nerdtree', {'on': ['NERDTreeToggle', 'NERDTreeCWD']}
 Plug 'Xuyuanp/nerdtree-git-plugin', {'on':['NERDTreeToggle', 'NERDTreeCWD']}
@@ -187,10 +186,11 @@ set wildignore+=__pycache__,*.egg-info
 set dictionary+=~/.vim/dict/dictionary.txt
 " set common variable[[[2
 let g:vim_indent_cont = &sw
+let g:autoformat_enabled = 0
 
 if has('win32') || has('win64') || has('win32unix')
     let g:python3_host_prog='D:/Applications/Python36/python.exe'
-else"[[[]]]
+else
     let g:python3_host_prog='/usr/bin/python3'
 endif
 " Keymap: [[[1
@@ -313,6 +313,8 @@ noremap  <silent> <F4>         <Esc>:call <SID>FileExplore()<CR>
 noremap  <silent> <F5>         <Esc>:call <SID>QuickRun()<CR>
 noremap! <silent> <F5>         <Esc>:call <SID>QuickRun()<CR>
 noremap  <silent> <Leader>x    <Esc>:call <SID>QuickRun()<CR>
+noremap  <silent> <F6>         <Esc>:call <SID>Autoformat()<CR>
+noremap! <silent> <F6>         <Esc>:call <SID>Autoformat()<CR>
 nnoremap <expr>   <CR>         <SID>NormalMapForEnter() . "\<Esc>"
 inoremap <expr>   <CR>         <SID>InsertMapForEnter()
 inoremap <expr>   <Leader><CR> <SID>MapForSemicolonEnter()
@@ -370,7 +372,7 @@ augroup AutocmdGroup
     autocmd FileType vim let b:argwrap_line_prefix = '\'
     autocmd FileType vim let b:argwrap_tail_indent_braces = '('
     " vim-autoformat [[[3
-    autocmd BufWrite * if g:autoformat_enabled | Autoformat | endif
+    autocmd BufWrite * if g:autoformat_enabled | :call <SID>Autoformat<CR> | endif
     " vim-commentary [[[3
     autocmd FileType python,shell,coffee,crontab setlocal commentstring=#\ %s
     autocmd FileType java,c,cpp,json     setlocal commentstring=//\ %s
@@ -409,7 +411,6 @@ augroup END
 " Commons: [[[2
 command! InitGitignore    call <SID>InitGitignore()
 command! QuickRun         call <SID>QuickRun()
-command! ToggleAutoformat call <SID>ToggleAutoformat()
 
 command! -nargs=+ Grep        call <SID>Grep(<q-args>)
 command! -nargs=+ -complete=command TabMessage call <SID>TabMessage(<q-args>)
@@ -433,6 +434,15 @@ command! PUU PlugUpgrade
 command! PS  PlugStatus
 command! PC  PlugClean
 " Function: [[[1
+" Autoformat: format code
+function! s:Autoformat()
+    if &filetype == 'markdown'
+        TableFormat
+    else
+        call CocAction('format')
+    endif
+    exec 'w'
+endfunction
 " InitGitignore: default gitignore [[[2
 function! s:InitGitignore()
     if &filetype ==# 'gitignore'
@@ -596,16 +606,6 @@ function! s:Grep(string)
         execute "AsyncRun! -cwd=<root> findstr /n /s /C:" . a:string
     else
         execute "AsyncRun! -cwd=<root> grep -n -s -R " . a:string . " * " . "--exclude='*.so' --exclude='.git' --exclude='.idea' --exclude='.cache' --exclude='.IntelliJIdea' --exclude='*.py[co]'"
-    endif
-endfunction
-" ToggleAutoformat: [[[2
-function! s:ToggleAutoformat()
-    if g:autoformat_enabled
-        let g:autoformat_enabled = 0
-        echo "Autoformat disabled"
-    else
-        let g:autoformat_enabled = 1
-        echo "Autoformat enabled"
     endif
 endfunction
 " Abbreviate: [[[1
@@ -772,6 +772,7 @@ let g:fileheader_last_modified_by = 1
 let g:fileheader_last_modified_time = 1
 nnoremap <silent> <F1> :UpdateFileHeader<CR>
 vnoremap <silent> <F1> <Esc>:UpdateFileHeader<CR>
+inoremap <silent> <F1> <Esc>:UpdateFileHeader<CR>
 " git-messenger [[[2
 let g:git_messenger_include_diff = 'current'
 " git-p.nvim [[[2
@@ -923,16 +924,6 @@ nnoremap <silent> <C-right> :SidewaysRight<CR>
 let g:sparkupExecuteMapping = '<C-i>'
 " vim-argwrap [[[2
 noremap <silent> <Leader>aw :ArgWrap<CR>
-" vim-autoformat [[[2
-" 保存文件时 FORMAT
-let g:autoformat_enabled = 0
-noremap  <silent> <F6> <Esc>:Autoformat<CR>
-noremap! <silent> <F6> <Esc>:Autoformat<CR>
-let g:autoformat_autoindent            = 0
-let g:autoformat_retab                 = 0
-let g:autoformat_remove_trailing_space = 0
-" for c, cpp, c#, object-c
-let g:formatterpath=['/home/voldikss/Applications/clang+llvm-7.0.1-x86_64-linux-gnu-ubuntu-18.04/bin']
 " vim-bookmarks [[[2
 " 重新定义按键映射
 let g:bookmark_no_default_key_mappings = 1
