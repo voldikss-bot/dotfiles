@@ -72,6 +72,7 @@ Plug 'ahonn/fileheader.nvim', {'on': ['AddFileHeader', 'UpdateFileHeader']}
 Plug 'inkarkat/vim-mark', {'on': '<Plug>MarkSet'}
 Plug 'inkarkat/vim-ingo-library'
 Plug 'moll/vim-bbye'
+Plug 'junegunn/vim-peekaboo'
 " Move [[[2
 Plug 'easymotion/vim-easymotion'
 Plug 'andymass/vim-matchup'
