@@ -67,10 +67,8 @@ Plug 'skywind3000/asyncrun.vim'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'Yggdroot/LeaderF'
 Plug 'voldikss/vim-search-me'
-Plug 'voldikss/dict.vim'
-Plug 'ahonn/fileheader.nvim', {'on': ['AddFileHeader', 'UpdateFileHeader']}
 Plug 'voldikss/vim-translate-me'
-Plug 'ahonn/fileheader.nvim'
+Plug 'ahonn/fileheader.nvim', {'on': ['AddFileHeader', 'UpdateFileHeader']}
 Plug 'inkarkat/vim-mark', {'on': '<Plug>MarkSet'}
 Plug 'inkarkat/vim-ingo-library'
 Plug 'moll/vim-bbye'
