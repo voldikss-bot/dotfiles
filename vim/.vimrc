@@ -309,12 +309,12 @@ else
     nnoremap <silent> ,n        :edit term://zsh<CR>
 endif
 " Customized function [[[2
-noremap  <silent> <F4>         <Esc>:call <SID>FileExplore()<CR>
-noremap  <silent> <F5>         <Esc>:call <SID>QuickRun()<CR>
-noremap! <silent> <F5>         <Esc>:call <SID>QuickRun()<CR>
-noremap  <silent> <Leader>x    <Esc>:call <SID>QuickRun()<CR>
-noremap  <silent> <F6>         <Esc>:call <SID>Autoformat()<CR>
-noremap! <silent> <F6>         <Esc>:call <SID>Autoformat()<CR>
+noremap  <silent> <F4>         <Esc>:call FileExplore()<CR>
+noremap  <silent> <F5>         <Esc>:call QuickRun()<CR>
+noremap! <silent> <F5>         <Esc>:call QuickRun()<CR>
+noremap  <silent> <Leader>x    <Esc>:call QuickRun()<CR>
+noremap  <silent> <F6>         <Esc>:call Autoformat()<CR>
+noremap! <silent> <F6>         <Esc>:call Autoformat()<CR>
 nnoremap <expr>   <CR>         <SID>NormalMapForEnter() . "\<Esc>"
 inoremap <expr>   <CR>         <SID>InsertMapForEnter()
 inoremap <expr>   <Leader><CR> <SID>MapForSemicolonEnter()
@@ -372,7 +372,7 @@ augroup AutocmdGroup
     autocmd FileType vim let b:argwrap_line_prefix = '\'
     autocmd FileType vim let b:argwrap_tail_indent_braces = '('
     " vim-autoformat [[[3
-    autocmd BufWrite * if g:autoformat_enabled | :call <SID>Autoformat<CR> | endif
+    autocmd BufWrite * if g:autoformat_enabled | :call Autoformat<CR> | endif
     " vim-commentary [[[3
     autocmd FileType python,shell,coffee,crontab setlocal commentstring=#\ %s
     autocmd FileType java,c,cpp,json     setlocal commentstring=//\ %s
@@ -409,11 +409,8 @@ augroup END
 "
 " Command: [[[1
 " Commons: [[[2
-command! InitGitignore    call <SID>InitGitignore()
-command! QuickRun         call <SID>QuickRun()
-
 command! -nargs=+ Grep        call <SID>Grep(<q-args>)
-command! -nargs=+ -complete=command TabMessage call <SID>TabMessage(<q-args>)
+command! -nargs=+ -complete=command TabMessage call TabMessage(<q-args>)
 command! -nargs=1 QuickRunPythonInterpretor  let g:asyncrun_python_interpretor=<q-args>
 " GitOperation: [[[2
 command! Gap  Git add -p
@@ -435,7 +432,7 @@ command! PS  PlugStatus
 command! PC  PlugClean
 " Function: [[[1
 " Autoformat: format code
-function! s:Autoformat()
+function! Autoformat()
     if &filetype == 'markdown'
         TableFormat
     else
@@ -444,7 +441,7 @@ function! s:Autoformat()
     exec 'w'
 endfunction
 " InitGitignore: default gitignore [[[2
-function! s:InitGitignore()
+function! InitGitignore()
     if &filetype ==# 'gitignore'
         let l:ignore = [
             \'test.*',
@@ -465,10 +462,10 @@ function! s:InitGitignore()
     endif
 endfunction
 " QuickRun: one key to run [[[2
-function! s:QuickRun()
+function! QuickRun()
     exec 'w'
     if &filetype == 'html' || &filetype == 'htmldjango'
-        call <SID>BrowserOpen(expand("%:p"))
+        call BrowserOpen(expand("%:p"))
     elseif &filetype == 'markdown'
         MarkdownPreview
     elseif &filetype == 'tex'
@@ -502,12 +499,12 @@ function! s:QuickRun()
     endif
 endfunction
 " FileExplore: open cwd in file explore [[[2
-function! s:FileExplore()
+function! FileExplore()
     let l:path = expand(getcwd())
-    call <SID>BrowserOpen(l:path)
+    call BrowserOpen(l:path)
 endfunction
 " BrowserOpen: open file or url [[[2
-function! s:BrowserOpen(obj)
+function! BrowserOpen(obj)
     " windows(mingw)
     if has('win32') || has('win64') || has('win32unix')
         let l:cmd = 'rundll32 url.dll,FileProtocolHandler ' . a:obj
@@ -522,7 +519,7 @@ function! s:BrowserOpen(obj)
     exec 'AsyncRun -post=cclose' . ' ' . l:cmd
 endfunction
 " TabMessage: capture command output [[[2
-function! s:TabMessage(cmd)
+function! TabMessage(cmd)
   redir => message
   silent execute a:cmd
   redir END
