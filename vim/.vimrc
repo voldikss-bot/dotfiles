@@ -210,8 +210,8 @@ inoremap jj <Esc>
 inoremap jk <Esc>
 vnoremap <  <gv
 vnoremap >  >gv
-noremap <C-U> <C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y>
-noremap <C-D> <C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E>
+noremap <C-U> kkkkkkkkkkkkkkkkkkkkk
+noremap <C-D> jjjjjjjjjjjjjjjjjjjjj
 " Jump: [[[2
 noremap <C-j>      <C-]>
 noremap <C-W><C-j> <C-W><C-]>
