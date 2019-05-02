@@ -1,9 +1,7 @@
-
-setlocal foldmethod=indent
 " for .vimrc
-if expand('%:e')=='vimrc'
+if expand('%:t')=='vimrc'
     setlocal foldmethod=marker
     setlocal foldmarker=[[[,]]]
+else
+    setlocal foldmethod=indent
 endif
-call matchadd('Todo',  '\W\zs\(Disabled\)')
-call matchadd('Todo',  '\W\zs\(TODO\|Todo\|todo\|FIXME\|CHANGED\|DONE\|XXX\|BUG\|HACK\)')
