@@ -749,7 +749,7 @@ if exists("*coc#add_extension")
         \'coc-word',
         \'coc-emoji',
         \'coc-omni',
-        \'coc-pyls',
+        \'coc-python',
         \'coc-tsserver',
         \'coc-css',
         \'coc-json',
