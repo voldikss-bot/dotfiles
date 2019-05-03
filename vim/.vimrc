@@ -35,7 +35,6 @@ Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile', 'frozen':1}
 Plug 'Shougo/neco-vim', {'for': 'vim'}
 Plug 'neoclide/coc-neco', {'for': 'vim'}
 " Style [[[2
-Plug 'ap/vim-css-color'
 Plug 'Yggdroot/indentLine'
 Plug 'scrooloose/nerdtree', {'on': ['NERDTreeToggle', 'NERDTreeCWD']}
 Plug 'Xuyuanp/nerdtree-git-plugin', {'on':['NERDTreeToggle', 'NERDTreeCWD']}
@@ -365,6 +364,8 @@ augroup AutocmdGroup
     " coc.nvim [[[3
     " Close preview window when completion is done.
     autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+    " coc-highlight
+    autocmd CursorHold * silent call CocActionAsync('highlight')
     " vim-argwrap [[[3
     autocmd FileType vim let b:argwrap_line_prefix = '\'
     autocmd FileType vim let b:argwrap_tail_indent_braces = '('
@@ -751,7 +752,8 @@ if exists("*coc#add_extension")
         \'coc-snippets',
         \'coc-emmet',
         \'coc-vimtex',
-        \'coc-git'
+        \'coc-git',
+        \'coc-highlight'
         \)
 endif
 " fileheader.nvim [[[2
