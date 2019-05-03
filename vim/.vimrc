@@ -442,18 +442,18 @@ endfunction
 function! InitGitignore()
     if &filetype ==# 'gitignore'
         let l:ignore = [
-            \'test.*',
-            \'tmp.*',
-            \'.tags',
-            \'*.pyc',
-            \'*.o',
-            \'*.out',
-            \'*.log',
-            \'.idea/',
-            \'/.idea',
-            \'build/',
-            \'__pycache__'
-        \]
+            \ 'test.*',
+            \ 'tmp.*',
+            \ '.tags',
+            \ '*.pyc',
+            \ '*.o',
+            \ '*.out',
+            \ '*.log',
+            \ '.idea/',
+            \ '/.idea',
+            \ 'build/',
+            \ '__pycache__'
+        \ ]
         let l:lines = line('$')
         normal O
         call append(0, l:ignore)
@@ -739,22 +739,22 @@ nnoremap <Leader>hu :CocCommand git.chunkUndo<CR>
 " Install coc extensions
 if exists("*coc#add_extension")
     call coc#add_extension(
-        \'coc-dictionary',
-        \'coc-tag',
-        \'coc-word',
-        \'coc-emoji',
-        \'coc-omni',
-        \'coc-python',
-        \'coc-tsserver',
-        \'coc-css',
-        \'coc-json',
-        \'coc-html',
-        \'coc-snippets',
-        \'coc-emmet',
-        \'coc-vimtex',
-        \'coc-git',
-        \'coc-highlight'
-        \)
+        \ 'coc-dictionary',
+        \ 'coc-tag',
+        \ 'coc-word',
+        \ 'coc-emoji',
+        \ 'coc-omni',
+        \ 'coc-python',
+        \ 'coc-tsserver',
+        \ 'coc-css',
+        \ 'coc-json',
+        \ 'coc-html',
+        \ 'coc-snippets',
+        \ 'coc-emmet',
+        \ 'coc-vimtex',
+        \ 'coc-git',
+        \ 'coc-highlight'
+        \ )
 endif
 " fileheader.nvim [[[2
 let g:fileheader_auto_add = 0
@@ -802,9 +802,9 @@ let g:Lf_StlSeparator   = {'left': '', 'right': '', 'font': ''}
 let g:Lf_RootMarkers    = ['.project', '.root', '.svn', '.git']
 let g:Lf_MruFileExclude = ['*.so','*.py[c0]','*.exe','*.sw?']
 let g:Lf_WildIgnore = {
-    \'dir': ['.svn','.git','.hg','.cache','.idea','.android','.gradle','.IntelliJIdea*'],
-    \'file': ['*.sw?','~$*','*.exe','*.o','*.so','*.py[co]']
-\}
+    \ 'dir': ['.svn','.git','.hg','.cache','.idea','.android','.gradle','.IntelliJIdea*'],
+    \ 'file': ['*.sw?','~$*','*.exe','*.o','*.so','*.py[co]']
+    \ }
 let g:Lf_WorkingDirectoryMode = 'Ac'
 let g:Lf_WindowHeight         = 0.30
 let g:Lf_CacheDirectory       = expand('~/.vim/.cache')
