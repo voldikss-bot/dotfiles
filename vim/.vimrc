@@ -50,7 +50,6 @@ Plug 'guns/xterm-color-table.vim'
 " Git [[[2
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
-Plug 'rhysd/git-messenger.vim'
 Plug 'iamcco/sran.nvim', { 'do': { -> sran#util#install() } }
 Plug 'iamcco/git-p.nvim'
 Plug 'cohama/agit.vim'
@@ -769,8 +768,6 @@ let g:fileheader_last_modified_time = 1
 nnoremap <silent> <F1> :UpdateFileHeader<CR>
 vnoremap <silent> <F1> <Esc>:UpdateFileHeader<CR>
 inoremap <silent> <F1> <Esc>:UpdateFileHeader<CR>
-" git-messenger [[[2
-let g:git_messenger_include_diff = 'current'
 " git-p.nvim [[[2
 nmap <silent> <leader>gv <Plug>(git-p-diff-preview)
 let g:gitp_blame_format = ""
