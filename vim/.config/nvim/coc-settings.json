@@ -3,10 +3,14 @@
     "suggest.echodocSupport": true,
     "suggest.triggerAfterInsertEnter": false,
     "python.autoComplete.addBrackets": true,
+    "eslint.enable": false,
     "snippets.ultisnips.directories": [
         "snippets",
-        "UltiSnips"
+        "UltiSnips",
+        "javascript",
+        "coffee"
     ],
+    "snippets.priority": -10,
     "languageserver": {
         "ccls": {
             "command": "/home/voldikss/Applications/ccls/Release/ccls",
