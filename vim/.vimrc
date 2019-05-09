@@ -10,14 +10,13 @@
 " PluginLoad: [[[1
 call plug#begin('~/.vim/plugged')
 " Languages [[[2
-" Reference: https://github.com/sheerun/vim-polyglot/blob/master/README.md
 Plug 'octol/vim-cpp-enhanced-highlight', {'for': ['c', 'cpp']}
-" Plug 'chrisbra/csv.vim', {'for': 'csv'}
 Plug 'cpiger/NeoDebug', {'for':['c', 'cpp']}
 Plug 'godlygeek/tabular', {'for': 'markdown'}
 Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
 Plug 'iamcco/markdown-preview.nvim', {'for':'markdown', 'do': {-> mkdp#util#install()}, 'frozen': 1}
 Plug 'dhruvasagar/vim-table-mode',{'for': 'markdown', 'do': ':TableFormat'}
+Plug 'rhysd/vim-gfm-syntax', {'for': 'markdown'}
 Plug 'rstacruz/sparkup', {'for':'html'}
 Plug 'othree/html5.vim', {'for':'html'}
 Plug 'jaxbot/browserlink.vim', {'for': 'html'}
@@ -28,7 +27,6 @@ Plug 'vim-python/python-syntax', {'for':'python'}
 Plug 'numirias/semshi', {'for':'python', 'do': ':UpdateRemotePlugins'}
 Plug 'lervag/vimtex', {'for': 'tex'}
 Plug 'cespare/vim-toml', {'for': 'toml'}
-Plug 'voldikss/vim-mma', {'for':'mma'}
 Plug 'aperezdc/vim-template', {'on': 'Template'}
 " Completion [[[2
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile', 'frozen':1}
@@ -73,6 +71,7 @@ Plug 'andymass/vim-matchup'
 Plug 'tommcdo/vim-exchange'
 Plug 'matze/vim-move'
 Plug 'andrewradev/sideways.vim'
+Plug 'rhysd/clever-f.vim'
 " Edit [[[2
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-commentary'
@@ -99,7 +98,6 @@ call plug#end()
 set history=2000
 set pumheight=15
 set updatetime=100
-set modifiable
 set autoread
 set autowrite
 set nobackup
@@ -107,7 +105,6 @@ set noswapfile
 set nowritebackup
 set undodir=~/.vim/.cache/undo_dir/
 set undofile
-set lazyredraw
 set isfname-==
 set encoding=utf-8
 set fileencodings=utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
@@ -137,8 +134,6 @@ set signcolumn=yes
 set pumheight=15
 set title
 set ruler
-set showcmd
-set noshowmode
 set cursorline
 set laststatus=2
 set shortmess+=c
@@ -192,8 +187,8 @@ endif
 let mapleader   = ';'
 let g:mapleader = ';'
 " ClearnSearchHighlight:  [[[2
-inoremap <silent> <esc> <Esc>:noh<CR>
-nnoremap <silent> <esc> <Esc>:noh<CR>
+inoremap <silent> <Esc> <Esc>:noh<CR>
+nnoremap <silent> <Esc> <Esc>:noh<CR>
 " General: [[[2
 noremap  H  ^
 noremap  L  $
@@ -361,10 +356,12 @@ augroup AutocmdGroup
     autocmd FileType tex let g:AutoPairs =
         \ {'(':')', '[':']', '{':'}',"'":"'", "`":"`", '<':'>', '$':'$', '$$':'$$'}
     " coc.nvim [[[3
-    " Close preview window when completion is done.
+    " close preview window when completion is done.
     autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
     " coc-highlight
     autocmd CursorHold * silent call CocActionAsync('highlight')
+    " indentLine [[[3
+    autocmd Filetype json let g:indentLine_enabled = 0
     " vim-argwrap [[[3
     autocmd FileType vim let b:argwrap_line_prefix = '\'
     autocmd FileType vim let b:argwrap_tail_indent_braces = '('
