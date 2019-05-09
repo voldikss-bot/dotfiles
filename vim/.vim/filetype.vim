@@ -12,7 +12,7 @@ augroup filetypedetect
 
     autocmd BufNewFile,BufRead *.wl          setfiletype mma
     autocmd BufNewFile,BufRead *.wls         setfiletype mma
-    autocmd BufNewFile,BufRead .gitignore    setfiletype gitignore
+    autocmd BufNewFile,BufRead *.gitignore    setfiletype gitignore
 
     au  BufNewFile,BufReadPost *.lmp         setfiletype lammps
     au  BufNewFile,BufReadPost *.lammps      setfiletype lammps

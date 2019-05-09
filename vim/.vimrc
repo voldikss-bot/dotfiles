@@ -342,7 +342,7 @@ augroup AutocmdGroup
 " AutoChdir: [[[2
     autocmd BufEnter * silent! lcd %:p:h
 " GitIgnore: [[[2
-    autocmd BufNewFile .gitignore InitGitignore
+    autocmd BufNewFile .gitignore Template 
 " Plugins: [[[2
     " auto-pairs [[[3
     autocmd FileType html let b:AutoPairs =
@@ -366,7 +366,7 @@ augroup AutocmdGroup
     autocmd FileType vim let b:argwrap_line_prefix = '\'
     autocmd FileType vim let b:argwrap_tail_indent_braces = '('
     " vim-autoformat [[[3
-    autocmd BufWrite * if g:autoformat_enabled | :call Autoformat<CR> | endif
+    autocmd BufWrite * if g:autoformat_enabled | call Autoformat() 
     " vim-commentary [[[3
     autocmd FileType python,shell,coffee,crontab setlocal commentstring=#\ %s
     autocmd FileType java,c,cpp,json     setlocal commentstring=//\ %s
@@ -433,30 +433,6 @@ function! Autoformat()
         call CocAction('format')
     endif
     exec 'w'
-endfunction
-" InitGitignore: default gitignore [[[2
-function! InitGitignore()
-    if &filetype ==# 'gitignore'
-        let l:ignore = [
-            \ 'test.*',
-            \ 'tmp.*',
-            \ '.tags',
-            \ 'tags',
-            \ 'tags-cn',
-            \ 'node_modules',
-            \ '*.pyc',
-            \ '*.o',
-            \ '*.out',
-            \ '*.log',
-            \ '.idea/',
-            \ '/.idea',
-            \ 'build/',
-            \ '__pycache__'
-        \ ]
-        let l:lines = line('$')
-        normal O
-        call append(0, l:ignore)
-    endif
 endfunction
 " QuickRun: one key to run [[[2
 function! QuickRun()
