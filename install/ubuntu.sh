@@ -36,13 +36,9 @@ function initialize(){
     cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
     cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
     crun sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak
-    crun sudo cp ../sources/ubuntu/sources.list /etc/apt/sources.list
+    crun sudo cp sources/ubuntu/sources.list /etc/apt/sources.list
 
-    crun sudo cp -rf ../pip/.pip/ $HOME
-    crun sudo cp -f ../idlerc $HOME/.idlerc
-    crun sudo cp -f ../inputrc/.inputrc $HOME
-    crun sudo cp -f ../git/.gitconfig $HOME
-    crun sudo cp -f ../shadowsocks/.shadowsocks.json $HOME
+    crun sudo cp -rf ../runcomm/.* $HOME
     crun sudo apt update -y
     crun sudo apt upgrade -y
 }
@@ -56,49 +52,63 @@ function common_install(){
     # trash
     crun sudo apt install trash-cli -y
     # bat
-    crun wget -O bat.deb https://github.com/sharkdp/bat/releases/download/v0.10.0/bat_0.10.0_amd64.deb
-    crun sudo dpkg -i bat.deb
-    crun rm bat.deb
+    if ! command -v bat; then
+        crun wget -O bat.deb https://github.com/sharkdp/bat/releases/download/v0.10.0/bat_0.10.0_amd64.deb
+        crun sudo dpkg -i bat.deb
+        crun rm bat.deb
+    fi
     # catimg
     crun sudo apt install catimg -y
     # ripgrep
-    crun wget -O rg.deb https://github.com/BurntSushi/ripgrep/releases/download/0.10.0/ripgrep_0.10.0_amd64.deb
-    crun sudo dpkg -i rg.deb
-    crun rm rg.deb
+    if ! command -v rg; then
+        crun wget -O rg.deb https://github.com/BurntSushi/ripgrep/releases/download/0.10.0/ripgrep_0.10.0_amd64.deb
+        crun sudo dpkg -i rg.deb
+        crun rm rg.deb
+    fi
     # fzf
-    crun git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-    crun ~/.fzf/install --all --64
+    if ! command -v fzf; then
+        crun git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+        crun ~/.fzf/install --all --64
+    fi
     # prettyping
-    crun git clone https://github.com/denilsonsa/prettyping.git --depth 1
-    crun sudo cp ./prettyping/prettyping /usr/bin/
-    crun rm -rf prettyping
+    if ! command -v prettyping; then
+        crun git clone https://github.com/denilsonsa/prettyping.git --depth 1
+        crun sudo cp ./prettyping/prettyping /usr/bin/
+        crun rm -rf prettyping
+    fi
     # htop
     crun sudo apt install htop -y
     # ranger
     crun sudo apt install ranger -y
     # ncdu
-    crun curl -LO https://dev.yorhel.nl/download/ncdu-1.14.tar.gz
-    crun tar -xf ncdu-1.14.tar.gz
-    crun cd ncdu-1.14
-    crun sudo apt install libncurses5-dev libncursesw5-dev -y
-    crun ./configure --prefix=/usr
-    crun sudo make
-    crun sudo make install
-    crun cd ..
-    crun rm -rf ncdu*
+    if ! command -v ncdu; then
+        crun curl -LO https://dev.yorhel.nl/download/ncdu-1.14.tar.gz
+        crun tar -xf ncdu-1.14.tar.gz
+        crun cd ncdu-1.14
+        crun sudo apt install libncurses5-dev libncursesw5-dev -y
+        crun ./configure --prefix=/usr
+        crun sudo make
+        crun sudo make install
+        crun cd ..
+        crun rm -rf ncdu*
+    fi
     # nnn
-    crun git clone https://github.com/jarun/nnn --depth 1
-    crun cd nnn
-    crun sudo apt install pkg-config libncursesw5-dev libreadline6-dev -y
-    crun make
-    crun sudo make install
-    crun cd ..
-    crun rm -rf nnn
+    if ! command -v nnn; then
+        crun git clone https://github.com/jarun/nnn --depth 1
+        crun cd nnn
+        crun sudo apt install pkg-config libncursesw5-dev libreadline6-dev -y
+        crun make
+        crun sudo make install
+        crun cd ..
+        crun rm -rf nnn
+    fi
     # zathura
     crun sudo apt install zathura -y
     # v2ray
-    crun curl -LO -s https://install.direct/go.sh
-    crun sudo bash go.sh
+    if [ ! -d "/etc/v2ray" ] ; then
+        crun curl -LO -s https://install.direct/go.sh
+        crun sudo bash go.sh
+    fi
 }
 
 function oh_my_zsh_install(){
@@ -110,8 +120,8 @@ function oh_my_zsh_install(){
     # oh-my-zsh
     if [ ! -d "$HOME/.oh-my-zsh" ]; then
         crun sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-        crun sudo cp -f ../zsh/af-magic.zsh-theme $HOME/.oh-my-zsh/themes
-        crun sudo cp -f ../zsh/.zshrc $HOME
+        crun sudo cp -f ../runcomm/af-magic.zsh-theme $HOME/.oh-my-zsh/themes
+        crun sudo cp -f ../runcomm/.zshrc $HOME
     else
         cecho "NOTE: oh-my-zsh has already been installed and won't be installed here"
     fi
@@ -121,12 +131,15 @@ function oh_my_zsh_install(){
     # zsh-syntax-highlighting
     crun git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
     # fasd
-    crun git clone https://github.com/clvv/fasd.git --depth 1
-    crun cd fasd
-    crun sudo make install
-    crun cd ..
+    if ! command -v fasd; then
+        crun git clone https://github.com/clvv/fasd.git --depth 1
+        crun cd fasd
+        crun sudo make install
+        crun cd ..
+    fi
     # extract
     crun sudo apt install extract -y
+
     crun source ~/.zshrc
 }
 
@@ -137,32 +150,17 @@ function vim_install(){
     crun sudo apt remove vim -y
     crun sudo apt remove vim-gtk -y
 
-    crun sudo add-apt-repository ppa:neovim-ppa/unstable -y
-    crun sudo apt update
-    crun sudo apt install neovim -y
+    if ! command -v nvim; then
+        crun sudo add-apt-repository ppa:neovim-ppa/unstable -y
+        crun sudo apt update
+        crun sudo apt install neovim -y
+    fi
 
     crun sudo -H pip3 install pynvim yapf flake8 autopep8
 
-    if command -v npm; then
-        crun sudo npm -g install js-beautify eslint html-beautify css-beautify remark-cli
-    else
-        cecho "NOTE: npm was not installed, so some packages won't be installed here"
-    fi
+    nodejs_install
 
-    # for keysound
-    crun sudo apt install python3-sdl2 -y
-
-    # zsh complete
-    if command -v zmodload; then
-        zmodload zsh/zpty
-    fi
-
-    crun sudo cp -f ../vim/.vimrc $HOME
-    crun sudo cp -rf ../vim/.vim $HOME
-    crun sudo cp -rf ../vim/.config/ $HOME
-
-    crun sudo mkdir -p $HOME/.vim/plugged
-    crun sudo chmod -R 777 $HOME/.vim
+    crun sudo cp -rf ../runcomm/.config $HOME
 
     crun nvim -c ':PlugInstall --sync | :qa!'
 }
@@ -180,39 +178,45 @@ function tmux_install(){
     cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
     cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
     crun sudo apt install tmux -y
-    crun sudo cp -f ../tmux/.tmux.conf $HOME
+    crun sudo cp -f ../runcomm/.tmux.conf $HOME
 }
 
 function nodejs_install(){
     cecho "Installing nodejs and others..."
     cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
     cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-    # nodejs
-    crun curl -LO install-node.now.sh/lts
-    crun sudo bash ./lts --yes
-    crun rm ./lts
-    # yarn
-    crun curl --compressed -LO https://yarnpkg.com/install.sh
-    crun sudo bash ./install.sh
-    crun rm ./install.sh
-    # npm
-    crun sudo apt install npm -y
+    if ! command -v nodejs; then
+        # nodejs
+        crun curl -LO install-node.now.sh/lts
+        crun sudo bash ./lts --yes
+        crun rm ./lts
+        # yarn
+        crun curl --compressed -LO https://yarnpkg.com/install.sh
+        crun sudo bash ./install.sh
+        crun rm ./install.sh
+    else
+        cecho "Nodejs has already been installed."
+    fi
 }
 
 function ctags_install(){
     cecho "Installing ctags and others..."
     cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
     cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-    crun git clone https://github.com/universal-ctags/ctags.git --depth=1
-    crun sudo apt install autoconf -y
-    crun sudo apt install pkg-config -y
-    crun cd ctags
-    crun ./autogen.sh
-    crun ./configure
-    crun sudo make
-    crun sudo make install
-    crun cd -
-    crun rm -rf ctags
+    if ! command -v ctags; then
+        crun git clone https://github.com/universal-ctags/ctags.git --depth=1
+        crun sudo apt install autoconf -y
+        crun sudo apt install pkg-config -y
+        crun cd ctags
+        crun ./autogen.sh
+        crun ./configure
+        crun sudo make
+        crun sudo make install
+        crun cd -
+        crun rm -rf ctags
+    else
+        cecho "Ctags has already been installed."
+    fi
 }
 
 function font_install(){
@@ -244,6 +248,7 @@ function ccls_install() {
         crun cd ..
         crun mkdir -p ~/Applications
         crun mv ccls ~/Applications/
+        crun sudo ln -s ~/Applications/ccls/Release/ccls /usr/bin/ccls
     else
         cecho "NOTE: ccls has already been installed and won't be installed here"
     fi
@@ -307,7 +312,6 @@ function ubuntu_install()
 
     # Confirm needed install
     confirm_install tmux tmux_install
-    confirm_install nodejs nodejs_install
     confirm_install ctags ctags_install
     confirm_install ccls ccls_install
     confirm_install latex latex_install

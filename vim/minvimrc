@@ -1,5 +1,5 @@
-set runtimepath^=~/.vim runtimepath+=~/.vim/after
+set runtimepath^=~/dotfiles/vim runtimepath+=~/dotfiles/vim/after
 let &packpath = &runtimepath
 
-call plug#begin('~/.vim/plugged')
+call plug#begin('~/dotfiles/vim/plugged')
 call plug#end()
