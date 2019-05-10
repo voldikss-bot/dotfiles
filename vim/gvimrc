@@ -1,0 +1,24 @@
+" Mainly for Windows only
+if !has('win32') && !has('win64') | finish | endif
+
+" PythonDLL: [[[1
+set pythonthreedll=D:\Applications\Python36\python36.dll
+
+" GVIM: [[[1
+if has('gui_running')
+    inoremap <S-CR> <Esc>o
+    inoremap <C-CR> <Esc>O
+    set encoding=utf-8
+    au GUIEnter * simalt ~x " 窗口启动时自动最大化
+    set guioptions-=m       " 隐藏菜单栏
+    set guioptions-=T       " 隐藏工具栏
+    set guioptions-=L       " 隐藏左侧滚动条
+    set guioptions-=r       " 隐藏右侧滚动条
+    set guioptions-=b       " 隐藏底部滚动条
+    set guifont=Monaco\ for\ Powerline:h10
+    " set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h11:b
+    source $VIMRUNTIME/delmenu.vim
+    source $VIMRUNTIME/menu.vim
+    language messages zh_CN.utf-8
+endif
+" vim:fdm=marker:fmr=[[[,]]]

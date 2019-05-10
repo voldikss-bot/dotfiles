@@ -178,11 +178,6 @@ set dictionary+=~/dotfiles/vim/dict/dictionary.txt
 let g:vim_indent_cont = &sw
 let g:autoformat_enabled = 0
 
-if has('win32') || has('win64') || has('win32unix')
-    let g:python3_host_prog='D:/Applications/Python36/python.exe'
-else
-    let g:python3_host_prog='/usr/bin/python3'
-endif
 " Keymap: [[[1
 let mapleader   = ';'
 let g:mapleader = ';'
@@ -218,24 +213,6 @@ tnoremap <silent> <C-h>     <C-\><C-n>:bprev<CR>
 nnoremap <silent> <C-l>     :bnext<CR>
 tnoremap <silent> <C-l>     <C-\><C-n>:bnext<CR>
 noremap  <silent> <Leader>d :Bdelete!<CR>
-" WindowOperation: [[[2
-nnoremap <M-h> <C-w>h
-nnoremap <M-j> <C-w>j
-nnoremap <M-k> <C-w>k
-nnoremap <M-l> <C-w>l
-inoremap <M-h> <Esc><C-w>h
-inoremap <M-j> <Esc><C-w>j
-inoremap <M-k> <Esc><C-w>k
-inoremap <M-l> <Esc><C-w>l
-tnoremap <M-h> <C-\><C-n><C-w>h
-tnoremap <M-j> <C-\><C-n><C-w>j
-tnoremap <M-k> <C-\><C-n><C-w>k
-tnoremap <M-l> <C-\><C-n><C-w>l
-" WindowSize: [[[2
-noremap <M-up>    <C-w>+
-noremap <M-down>  <C-w>-
-noremap <M-left>  <C-w>5<
-noremap <M-right> <C-w>5>
 " TabOperation: [[[2
 noremap  <silent> <C-t> <Esc>:tabnew<CR>
 noremap! <silent> <C-t> <Esc>:tabnew<CR>
@@ -625,15 +602,6 @@ call s:SetupCommandAbbrs('gpush', 'AsyncRun git push')
 call s:SetupCommandAbbrs('gpull', 'AsyncRun git pull')
 call s:SetupCommandAbbrs('grm', 'Gremove')
 call s:SetupCommandAbbrs('gmv', 'Gmove')
-" Nvim-Qt: [[[1
-if exists('g:GuiLoaded')
-    inoremap <S-CR> <Esc>o
-    inoremap <C-CR> <Esc>O
-    GuiFont! Monaco:h11
-    GuiTabline 0
-    GuiPopupmenu 0
-    let g:GuiWindowMaximized = 1
-endif
 " PluginConfig: [[[1
 " airline [[[2
 if !exists('g:airline_symbols')
@@ -752,12 +720,6 @@ let g:gitp_modify_sign = '~'
 let g:gitp_delete_top_sign = '‾'
 let g:gitp_delete_bottom_sign = '_'
 let g:gitp_delete_top_and_bottom_sign = '-'
-
-highlight GitPAdd                guifg=#009900 guibg=237
-highlight GitPModify             guifg=#ffff00 guibg=237
-highlight GitPDeleteTop          guifg=#ff2222 guibg=237
-highlight GitPDeleteButtom       guifg=#ff2222 guibg=237
-highlight GitPDeleteTopAndBottom guifg=#ff2222 guibg=237
 " goyo.vim [[[2
 let g:goyo_width = '50%'
 let g:goyo_height = '100%'
