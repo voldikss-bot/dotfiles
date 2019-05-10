@@ -58,6 +58,7 @@ plugins=(
         )
 
 source $ZSH/oh-my-zsh.sh
+source $HOME/.alias
 
 # User configuration
 
@@ -90,51 +91,11 @@ export SSH_KEY_PATH="~/.ssh/rsa_id"
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-
 export DEFAULT_USER="VOLDIKSS"
 eval $(thefuck --alias fk)
-alias vim=nvim
-alias vi=nvim
-alias python=python3
-alias pip=pip3
-alias rmf='rm -rf'
-alias ll='ls -lF'
-alias la='ls -laF'
-alias l='ls -CF'
-alias rmf='rm -rf'
-alias ga='git add'
-alias gs='git status'
-alias gc='git commit -v'
-alias gco='git checkout .'
-alias gp='git push'
-alias gpf='git push -f'
-alias gf='git fetch'
-alias gr='git reset --hard HEAD'
-# rm 进 trash
-alias rm='trash'
-# fasd
-alias v='f -e vim' # quick opening files with vim
-alias m='f -e mplayer' # quick opening files with mplayer
-alias o='a -e xdg-open' # quick opening files with xdg-open
-# fzf
-alias vimfzf='vim $(fzf)'
-# prettyping
-alias ping='prettyping'
-# htop
-alias top='htop'
-# ncdu
-alias du='ncdu --color dark -rr -x --exclude .git --exclude node_modules'
-# nnn
-alias nnn='nnn -d'
-# bat
-alias cat='bat'
 
 #disable zsh correction
 unsetopt correct_all
-
-# where proxy
-alias proxy='export all_proxy=https://127.0.0.1:1081'
-alias unproxy='unset all_proxy'
 
 # 自动进入和关闭 tmux
 # if [ $(command -v tmux) ] && [ -t 0 ] && [[ -z $TMUX ]] && [[ $- = *i* ]]; then exec tmux; fi

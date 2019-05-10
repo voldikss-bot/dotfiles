@@ -1,0 +1,59 @@
+# command
+alias rmf='rm -rf'
+alias ll='ls -lF'
+alias la='ls -laF'
+alias l='ls -CF'
+alias rmf='rm -rf'
+
+# vim
+alias vim=nvim
+alias vi=nvim
+
+# python
+alias python=python3
+alias pip=pip3
+
+# git
+alias ga='git add'
+alias gc='git commit -v'
+alias gca='git commit --amend'
+alias gco='git checkout'
+alias gd='git diff'
+alias gf='git fetch'
+alias gr='git reset --hard HEAD'
+alias gp='git push'
+alias gpf='git push -f'
+alias gri='git rebase -i'
+alias grc='git rebase --continue'
+alias gs='git status'
+
+# rm 进 trash
+alias rm='trash'
+
+# fasd
+alias v='f -e vim' # quick opening files with vim
+alias m='f -e mplayer' # quick opening files with mplayer
+alias o='a -e xdg-open' # quick opening files with xdg-open
+
+# fzf
+alias vimfzf='vim $(fzf)'
+
+# prettyping
+alias ping='prettyping'
+
+# htop
+alias top='htop'
+
+# ncdu
+alias du='ncdu --color dark -rr -x --exclude .git --exclude node_modules'
+
+# nnn
+alias nnn='nnn -d'
+
+# bat
+alias cat='bat'
+
+# where proxy
+alias proxy='export all_proxy=https://127.0.0.1:1081'
+alias unproxy='unset all_proxy'
+
