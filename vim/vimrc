@@ -619,7 +619,7 @@ let g:airline_powerline_fonts = 1
 let g:airline_themes_list = ['aurora', 'badwolf', 'dark', 'light', 'xtermlight']
 let g:randomn = <SID>Rand(len(g:airline_themes_list))
 
-if expand("%:p") == '/home/voldikss/dotfiles/vim/vimrc' && exists("g:airline_theme")
+if expand("%:p:t") == 'vimrc' && exists("g:airline_theme")
     " 保存 vimrc 的时候会自动source, 用下面的方法会报错，所以这里用命令
     " 但是不能只用这个，因为vim启动的时候并没有加载 AirlineTheme 命令
     exec "AirlineTheme " . g:airline_themes_list[g:randomn]
