@@ -8,7 +8,7 @@
 " ========================================================================
 
 " PluginLoad: [[[1
-call plug#begin('~/dotfiles/plugged')
+call plug#begin('~/dotfiles/vim/plugged')
 " Languages [[[2
 Plug 'octol/vim-cpp-enhanced-highlight', {'for': ['c', 'cpp']}
 Plug 'cpiger/NeoDebug', {'for':['c', 'cpp']}
