@@ -36,9 +36,9 @@ function initialize(){
     cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
     cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
     crun sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak
-    crun sudo cp sources/ubuntu/sources.list /etc/apt/sources.list
+    crun sudo cp ../sources/ubuntu/sources.list /etc/apt/sources.list
 
-    crun sudo cp -rf ../runcomm/.* $HOME
+    crun sudo cp -rf ../runcom/.* $HOME
     crun sudo apt update -y
     crun sudo apt upgrade -y
 }
@@ -120,8 +120,8 @@ function oh_my_zsh_install(){
     # oh-my-zsh
     if [ ! -d "$HOME/.oh-my-zsh" ]; then
         crun sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-        crun sudo cp -f ../runcomm/af-magic.zsh-theme $HOME/.oh-my-zsh/themes
-        crun sudo cp -f ../runcomm/.zshrc $HOME
+        crun sudo cp -f ../runcom/af-magic.zsh-theme $HOME/.oh-my-zsh/themes
+        crun sudo cp -f ../runcom/.zshrc $HOME
     else
         cecho "NOTE: oh-my-zsh has already been installed and won't be installed here"
     fi
@@ -160,7 +160,7 @@ function vim_install(){
 
     nodejs_install
 
-    crun sudo cp -rf ../runcomm/.config $HOME
+    crun sudo cp -rf ../runcom/.config $HOME
 
     crun nvim -c ':PlugInstall --sync | :qa!'
 }
@@ -178,7 +178,7 @@ function tmux_install(){
     cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
     cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
     crun sudo apt install tmux -y
-    crun sudo cp -f ../runcomm/.tmux.conf $HOME
+    crun sudo cp -f ../runcom/.tmux.conf $HOME
 }
 
 function nodejs_install(){
