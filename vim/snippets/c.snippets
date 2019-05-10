@@ -63,6 +63,9 @@ snippet nocxx
 ## Control Statements
 # if
 snippet if
+	if (${1:true})
+	  ${0}
+snippet if
 	if (${1:true}) {
 		${0:${VISUAL}}
 	}
@@ -265,7 +268,7 @@ snippet tde
 ## Input/Output
 # printf
 snippet pr
-	printf("%${1:d}\n"${2});
+	printf("%${1:d}\n", ${2});
 # fprintf (again, this isn't as nice as TextMate's version, but it works)
 snippet fpr
 	fprintf(${1:stderr}, "${2:%s}\n"${3});
