@@ -368,7 +368,7 @@ augroup AutocmdGroup
     autocmd FileType vim let b:argwrap_line_prefix = '\'
     autocmd FileType vim let b:argwrap_tail_indent_braces = '('
     " vim-autoformat [[[3
-    autocmd BufWrite * if g:autoformat_enabled | call Autoformat() 
+    autocmd BufWrite * if g:autoformat_enabled | :call Autoformat<CR> | endif
     " vim-commentary [[[3
     autocmd FileType python,shell,coffee,crontab setlocal commentstring=#\ %s
     autocmd FileType java,c,cpp,json     setlocal commentstring=//\ %s
