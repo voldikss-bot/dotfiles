@@ -696,7 +696,8 @@ if exists("*coc#add_extension")
         \ 'coc-emmet',
         \ 'coc-vimtex',
         \ 'coc-git',
-        \ 'coc-highlight'
+        \ 'coc-highlight',
+        \ 'coc-lists'
         \ )
 endif
 " fileheader.nvim [[[2
