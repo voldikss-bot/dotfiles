@@ -430,9 +430,9 @@ function! QuickRun()
         endif
     elseif &filetype == 'cpp'
         if has('unix')
-            AsyncRun gcc -g % && ./a.out
+            AsyncRun g++ -g % && ./a.out
         else
-            AsyncRun gcc -g "$(VIM_FILEPATH)" -o "a.exe" && "$(VIM_FILEDIR)\a.exe"
+            AsyncRun g++ -g "$(VIM_FILEPATH)" -o "a.exe" && "$(VIM_FILEDIR)\a.exe"
         endif
     elseif &filetype == 'sh'
         AsyncRun bash %
