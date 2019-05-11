@@ -2,7 +2,7 @@
 alias rmf='rm -rf'
 alias ll='ls -lF'
 alias la='ls -laF'
-alias l='ls -CF'
+alias l='ls -lF'
 alias rmf='rm -rf'
 
 # vim
