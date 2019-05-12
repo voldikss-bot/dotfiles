@@ -299,6 +299,8 @@ augroup AutocmdGroup
         \ endif
 " SourceVimrc: [[[2
     autocmd BufWritePost ~/dotfiles/vim/vimrc nested source $MYVIMRC
+" AutoSaveBuffer: [[[2
+    autocmd FocusLost * update
 " DisableAutoComment: [[[2
     autocmd FileType * set formatoptions-=cro
 " LineNumber: [[[2
