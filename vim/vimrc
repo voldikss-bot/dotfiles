@@ -17,10 +17,10 @@ Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
 Plug 'iamcco/markdown-preview.nvim', {'for':'markdown', 'do': {-> mkdp#util#install()}, 'frozen': 1}
 Plug 'dhruvasagar/vim-table-mode',{'for': 'markdown', 'do': ':TableFormat'}
 Plug 'rhysd/vim-gfm-syntax', {'for': 'markdown'}
-Plug 'rstacruz/sparkup', {'for':'html'}
-Plug 'othree/html5.vim', {'for':'html'}
-Plug 'jaxbot/browserlink.vim', {'for': 'html'}
-Plug 'alvan/vim-closetag', {'for': ['html', 'xml']}
+Plug 'rstacruz/sparkup', {'for':['html', 'htmldjango']}
+Plug 'othree/html5.vim', {'for':['html', 'htmldjango']}
+Plug 'jaxbot/browserlink.vim', {'for': ['html', 'htmldjango', 'css']}
+Plug 'alvan/vim-closetag', {'for': ['html', 'xml', 'htmldjango']}
 Plug 'pangloss/vim-javascript', {'for': 'javascript'}
 Plug 'MTDL9/vim-log-highlighting', {'for': 'log'}
 Plug 'vim-python/python-syntax', {'for':'python'}
@@ -300,7 +300,7 @@ augroup AutocmdGroup
 " SourceVimrc: [[[2
     autocmd BufWritePost ~/dotfiles/vim/vimrc nested source $MYVIMRC
 " AutoSaveBuffer: [[[2
-    autocmd FocusLost * update
+    autocmd FocusLost * call AutoSaveBuffer()
 " DisableAutoComment: [[[2
     autocmd FileType * set formatoptions-=cro
 " LineNumber: [[[2
@@ -415,11 +415,18 @@ function! Autoformat()
     endif
     exec 'w'
 endfunction
+function! AutoSaveBuffer()
+    update
+    if index(['html', 'htmldjango', 'css'], &filetype) >= 0
+        BLReloadPage
+    endif
+endfunction
 " QuickRun: one key to run [[[2
 function! QuickRun()
     exec 'w'
     if &filetype == 'html' || &filetype == 'htmldjango'
         call BrowserOpen(expand("%:p"))
+        BLReloadPage
     elseif &filetype == 'markdown'
         MarkdownPreview
     elseif &filetype == 'tex'
@@ -526,7 +533,7 @@ function! s:MapForSemicolonEnter()
 endfunction
 " MapForSemicolonP: ;p [[[2
 function! s:MapForSemicolonP()
-    if index(['bash', 'c', 'cpp', 'cs', 'javascript', 'javascript.jsx', 'java'],&filetype) >= 0
+    if index(['bash', 'c', 'cpp', 'cs', 'javascript', 'javascript.jsx', 'java', 'css'], &filetype) >= 0
         return "\<End>{}\<Left>\<CR>\<Esc>O"
     else
         return ";p"
