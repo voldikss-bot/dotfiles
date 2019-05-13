@@ -408,12 +408,14 @@ command! PC  PlugClean
 " Function: [[[1
 " Autoformat: format code
 function! Autoformat()
+    let curr_pos = getpos('.')
     if &filetype == 'markdown'
         TableFormat
     else
         call CocAction('format')
     endif
     exec 'w'
+    call setpos('.', curr_pos)
 endfunction
 function! AutoSaveBuffer()
     update
