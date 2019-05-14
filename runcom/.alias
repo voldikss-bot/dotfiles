@@ -1,6 +1,6 @@
 # command
 alias rmf='rm -rf'
-alias ll='ls -lF'
+alias ll='ls -laF'
 alias la='ls -laF'
 alias l='ls -lF'
 alias rmf='rm -rf'
