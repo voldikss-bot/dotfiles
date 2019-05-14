@@ -31,7 +31,7 @@
             "initializationOptions": {
                 "cache": {
                     "format": "b",
-                    "directory": "/home/voldikss/.cache/.ccls-cache"
+                    "directory": "/home/voldikss/.cache/nvim/ccls-cache"
                 },
                 "capabilities": {
                     "foldingRangeProvider": false,
