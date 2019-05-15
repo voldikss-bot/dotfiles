@@ -253,6 +253,7 @@ inoremap ;o <Esc>o
 inoremap ;O <Esc>O
 inoremap ;u <C-u>
 inoremap ;c <Esc>C
+inoremap ;s <Esc>S
 inoremap ;i <Esc>I
 " SaveAndQuit: [[[2
 nnoremap <silent> <Leader>w :wa<CR>
