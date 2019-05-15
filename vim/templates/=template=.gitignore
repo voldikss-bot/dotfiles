@@ -27,6 +27,8 @@ tags-cn
 !tags/
 .tags
 .tags1
+tags.lock
+tags.temp
 gtags.files
 GTAGS
 GRTAGS

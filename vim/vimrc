@@ -861,6 +861,7 @@ let g:NERDTreePatternMatchHighlightColor = {} " this line is needed to avoid err
 let g:NERDTreePatternMatchHighlightColor['.*_spec\.rb$'] = s:rspec_red " sets the color for files ending with _spec.rb
 " python-syntax [[[2
 let g:python_highlight_all = 1
+let g:python_highlight_space_errors = 0
 " sideways.vim [[[2
 nnoremap <silent> <C-left>  :SidewaysLeft<CR>
 nnoremap <silent> <C-right> :SidewaysRight<CR>
