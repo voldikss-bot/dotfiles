@@ -427,14 +427,7 @@ endfunction
 " QuickRun: one key to run [[[2
 function! QuickRun()
     exec 'w'
-    if &filetype == 'html' || &filetype == 'htmldjango'
-        call BrowserOpen(expand("%:p"))
-        BLReloadPage
-    elseif &filetype == 'markdown'
-        MarkdownPreview
-    elseif &filetype == 'tex'
-        VimtexCompile
-    elseif &filetype == 'c'
+    if &filetype == 'c'
         if has('unix')
             AsyncRun gcc -g % && ./a.out
         else
@@ -446,8 +439,13 @@ function! QuickRun()
         else
             AsyncRun g++ -g "$(VIM_FILEPATH)" -o "a.exe" && "$(VIM_FILEDIR)\a.exe"
         endif
-    elseif &filetype == 'sh'
-        AsyncRun bash %
+    elseif &filetype == 'html' || &filetype == 'htmldjango'
+        call BrowserOpen(expand("%:p"))
+        BLReloadPage
+    elseif &filetype == 'java'
+        AsyncRun javac % && java %:r
+    elseif &filetype == 'markdown'
+        MarkdownPreview
     elseif &filetype == 'python'
         if exists('g:asyncrun_python_interpretor')
             exec 'AsyncRun ' . '-raw ' .  g:asyncrun_python_interpretor . ' %'
@@ -458,6 +456,10 @@ function! QuickRun()
         else
             AsyncRun -raw python "$(VIM_FILEPATH)"
         endif
+    elseif &filetype == 'sh'
+        AsyncRun bash %
+    elseif &filetype == 'tex'
+        VimtexCompile
     else
         echo "Not supported filetype:" . " " . &filetype
     endif
