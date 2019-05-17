@@ -160,6 +160,10 @@ function vim_install(){
 
     nodejs_install
 
+    ctags_install
+
+    ccls_install
+
     crun sudo cp -rf ../runcom/.config $HOME
 
     crun nvim -c ':PlugInstall --sync | :qa!'
@@ -200,7 +204,7 @@ function nodejs_install(){
 }
 
 function ctags_install(){
-    cecho "Installing ctags and others..."
+    cecho "Installing ctags..."
     cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
     cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
     if ! command -v ctags; then
@@ -219,6 +223,26 @@ function ctags_install(){
     fi
 }
 
+# # Ref: https://zhuanlan.zhihu.com/p/36279445
+# function gtags_install() {
+#     cecho "Installing gtags..."
+#     cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+#     cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+#     if ! command -v gtags; then
+#         # currently the latest version is v6.6.3
+#         # https://www.gnu.org/software/global/download.html
+#         crun wget -c http://tamacom.com/global/global-6.6.3.tar.gz
+#         crun sudo apt install automake autoconf flex bison gperf libtool libtool-bin texinfo -y
+#         crun sh reconf.sh
+#         crun ./configure
+#         crun make
+#         crun sudo make install
+#         crun pip install pygments
+#     else
+#         cecho "Gtags has already been installed."
+#     fi
+# }
+
 function font_install(){
     cecho "Installing Fonts..."
     cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
@@ -236,7 +260,7 @@ function ccls_install() {
     cecho "Installing ccls..."
     cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
     cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-    if [ ! -d "$HOME/Applications/ccls" ]; then
+    if ! command -v ccls ; then
         crun git clone --depth=1 --recursive https://github.com/MaskRay/ccls
         crun cd ccls
         crun wget -c http://releases.llvm.org/7.0.1/clang+llvm-7.0.1-x86_64-linux-gnu-ubuntu-16.04.tar.xz
@@ -312,8 +336,6 @@ function ubuntu_install()
 
     # Confirm needed install
     confirm_install tmux tmux_install
-    confirm_install ctags ctags_install
-    confirm_install ccls ccls_install
     confirm_install latex latex_install
     echo "Others include: gnome-tweak | chrome | goldendict | netease-cloud-music | sougou-pinyin"
     confirm_install others others_install

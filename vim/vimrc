@@ -907,23 +907,15 @@ xmap <silent> X   <Plug>(Exchange)
 nmap <silent> cxc <Plug>(ExchangeClear)
 nmap <silent> cxx <Plug>(ExchangeLine)
 " vim-gutentags [[[2
-" gutentags 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
 let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project','.idea']
-
-" 所生成的数据文件的名称
 let g:gutentags_ctags_tagfile = '.tags'
 
-" 默认会在当前文件夹产生 .tags 文件
-" 将自动生成的 tags 文件全部放入 ~/.vim/tags 目录中，避免污染工程目录
-if has('unix')
-    let s:vim_tags = expand('~/.cache/nvim/tags')
-    let g:gutentags_cache_dir = s:vim_tags
-endif
+let g:gutentags_cache_dir = expand('~/.cache/nvim/tags')
 
-" 配置 ctags 的参数
 let g:gutentags_ctags_extra_args =  ['--fields=+niazS', '--extra=+q']
 let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
 let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+let g:gutentags_ctags_extra_args += ['--output-format=e-ctags']
 " vim-javascript [[[2
 let g:javascript_plugin_jsdoc = 1
 let g:javascript_plugin_ngdoc = 1
