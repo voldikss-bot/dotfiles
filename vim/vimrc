@@ -285,11 +285,11 @@ noremap! <silent> <F5>         <Esc>:call QuickRun()<CR>
 noremap  <silent> <Leader>x    <Esc>:call QuickRun()<CR>
 noremap  <silent> <F6>         <Esc>:call Autoformat()<CR>
 noremap! <silent> <F6>         <Esc>:call Autoformat()<CR>
-nnoremap <expr>   <CR>         <SID>NormalMapForEnter() . "\<Esc>"
-inoremap <expr>   <CR>         <SID>InsertMapForEnter()
-inoremap <expr>   <Leader><CR> <SID>MapForSemicolonEnter()
-inoremap <expr>   <Leader>p    <SID>MapForSemicolonP()
-inoremap <expr>   <BS>         <SID>MapForBackspace()
+nnoremap <expr>   <CR>         NormalMapForEnter() . "\<Esc>"
+inoremap <expr>   <CR>         InsertMapForEnter()
+inoremap <expr>   <Leader><CR> MapForSemicolonEnter()
+inoremap <expr>   <Leader>p    MapForSemicolonP()
+inoremap <expr>   <BS>         MapForBackspace()
 " Autocmd: [[[1
 augroup AutocmdGroup
     autocmd!
@@ -388,7 +388,7 @@ augroup END
 "
 " Command: [[[1
 " Commons: [[[2
-command! -nargs=+ Grep        call <SID>Grep(<q-args>)
+command! -nargs=+ Grep        call Grep(<q-args>)
 command! -nargs=+ -complete=command TabMessage call TabMessage(<q-args>)
 command! -nargs=1 QuickRunPythonInterpretor  let g:asyncrun_python_interpretor=<q-args>
 " GitOperation: [[[2
@@ -501,13 +501,13 @@ function! TabMessage(cmd)
   endif
 endfunction
 " SetupCommandAbbrs: [[[2
-function! s:SetupCommandAbbrs(from, to)
+function! SetupCommandAbbrs(from, to)
   exec 'cnoreabbrev <expr> '.a:from
         \ .' ((getcmdtype() ==# ":" && getcmdline() ==# "'.a:from.'")'
         \ .'? ("'.a:to.'") : ("'.a:from.'"))'
 endfunction
 " NormalMapForEnter: <CR> [[[2
-function! s:NormalMapForEnter()
+function! NormalMapForEnter()
     if &filetype ==# 'quickfix'
         return '\<CR>'
     elseif index(['c', 'cpp', 'cs', 'java', 'css', 'scss', 'typescript'],&filetype) >= 0
@@ -520,7 +520,7 @@ function! s:NormalMapForEnter()
     endif
 endfunction
 " InsertMapForEnter: <CR> [[[2
-function! s:InsertMapForEnter()
+function! InsertMapForEnter()
     if pumvisible()
         return "\<C-y>"
     elseif strcharpart(getline('.'),getpos('.')[2]-1,1) == '}'
@@ -532,7 +532,7 @@ function! s:InsertMapForEnter()
     endif
 endfunction
 " MapForSemicolonEnter: ;<CR> [[[2
-function! s:MapForSemicolonEnter()
+function! MapForSemicolonEnter()
     if (getline('.')[-1:] != ';') &&
         \(index(['c', 'cpp', 'cs', 'java', 'css', 'scss', 'typescript', 'typescript.tsx'],&filetype) >= 0)
         return "\<End>;\<CR>"
@@ -540,7 +540,7 @@ function! s:MapForSemicolonEnter()
         return "\<Esc>o"
 endfunction
 " MapForSemicolonP: ;p [[[2
-function! s:MapForSemicolonP()
+function! MapForSemicolonP()
     if index(['bash', 'c', 'cpp', 'cs', 'javascript', 'javascript.jsx', 'java', 'css', 'typescript', 'typescript.tsx'], &filetype) >= 0
         return "\<End>{}\<Left>\<CR>\<Esc>O"
     else
@@ -548,7 +548,7 @@ function! s:MapForSemicolonP()
     endif
 endfunction
 " MapForBackspace: <BS> [[[2
-function! s:MapForBackspace()
+function! MapForBackspace()
     if col('.') == 1
         if line('.')  != 1
             return  "\<ESC>kA\<Del>"
@@ -565,7 +565,7 @@ function! s:MapForBackspace()
     endif
 endfunction
 " Random: [[[2
-function! s:Rand(max) abort
+function! Rand(max) abort
   if has("reltime")
     let l:timerstr=reltimestr(reltime())
     let l:number=split(l:timerstr, '\.')[1]+0
@@ -581,7 +581,7 @@ function! s:Rand(max) abort
   return l:number % a:max
 endfunction
 " Grep: [[[2
-function! s:Grep(string)
+function! Grep(string)
     if executable('rg')
         execute "AsyncRun! rg -n " . a:string . " * "
         " execute "AsyncRun! -post=copen\ 8 rg -n " . a:string . " * "
@@ -592,50 +592,50 @@ function! s:Grep(string)
     endif
 endfunction
 " Abbreviate: [[[1
-call s:SetupCommandAbbrs('As', 'AsyncRun')
-call s:SetupCommandAbbrs('Ass', 'AsyncStop')
-call s:SetupCommandAbbrs('CC', 'CocConfig')
-call s:SetupCommandAbbrs('CI', 'CocInstall')
-call s:SetupCommandAbbrs('CM', 'CocCommand')
-call s:SetupCommandAbbrs('CU', 'CocUninstall')
-call s:SetupCommandAbbrs('CL', 'CocList')
-call s:SetupCommandAbbrs('CR', 'CocRestart')
-call s:SetupCommandAbbrs('D', 'Dict')
-call s:SetupCommandAbbrs('Gap', 'Git add -p')
-call s:SetupCommandAbbrs('Cd', 'Gcd')
-call s:SetupCommandAbbrs('Gd', 'Gvdiff')
-call s:SetupCommandAbbrs('Gl', 'Git lg')
-call s:SetupCommandAbbrs('Gs', 'Gstatus')
-call s:SetupCommandAbbrs('Gc', 'Gcommit -v')
-call s:SetupCommandAbbrs('Gca', 'Gcommit -a -v')
-call s:SetupCommandAbbrs('Gcaa', 'Gcommit --amend -a -v')
-call s:SetupCommandAbbrs('Gco', 'AsyncRun git checkout .')
-call s:SetupCommandAbbrs('Gpush', 'AsyncRun git push')
-call s:SetupCommandAbbrs('Gpull', 'AsyncRun git pull')
-call s:SetupCommandAbbrs('Grm', 'Gremove')
-call s:SetupCommandAbbrs('Gmv', 'Gmove')
+call SetupCommandAbbrs('As', 'AsyncRun')
+call SetupCommandAbbrs('Ass', 'AsyncStop')
+call SetupCommandAbbrs('CC', 'CocConfig')
+call SetupCommandAbbrs('CI', 'CocInstall')
+call SetupCommandAbbrs('CM', 'CocCommand')
+call SetupCommandAbbrs('CU', 'CocUninstall')
+call SetupCommandAbbrs('CL', 'CocList')
+call SetupCommandAbbrs('CR', 'CocRestart')
+call SetupCommandAbbrs('D', 'Dict')
+call SetupCommandAbbrs('Gap', 'Git add -p')
+call SetupCommandAbbrs('Cd', 'Gcd')
+call SetupCommandAbbrs('Gd', 'Gvdiff')
+call SetupCommandAbbrs('Gl', 'Git lg')
+call SetupCommandAbbrs('Gs', 'Gstatus')
+call SetupCommandAbbrs('Gc', 'Gcommit -v')
+call SetupCommandAbbrs('Gca', 'Gcommit -a -v')
+call SetupCommandAbbrs('Gcaa', 'Gcommit --amend -a -v')
+call SetupCommandAbbrs('Gco', 'AsyncRun git checkout .')
+call SetupCommandAbbrs('Gpush', 'AsyncRun git push')
+call SetupCommandAbbrs('Gpull', 'AsyncRun git pull')
+call SetupCommandAbbrs('Grm', 'Gremove')
+call SetupCommandAbbrs('Gmv', 'Gmove')
 
-call s:SetupCommandAbbrs('as', 'AsyncRun')
-call s:SetupCommandAbbrs('ass', 'AsyncStop')
-call s:SetupCommandAbbrs('cc', 'CocConfig')
-call s:SetupCommandAbbrs('ci', 'CocInstall')
-call s:SetupCommandAbbrs('cm', 'CocCommand')
-call s:SetupCommandAbbrs('cu', 'CocUninstall')
-call s:SetupCommandAbbrs('cl', 'CocList')
-call s:SetupCommandAbbrs('cr', 'CocRestart')
-call s:SetupCommandAbbrs('d', 'Dict')
-call s:SetupCommandAbbrs('gap', 'Git add -p')
-call s:SetupCommandAbbrs('gd', 'Gvdiff')
-call s:SetupCommandAbbrs('gl', 'Git lg')
-call s:SetupCommandAbbrs('gs', 'Gstatus')
-call s:SetupCommandAbbrs('gc', 'Gcommit -v')
-call s:SetupCommandAbbrs('gca', 'Gcommit -a -v')
-call s:SetupCommandAbbrs('gcaa', 'Gcommit --amend -a -v')
-call s:SetupCommandAbbrs('gco', 'AsyncRun git checkout .')
-call s:SetupCommandAbbrs('gpush', 'AsyncRun git push')
-call s:SetupCommandAbbrs('gpull', 'AsyncRun git pull')
-call s:SetupCommandAbbrs('grm', 'Gremove')
-call s:SetupCommandAbbrs('gmv', 'Gmove')
+call SetupCommandAbbrs('as', 'AsyncRun')
+call SetupCommandAbbrs('ass', 'AsyncStop')
+call SetupCommandAbbrs('cc', 'CocConfig')
+call SetupCommandAbbrs('ci', 'CocInstall')
+call SetupCommandAbbrs('cm', 'CocCommand')
+call SetupCommandAbbrs('cu', 'CocUninstall')
+call SetupCommandAbbrs('cl', 'CocList')
+call SetupCommandAbbrs('cr', 'CocRestart')
+call SetupCommandAbbrs('d', 'Dict')
+call SetupCommandAbbrs('gap', 'Git add -p')
+call SetupCommandAbbrs('gd', 'Gvdiff')
+call SetupCommandAbbrs('gl', 'Git lg')
+call SetupCommandAbbrs('gs', 'Gstatus')
+call SetupCommandAbbrs('gc', 'Gcommit -v')
+call SetupCommandAbbrs('gca', 'Gcommit -a -v')
+call SetupCommandAbbrs('gcaa', 'Gcommit --amend -a -v')
+call SetupCommandAbbrs('gco', 'AsyncRun git checkout .')
+call SetupCommandAbbrs('gpush', 'AsyncRun git push')
+call SetupCommandAbbrs('gpull', 'AsyncRun git pull')
+call SetupCommandAbbrs('grm', 'Gremove')
+call SetupCommandAbbrs('gmv', 'Gmove')
 " PluginConfig: [[[1
 " airline [[[2
 if !exists('g:airline_symbols')
@@ -651,7 +651,7 @@ let g:airline_powerline_fonts = 1
 
 " Random airline theme
 let g:airline_themes_list = ['aurora', 'badwolf', 'dark', 'light', 'xtermlight']
-let g:randomn = <SID>Rand(len(g:airline_themes_list))
+let g:randomn = Rand(len(g:airline_themes_list))
 
 if expand("%:p:t") == 'vimrc' && exists("g:airline_theme")
     " 保存 vimrc 的时候会自动source, 用下面的方法会报错，所以这里用命令
