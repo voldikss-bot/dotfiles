@@ -544,7 +544,7 @@ endfunction
 " MapForSemicolonP: ;p [[[2
 function! MapForSemicolonP()
     if index(['bash', 'c', 'cpp', 'cs', 'javascript', 'javascript.jsx', 'java', 'css', 'typescript', 'typescript.tsx'], &filetype) >= 0
-        return "\<End>{}\<Left>\<CR>\<Esc>O"
+        return "\<End>\<Space>{}\<Left>\<CR>\<Esc>O"
     else
         return ";p"
     endif
