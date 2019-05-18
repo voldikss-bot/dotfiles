@@ -156,13 +156,12 @@ function vim_install(){
         crun sudo apt install neovim -y
     fi
 
-    crun sudo -H pip3 install pynvim yapf flake8 autopep8
-
     nodejs_install
-
     ctags_install
-
     ccls_install
+
+    crun sudo -H pip3 install pynvim yapf flake8 autopep8
+    crun sudo yarn global add neovim
 
     crun sudo cp -rf ../runcom/.config $HOME
 

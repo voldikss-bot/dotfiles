@@ -27,6 +27,8 @@ Plug 'vim-python/python-syntax', {'for':'python'}
 Plug 'numirias/semshi', {'for':'python', 'do': ':UpdateRemotePlugins'}
 Plug 'lervag/vimtex', {'for': 'tex'}
 Plug 'cespare/vim-toml', {'for': 'toml'}
+Plug 'HerringtonDarkholme/yats.vim', {'for': 'typescript'}
+Plug 'leafgarland/typescript-vim', {'for': 'typescript'}
 Plug 'aperezdc/vim-template', {'on': 'Template'}
 " Completion [[[2
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile', 'frozen':1}

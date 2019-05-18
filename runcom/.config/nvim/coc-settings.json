@@ -23,6 +23,11 @@
         "coffee"
     ],
     "snippets.priority": -10,
+    "snippets.extends": {
+        "cpp": ["c"],
+        "javascriptreact": ["javascript"],
+        "typescript": ["javascript"]
+    },
     "languageserver": {
         "ccls": {
             "command": "ccls",
