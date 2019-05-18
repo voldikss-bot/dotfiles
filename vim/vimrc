@@ -662,7 +662,8 @@ if expand("%:p:t") == 'vimrc' && exists("g:airline_theme")
 else
     let g:airline_theme = g:airline_themes_list[g:randomn]
 endif
-
+" remove whitespace detecting section
+let g:airline#extensions#whitespace#enabled = 0
 " buffer 编号显示
 let g:airline#extensions#tabline#buffer_nr_show = 1
 " tab 编号显示
