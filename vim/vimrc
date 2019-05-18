@@ -289,6 +289,7 @@ nnoremap <expr>   <CR>         <SID>NormalMapForEnter() . "\<Esc>"
 inoremap <expr>   <CR>         <SID>InsertMapForEnter()
 inoremap <expr>   <Leader><CR> <SID>MapForSemicolonEnter()
 inoremap <expr>   <Leader>p    <SID>MapForSemicolonP()
+inoremap <expr>   <BS>         <SID>MapForBackspace()
 " Autocmd: [[[1
 augroup AutocmdGroup
     autocmd!
@@ -546,6 +547,23 @@ function! s:MapForSemicolonP()
         return ";p"
     endif
 endfunction
+" MapForBackspace: <BS> [[[2
+function! s:MapForBackspace()
+    if col('.') == 1
+        if line('.')  != 1
+            return  "\<ESC>kA\<Del>"
+        else
+            return ""
+        endif
+    else
+        let paren = strcharpart(getline('.'), getpos('.')[2]-2, 2)
+        if index(['()', '[]', '{}', '<>', '%%', '$$', '**', '""', "''", '~~', '``'], paren) >=0
+            return "\<Left>\<Del>\<Del>"
+        else
+            return "\<Left>\<Del>"
+        endif
+    endif
+endfunction
 " Random: [[[2
 function! s:Rand(max) abort
   if has("reltime")
@@ -670,6 +688,7 @@ let g:AutoPairsShortcutJump       = 'Disable'
 let g:AutoPairsShortcutBackInsert = 'Disable'
 let g:AutoPairsShortcutToggle     = 'Disable'
 let g:AutoPairsMapCR              = 'Disable'
+let g:AutoPairsMapBS              = 'Disable'
 " 防止 C-h 被映射为 <BS>
 let g:AutoPairsMapCh    = 0
 let g:AutoPairsMapSpace = 0
