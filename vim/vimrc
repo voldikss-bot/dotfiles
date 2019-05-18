@@ -507,7 +507,7 @@ endfunction
 function! s:NormalMapForEnter()
     if &filetype ==# 'quickfix'
         return '\<CR>'
-    elseif index(['c', 'cpp', 'cs', 'java', 'css', 'scss'],&filetype) >= 0
+    elseif index(['c', 'cpp', 'cs', 'java', 'css', 'scss', 'typescript'],&filetype) >= 0
         let l:line = getline('.')
         if l:line != '' && l:line !~ '^\s\+$' && index([';', '{', '(', '\'], l:line[-1:]) < 0
             return 'A;'
@@ -531,14 +531,14 @@ endfunction
 " MapForSemicolonEnter: ;<CR> [[[2
 function! s:MapForSemicolonEnter()
     if (getline('.')[-1:] != ';') &&
-        \(index(['c', 'cpp', 'cs', 'java', 'css', 'scss'],&filetype) >= 0)
+        \(index(['c', 'cpp', 'cs', 'java', 'css', 'scss', 'typescript', 'typescript.tsx'],&filetype) >= 0)
         return "\<End>;\<CR>"
     else
         return "\<Esc>o"
 endfunction
 " MapForSemicolonP: ;p [[[2
 function! s:MapForSemicolonP()
-    if index(['bash', 'c', 'cpp', 'cs', 'javascript', 'javascript.jsx', 'java', 'css'], &filetype) >= 0
+    if index(['bash', 'c', 'cpp', 'cs', 'javascript', 'javascript.jsx', 'java', 'css', 'typescript', 'typescript.tsx'], &filetype) >= 0
         return "\<End>{}\<Left>\<CR>\<Esc>O"
     else
         return ";p"
