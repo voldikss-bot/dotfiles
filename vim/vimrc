@@ -509,14 +509,14 @@ endfunction
 " NormalMapForEnter: <CR> [[[2
 function! NormalMapForEnter()
     if &filetype ==# 'quickfix'
-        return '\<CR>'
+        return "\<CR>"
     elseif index(['c', 'cpp', 'cs', 'java', 'css', 'scss', 'typescript'],&filetype) >= 0
         let l:line = getline('.')
         if l:line != '' && l:line !~ '^\s\+$' && index([';', '{', '(', '\'], l:line[-1:]) < 0
-            return 'A;'
+            return "A;"
         endif
     else
-        return '\<Nop>' " prevent entering to the next line
+        return "\<Nop>" " prevent entering to the next line
     endif
 endfunction
 " InsertMapForEnter: <CR> [[[2
