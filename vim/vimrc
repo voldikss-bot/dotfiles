@@ -463,6 +463,8 @@ function! QuickRun()
         AsyncRun bash %
     elseif &filetype == 'tex'
         VimtexCompile
+    elseif &filetype == 'typescript'
+        AsyncRun tsc %
     else
         echo "Not supported filetype:" . " " . &filetype
     endif
