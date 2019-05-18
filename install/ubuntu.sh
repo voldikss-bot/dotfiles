@@ -195,9 +195,11 @@ function nodejs_install(){
         crun sudo bash ./lts --yes
         crun rm ./lts
         # yarn
-        crun curl --compressed -LO https://yarnpkg.com/install.sh
-        crun sudo bash ./install.sh
-        crun rm ./install.sh
+        crun curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+        crun echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+        crun sudo apt update -y
+        crun sudo apt install yarn -y
+        crun yarn --version
     else
         cecho "Nodejs has already been installed."
     fi
