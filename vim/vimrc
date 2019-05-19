@@ -283,9 +283,10 @@ noremap  <silent> <F6>         <Esc>:call Autoformat()<CR>
 noremap! <silent> <F6>         <Esc>:call Autoformat()<CR>
 nnoremap <expr>   <CR>         NormalMapForEnter() . "\<Esc>"
 inoremap <expr>   <CR>         InsertMapForEnter()
-inoremap <expr>   <Leader><CR> MapForSemicolonEnter()
-inoremap <expr>   <Leader>p    MapForSemicolonP()
 inoremap <expr>   <BS>         MapForBackspace()
+inoremap <expr>   ;<CR>        MapForSemicolonEnter()
+inoremap <expr>   ;p           MapForSemicolonP()
+inoremap <expr>   ;;           MapForDoubleSemicolon()
 " Autocmd: [[[1
 augroup AutocmdGroup
     autocmd!
@@ -518,13 +519,16 @@ function! NormalMapForEnter()
         \ 'cs',
         \ 'css',
         \ 'java',
-        \ 'scss',
         \ 'rust',
-        \ 'typescript'
+        \ 'scss',
+        \ 'typescript',
+        \ 'typescript.tsx'
     \ ],&filetype) >= 0
         let l:line = getline('.')
         if l:line != '' && l:line !~ '^\s\+$' && index([';', '{', '(', '\'], l:line[-1:]) < 0
             return "A;"
+        else
+            return ""
         endif
     else
         return "" " prevent entering to the next line
@@ -580,6 +584,29 @@ function! MapForSemicolonP()
         return "\<End>\<Space>{}\<Left>\<CR>\<Esc>O"
     else
         return ";p"
+    endif
+endfunction
+" MapForDoubleSemicolon: ;; [[[2
+function! MapForDoubleSemicolon()
+    if index([
+        \ 'c',
+        \ 'cpp',
+        \ 'cs',
+        \ 'css',
+        \ 'java',
+        \ 'rust',
+        \ 'scss',
+        \ 'typescript',
+        \ 'typescript.tsx'
+    \ ], &filetype) >= 0
+        let line = getline('.')
+        if line[-1:] != ';'
+            return "\<End>;"
+        else
+            return ""
+        endif
+    else
+        return ""
     endif
 endfunction
 " MapForBackspace: <BS> [[[2
