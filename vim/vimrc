@@ -344,7 +344,7 @@ augroup AutocmdGroup
     " indentLine [[[3
     autocmd Filetype json let g:indentLine_enabled = 0
     " vim-argwrap [[[3
-    autocmd FileType vim let b:argwrap_line_prefix = '\'
+    autocmd FileType vim let b:argwrap_line_prefix = '\ '
     autocmd FileType vim let b:argwrap_tail_indent_braces = '('
     " vim-autoformat [[[3
     autocmd BufWrite * if g:autoformat_enabled | :call Autoformat<CR> | endif
@@ -443,6 +443,8 @@ function! QuickRun()
         BLReloadPage
     elseif &filetype == 'java'
         AsyncRun javac % && java %:r
+    elseif &filetype == 'javascript'
+        AsyncRun node %
     elseif &filetype == 'markdown'
         MarkdownPreview
     elseif &filetype == 'python'
@@ -455,6 +457,8 @@ function! QuickRun()
         else
             AsyncRun -raw python "$(VIM_FILEPATH)"
         endif
+    elseif &filetype == 'rust'
+        AsyncRun cargo run
     elseif &filetype == 'sh'
         AsyncRun bash %
     elseif &filetype == 'tex'
@@ -508,7 +512,16 @@ endfunction
 function! NormalMapForEnter()
     if &filetype ==# 'quickfix'
         return "\<CR>"
-    elseif index(['c', 'cpp', 'cs', 'java', 'css', 'scss', 'typescript'],&filetype) >= 0
+    elseif index([
+        \ 'c',
+        \ 'cpp',
+        \ 'cs',
+        \ 'css',
+        \ 'java',
+        \ 'scss',
+        \ 'rust',
+        \ 'typescript'
+    \ ],&filetype) >= 0
         let l:line = getline('.')
         if l:line != '' && l:line !~ '^\s\+$' && index([';', '{', '(', '\'], l:line[-1:]) < 0
             return "A;"
@@ -532,14 +545,38 @@ endfunction
 " MapForSemicolonEnter: ;<CR> [[[2
 function! MapForSemicolonEnter()
     if (getline('.')[-1:] != ';') &&
-        \(index(['c', 'cpp', 'cs', 'java', 'css', 'scss', 'typescript', 'typescript.tsx'],&filetype) >= 0)
+        \(index([
+            \ 'c',
+            \ 'cpp',
+            \ 'cs',
+            \ 'css',
+            \ 'java',
+            \ 'rust',
+            \ 'scss',
+            \ 'typescript',
+            \ 'typescript.tsx'
+        \ ],&filetype) >= 0)
         return "\<End>;\<CR>"
     else
         return "\<Esc>o"
+    endif
 endfunction
 " MapForSemicolonP: ;p [[[2
 function! MapForSemicolonP()
-    if index(['bash', 'c', 'cpp', 'cs', 'javascript', 'javascript.jsx', 'java', 'css', 'typescript', 'typescript.tsx'], &filetype) >= 0
+    if index([
+        \ 'bash',
+        \ 'c',
+        \ 'cpp',
+        \ 'cs',
+        \ 'css',
+        \ 'java',
+        \ 'javascript',
+        \ 'javascript.jsx',
+        \ 'rust',
+        \ 'scss',
+        \ 'typescript',
+        \ 'typescript.tsx'
+    \ ], &filetype) >= 0
         return "\<End>\<Space>{}\<Left>\<CR>\<Esc>O"
     else
         return ";p"
@@ -555,7 +592,19 @@ function! MapForBackspace()
         endif
     else
         let paren = strcharpart(getline('.'), getpos('.')[2]-2, 2)
-        if index(['()', '[]', '{}', '<>', '%%', '$$', '**', '""', "''", '~~', '``'], paren) >=0
+        if index([
+            \ '()',
+            \ '[]',
+            \ '{}',
+            \ '<>',
+            \ '%%',
+            \ '$$',
+            \ '**',
+            \ '""',
+            \ "''",
+            \ '~~',
+            \ '``'
+        \ ], paren) >=0
             return "\<Left>\<Del>\<Del>"
         else
             return "\<Left>\<Del>"
@@ -728,6 +777,7 @@ if exists("*coc#add_extension")
         \ 'coc-json',
         \ 'coc-omni',
         \ 'coc-python',
+        \ 'coc-rls',
         \ 'coc-snippets',
         \ 'coc-tag',
         \ 'coc-tsserver',
