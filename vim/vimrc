@@ -47,12 +47,10 @@ Plug 'mattesgroeger/vim-bookmarks'
 Plug 'guns/xterm-color-table.vim'
 " Git [[[2
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-rhubarb'
-Plug 'iamcco/sran.nvim', { 'do': { -> sran#util#install() } }
-Plug 'iamcco/git-p.nvim'
-Plug 'cohama/agit.vim'
+Plug 'cohama/agit.vim', {'on': 'Agit'}
 Plug 'mattn/gist-vim', {'on': 'Gist'}
 Plug 'mattn/webapi-vim'
+Plug 'rhysd/git-messenger.vim', {'on': '<Plug>(git-messenger)'}
 " Enhancements [[[2
 Plug 'skywind3000/asyncrun.vim'
 Plug 'ludovicchabant/vim-gutentags'
@@ -714,6 +712,7 @@ nmap <expr> <C-up>   &diff==1 ? '[c' : '<Plug>(coc-git-prevchunk)'
 nmap <expr> <C-down> &diff==1 ? ']c' : '<Plug>(coc-git-nextchunk)'
 nnoremap <Leader>hs :CocCommand git.chunkStage<CR>
 nnoremap <Leader>hu :CocCommand git.chunkUndo<CR>
+nnoremap <Leader>go :CocCommand git.browserOpen<CR>
 
 " Install coc extensions
 if exists("*coc#add_extension")
@@ -750,14 +749,13 @@ let g:fileheader_last_modified_time = 1
 nnoremap <silent> <F1> :UpdateFileHeader<CR>
 vnoremap <silent> <F1> <Esc>:UpdateFileHeader<CR>
 inoremap <silent> <F1> <Esc>:UpdateFileHeader<CR>
-" git-p.nvim [[[2
-nmap <silent> <leader>gv <Plug>(git-p-diff-preview)
-let g:gitp_blame_format = ""
-let g:gitp_add_sign = '+'
-let g:gitp_modify_sign = '~'
-let g:gitp_delete_top_sign = '‾'
-let g:gitp_delete_bottom_sign = '_'
-let g:gitp_delete_top_and_bottom_sign = '-'
+" git-messenger.vim [[[2
+" This line necessary to make vim-plug on-demand mode work
+" Otherwise since git-messenger hasn't been loaded, <Leader>gm was not defined yet
+nmap <Leader>gm <Plug>(git-messenger)
+let g:git_messenger_include_diff = 'current'
+let g:git_messenger_max_popup_height = 20
+let g:git_messenger_max_popup_width = 100
 " goyo.vim [[[2
 let g:goyo_width = '50%'
 let g:goyo_height = '100%'
