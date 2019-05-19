@@ -32,8 +32,6 @@ Plug 'leafgarland/typescript-vim', {'for': 'typescript'}
 Plug 'aperezdc/vim-template', {'on': 'Template'}
 " Completion [[[2
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile', 'frozen':1}
-Plug 'Shougo/neco-vim', {'for': 'vim'}
-Plug 'neoclide/coc-neco', {'for': 'vim'}
 " Style [[[2
 Plug 'Yggdroot/indentLine'
 Plug 'scrooloose/nerdtree', {'on': ['NERDTreeToggle', 'NERDTreeCWD']}
@@ -720,22 +718,23 @@ nnoremap <Leader>hu :CocCommand git.chunkUndo<CR>
 " Install coc extensions
 if exists("*coc#add_extension")
     call coc#add_extension(
-        \ 'coc-dictionary',
-        \ 'coc-tag',
-        \ 'coc-word',
-        \ 'coc-emoji',
-        \ 'coc-omni',
-        \ 'coc-python',
-        \ 'coc-tsserver',
         \ 'coc-css',
-        \ 'coc-json',
-        \ 'coc-html',
-        \ 'coc-snippets',
+        \ 'coc-dictionary',
+        \ 'coc-emoji',
         \ 'coc-emmet',
-        \ 'coc-vimtex',
         \ 'coc-git',
         \ 'coc-highlight',
-        \ 'coc-lists'
+        \ 'coc-html',
+        \ 'coc-lists',
+        \ 'coc-json',
+        \ 'coc-omni',
+        \ 'coc-python',
+        \ 'coc-snippets',
+        \ 'coc-tag',
+        \ 'coc-tsserver',
+        \ 'coc-vimtex',
+        \ 'coc-vimlsp',
+        \ 'coc-word'
         \ )
 endif
 " fileheader.nvim [[[2

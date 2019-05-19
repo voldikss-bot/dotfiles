@@ -46,7 +46,7 @@
                         }
                     }
                 },
-                "clang":{"extraArgs": ["--gcc-toolchain=/usr"]},
+                "clang": {"extraArgs": ["--gcc-toolchain=/usr"]},
                 "completion": {
                     "detailedLabel": true
                 },
@@ -56,6 +56,16 @@
                     "threads": 2
                 }
             }
+        },
+        "vimls": {
+            "command": "vim-language-server",
+            "args": ["--stdio"],
+            "initializationOptions": {
+                "iskeyword": "vim iskeyword option",
+                "vimruntime": "path/to/$VIMRUNTIME",
+                "runtimepath": "vim/runtime/path"
+            },
+            "filetypes": ["vim"]
         }
     }
 }
