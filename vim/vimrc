@@ -514,7 +514,7 @@ function! NormalMapForEnter()
             return "A;"
         endif
     else
-        return "\<Nop>" " prevent entering to the next line
+        return "" " prevent entering to the next line
     endif
 endfunction
 " InsertMapForEnter: <CR> [[[2
