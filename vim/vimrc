@@ -753,8 +753,8 @@ nmap <silent> <M-p> <Plug>(coc-diagnostic-prev)
 " 定义声明实现跳转
 nmap <silent> <Leader>cd <Plug>(coc-definition)
 nmap <silent> <Leader>ci <Plug>(coc-implementation)
-nmap <silent> <Leader>cr <Plug>(cc-references)
 nmap <silent> <Leader>cf <Plug>(coc-fix-current)
+nmap <silent> <Leader>cr :CocRestart<CR>
 
 " coc-git
 nmap <expr> <C-up>   &diff==1 ? '[c' : '<Plug>(coc-git-prevchunk)'
