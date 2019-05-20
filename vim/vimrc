@@ -89,6 +89,7 @@ Plug 'jeetsukumaran/vim-pythonsense'
 Plug 'wellle/targets.vim'
 " Misc [[[2
 Plug 'yianwillis/vimcdoc'
+Plug 'metakirby5/codi.vim'
 Plug 'tweekmonster/startuptime.vim', {'on': 'StartupTime'}
 call plug#end()
 " General: [[[1
@@ -345,7 +346,7 @@ augroup AutocmdGroup
     " indentLine [[[3
     autocmd Filetype json let g:indentLine_enabled = 0
     " vim-argwrap [[[3
-    autocmd FileType vim let b:argwrap_line_prefix = '\ '
+    autocmd FileType vim let b:argwrap_line_prefix = '\'
     autocmd FileType vim let b:argwrap_tail_indent_braces = '('
     " vim-autoformat [[[3
     autocmd BufWrite * if g:autoformat_enabled | :call Autoformat<CR> | endif
@@ -483,7 +484,8 @@ function! SetQuickRunCommand() abort
         \ '3. AsyncRun cargo run',
         \ '4. AsyncRun rustc % && ./%:r',
         \ '5. AsyncRun tsc',
-        \ '6. AsyncRun make'
+        \ '6. AsyncRun make',
+        \ '7. Codi python'
         \ ]
     let select = inputlist(cmd_list)
     if select == 0
@@ -854,6 +856,13 @@ if exists("*coc#add_extension")
         \ 'coc-word'
         \ )
 endif
+" codi.vim [[[2
+let g:codi#interpreters = {
+    \ 'python': {
+        \ 'bin': 'python3',
+        \ 'prompt': '^\(>>>\|\.\.\.\) '
+    \ }
+\ }
 " fileheader.nvim [[[2
 let g:fileheader_auto_add = 0
 let g:fileheader_auto_update = 0
