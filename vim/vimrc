@@ -387,7 +387,7 @@ augroup END
 " Commons: [[[2
 command! -nargs=+ Grep        call Grep(<q-args>)
 command! -nargs=+ -complete=command TabMessage call TabMessage(<q-args>)
-command! -nargs=1 QuickRunPythonInterpretor  let g:asyncrun_python_interpretor=<q-args>
+command! -nargs=0 SetQuickRunCommand  call SetQuickRunCommand()
 " GitOperation: [[[2
 command! Gap  Git add -p
 command! Cd   Gcd
@@ -427,7 +427,9 @@ endfunction
 " QuickRun: one key to run [[[2
 function! QuickRun()
     exec 'w'
-    if &filetype == 'c'
+    if exists('g:quickrun_command')
+        execute g:quickrun_command
+    elseif &filetype == 'c'
         if has('unix')
             AsyncRun gcc -g % && ./a.out
         else
@@ -449,10 +451,6 @@ function! QuickRun()
     elseif &filetype == 'markdown'
         MarkdownPreview
     elseif &filetype == 'python'
-        if exists('g:asyncrun_python_interpretor')
-            exec 'AsyncRun ' . '-raw ' .  g:asyncrun_python_interpretor . ' %'
-            return
-        endif
         if has("unix")
             AsyncRun -raw python3 %
         else
@@ -466,9 +464,52 @@ function! QuickRun()
         VimtexCompile
     elseif &filetype == 'typescript'
         AsyncRun tsc %
+    elseif &filetype == 'vim'
+        source %
     else
         echo "Not supported filetype:" . " " . &filetype
     endif
+endfunction
+
+" SetQuickRunCommand: specify quickrun command
+function! SetQuickRunCommand() abort
+    echohl Title
+    echo "Select and input the number:"
+    echohl None
+    let cmd_list = [
+        \ '0. Input your own command',
+        \ '1. AsyncRun -raw python3 %',
+        \ '2. AsyncRun -raw python2 %',
+        \ '3. AsyncRun cargo run',
+        \ '4. AsyncRun rustc % && ./%:r',
+        \ '5. AsyncRun tsc',
+        \ '6. AsyncRun make'
+        \ ]
+    let select = inputlist(cmd_list)
+    if select == 0
+		echohl ModeMsg
+        let cmd = input("Input your command: ", "", "shellcmd")
+        echohl None
+        if trim(cmd) == ""
+            echohl ErrorMsg
+            echo "\nInvalid input"
+            echohl None
+            return
+        endif
+        let g:quickrun_command = cmd
+    elseif select > 0 && select < len(cmd_list)
+        let g:quickrun_command = cmd_list[select][3:]
+    else
+        echohl ErrorMsg
+        echo "\nInvalid input"
+        echohl None
+        return
+    endif
+    echohl Title
+    echo "\n\nYour QuickRun command is"
+    echohl Preproc
+    echo g:quickrun_command
+    echohl None
 endfunction
 " FileExplore: open cwd in file explore [[[2
 function! FileExplore()
