@@ -281,6 +281,9 @@ noremap! <silent> <F5>         <Esc>:call QuickRun()<CR>
 noremap  <silent> <Leader>x    <Esc>:call QuickRun()<CR>
 noremap  <silent> <F6>         <Esc>:call Autoformat()<CR>
 noremap! <silent> <F6>         <Esc>:call Autoformat()<CR>
+noremap  <expr>   <F12>        &buftype =='terminal' ? "\<Esc>:call ToggleTerminal()\<CR>" : "\<Esc>:call ToggleTerminal()\<CR>i"
+noremap! <silent> <F12>        <Esc>:call ToggleTerminal()<CR>i
+tnoremap <silent> <F12>        <C-\><C-n>:call ToggleTerminal()<CR>
 nnoremap <expr>   <CR>         NormalMapForEnter() . "\<Esc>"
 inoremap <expr>   <CR>         InsertMapForEnter()
 inoremap <expr>   <BS>         MapForBackspace()
@@ -704,6 +707,50 @@ function! Grep(string)
     else
         execute "AsyncRun! -cwd=<root> grep -n -s -R " . a:string . " * " . "--exclude='*.so' --exclude='.git' --exclude='.idea' --exclude='.cache' --exclude='.IntelliJIdea' --exclude='*.py[co]'"
     endif
+endfunction
+" ToggleTerminal: [[[2
+function! ToggleTerminal()
+  let found_winnr = 0
+  for winnr in range(1, winnr('$'))
+    if getbufvar(winbufnr(winnr), '&buftype') == 'terminal'
+      let found_winnr = winnr
+    endif
+  endfor
+
+  if found_winnr > 0
+    execute found_winnr . 'wincmd q'
+  else
+    let found_bufnr = 0
+    for bufnr in filter(range(1, bufnr('$')), 'bufexists(v:val)')
+      if getbufvar(bufnr, '&buftype') == 'terminal'
+        let found_bufnr = bufnr
+      endif
+    endfor
+    if found_bufnr > 0
+      if &lines > 30
+        botright 15split
+        execute 'buffer ' . found_bufnr
+      else
+        botright split
+        execute 'buffer ' . found_bufnr
+      endif
+    else
+      if &lines > 30
+        if has('nvim')
+          execute 'botright 15split term://' . &shell
+        else
+          botright terminal
+          resize 15
+        endif
+      else
+        if has('nvim')
+          execute 'botright split term://' . &shell
+        else
+          botright terminal
+        endif
+      endif
+    endif
+  endif
 endfunction
 " Abbreviate: [[[1
 call SetupCommandAbbrs('As', 'AsyncRun')
