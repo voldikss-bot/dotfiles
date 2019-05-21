@@ -113,6 +113,7 @@ set hidden
 set fileignorecase
 set formatoptions+=m
 set formatoptions+=B
+set dictionary+=~/dotfiles/vim/dict/dictionary.txt
 " key [[[2
 set timeout
 set ttimeout
@@ -171,8 +172,6 @@ set wildignorecase
 set wildignore+=.stversions,*.pyc,*.spl,*.o,*.out,*~,%*
 set wildignore+=*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store
 set wildignore+=__pycache__,*.egg-info
-" complete [[[2
-set dictionary+=~/dotfiles/vim/dict/dictionary.txt
 " set common variable[[[2
 let g:vim_indent_cont = &sw
 let g:autoformat_enabled = 0
@@ -724,8 +723,7 @@ call SetupCommandAbbrs('Gd', 'Gvdiff')
 call SetupCommandAbbrs('Gl', 'Git lg')
 call SetupCommandAbbrs('Gs', 'Gstatus')
 call SetupCommandAbbrs('Gc', 'Gcommit -v')
-call SetupCommandAbbrs('Gca', 'Gcommit -a -v')
-call SetupCommandAbbrs('Gcaa', 'Gcommit --amend -a -v')
+call SetupCommandAbbrs('Gca', 'Gcommit --amend -v')
 call SetupCommandAbbrs('Gco', 'AsyncRun git checkout .')
 call SetupCommandAbbrs('Gpush', 'AsyncRun git push')
 call SetupCommandAbbrs('Gpull', 'AsyncRun git pull')
@@ -746,8 +744,7 @@ call SetupCommandAbbrs('gd', 'Gvdiff')
 call SetupCommandAbbrs('gl', 'Git lg')
 call SetupCommandAbbrs('gs', 'Gstatus')
 call SetupCommandAbbrs('gc', 'Gcommit -v')
-call SetupCommandAbbrs('gca', 'Gcommit -a -v')
-call SetupCommandAbbrs('gcaa', 'Gcommit --amend -a -v')
+call SetupCommandAbbrs('gca', 'Gcommit --amend -v')
 call SetupCommandAbbrs('gco', 'AsyncRun git checkout .')
 call SetupCommandAbbrs('gpush', 'AsyncRun git push')
 call SetupCommandAbbrs('gpull', 'AsyncRun git pull')
