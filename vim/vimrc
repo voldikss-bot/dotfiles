@@ -342,8 +342,6 @@ augroup AutocmdGroup
     if exists('g:coc_enabled')
         autocmd CursorHold * silent call CocActionAsync('highlight')
     endif
-    " indentLine [[[3
-    autocmd Filetype json let g:indentLine_enabled = 0
     " vim-argwrap [[[3
     autocmd FileType vim let b:argwrap_line_prefix = '\'
     autocmd FileType vim let b:argwrap_tail_indent_braces = '('
@@ -887,6 +885,7 @@ let g:goyo_linenr = 1
 " indentLine [[[2
 let g:indentLine_enabled = 1
 let g:indentLine_color_term = 238
+let g:indentLine_fileTypeExclude = ['startify', 'vista', 'json', 'codi']
 " LeaderF [[[2
 let g:Lf_ShortcutF = '<Leader>f'
 let g:Lf_ShortcutB = '<Leader>b'
