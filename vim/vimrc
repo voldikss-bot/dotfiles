@@ -51,6 +51,7 @@ Plug 'cohama/agit.vim', {'on': 'Agit'}
 Plug 'mattn/gist-vim', {'on': 'Gist'}
 Plug 'mattn/webapi-vim'
 Plug 'rhysd/git-messenger.vim', {'on': '<Plug>(git-messenger)'}
+Plug 'idanarye/vim-merginal'
 " Enhancements [[[2
 Plug 'skywind3000/asyncrun.vim'
 Plug 'ludovicchabant/vim-gutentags'
