@@ -871,9 +871,10 @@ nmap <silent> <Leader>cr :CocRestart<CR>
 " coc-git
 nmap <expr> <C-up>   &diff==1 ? '[c' : '<Plug>(coc-git-prevchunk)'
 nmap <expr> <C-down> &diff==1 ? ']c' : '<Plug>(coc-git-nextchunk)'
-nnoremap <Leader>hs :CocCommand git.chunkStage<CR>
-nnoremap <Leader>hu :CocCommand git.chunkUndo<CR>
-nnoremap <Leader>go :CocCommand git.browserOpen<CR>
+nnoremap <silent> <Leader>hs :CocCommand git.chunkStage<CR>
+nnoremap <silent> <Leader>hu :CocCommand git.chunkUndo<CR>
+nnoremap <silent> <Leader>go :CocCommand git.browserOpen<CR>
+nnoremap <silent> <Leader>gv :CocCommand git.chunkInfo<CR>
 
 " Install coc extensions
 if exists("*coc#add_extension")
