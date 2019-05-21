@@ -3,6 +3,7 @@ if !has('nvim') | finish | endif
 
 " SetOptions: [[[1
 set inccommand=nosplit
+set wildoptions+=pum
 
 " PythonHost: [[[1
 if has('win32') || has('win64') || has('win32unix')
@@ -40,6 +41,10 @@ tnoremap <M-h> <C-\><C-n><C-w>h
 tnoremap <M-j> <C-\><C-n><C-w>j
 tnoremap <M-k> <C-\><C-n><C-w>k
 tnoremap <M-l> <C-\><C-n><C-w>l
+cnoremap <expr> <C-n>  pumvisible() ? '<Right>' : '<Down>'
+cnoremap <expr> <C-p>  pumvisible() ? '<Left>' : '<Up>'
+cnoremap <expr> <Up>   pumvisible() ? '<C-p>' : '<up>'
+cnoremap <expr> <Down> pumvisible() ? '<C-n>' : '<down>'
 
 " WindowSize: [[[1
 noremap <M-up>    <C-w>+
