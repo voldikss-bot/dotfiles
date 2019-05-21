@@ -18,6 +18,15 @@ highlight GitDeleteTop          guifg=#FF2222 guibg=#232526
 highlight GitDeleteButtom       guifg=#FF2222 guibg=#232526
 highlight GitDeleteTopAndBottom guifg=#FF2222 guibg=#232526
 
+" Startify: [[[1
+highlight StartifyHeader guifg=#FF00FF
+highlight StartifyNumber guifg=#00FF00
+highlight StartifyPath   guifg=#00AFFF
+highlight StartifySlash  guifg=#DF875F
+" highlight StartifyBracket  guifg=#585858
+" highlight StartifyFooter   guifg=#585858
+" highlight StartifySpecial  guifg=#0000FF
+
 " WindowOperation: [[[1
 nnoremap <M-h> <C-w>h
 nnoremap <M-j> <C-w>j
