@@ -34,6 +34,9 @@
         "javascriptreact": ["javascript"],
         "typescript": ["javascript"]
     },
+    "list.source.grep.defaultArgs": ["-smartcase", "-regex"],
+    "yank.highlight.enable": true,
+    "yank.highlight.duration": 20,
     "languageserver": {
         "ccls": {
             "command": "ccls",

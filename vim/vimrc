@@ -884,8 +884,9 @@ nmap <silent> <M-p> <Plug>(coc-diagnostic-prev)
 nmap <silent> <Leader>cd <Plug>(coc-definition)
 nmap <silent> <Leader>ci <Plug>(coc-implementation)
 nmap <silent> <Leader>cf <Plug>(coc-fix-current)
-nmap <silent> <Leader>cr :CocRestart<CR>
-
+nmap <silent> <Leader>cr <Plug>(coc-references)
+nmap <silent> <Leader>cc :CocRestart<CR>
+nmap <silent> <Leader>cl :CocList<CR>
 " coc-git
 nmap <expr> <C-up>   &diff==1 ? '[c' : '<Plug>(coc-git-prevchunk)'
 nmap <expr> <C-down> &diff==1 ? ']c' : '<Plug>(coc-git-nextchunk)'
@@ -914,7 +915,8 @@ if exists("*coc#add_extension")
         \ 'coc-tsserver',
         \ 'coc-vimtex',
         \ 'coc-vimlsp',
-        \ 'coc-word'
+        \ 'coc-word',
+        \ 'coc-yank'
         \ )
 endif
 " codi.vim [[[2
