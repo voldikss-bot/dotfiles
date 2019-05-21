@@ -174,8 +174,12 @@ set wildignore+=.stversions,*.pyc,*.spl,*.o,*.out,*~,%*
 set wildignore+=*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store
 set wildignore+=__pycache__,*.egg-info
 " set common variable[[[2
+" indent count when type <CR> and then \
 let g:vim_indent_cont = &sw
+" Autoformat function
 let g:autoformat_enabled = 0
+" ToggleTerminal function
+let g:terminal_height = 15
 
 " Keymap: [[[1
 let mapleader   = ';'
@@ -282,9 +286,9 @@ noremap! <silent> <F5>         <Esc>:call QuickRun()<CR>
 noremap  <silent> <Leader>x    <Esc>:call QuickRun()<CR>
 noremap  <silent> <F6>         <Esc>:call Autoformat()<CR>
 noremap! <silent> <F6>         <Esc>:call Autoformat()<CR>
-noremap  <expr>   <F12>        &buftype =='terminal' ? "\<Esc>:call ToggleTerminal()\<CR>" : "\<Esc>:call ToggleTerminal()\<CR>i"
-noremap! <silent> <F12>        <Esc>:call ToggleTerminal()<CR>i
-tnoremap <silent> <F12>        <C-\><C-n>:call ToggleTerminal()<CR>
+noremap  <expr>   <F12>        &buftype =='terminal' ? "\<Esc>:call ToggleTerminal(g:terminal_height)\<CR>" : "\<Esc>:call ToggleTerminal(g:terminal_height)\<CR>i"
+noremap! <silent> <F12>        <Esc>:call ToggleTerminal(g:terminal_height)<CR>i
+tnoremap <silent> <F12>        <C-\><C-n>:call ToggleTerminal(g:terminal_height)<CR>
 nnoremap <expr>   <CR>         NormalMapForEnter() . "\<Esc>"
 inoremap <expr>   <CR>         InsertMapForEnter()
 inoremap <expr>   <BS>         MapForBackspace()
@@ -709,7 +713,7 @@ function! Grep(string)
     endif
 endfunction
 " ToggleTerminal: [[[2
-function! ToggleTerminal()
+function! ToggleTerminal(height)
   let found_winnr = 0
   for winnr in range(1, winnr('$'))
     if getbufvar(winbufnr(winnr), '&buftype') == 'terminal'
@@ -718,17 +722,31 @@ function! ToggleTerminal()
   endfor
 
   if found_winnr > 0
-    execute found_winnr . 'wincmd q'
+    if &buftype == 'terminal'
+        " if current window is the terminal window, close it
+        execute found_winnr . 'wincmd q'
+    else
+        " if current window is not terminal, go to the terminal window
+        execute found_winnr . 'wincmd w'
+    endif
   else
+    let found_quickfix = 0
     let found_bufnr = 0
     for bufnr in filter(range(1, bufnr('$')), 'bufexists(v:val)')
-      if getbufvar(bufnr, '&buftype') == 'terminal'
+      let buftype = getbufvar(bufnr, '&buftype')
+      if buftype == 'terminal'
         let found_bufnr = bufnr
+      elseif buftype == 'quickfix'
+        let found_quickfix = bufnr
       endif
     endfor
+    " if quickfix was open, close it firstly
+    if found_quickfix > 0
+        execute 'cclose'
+    endif
     if found_bufnr > 0
       if &lines > 30
-        botright 15split
+        execute 'botright ' . a:height . 'split'
         execute 'buffer ' . found_bufnr
       else
         botright split
@@ -737,10 +755,10 @@ function! ToggleTerminal()
     else
       if &lines > 30
         if has('nvim')
-          execute 'botright 15split term://' . &shell
+          execute 'botright ' . a:height . 'split term://' . &shell
         else
           botright terminal
-          resize 15
+          resize a:height
         endif
       else
         if has('nvim')
