@@ -2,7 +2,6 @@
 
 ```shell
 # For Ubuntu:
-cd ~
 git clone https://github.com/voldikss/dotfiles --depth 1
 cd install
 source ./ubuntu_install.sh

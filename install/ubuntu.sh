@@ -31,6 +31,13 @@ function uninstall() {
     crun sudo apt remove libreoffice libreoffice-common firefox -y
 }
 
+function link() {
+    for file in ../conf/.*[!.]; do
+        echo ln -sf $(basename $file) $HOME/$(basename $file)
+        ln -sf $(readlink -f $file) $HOME/$(basename $file)
+    done
+}
+
 function initialize(){
     cecho "Initializing..."
     cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
@@ -38,7 +45,6 @@ function initialize(){
     crun sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak
     crun sudo cp ../sources/ubuntu/sources.list /etc/apt/sources.list
 
-    crun sudo cp -rf ../runcom/.* $HOME
     crun sudo apt update -y
     crun sudo apt upgrade -y
 }
@@ -73,7 +79,7 @@ function common_install(){
     # prettyping
     if ! command -v prettyping; then
         crun git clone https://github.com/denilsonsa/prettyping.git --depth 1
-        crun sudo cp ./prettyping/prettyping /usr/bin/
+        crun sudo cp -f ./prettyping/prettyping /usr/bin/
         crun rm -rf prettyping
     fi
     # htop
@@ -120,8 +126,8 @@ function oh_my_zsh_install(){
     # oh-my-zsh
     if [ ! -d "$HOME/.oh-my-zsh" ]; then
         crun sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-        crun sudo cp -f ../runcom/af-magic.zsh-theme $HOME/.oh-my-zsh/themes
-        crun sudo cp -f ../runcom/.zshrc $HOME
+        ln -sf $(readlink -f ../conf/.zshrc) $HOME/.zshrc
+        ln -sf $(readlink -f ../conf/.af-magic.zsh-theme) $HOME/.af-magic.zsh-theme
     else
         cecho "NOTE: oh-my-zsh has already been installed and won't be installed here"
     fi
@@ -162,10 +168,14 @@ function vim_install(){
 
     crun sudo -H pip3 install pynvim yapf flake8 autopep8
     crun sudo yarn global add neovim
+    crun sudo yarn global add bash-language-server
 
-    crun sudo cp -rf ../runcom/.config $HOME
+    ln -sf $(readlink -f ../vim) $HOME/.vim
+    ln -sf $(readlink -f ../vim/init.vim) $HOME/.config/nvim/init.vim
+    ln -sf $(readlink -f ../vim/init.vim) $HOME/.config/nvim/.vimrc
+    ln -sf $(readlink -f ../vim/coc-settings.json) $HOME/.config/nvim/coc-settings.json
 
-    crun nvim -c ':PlugInstall --sync | :qa!'
+    crun nvim +PlugInstall +qa
 }
 
 function python_install(){
@@ -174,6 +184,8 @@ function python_install(){
     cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
     crun sudo apt install python-dev python3-dev python-pip python3-pip idle3 -y
     crun sudo -H pip3 install requests numpy scipy matplotlib thefuck
+    ln -sf $(readlink -f ../conf/.pip) $HOME/.pip
+    ln -sf $(readlink -f ../conf/.idlerc) $HOME/.idlerc
 }
 
 function tmux_install(){
@@ -181,7 +193,7 @@ function tmux_install(){
     cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
     cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
     crun sudo apt install tmux -y
-    crun sudo cp -f ../runcom/.tmux.conf $HOME
+    ln -sf $(readlink -f ../conf/.tmux.conf) $HOME/.tmux.conf
 }
 
 function nodejs_install(){
@@ -193,9 +205,12 @@ function nodejs_install(){
         crun curl -LO install-node.now.sh/lts
         crun sudo bash ./lts --yes
         crun rm ./lts
+    fi
+
+    if ! command -v yarn; then
         # yarn
         crun curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-        crun echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+        echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
         crun sudo apt update -y
         crun sudo apt install yarn -y
         crun yarn --version
@@ -328,6 +343,7 @@ function ubuntu_install()
 {
     # Initial
     initialize
+    link
 
     # Install by default
     common_install
@@ -343,4 +359,5 @@ function ubuntu_install()
 
     # oh_my_zsh
     oh_my_zsh_install
+    link
 }

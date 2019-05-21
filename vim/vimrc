@@ -8,7 +8,7 @@
 " ========================================================================
 
 " PluginLoad: [[[1
-call plug#begin('~/dotfiles/vim/plugged')
+call plug#begin('~/.vim/plugged')
 " Languages [[[2
 Plug 'octol/vim-cpp-enhanced-highlight', {'for': ['c', 'cpp']}
 Plug 'cpiger/NeoDebug', {'for':['c', 'cpp']}
@@ -114,7 +114,7 @@ set hidden
 set fileignorecase
 set formatoptions+=m
 set formatoptions+=B
-set dictionary+=~/dotfiles/vim/dict/dictionary.txt
+set dictionary+=~/.vim/dict/dictionary.txt
 " key [[[2
 set timeout
 set ttimeout
@@ -302,8 +302,6 @@ augroup AutocmdGroup
             \ syntax match paren3 /[<>]/   | hi paren3 guifg=#0087FF |
             \ syntax match paren4 /[\[\]]/ | hi paren4 guifg=#00FF5F |
         \ endif
-" SourceVimrc: [[[2
-    autocmd BufWritePost ~/dotfiles/vim/vimrc nested source $MYVIMRC
 " AutoSaveBuffer: [[[2
     autocmd FocusLost * call AutoSaveBuffer()
 " DisableAutoComment: [[[2
@@ -409,7 +407,7 @@ command! PUU PlugUpgrade
 command! PS  PlugStatus
 command! PC  PlugClean
 " Function: [[[1
-" Autoformat: format code
+" Autoformat: format code [[[2
 function! Autoformat()
     let curr_pos = getpos('.')
     if &filetype == 'markdown'
@@ -622,6 +620,7 @@ function! MapForSemicolonP()
         \ 'javascript.jsx',
         \ 'rust',
         \ 'scss',
+        \ 'sh',
         \ 'typescript',
         \ 'typescript.tsx'
     \ ], &filetype) >= 0
@@ -1159,7 +1158,7 @@ let g:mundo_preview_bottom     = 1
 let g:mundo_auto_preview_delay = 10
 " vim-startify [[[2
 noremap <silent> <Space> <Esc>:Startify<CR>
-let g:startify_bookmarks = [ {'a': '~/dotfiles/vim/vimrc'}]
+let g:startify_bookmarks = [ {'a': '~/.vim/vimrc'}]
 let g:startify_files_number = 8
 let g:startify_padding_left = 15
 " let g:startify_custom_header = [
@@ -1193,7 +1192,7 @@ let g:startify_custom_header = [
 " for Markdown
 let g:table_mode_corner = '|'
 " vim-template [[[2
-let g:templates_directory            = ['~/dotfiles/vim/templates']
+let g:templates_directory            = ['~/.vim/templates']
 let g:templates_no_autocmd           = 1
 let g:templates_no_builtin_templates = 1
 " vim-translate-me [[[2
