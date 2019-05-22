@@ -78,7 +78,6 @@ Plug 'bronson/vim-visual-star-search'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'foosoft/vim-argwrap'
-Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/vim-easy-align'
 Plug 'mg979/vim-visual-multi', {'on': '<Plug>VM-Find-Under'}
 Plug 'kana/vim-textobj-user'
@@ -330,17 +329,6 @@ augroup AutocmdGroup
 " GitIgnore: [[[2
     autocmd BufNewFile .gitignore Template 
 " Plugins: [[[2
-    " auto-pairs [[[3
-    autocmd FileType html let b:AutoPairs =
-        \ {'(':')', '[':']', '{':'}',"'":"'",'"':'"', "`":"`", '```':'```', '"""':'"""', "'''":"'''",'{%':'%}', '<!--':'-->'}
-    autocmd FileType javascript,css,c,cpp let b:AutoPairs =
-        \ {'(':')', '[':']', '{':'}',"'":"'",'"':'"', "`":"`", '```':'```', '"""':'"""', "'''":"'''",'/*':'*/'}
-    autocmd FileType markdown let b:AutoPairs =
-        \ {'(':')', '[':']', '{':'}',"'":"'",'"':'"', "`":"`", '```':'```', '"""':'"""', "'''":"'''", '*':'*','~':'~'}
-    autocmd FileType vim let b:AutoPairs =
-        \ {'(':')', '[':']', '{':'}',"'":"'", "`":"`", '<':'>'}
-    autocmd FileType tex let g:AutoPairs =
-        \ {'(':')', '[':']', '{':'}',"'":"'", "`":"`", '<':'>', '$':'$', '$$':'$$'}
     " coc.nvim [[[3
     " close preview window when completion is done.
     autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
@@ -348,6 +336,11 @@ augroup AutocmdGroup
     if exists('g:coc_enabled')
         autocmd CursorHold * silent call CocActionAsync('highlight')
     endif
+    " coc-pairs
+    autocmd FileType tex let b:coc_paires = [['$', '$']]
+    autocmd FileType html let b:coc_paires = [['<!--', '-->'], ['{%', '%}']]
+    autocmd FileType markdown let b:coc_paires = [['*', '*']]
+    autocmd FileType javascript,css,c,cpp let b:coc_paires = [['/*', '*/']]
     " vim-argwrap [[[3
     autocmd FileType vim let b:argwrap_line_prefix = '\'
     autocmd FileType vim let b:argwrap_tail_indent_braces = '('
@@ -860,16 +853,6 @@ let g:asyncrun_status = ''
 if exists("*airline#section#create_right")
     let g:airline_section_error = airline#section#create_right(['%{g:asyncrun_status}'])
 endif
-" auto-pairs [[[2
-" 解除一系列映射键
-let g:AutoPairsShortcutJump       = 'Disable'
-let g:AutoPairsShortcutBackInsert = 'Disable'
-let g:AutoPairsShortcutToggle     = 'Disable'
-let g:AutoPairsMapCR              = 'Disable'
-let g:AutoPairsMapBS              = 'Disable'
-" 防止 C-h 被映射为 <BS>
-let g:AutoPairsMapCh    = 0
-let g:AutoPairsMapSpace = 0
 " coc.nvim [[[2
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
@@ -908,6 +891,7 @@ if exists("*coc#add_extension")
         \ 'coc-lists',
         \ 'coc-json',
         \ 'coc-omni',
+        \ 'coc-pairs',
         \ 'coc-python',
         \ 'coc-rls',
         \ 'coc-snippets',
