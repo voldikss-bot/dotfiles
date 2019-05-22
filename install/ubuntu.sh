@@ -164,6 +164,7 @@ function vim_install(){
 
     nodejs_install
     ctags_install
+    gtags_install
     ccls_install
 
     crun sudo -H pip3 install pynvim yapf flake8 autopep8
@@ -243,24 +244,24 @@ function ctags_install(){
 }
 
 # # Ref: https://zhuanlan.zhihu.com/p/36279445
-# function gtags_install() {
-#     cecho "Installing gtags..."
-#     cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-#     cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-#     if ! command -v gtags; then
-#         # currently the latest version is v6.6.3
-#         # https://www.gnu.org/software/global/download.html
-#         crun wget -c http://tamacom.com/global/global-6.6.3.tar.gz
-#         crun sudo apt install automake autoconf flex bison gperf libtool libtool-bin texinfo -y
-#         crun sh reconf.sh
-#         crun ./configure
-#         crun make
-#         crun sudo make install
-#         crun pip install pygments
-#     else
-#         cecho "Gtags has already been installed."
-#     fi
-# }
+function gtags_install() {
+    cecho "Installing gtags..."
+    cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+    cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+    if ! command -v gtags; then
+        # currently the latest version is v6.6.3
+        # https://www.gnu.org/software/global/download.html
+        crun wget -c http://tamacom.com/global/global-6.6.3.tar.gz
+        crun sudo apt install automake autoconf flex bison gperf libtool libtool-bin texinfo -y
+        crun sh reconf.sh
+        crun ./configure
+        crun make
+        crun sudo make install
+        crun sudo -H pip3 install pygments
+    else
+        cecho "Gtags has already been installed."
+    fi
+}
 
 function font_install(){
     cecho "Installing Fonts..."

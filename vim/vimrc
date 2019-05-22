@@ -54,7 +54,7 @@ Plug 'rhysd/git-messenger.vim', {'on': '<Plug>(git-messenger)'}
 Plug 'idanarye/vim-merginal'
 " Enhancements [[[2
 Plug 'skywind3000/asyncrun.vim'
-" Plug 'ludovicchabant/vim-gutentags'
+Plug 'jsfaint/gen_tags.vim'
 Plug 'Yggdroot/LeaderF'
 Plug 'voldikss/vim-search-me'
 Plug 'voldikss/vim-translate-me'
@@ -179,7 +179,9 @@ let g:vim_indent_cont = &sw
 let g:autoformat_enabled = 0
 " ToggleTerminal function
 let g:terminal_height = 15
-
+" Gtags
+let $GTAGSLABEL = 'native-pygments'
+let $GTAGSCONF = '/usr/local/share/gtags/gtags.conf'
 " Keymap: [[[1
 let mapleader   = ';'
 let g:mapleader = ';'
@@ -348,7 +350,7 @@ augroup AutocmdGroup
     autocmd BufWrite * if g:autoformat_enabled | :call Autoformat<CR> | endif
     " vim-commentary [[[3
     autocmd FileType python,shell,coffee,crontab setlocal commentstring=#\ %s
-    autocmd FileType java,c,cpp,json     setlocal commentstring=//\ %s
+    autocmd FileType java,c,cpp,jsonc            setlocal commentstring=//\ %s
     " vim-matchup [[[3
     autocmd FileType vim let b:match_words =
         \ '\<fu\%[nction]\>:\<retu\%[rn]\>:\<endf\%[unction]\>,' .
@@ -1105,16 +1107,18 @@ nmap <silent> cx  <Plug>(Exchange)
 xmap <silent> X   <Plug>(Exchange)
 nmap <silent> cxc <Plug>(ExchangeClear)
 nmap <silent> cxx <Plug>(ExchangeLine)
-" vim-gutentags [[[2
-let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project','.idea']
-let g:gutentags_ctags_tagfile = '.tags'
-
-let g:gutentags_cache_dir = expand('~/.cache/nvim/tags')
-
-let g:gutentags_ctags_extra_args =  ['--fields=+niazS', '--extra=+q']
-let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
-let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
-let g:gutentags_ctags_extra_args += ['--output-format=e-ctags']
+" vim-gen_tags [[[2
+let g:gen_tags#ctags_opts =  ['--extra=+q']
+let g:gen_tags#ctags_opts += ['--c-kinds=+px']
+let g:gen_tags#ctags_opts += ['--fields=+niazS']
+let g:gen_tags#ctags_opts += ['--c++-kinds=+px']
+let g:gen_tags#ctags_opts += ['--output-format=e-ctags']
+let g:gen_tags#use_cache_dir = 1
+let g:gen_tags#cache_dir = '$HOME/.cache/nvim/tags'
+let g:gen_tags#ctags_auto_gen = 1
+let g:gen_tags#gtags_auto_gen = 1
+let g:gen_tags#blacklist = ['$HOME']
+let g:gen_tags#statusline = 0
 " vim-javascript [[[2
 let g:javascript_plugin_jsdoc = 1
 let g:javascript_plugin_ngdoc = 1
