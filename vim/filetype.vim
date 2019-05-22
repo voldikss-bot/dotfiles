@@ -5,18 +5,21 @@ endif
 
 augroup filetypedetect
 
-	autocmd BufNewFile,BufRead .tern-project setfiletype json
-	autocmd BufNewFile,BufRead .jsbeautifyrc setfiletype json
-	autocmd BufNewFile,BufRead .eslintrc     setfiletype json
-	autocmd BufNewFile,BufRead .jscsrc       setfiletype json
+	autocmd BufNewFile,BufRead  .tern-project     setfiletype json
+	autocmd BufNewFile,BufRead  .jsbeautifyrc     setfiletype json
+	autocmd BufNewFile,BufRead  .eslintrc         setfiletype json
+	autocmd BufNewFile,BufRead  .jscsrc           setfiletype json
 
-    autocmd BufNewFile,BufRead *.wl          setfiletype mma
-    autocmd BufNewFile,BufRead *.wls         setfiletype mma
-    autocmd BufNewFile,BufRead *.gitignore    setfiletype gitignore
+    autocmd BufNewFile,BufRead  *.cjson           setfiletype jsonc
+    autocmd BufNewFile,BufRead  coc-settings.json setfiletype jsonc
 
-    au  BufNewFile,BufReadPost *.lmp         setfiletype lammps
-    au  BufNewFile,BufReadPost *.lammps      setfiletype lammps
-    au  BufNewFile,BufReadPost in.*          setfiletype lammps
+    autocmd BufNewFile,BufRead  *.wl              setfiletype mma
+    autocmd BufNewFile,BufRead  *.wls             setfiletype mma
+    autocmd BufNewFile,BufRead  *.gitignore       setfiletype gitignore
+
+    autocmd BufNewFile,BufRead *.lmp              setfiletype lammps
+    autocmd BufNewFile,BufRead *.lammps           setfiletype lammps
+    autocmd BufNewFile,BufRead in.*               setfiletype lammps
 
 augroup END
 
