@@ -54,7 +54,7 @@ Plug 'rhysd/git-messenger.vim', {'on': '<Plug>(git-messenger)'}
 Plug 'idanarye/vim-merginal'
 " Enhancements [[[2
 Plug 'skywind3000/asyncrun.vim'
-Plug 'ludovicchabant/vim-gutentags'
+" Plug 'ludovicchabant/vim-gutentags'
 Plug 'Yggdroot/LeaderF'
 Plug 'voldikss/vim-search-me'
 Plug 'voldikss/vim-translate-me'
@@ -873,6 +873,8 @@ nmap <silent> <Leader>cl :CocList<CR>
 " coc-git
 nmap <expr> <C-up>   &diff==1 ? '[c' : '<Plug>(coc-git-prevchunk)'
 nmap <expr> <C-down> &diff==1 ? ']c' : '<Plug>(coc-git-nextchunk)'
+nmap <silent> gj <Plug>(coc-git-nextchunk)
+nmap <silent> gk <Plug>(coc-git-prevchunk)
 nnoremap <silent> <Leader>hs :CocCommand git.chunkStage<CR>
 nnoremap <silent> <Leader>hu :CocCommand git.chunkUndo<CR>
 nnoremap <silent> <Leader>go :CocCommand git.browserOpen<CR>
