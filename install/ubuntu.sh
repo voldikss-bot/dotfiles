@@ -169,6 +169,9 @@ function vim_install(){
     crun sudo -H pip3 install pynvim yapf flake8 autopep8
     crun sudo yarn global add neovim
     crun sudo yarn global add bash-language-server
+    crun sudo yarn global add write-good
+    crun sudo yarn global add markdownlint-cli
+    crun sudo apt install shellcheck -y
 
     ln -sf $(readlink -f ../vim) $HOME/.vim
     ln -sf $(readlink -f ../vim/init.vim) $HOME/.config/nvim/init.vim

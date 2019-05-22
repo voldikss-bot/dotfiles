@@ -880,8 +880,9 @@ nnoremap <silent> <Leader>gv :CocCommand git.chunkInfo<CR>
 
 " Install coc extensions
 if exists("*coc#add_extension")
-    call coc#add_extension(
+    let g:coc_global_extensions = [
         \ 'coc-css',
+        \ 'coc-diagnostic',
         \ 'coc-dictionary',
         \ 'coc-emoji',
         \ 'coc-emmet',
@@ -900,8 +901,8 @@ if exists("*coc#add_extension")
         \ 'coc-vimtex',
         \ 'coc-vimlsp',
         \ 'coc-word',
-        \ 'coc-yank'
-        \ )
+        \ ]
+    call coc#add_extension()
 endif
 " codi.vim [[[2
 let g:codi#interpreters = {

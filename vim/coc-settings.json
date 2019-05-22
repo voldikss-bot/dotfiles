@@ -8,20 +8,59 @@
     "coc.source.around.priority": 1,
     "coc.source.buffer.priority": 1,
     "coc.source.word.priority": 0,
+    "diagnostic.infoSign": "ℹ",
+    "diagnostic.hintSign": "➤",
+    "diagnostic-languageserver.filetypes": {
+        "markdown": ["write-good", "markdownlint"],
+        "sh": "shellcheck"
+    },
+    "eslint.enable": true,
+    "eslint.filetypes": [
+        "javascript",
+        "javascript.jsx",
+        "javascriptreact"
+    ],
+    "eslint.autoFix": true,
+    "eslint.autoFixOnSave": true,
     "git.enableGutters": true,
     "git.addedSign.hlGroup": "GitAdd",
     "git.removedSign.hlGroup": "GitDeleteButtom",
     "git.topRemovedSign.hlGroup": "GitDeleteTop",
     "git.changeRemovedSign.hlGroup": "GitDeleteTopAndBottom",
     "git.changedSign.hlGroup": "GitModify",
+    "list.source.grep.defaultArgs": ["-smartcase", "-regex"],
     "suggest.noselect": false,
     "suggest.echodocSupport": true,
     "suggest.triggerAfterInsertEnter": false,
     "suggest.languageSourcePriority": 99,
-    "diagnostic.infoSign": "ℹ",
-    "diagnostic.hintSign": "➤",
+    "suggest.completionItemKindLabels": {
+        "function": "\uf794",
+        "method": "\uf6a6",
+        "variable": "\uf71b",
+        "constant": "\uf8ff",
+        "struct": "\ufb44",
+        "class": "\uf0e8",
+        "interface": "\ufa52",
+        "text": "\ue612",
+        "enum": "\uf435",
+        "enumMember": "\uf02b",
+        "module": "\uf668",
+        "color": "\ue22b",
+        "property": "\ufab6",
+        "field": "\uf93d",
+        "unit": "\uf475",
+        "file": "\uf471",
+        "value": "\uf8a3",
+        "event": "\ufacd",
+        "folder": "\uf115",
+        "keyword": "\uf893",
+        "snippet": "\uf64d",
+        "operator": "\uf915",
+        "reference": "\uf87a",
+        "typeParameter": "\uf278",
+        "default": "\uf29c"
+    },
     "python.autoComplete.addBrackets": true,
-    "eslint.enable": false,
     "snippets.ultisnips.directories": [
         "snippets",
         "UltiSnips",
@@ -34,7 +73,7 @@
         "javascriptreact": ["javascript"],
         "typescript": ["javascript"]
     },
-    "list.source.grep.defaultArgs": ["-smartcase", "-regex"],
+    "tslint.autoFixOnSave": true,
     "yank.highlight.enable": true,
     "yank.highlight.duration": 20,
     "languageserver": {
@@ -69,8 +108,9 @@
         "bash": {
             "command": "bash-language-server",
             "args": ["start"],
-            "filetypes": ["sh"],
+            "filetypes": ["sh", "zsh"],
             "ignoredRootPaths": ["~"]
         }
     }
+    // vim:ft=jsonc
 }
