@@ -66,16 +66,6 @@
                 }
             }
         },
-        "vimls": {
-            "command": "vim-language-server",
-            "args": ["--stdio"],
-            "initializationOptions": {
-                "iskeyword": "vim iskeyword option",
-                "vimruntime": "path/to/$VIMRUNTIME",
-                "runtimepath": "vim/runtime/path"
-            },
-            "filetypes": ["vim"]
-        },
         "bash": {
             "command": "bash-language-server",
             "args": ["start"],
