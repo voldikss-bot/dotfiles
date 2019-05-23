@@ -852,7 +852,7 @@ let g:asyncrun_open = 8
 let $PYTHONUNBUFFERED=1
 " airline 集成
 let g:asyncrun_status = ''
-if exists("*airline#section#create_right")
+if isdirectory($HOME.'/.vim/plugged/vim-airline')
     let g:airline_section_error = airline#section#create_right(['%{g:asyncrun_status}'])
 endif
 " coc.nvim [[[2
