@@ -69,6 +69,11 @@ let g:terminal_color_12 = '#00afff'
 let g:terminal_color_13 = '#d3869b'
 let g:terminal_color_14 = '#8ec07c'
 let g:terminal_color_15 = '#ebdbb2'
+
+" ClearnSearchHighlight:  [[[1
+inoremap <silent> <Esc> <Esc>:noh<CR>
+nnoremap <silent> <Esc> <Esc>:noh<CR>
+
 " NvimQt: [[[1
 if exists('g:GuiLoaded')
     inoremap <S-CR> <Esc>o

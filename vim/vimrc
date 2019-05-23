@@ -185,9 +185,6 @@ let $GTAGSCONF = '/usr/local/share/gtags/gtags.conf'
 " Keymap: [[[1
 let mapleader   = ';'
 let g:mapleader = ';'
-" ClearnSearchHighlight:  [[[2
-inoremap <silent> <Esc> <Esc>:noh<CR>
-nnoremap <silent> <Esc> <Esc>:noh<CR>
 " General: [[[2
 noremap  H  ^
 noremap  L  $
