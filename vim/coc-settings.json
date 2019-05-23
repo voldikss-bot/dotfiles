@@ -20,8 +20,8 @@
         "javascript.jsx",
         "javascriptreact"
     ],
-    "eslint.autoFix": true,
-    "eslint.autoFixOnSave": true,
+    "eslint.autoFix": false,
+    "eslint.autoFixOnSave": false,
     "git.enableGutters": true,
     "git.addedSign.hlGroup": "GitAdd",
     "git.removedSign.hlGroup": "GitDeleteButtom",
