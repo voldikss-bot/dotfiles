@@ -900,6 +900,7 @@ if exists("*coc#add_extension")
         \ 'coc-python',
         \ 'coc-rls',
         \ 'coc-snippets',
+        \ 'coc-syntax',
         \ 'coc-tag',
         \ 'coc-tsserver',
         \ 'coc-vimtex',
