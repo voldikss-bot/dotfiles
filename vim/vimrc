@@ -281,7 +281,11 @@ noremap! <silent> <F5>         <Esc>:call QuickRun()<CR>
 noremap  <silent> <Leader>x    <Esc>:call QuickRun()<CR>
 noremap  <silent> <F6>         <Esc>:call Autoformat()<CR>
 noremap! <silent> <F6>         <Esc>:call Autoformat()<CR>
-noremap  <silent> <expr><F12>  &buftype =='terminal' ? "\<Esc>:call ToggleTerminal(g:terminal_height)\<CR>" : "\<Esc>:call ToggleTerminal(g:terminal_height)\<CR>i"
+noremap  <silent> <expr><F12>  &buftype =='terminal' ?
+                               \ "\<C-\><C-n>:call ToggleTerminal(g:terminal_height)\<CR>" :
+                               \ (has('nvim') ? 
+                               \ "\<Esc>:call ToggleTerminal(g:terminal_height)\<CR>i" :
+                               \ "\<Esc>:call ToggleTerminal(g:terminal_height)\<CR>")
 noremap! <silent> <F12>        <Esc>:call ToggleTerminal(g:terminal_height)<CR>i
 tnoremap <silent> <F12>        <C-\><C-n>:call ToggleTerminal(g:terminal_height)<CR>
 nnoremap <expr>   <CR>         NormalMapForEnter() . "\<Esc>"
