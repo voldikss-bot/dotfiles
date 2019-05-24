@@ -412,8 +412,8 @@ function! Autoformat()
     call setpos('.', curr_pos)
 endfunction
 function! AutoSaveBuffer()
-    update
     if index(['html', 'htmldjango', 'css'], &filetype) >= 0
+        update
         BLReloadPage
     endif
 endfunction
