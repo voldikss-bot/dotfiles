@@ -846,7 +846,7 @@ let g:asyncrun_open = 8
 let $PYTHONUNBUFFERED=1
 " airline 集成
 let g:asyncrun_status = ''
-if isdirectory($HOME.'/.vim/plugged/vim-airline')
+if match(&rtp, 'vim-airline') >= 0
     let g:airline_section_error = airline#section#create_right(['%{g:asyncrun_status}'])
 endif
 " coc.nvim [[[2
@@ -866,6 +866,7 @@ nmap <silent> <Leader>cf <Plug>(coc-fix-current)
 nmap <silent> <Leader>cr <Plug>(coc-references)
 nmap <silent> <Leader>cc :CocRestart<CR>
 nmap <silent> <Leader>cl :CocList<CR>
+nmap <silent> ,cr        :call CocAction('rename')<CR>
 " coc-git
 nmap <expr> <C-up>   &diff==1 ? '[c' : '<Plug>(coc-git-prevchunk)'
 nmap <expr> <C-down> &diff==1 ? ']c' : '<Plug>(coc-git-nextchunk)'
@@ -877,7 +878,7 @@ nnoremap <silent> <Leader>go :CocCommand git.browserOpen<CR>
 nnoremap <silent> <Leader>gv :CocCommand git.chunkInfo<CR>
 
 " Install coc extensions
-if exists("*coc#add_extension")
+if match(&rtp, 'coc.nvim') >= 0
     let g:coc_global_extensions = [
         \ 'coc-css',
         \ 'coc-diagnostic',
