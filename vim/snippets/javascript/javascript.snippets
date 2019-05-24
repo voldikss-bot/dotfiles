@@ -3,7 +3,7 @@
 snippet proto
 	${1:class_name}.prototype.${2:method_name} = function(${3}) {
 		${0:${VISUAL}}
-	};
+	}
 # Function
 snippet fun
 	function ${1:function_name}(${2}) {
@@ -18,17 +18,17 @@ snippet anf "" w
 snippet vaf
 	var ${1:function_name} = function(${2}) {
 		${0:${VISUAL}}
-	};
+	}
 # Function assigned to variable
 snippet vf
 	var ${1:function_name} = function $1(${2}) {
 		${0:${VISUAL}}
-	};
+	}
 # Immediate function
 snippet (f
 	(function(${1}) {
 		${0:${VISUAL}}
-	}(${2}));
+	}(${2}))
 # Minify safe iife
 snippet ;fe
 	;(function(${1}) {
@@ -41,8 +41,8 @@ snippet sdf
 
 		$1 = function ($2) {
 			${0:${VISUAL}}
-		};
-	};
+		}
+	}
 # Flow control
 # if
 snippet if "if (condition) { ... }"
@@ -64,7 +64,7 @@ snippet switch
 	switch (${1:expression}) {
 		case '${3:case}':
 			${4}
-			break;
+			break
 		${0}
 		default:
 			${2}
@@ -72,7 +72,7 @@ snippet switch
 snippet case "case 'xyz': ... break"
 	case '${1:case}':
 		${0:${VISUAL}}
-		break;
+		break
 snippet try "try { ... } catch(e) { ... }"
 	try {
 		${0:${VISUAL}}
@@ -90,9 +90,6 @@ snippet tryf "try { ... } catch(e) { ... } finally { ... }"
 # throw Error
 snippet terr
 	throw new Error('${1:error message}')
-# return
-snippet re
-	return ${0};
 snippet for "for (...) {...}"
 	for (var ${1:i} = 0, ${2:len} = ${3:Things.length}; $1 < $2; $1++) {
 		${0:${VISUAL}}
@@ -108,7 +105,7 @@ snippet wh "(condition) { ... }"
 snippet do "do { ... } while (condition)"
 	do {
 		${0:${VISUAL}}
-	} while (${1:/* condition */});
+	} while (${1:/* condition */})
 # For in loop
 snippet fori
 	for (var ${1:prop} in ${2:object}) {
@@ -127,32 +124,32 @@ snippet has
 snippet sing
 	function ${1:Singleton} (${2:argument}) {
 		// the cached instance
-		var instance;
+		var instance
 
 		// rewrite the constructor
 		$1 = function $1($2) {
-			return instance;
-		};
+			return instance
+		}
 
 		// carry over the prototype properties
-		$1.prototype = this;
+		$1.prototype = this
 
 		// the instance
-		instance = new $1();
+		instance = new $1()
 
 		// reset the constructor pointer
-		instance.constructor = $1;
+		instance.constructor = $1
 
 		${0}
 
-		return instance;
+		return instance
 	}
 # Crockford's object function
 snippet obj
 	function object(o) {
 		function F() {}
-		F.prototype = o;
-		return new F();
+		F.prototype = o
+		return new F()
 	}
 # Define multiple properties
 snippet props
@@ -172,7 +169,7 @@ snippet props
 				configurable : ${0:boolean}
 			}
 		}
-	);
+	)
 # Define single property
 snippet prop
 	Object.defineProperty(
@@ -190,7 +187,7 @@ snippet prop
 			enumerable   : ${5:boolean},
 			configurable : ${0:boolean}
 		}
-	);
+	)
 # Documentation
 # docstring
 snippet /**
@@ -206,10 +203,10 @@ snippet @ret
 
 # JSON.parse
 snippet jsonp
-	JSON.parse(${0:jstr});
+	JSON.parse(${0:jstr})
 # JSON.stringify
 snippet jsons
-	JSON.stringify(${0:object});
+	JSON.stringify(${0:object})
 # DOM selectors
 # Get elements
 snippet get
@@ -231,51 +228,51 @@ snippet qsa
 	${1:document}.querySelectorAll('${0:CSS selector}')
 # Debugging
 snippet de
-	debugger;
+	debugger
 snippet cl "console.log"
-	console.log(${0});
+	console.log(${0})
 snippet cd "console.debug"
-	console.debug(${0});
+	console.debug(${0})
 snippet ce "console.error"
-	console.error(${0});
+	console.error(${0})
 snippet cw "console.warn"
-	console.warn(${0});
+	console.warn(${0})
 snippet ci "console.info"
-	console.info(${0});
+	console.info(${0})
 snippet ct "console.trace"
-	console.trace(${0:label});
+	console.trace(${0:label})
 snippet ctime "console.time ... console.timeEnd"
-	console.time("${1:label}");
+	console.time("${1:label}")
 	${0:${VISUAL}}
-	console.timeEnd("$1");
+	console.timeEnd("$1")
 snippet ctimestamp "console.timeStamp"
-	console.timeStamp("${1:label}");
+	console.timeStamp("${1:label}")
 snippet ca "console.assert"
-	console.assert(${1:expression}, ${0:obj});
+	console.assert(${1:expression}, ${0:obj})
 snippet cclear "console.clear"
-	console.clear();
+	console.clear()
 snippet cdir "console.dir"
-	console.dir(${0:obj});
+	console.dir(${0:obj})
 snippet cdirx "console.dirxml"
-	console.dirxml(${1:object});
+	console.dirxml(${1:object})
 snippet cgroup "console.group"
-	console.group("${1:label}");
+	console.group("${1:label}")
 	${0:${VISUAL}}
-	console.groupEnd();
+	console.groupEnd()
 snippet cgroupc "console.groupCollapsed"
-	console.groupCollapsed("${1:label}");
+	console.groupCollapsed("${1:label}")
 	${0:${VISUAL}}
-	console.groupEnd();
+	console.groupEnd()
 snippet cprof "console.profile"
-	console.profile("${1:label}");
+	console.profile("${1:label}")
 	${0:${VISUAL}}
-	console.profileEnd();
+	console.profileEnd()
 snippet ctable "console.table"
-	console.table(${1:"${2:value}"});
+	console.table(${1:"${2:value}"})
 # Misc
-# 'use strict';
+# 'use strict'
 snippet us
-	'use strict';
+	'use strict'
 # setTimeout function
 snippet timeout
-	setTimeout(function () {${0}}${2}, ${1:10});
+	setTimeout(function () {${0}}${2}, ${1:10})

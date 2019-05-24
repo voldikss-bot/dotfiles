@@ -59,7 +59,7 @@ else
 endif
 
 hi Directory       guifg=#A6E22E               gui=bold
-hi Error           guifg=#E6DB74 guibg=#ff3333
+hi Error           guifg=#FF0000 guibg=#FFFFFF
 hi ErrorMsg        guifg=#F92672 guibg=#232526 gui=bold
 
 hi Exception       guifg=#A6E22E               gui=bold
