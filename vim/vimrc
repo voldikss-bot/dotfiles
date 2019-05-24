@@ -179,9 +179,6 @@ let g:vim_indent_cont = &sw
 let g:autoformat_enabled = 0
 " ToggleTerminal function
 let g:terminal_height = 15
-" Gtags
-let $GTAGSLABEL = 'native-pygments'
-let $GTAGSCONF = '/usr/local/share/gtags/gtags.conf'
 " Keymap: [[[1
 let mapleader   = ';'
 let g:mapleader = ';'
@@ -1106,6 +1103,12 @@ xmap <silent> X   <Plug>(Exchange)
 nmap <silent> cxc <Plug>(ExchangeClear)
 nmap <silent> cxx <Plug>(ExchangeLine)
 " vim-gen_tags [[[2
+let $GTAGSLABEL = 'native-pygments'
+if has('unix')
+    let $GTAGSCONF = '/usr/local/share/gtags/gtags.conf'
+else
+    let $GTAGSCONF = 'D:\Applications\Gtags\share\gtags'
+endif
 let g:gen_tags#ctags_opts =  ['--extra=+q']
 let g:gen_tags#ctags_opts += ['--c-kinds=+px']
 let g:gen_tags#ctags_opts += ['--fields=+niazS']
