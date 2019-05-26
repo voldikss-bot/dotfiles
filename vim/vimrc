@@ -348,7 +348,7 @@ augroup AutocmdGroup
     autocmd BufWrite * if g:autoformat_enabled | :call Autoformat<CR> | endif
     " vim-commentary [[[3
     autocmd FileType python,shell,coffee,crontab setlocal commentstring=#\ %s
-    autocmd FileType java,c,cpp,jsonc            setlocal commentstring=//\ %s
+    autocmd FileType java,c,cpp,json,jsonc            setlocal commentstring=//\ %s
     " vim-matchup [[[3
     autocmd FileType vim let b:match_words =
         \ '\<fu\%[nction]\>:\<retu\%[rn]\>:\<endf\%[unction]\>,' .
@@ -424,6 +424,8 @@ endfunction
 " QuickRun: one key to run [[[2
 function! QuickRun()
     exec 'w'
+    AsyncStop
+    sleep 500m  " wait job to stop
     if exists('g:quickrun_command')
         execute g:quickrun_command
     elseif &filetype == 'c'
@@ -552,32 +554,28 @@ endfunction
 function! NormalMapForEnter()
     if &filetype ==# 'quickfix'
         return "\<CR>"
-    elseif index([
-        \ 'c',
-        \ 'cpp',
-        \ 'cs',
-        \ 'css',
-        \ 'java',
-        \ 'rust',
-        \ 'scss',
-        \ 'typescript',
-        \ 'typescript.tsx'
-    \ ],&filetype) >= 0
-        let l:line = getline('.')
-        if l:line != '' && l:line !~ '^\s\+$' && index([';', '{', '(', '\'], l:line[-1:]) < 0
-            return "A;"
-        else
-            return ""
-        endif
     else
-        return "" " prevent entering to the next line
+        let l:line = getline('.')
+        if index(['c', 'cpp', 'cs', 'css', 'java', 'rust', 'scss'],&filetype) >= 0 
+            \ && l:line != '' 
+            \ && l:line !~ '^\s\+$' 
+            \ && index([';', '{','[', '(', '\'], l:line[-1:]) < 0
+                return "A;"
+        elseif index(['json', 'jsonc'], &filetype) >=0
+            \ && l:line != '' 
+            \ && l:line !~ '^\s\+$' 
+            \ && index([',', '[', '{'], l:line[-1:]) < 0
+                return "A,"
+        else
+            return "" " prevent entering to the next line
+        endif
     endif
 endfunction
 " InsertMapForEnter: <CR> [[[2
 function! InsertMapForEnter()
     if pumvisible()
         return "\<C-y>"
-    elseif strcharpart(getline('.'),getpos('.')[2]-1,1) == '}'
+    elseif index([')', ']', '}'], strcharpart(getline('.'),getpos('.')[2]-1,1)) >= 0
         return "\<CR>\<Esc>O"
     elseif strcharpart(getline('.'),getpos('.')[2]-1,2) == '</'
         return "\<CR>\<Esc>O"
@@ -587,19 +585,12 @@ function! InsertMapForEnter()
 endfunction
 " MapForSemicolonEnter: ;<CR> [[[2
 function! MapForSemicolonEnter()
-    if (getline('.')[-1:] != ';') &&
-        \(index([
-            \ 'c',
-            \ 'cpp',
-            \ 'cs',
-            \ 'css',
-            \ 'java',
-            \ 'rust',
-            \ 'scss',
-            \ 'typescript',
-            \ 'typescript.tsx'
-        \ ],&filetype) >= 0)
+    if index(['c', 'cpp', 'cs', 'css', 'java', 'rust', 'scss'],&filetype) >= 0
+        \ && (getline('.')[-1:] != ';')
         return "\<End>;\<CR>"
+    elseif index(['json', 'jsonc'], &filetype) >=0
+        \ && (getline('.')[-1:] != ',')
+        return "\<End>,\<CR>"
     else
         return "\<Esc>o"
     endif
@@ -615,6 +606,8 @@ function! MapForSemicolonP()
         \ 'java',
         \ 'javascript',
         \ 'javascript.jsx',
+        \ 'json',
+        \ 'jsonc',
         \ 'rust',
         \ 'scss',
         \ 'sh',
@@ -635,9 +628,7 @@ function! MapForDoubleSemicolon()
         \ 'css',
         \ 'java',
         \ 'rust',
-        \ 'scss',
-        \ 'typescript',
-        \ 'typescript.tsx'
+        \ 'scss'
     \ ], &filetype) >= 0
         let line = getline('.')
         if line[-1:] != ';'
@@ -1121,8 +1112,10 @@ let g:gen_tags#ctags_opts += ['--c++-kinds=+px']
 let g:gen_tags#ctags_opts += ['--output-format=e-ctags']
 let g:gen_tags#use_cache_dir = 1
 let g:gen_tags#cache_dir = '$HOME/.cache/nvim/tags'
-let g:gen_tags#ctags_auto_gen = 1
-let g:gen_tags#gtags_auto_gen = 1
+let g:gen_tags#ctags_auto_gen = 0
+let g:gen_tags#gtags_auto_gen = 0
+let g:gen_tags#ctags_auto_update  = 1
+let g:gen_tags#gtags_auto_update  = 1
 let g:gen_tags#blacklist = ['$HOME']
 let g:gen_tags#statusline = 0
 " vim-javascript [[[2
