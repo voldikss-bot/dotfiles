@@ -1168,7 +1168,10 @@ let g:mundo_preview_bottom     = 1
 let g:mundo_auto_preview_delay = 10
 " vim-startify [[[2
 noremap <silent> <Space> <Esc>:Startify<CR>
-let g:startify_bookmarks = [ {'a': '~/.vim/vimrc'}]
+let g:startify_bookmarks = [
+    \ {'v': '~/.vim/vimrc'},
+    \ {'c': '~/.vim/coc-settings.json'}
+\ ]
 let g:startify_files_number = 8
 let g:startify_padding_left = 15
 " let g:startify_custom_header = [
