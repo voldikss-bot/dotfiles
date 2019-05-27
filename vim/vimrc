@@ -4,7 +4,6 @@
 "    -> Blog: https://voldikss.github.io
 "    -> GitHub: https://github.com/voldikss
 " Todo:
-"    -> 不同折叠之间的缩进级别，要加大
 " ========================================================================
 
 " PluginLoad: [[[1
@@ -180,6 +179,7 @@ let g:autoformat_enabled = 0
 " ToggleTerminal function
 let g:terminal_height = 15
 " Keymap: [[[1
+" LeaderKey: [[[2
 let mapleader   = ';'
 let g:mapleader = ';'
 " General: [[[2
@@ -875,12 +875,14 @@ nnoremap <silent> <Leader>gv :CocCommand git.chunkInfo<CR>
 " Install coc extensions
 if match(&rtp, 'coc.nvim') >= 0
     let g:coc_global_extensions = [
+        \ 'coc-browser',
         \ 'coc-css',
         \ 'coc-diagnostic',
         \ 'coc-dictionary',
         \ 'coc-emoji',
         \ 'coc-emmet',
         \ 'coc-git',
+        \ 'coc-github',
         \ 'coc-highlight',
         \ 'coc-html',
         \ 'coc-lists',
