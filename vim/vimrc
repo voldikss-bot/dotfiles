@@ -204,6 +204,11 @@ nnoremap <silent> n  nzz
 nnoremap <silent> N  Nzz
 nnoremap <silent> *  *zz
 nnoremap <silent> #  #zz
+" Diff: [[[2
+vmap dg :diffget<CR>
+vmap dp :diffput<CR>
+nmap dg V:diffget<CR>
+nmap dp V:diffput<CR>
 " BufferOperation: [[[2
 nmap     <silent> -         :Explore<CR>
 nnoremap <silent> <C-h>     :bprev<CR>
@@ -865,8 +870,8 @@ nmap <silent> ,cr        :call CocAction('rename')<CR>
 " coc-git
 nmap <expr> <C-up>   &diff==1 ? '[c' : '<Plug>(coc-git-prevchunk)'
 nmap <expr> <C-down> &diff==1 ? ']c' : '<Plug>(coc-git-nextchunk)'
-nmap <silent> gj <Plug>(coc-git-nextchunk)
-nmap <silent> gk <Plug>(coc-git-prevchunk)
+nmap <expr> gk       &diff==1 ? '[c' : '<Plug>(coc-git-prevchunk)'
+nmap <expr> gj       &diff==1 ? ']c' : '<Plug>(coc-git-nextchunk)'
 nnoremap <silent> <Leader>hs :CocCommand git.chunkStage<CR>
 nnoremap <silent> <Leader>hu :CocCommand git.chunkUndo<CR>
 nnoremap <silent> <Leader>go :CocCommand git.browserOpen<CR>
@@ -888,6 +893,7 @@ if match(&rtp, 'coc.nvim') >= 0
         \ 'coc-lists',
         \ 'coc-json',
         \ 'coc-pairs',
+        \ 'coc-post',
         \ 'coc-python',
         \ 'coc-rls',
         \ 'coc-snippets',
@@ -1223,7 +1229,7 @@ let g:vimtex_view_method='zathura'
 let g:vimtex_mappings_enabled = 0
 let g:vimtex_fold_enabled = 1
 let g:vimtex_quickfix_open_on_warning = 0
-let g:vimtex_quickfix_autoclose_after_keystrokes = 1
+" let g:vimtex_quickfix_autoclose_after_keystrokes = 1
 let g:vimtex_compiler_method = 'latexmk'
 let g:vimtex_compiler_latexmk_engines = {'_': '-xelatex'}
 let g:vimtex_compiler_latexrun_engines = {'_': 'xelatex'}
