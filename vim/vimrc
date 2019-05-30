@@ -178,6 +178,8 @@ let g:vim_indent_cont = &sw
 let g:autoformat_enabled = 0
 " ToggleTerminal function
 let g:terminal_height = 15
+" Quickfix height
+let g:quickfix_height = 8
 " Keymap: [[[1
 " LeaderKey: [[[2
 let mapleader   = ';'
@@ -390,6 +392,7 @@ augroup END
 command! -nargs=+ Grep        call Grep(<q-args>)
 command! -nargs=+ -complete=command TabMessage call TabMessage(<q-args>)
 command! -nargs=0 SetQuickRunCommand  call SetQuickRunCommand()
+command! -nargs=1 SetQuickfixHeight   call SetQuickfixHeight(<q-args>)
 " GitOperation: [[[2
 command! Gap  Git add -p
 command! Cd   Gcd
@@ -515,6 +518,10 @@ function! SetQuickRunCommand() abort
     echohl Preproc
     echo g:quickrun_command
     echohl None
+endfunction
+" SetQuickRunCommand: [[[2
+function! SetQuickfixHeight(height)
+    let g:quickfix_height = a:height
 endfunction
 " FileExplore: open cwd in file explore [[[2
 function! FileExplore()
@@ -839,7 +846,7 @@ let g:airline#extensioin#tabline#right_sep     = '⮂'
 let g:airline#extensioin#tabline#right_alt_sep = '⮃'
 let g:airline#extensions#tabline#formatter     = 'unique_tail'
 " AsyncRun [[[2
-nnoremap <silent> <Leader><Space> :call asyncrun#quickfix_toggle(8)<CR>
+nnoremap <silent> <Leader><Space> :call asyncrun#quickfix_toggle(g:quickfix_height)<CR>
 " automatically open quickfix
 let g:asyncrun_open = 8
 " 看到 Python 实时输出
