@@ -126,8 +126,6 @@ function oh_my_zsh_install(){
     # oh-my-zsh
     if [ ! -d "$HOME/.oh-my-zsh" ]; then
         crun sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-        ln -sf $(readlink -f ../conf/.zshrc) $HOME/.zshrc
-        ln -sf $(readlink -f ../conf/.af-magic.zsh-theme) $HOME/.af-magic.zsh-theme
     else
         cecho "NOTE: oh-my-zsh has already been installed and won't be installed here"
     fi
@@ -146,6 +144,8 @@ function oh_my_zsh_install(){
     # extract
     crun sudo apt install extract -y
 
+    ln -sf $(readlink -f ../conf/.zshrc) $HOME/.zshrc
+    ln -sf $(readlink -f ../conf/.af-magic.zsh-theme) $HOME/.af-magic.zsh-theme
     crun source ~/.zshrc
 }
 
@@ -252,12 +252,17 @@ function gtags_install() {
         # currently the latest version is v6.6.3
         # https://www.gnu.org/software/global/download.html
         crun wget -c http://tamacom.com/global/global-6.6.3.tar.gz
+        crun tar -xf global-6.6.3.tar.gz
+        crun cd global-6.6.3
         crun sudo apt install automake autoconf flex bison gperf libtool libtool-bin texinfo -y
         crun sh reconf.sh
         crun ./configure
         crun make
         crun sudo make install
         crun sudo -H pip3 install pygments
+        crun cd ..
+        crun rm -rf global-6.6.3.tar.gz
+        crun rm -rf global-6.6.3
     else
         cecho "Gtags has already been installed."
     fi
@@ -284,7 +289,7 @@ function ccls_install() {
         crun git clone --depth=1 --recursive https://github.com/MaskRay/ccls
         crun cd ccls
         crun wget -c http://releases.llvm.org/7.0.1/clang+llvm-7.0.1-x86_64-linux-gnu-ubuntu-16.04.tar.xz
-        crun tar xf clang+llvm-7.0.1-x86_64-linux-gnu-ubuntu-16.04.tar.xz
+        crun tar -xf clang+llvm-7.0.1-x86_64-linux-gnu-ubuntu-16.04.tar.xz
         crun cmake -H. -BRelease -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=$PWD/clang+llvm-7.0.1-x86_64-linux-gnu-ubuntu-16.04
         crun cmake --build Release
         crun rm clang+llvm-7.0.1-x86_64-linux-gnu-ubuntu-16.04.tar.xz
