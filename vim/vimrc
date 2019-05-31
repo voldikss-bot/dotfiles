@@ -484,17 +484,20 @@ function! SetQuickRunCommand() abort
     echo "Select and input the number:"
     echohl None
     let cmd_list = [
-        \ '0. Input your own command',
-        \ '1. AsyncRun -raw python3 %',
-        \ '2. AsyncRun -raw python2 %',
-        \ '3. AsyncRun cargo run',
-        \ '4. AsyncRun rustc % && ./%:r',
-        \ '5. AsyncRun tsc',
-        \ '6. AsyncRun make',
-        \ '7. Codi python'
+        \ '----------------------------------------',
+        \ '1. Input your own command',
+        \ '2. AsyncRun -raw python3 %',
+        \ '3. AsyncRun -raw python2 %',
+        \ '4. AsyncRun cargo run',
+        \ '5. AsyncRun rustc % && ./%:r',
+        \ '6. AsyncRun tsc',
+        \ '7. AsyncRun make',
+        \ '8. Codi python'
         \ ]
     let select = inputlist(cmd_list)
     if select == 0
+        return
+    elseif select == 1
 		echohl ModeMsg
         let cmd = input("Input your command: ", "", "shellcmd")
         echohl None
