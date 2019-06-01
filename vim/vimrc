@@ -570,16 +570,14 @@ function! NormalMapForEnter()
     if &filetype ==# 'quickfix'
         return "\<CR>"
     else
-        let l:line = getline('.')
+        let line = getline('.')
         if index(['c', 'cpp', 'cs', 'css', 'java', 'rust', 'scss'],&filetype) >= 0 
-            \ && l:line != '' 
-            \ && l:line !~ '^\s\+$' 
-            \ && index([';', '{','[', '(', '\'], l:line[-1:]) < 0
+            \ && trim(line) != '' 
+            \ && index([';', '{','[', '(', '\'], line[-1:]) < 0
                 return "A;"
         elseif index(['json', 'jsonc'], &filetype) >=0
-            \ && l:line != '' 
-            \ && l:line !~ '^\s\+$' 
-            \ && index([',', '[', '{'], l:line[-1:]) < 0
+            \ && trim(line) != '' 
+            \ && index([',', '[', '{'], line[-1:]) < 0
                 return "A,"
         else
             return "" " prevent entering to the next line
@@ -630,6 +628,13 @@ function! MapForSemicolonP()
         \ 'typescript.tsx'
     \ ], &filetype) >= 0
         return "\<End>\<Space>{}\<Left>\<CR>\<Esc>O"
+    elseif &filetype == 'python'
+        let line = getline('.')
+        if trim(line) != '' && line[-1:] != ':'
+            return "\<End>:\<CR>"
+        else
+            return ""
+        endif
     else
         return ";p"
     endif
@@ -648,6 +653,13 @@ function! MapForDoubleSemicolon()
         let line = getline('.')
         if line[-1:] != ';'
             return "\<End>;"
+        else
+            return ""
+        endif
+    elseif &filetype == 'python'
+        let line = getline('.')
+        if trim(line) != '' && line[-1:] != ':'
+            return "\<End>:"
         else
             return ""
         endif
