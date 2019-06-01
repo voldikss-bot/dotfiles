@@ -53,7 +53,7 @@ Plug 'rhysd/git-messenger.vim', {'on': '<Plug>(git-messenger)'}
 Plug 'idanarye/vim-merginal'
 " Enhancements [[[2
 Plug 'skywind3000/asyncrun.vim'
-Plug 'jsfaint/gen_tags.vim'
+Plug 'jsfaint/gen_tags.vim', {'on': ['GenCtags', 'GenGTAGS']}
 Plug 'Yggdroot/LeaderF'
 Plug 'voldikss/vim-search-me'
 Plug 'voldikss/vim-translate-me'
@@ -357,34 +357,34 @@ augroup AutocmdGroup
     autocmd FileType python,shell,coffee,crontab setlocal commentstring=#\ %s
     autocmd FileType java,c,cpp,json,jsonc            setlocal commentstring=//\ %s
     " vim-matchup [[[3
-    autocmd FileType vim let b:match_words =
-        \ '\<fu\%[nction]\>:\<retu\%[rn]\>:\<endf\%[unction]\>,' .
-        \ '\<\(wh\%[ile]\|for\)\>:\<brea\%[k]\>:\<con\%[tinue]\>:\<end\(w\%[hile]\|fo\%[r]\)\>,' .
-        \ '\<if\>:\<el\%[seif]\>:\<en\%[dif]\>,' .
-        \ '\<try\>:\<cat\%[ch]\>:\<fina\%[lly]\>:\<endt\%[ry]\>,' .
-        \ '\<aug\%[roup]\s\+\%(END\>\)\@!\S:\<aug\%[roup]\s\+END\>'
-    autocmd FileType python let b:match_words =
-        \ '\<if\>:\<el\%[seif]\>,' .
-        \ '\<for\>:\<continue\>:\<break\>,' .
-        \ '\<while\>:\<continue\>:\<break\>,' .
-        \ '\<def\>:\<return\>,' .
-        \ '\<try\>:\<except\>:\<finally\>'
-    " \< \> 标志单词的边界，此处 ; 左边与别的字符直接接触
-    autocmd FileType javascript let b:match_words =
-        \ '=:;,' .
-        \ '\<if\>:\<else\>,' .
-        \ '\<for\>:\<continue\>:\<break\>,' .
-        \ '\<while\>:\<continue\>:\<break\>,' .
-        \ '\<function\>:\<return\>,' .
-        \ '\<switch\>:\<case\>:\<default\>,' .
-        \ '\<\\\*\>:\<\*\\\>'
-    autocmd FileType c,cpp let b:match_words =
-        \ '=:;,' .
-        \ '\<if\>:\<else\>,' .
-        \ '\<for\>:\<continue\>:\<break\>,' .
-        \ '\<do\>:\<while\>:\<continue\>:\<break\>,' .
-        \ '\<switch\>:\<case\>:\<default\>,' .
-        \ '\<\\\*\>:\<\*\\\>'
+    " autocmd FileType vim let b:match_words =
+    "     \ '\<fu\%[nction]\>:\<retu\%[rn]\>:\<endf\%[unction]\>,' .
+    "     \ '\<\(wh\%[ile]\|for\)\>:\<brea\%[k]\>:\<con\%[tinue]\>:\<end\(w\%[hile]\|fo\%[r]\)\>,' .
+    "     \ '\<if\>:\<el\%[seif]\>:\<en\%[dif]\>,' .
+    "     \ '\<try\>:\<cat\%[ch]\>:\<fina\%[lly]\>:\<endt\%[ry]\>,' .
+    "     \ '\<aug\%[roup]\s\+\%(END\>\)\@!\S:\<aug\%[roup]\s\+END\>'
+    " autocmd FileType python let b:match_words =
+    "     \ '\<if\>:\<el\%[seif]\>,' .
+    "     \ '\<for\>:\<continue\>:\<break\>,' .
+    "     \ '\<while\>:\<continue\>:\<break\>,' .
+    "     \ '\<def\>:\<return\>,' .
+    "     \ '\<try\>:\<except\>:\<finally\>'
+    " " \< \> 标志单词的边界，此处 ; 左边与别的字符直接接触
+    " autocmd FileType javascript let b:match_words =
+    "     \ '=:;,' .
+    "     \ '\<if\>:\<else\>,' .
+    "     \ '\<for\>:\<continue\>:\<break\>,' .
+    "     \ '\<while\>:\<continue\>:\<break\>,' .
+    "     \ '\<function\>:\<return\>,' .
+    "     \ '\<switch\>:\<case\>:\<default\>,' .
+    "     \ '\<\\\*\>:\<\*\\\>'
+    " autocmd FileType c,cpp let b:match_words =
+    "     \ '=:;,' .
+    "     \ '\<if\>:\<else\>,' .
+    "     \ '\<for\>:\<continue\>:\<break\>,' .
+    "     \ '\<do\>:\<while\>:\<continue\>:\<break\>,' .
+    "     \ '\<switch\>:\<case\>:\<default\>,' .
+    "     \ '\<\\\*\>:\<\*\\\>'
 augroup END
 "
 " Command: [[[1
