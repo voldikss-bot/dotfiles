@@ -1,3 +1,5 @@
+" vim:fdm=marker:fmr=[[[,]]]
+
 " ========================================================================
 " Introduction:
 "    -> Author: voldikss
@@ -37,8 +39,8 @@ Plug 'scrooloose/nerdtree', {'on': ['NERDTreeToggle', 'NERDTreeCWD']}
 Plug 'Xuyuanp/nerdtree-git-plugin', {'on':['NERDTreeToggle', 'NERDTreeCWD']}
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight', {'on':['NERDTreeToggle', 'NERDTreeCWD']}
 Plug 'mhinz/vim-startify'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+Plug 'itchyny/lightline.vim'
+Plug 'mengelbrecht/lightline-bufferline'
 Plug 'ryanoasis/vim-devicons'
 Plug 'simnalamburt/vim-mundo', {'on': 'MundoToggle'}
 Plug 'kshenoy/vim-signature'
@@ -135,6 +137,8 @@ set title
 set ruler
 set cursorline
 set laststatus=2
+set showtabline=2
+set guioptions-=e
 set shortmess+=c
 set scrolloff=6
 set wrap
@@ -257,7 +261,7 @@ inoremap ;l <Right>
 inoremap ;o <Esc>o
 inoremap ;O <Esc>O
 inoremap ;u <C-u>
-inoremap ;c <Esc>C
+inoremap ;c <Esc><Right>C
 inoremap ;s <Esc>S
 inoremap ;i <Esc>I
 " SaveAndQuit: [[[2
@@ -825,52 +829,12 @@ call SetupCommandAbbrs('gpull', 'AsyncRun git pull')
 call SetupCommandAbbrs('grm', 'Gremove')
 call SetupCommandAbbrs('gmv', 'Gmove')
 " PluginConfig: [[[1
-" airline [[[2
-if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-endif
-let g:airline_left_sep      = '⮀'
-let g:airline_left_alt_sep  = '⮁'
-let g:airline_right_sep     = '⮂'
-let g:airline_right_alt_sep = '⮃'
-let g:airline_symbols.crypt = '🔒'
-let g:airline_symbols.linenr = '⭡'
-let g:airline_powerline_fonts = 1
-
-" Random airline theme
-let g:airline_themes_list = ['aurora', 'badwolf', 'dark', 'light', 'xtermlight']
-let g:randomn = Rand(len(g:airline_themes_list))
-
-if expand("%:p:t") == 'vimrc' && exists("g:airline_theme")
-    " 保存 vimrc 的时候会自动source, 用下面的方法会报错，所以这里用命令
-    " 但是不能只用这个，因为vim启动的时候并没有加载 AirlineTheme 命令
-    exec "AirlineTheme " . g:airline_themes_list[g:randomn]
-else
-    let g:airline_theme = g:airline_themes_list[g:randomn]
-endif
-" remove whitespace detecting section
-let g:airline#extensions#whitespace#enabled = 0
-" buffer 编号显示
-let g:airline#extensions#tabline#buffer_nr_show = 1
-" tab 编号显示
-" let g:airline#extensions#tabline#show_tab_nr = 1
-let g:airline#extensions#tabline#enabled       = 1
-let g:airline#extensions#tabline#left_sep      = '⮀'
-let g:airline#extensions#tabline#left_alt_sep  = '⮁'
-let g:airline#extensioin#tabline#right_sep     = '⮂'
-let g:airline#extensioin#tabline#right_alt_sep = '⮃'
-let g:airline#extensions#tabline#formatter     = 'unique_tail'
 " AsyncRun [[[2
 nnoremap <silent> <Leader><Space> :call asyncrun#quickfix_toggle(g:quickfix_height)<CR>
 " automatically open quickfix
 let g:asyncrun_open = 8
 " 看到 Python 实时输出
 let $PYTHONUNBUFFERED=1
-" airline 集成
-let g:asyncrun_status = ''
-if match(&rtp, 'vim-airline') >= 0
-    let g:airline_section_error = airline#section#create_right(['%{g:asyncrun_status}'])
-endif
 " coc.nvim [[[2
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
@@ -988,6 +952,144 @@ let g:Lf_Ctags                = "/usr/local/bin/ctags"
 " let g:Lf_PreviewCode = 1
 let g:Lf_StlColorscheme = 'powerline'
 let g:Lf_StlSeparator   = {'left': '⮀', 'right': '⮂', 'font': ''}
+" lightline [[[2
+" from https://github.com/brglng/dotfiles/blob/master/vim/zpan/init/plugins/lightline.vim
+let g:lightline = {
+    \ 'colorscheme': 'landscape',
+    \ 'active': {
+    \     'left': [
+    \         ['mode', 'paste'],
+    \         ['fugitive', 'readonly', 'filename', 'modified'] 
+    \     ],
+    \     'right': [
+    \         ['lineinfo'],
+    \         ['percent'],
+    \         ['asyncrun', 'cocstatus', 'fileformat', 'fileencoding', 'filetype' ],
+    \     ]
+    \ },
+    \ 'component': {
+    \     'lineinfo': ' %4l,%-3v',
+    \     'asyncrun': '%{g:asyncrun_status}'
+    \ },
+    \ 'component_function': {
+    \     'mode': 'LightlineMode',
+    \     'fugitive': 'LightlineFugitive',
+    \     'cocstatus': 'coc#status',
+    \     'readonly': 'LightlineReadonly',
+    \     'filename': 'LightlineFilename',
+    \     'fileformat': 'LightlineFileFormat',
+    \     'fileencoding': 'LightlineFileEncoding',
+    \     'filetype': 'LightlineFiletype'
+    \ }
+\ }
+
+" LightlineMode: [[[3
+function! LightlineMode()
+  return &filetype ==# 'defx' ? 'Defx' :
+        \ &filetype ==# 'denite' ? 'Denite' :
+        \ &filetype ==# 'gitv' ? 'GitV' :
+        \ &filetype ==# 'help' ? 'Help' :
+        \ &filetype ==# 'man' ? 'Man' :
+        \ &filetype ==# 'qf' && !getwininfo(win_getid(winnr()))[0]['loclist'] ? 'QuickFix' :
+        \ &filetype ==# 'qf' && getwininfo(win_getid(winnr()))[0]['loclist'] ? 'Location List' :
+        \ &filetype ==# 'startify' ? 'Startify' :
+        \ &filetype ==# 'Mundo' ? 'Mundo' :
+        \ expand('%:t') =~ '__Tagbar__' ? 'Tagbar' :
+        \ expand('%:t') =~ '__vista__' ? 'Vista' :
+        \ lightline#mode()
+endfunction
+" LightlineFilename: [[[3
+function! LightlineFilename()
+  let filename = &filetype ==# 'defx' ? '' :
+        \ &filetype ==# 'denite' ? '' :
+        \ &filetype ==# 'gitv' ? '' :
+        \ &filetype ==# 'help' ? '' :
+        \ &filetype ==# 'man' ? '' :
+        \ &filetype ==# 'startify' ? '' :
+        \ &filetype ==# 'Mundo' ? '' :
+        \ expand('%:t') =~ '__Tagbar__\|__vista__' ? '' :
+        \ expand('%:t') !=# '' ? expand('%:t') : '[No Name]'
+  let modified = &modified ? ' ✎' : ''
+  return filename . modified
+endfunction
+" LightlineFugitive: [[[3
+function! LightlineFugitive()
+  if exists('*fugitive#head') && &filetype !~# '\v(defx|denite|help|man|qf|tagbar|Mundo|vista)'
+    let branch = fugitive#head()
+    return branch !=# '' ? ''. branch : ''
+  endif
+  return ''
+endfunction
+" LightlineFileFormat: [[[3
+function! LightlineFileFormat()
+  return &filetype !=# 'defx' &&
+        \ &filetype !=# 'denite' &&
+        \ &filetype !=# 'gitv' &&
+        \ &filetype !=# 'help' &&
+        \ &filetype !=# 'man' &&
+        \ &filetype !=# 'qf' &&
+        \ &filetype !=# 'startify' &&
+        \ &filetype != 'Mundo' &&
+        \ expand('%:t') !~ '__Tagbar__\|__vista__' &&
+        \ winwidth(0) > 70
+        \ ? &fileformat : ''
+endfunction
+" LightlineFiletype: [[[3
+function! LightlineFiletype()
+  return &filetype !=# 'defx' &&
+        \ &filetype !=# 'denite' &&
+        \ &filetype !=# 'gitv' &&
+        \ &filetype !=# 'help' &&
+        \ &filetype !=# 'man' &&
+        \ &filetype !=# 'qf' &&
+        \ &filetype !=# 'startify' &&
+        \ &filetype !=# 'Mundo' &&
+        \ expand('%:t') !~ '__Tagbar__\|__vista__' &&
+        \ winwidth(0) > 70
+        \ ? &filetype !=# '' ? &filetype : 'no ft' : ''
+endfunction
+" LightlineFileEncoding: [[[3
+function! LightlineFileEncoding()
+  return &filetype !=# 'defx' &&
+        \ &filetype !=# 'denite' &&
+        \ &filetype !=# 'gitv' &&
+        \ &filetype !=# 'help' &&
+        \ &filetype !=# 'man' &&
+        \ &filetype !=# 'qf' &&
+        \ &filetype !=# 'startify' &&
+        \ &filetype !=# 'Mundo' &&
+        \ expand('%:t') !~ '__Tagbar__\|__vista__' &&
+        \ winwidth(0) > 70
+        \ ? &fileencoding : ''
+endfunction
+" LightlineReadonly: [[[3
+function! LightlineReadonly()
+  return &readonly && &filetype !~# '\v(defx|denite|help|man|qf|startify)' && expand('%:t') !~ ('__Tagbar__\|__vista__') ? '' : ''
+endfunction
+" lightline-bufferline [[[2
+let g:lightline.tabline          = {'left': [['buffers']], 'right': [['close']]}
+let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
+let g:lightline.component_type   = {'buffers': 'tabsel'}
+
+let g:lightline#bufferline#unnamed = '[No Name]'
+let g:lightline#bufferline#filename_modifier = ':t'
+let g:lightline#bufferline#enable_devicons = 1
+let g:lightline#bufferline#unicode_symbols = 1
+let g:lightline#bufferline#show_number  = 3
+let g:lightline#bufferline#number_map = {
+      \ 0: '⁰', 1: '¹', 2: '²', 3: '³', 4: '⁴',
+      \ 5: '⁵', 6: '⁶', 7: '⁷', 8: '⁸', 9: '⁹'
+      \ }
+nmap <Leader>1 <Plug>lightline#bufferline#go(1)
+nmap <Leader>2 <Plug>lightline#bufferline#go(2)
+nmap <Leader>3 <Plug>lightline#bufferline#go(3)
+nmap <Leader>4 <Plug>lightline#bufferline#go(4)
+nmap <Leader>5 <Plug>lightline#bufferline#go(5)
+nmap <Leader>6 <Plug>lightline#bufferline#go(6)
+nmap <Leader>7 <Plug>lightline#bufferline#go(7)
+nmap <Leader>8 <Plug>lightline#bufferline#go(8)
+nmap <Leader>9 <Plug>lightline#bufferline#go(9)
+nmap <Leader>0 <Plug>lightline#bufferline#go(10)
 " markdown-preview.nvim [[[2
 let g:mkdp_auto_close = 0
 " NeoDebug [[[2
@@ -1255,17 +1357,6 @@ let g:vimtex_quickfix_open_on_warning = 0
 let g:vimtex_compiler_method = 'latexmk'
 let g:vimtex_compiler_latexmk_engines = {'_': '-xelatex'}
 let g:vimtex_compiler_latexrun_engines = {'_': 'xelatex'}
-" airline integration
-" https://github.com/vim-airline/vim-airline/blob/master/doc/airline.txt#L1061
-let g:airline#extensions#vimtex#enabled = 1
-let g:airline#extensions#vimtex#left = "{"
-let g:airline#extensions#vimtex#right = "}"
-let g:airline#extensions#vimtex#main = ""
-let g:airline#extensions#vimtex#sub_main = "m"
-let g:airline#extensions#vimtex#sub_local = "l"
-let g:airline#extensions#vimtex#compiled = "c₁"
-let g:airline#extensions#vimtex#continuous = "c"
-let g:airline#extensions#vimtex#viewer = "v"
 " vim-visual-multi [[[2
 " for plug on-demand
 map <C-n>  <Plug>VM-Find-Under
@@ -1340,4 +1431,4 @@ nnoremap <silent> <F10> :Vista!!<CR>
 " <Leader>aw       <Esc>:ArgWrap<CR>
 " ,t               <Plug>DictSearch
 
-" vim:fdm=marker:fmr=[[[,]]]
+" source ./plugins/lightline.vim
