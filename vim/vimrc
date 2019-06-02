@@ -865,34 +865,31 @@ nnoremap <silent> <Leader>go :CocCommand git.browserOpen<CR>
 nnoremap <silent> <Leader>gv :CocCommand git.chunkInfo<CR>
 
 " Install coc extensions
-if match(&rtp, 'coc.nvim') >= 0
-    let g:coc_global_extensions = [
-        \ 'coc-browser',
-        \ 'coc-css',
-        \ 'coc-diagnostic',
-        \ 'coc-dictionary',
-        \ 'coc-emoji',
-        \ 'coc-emmet',
-        \ 'coc-git',
-        \ 'coc-github',
-        \ 'coc-highlight',
-        \ 'coc-html',
-        \ 'coc-lists',
-        \ 'coc-json',
-        \ 'coc-pairs',
-        \ 'coc-post',
-        \ 'coc-python',
-        \ 'coc-rls',
-        \ 'coc-snippets',
-        \ 'coc-syntax',
-        \ 'coc-tag',
-        \ 'coc-tsserver',
-        \ 'coc-vimtex',
-        \ 'coc-vimlsp',
-        \ 'coc-word',
-        \ ]
-    call coc#add_extension()
-endif
+let g:coc_global_extensions = [
+    \ 'coc-browser',
+    \ 'coc-css',
+    \ 'coc-diagnostic',
+    \ 'coc-dictionary',
+    \ 'coc-emoji',
+    \ 'coc-emmet',
+    \ 'coc-git',
+    \ 'coc-highlight',
+    \ 'coc-html',
+    \ 'coc-lists',
+    \ 'coc-json',
+    \ 'coc-pairs',
+    \ 'coc-post',
+    \ 'coc-python',
+    \ 'coc-rls',
+    \ 'coc-snippets',
+    \ 'coc-syntax',
+    \ 'coc-tag',
+    \ 'coc-tsserver',
+    \ 'coc-vimtex',
+    \ 'coc-vimlsp',
+    \ 'coc-word',
+    \ ]
+call coc#add_extension()
 " codi.vim [[[2
 let g:codi#interpreters = {
     \ 'python': {
