@@ -35,9 +35,6 @@ Plug 'aperezdc/vim-template', {'on': 'Template'}
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile', 'frozen':1}
 " Style [[[2
 Plug 'Yggdroot/indentLine'
-Plug 'scrooloose/nerdtree', {'on': ['NERDTreeToggle', 'NERDTreeCWD']}
-Plug 'Xuyuanp/nerdtree-git-plugin', {'on':['NERDTreeToggle', 'NERDTreeCWD']}
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight', {'on':['NERDTreeToggle', 'NERDTreeCWD']}
 Plug 'Shougo/defx.nvim', {'do': 'UpdateRemotePlugins'}
 Plug 'mhinz/vim-startify'
 Plug 'itchyny/lightline.vim'
@@ -81,10 +78,6 @@ Plug 'tpope/vim-repeat'
 Plug 'foosoft/vim-argwrap'
 Plug 'junegunn/vim-easy-align'
 Plug 'mg979/vim-visual-multi', {'on': '<Plug>VM-Find-Under'}
-Plug 'kana/vim-textobj-user'
-Plug 'kana/vim-textobj-entire'
-Plug 'jceb/vim-textobj-uri'
-Plug 'reedes/vim-textobj-sentence'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'jeetsukumaran/vim-pythonsense'
 Plug 'wellle/targets.vim'
@@ -968,8 +961,8 @@ let g:indentLine_enabled = 1
 let g:indentLine_color_term = 238
 let g:indentLine_fileTypeExclude = ['startify', 'vista', 'json', 'codi']
 " LeaderF [[[2
-let g:Lf_ShortcutF = '<Leader>f'
-let g:Lf_ShortcutB = '<Leader>b'
+noremap <silent> <Leader>f :LeaderfFile<CR>
+noremap <silent> <Leader>b :LeaderfBuffer<CR>
 noremap <silent> <Leader>t :LeaderfBufTagAll<CR>
 noremap <silent> <Leader>r :Leaderf rg<CR>
 
