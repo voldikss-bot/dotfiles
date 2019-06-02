@@ -17,8 +17,7 @@
   "diagnostic.hintSign": "➤",
   "diagnostic-languageserver.filetypes": {
     "markdown": [
-      "write-good",
-      "markdownlint"
+      "write-good"
     ],
     "sh": "shellcheck"
   },
