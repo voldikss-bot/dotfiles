@@ -38,6 +38,7 @@ Plug 'Yggdroot/indentLine'
 Plug 'scrooloose/nerdtree', {'on': ['NERDTreeToggle', 'NERDTreeCWD']}
 Plug 'Xuyuanp/nerdtree-git-plugin', {'on':['NERDTreeToggle', 'NERDTreeCWD']}
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight', {'on':['NERDTreeToggle', 'NERDTreeCWD']}
+Plug 'Shougo/defx.nvim'
 Plug 'mhinz/vim-startify'
 Plug 'itchyny/lightline.vim'
 Plug 'mengelbrecht/lightline-bufferline'
@@ -67,7 +68,7 @@ Plug 'junegunn/vim-peekaboo'
 Plug 'liuchengxu/vista.vim'
 " Move [[[2
 Plug 'easymotion/vim-easymotion'
-Plug 'andymass/vim-matchup'
+" Plug 'andymass/vim-matchup'
 Plug 'tommcdo/vim-exchange'
 Plug 'matze/vim-move'
 Plug 'andrewradev/sideways.vim'
@@ -899,6 +900,76 @@ let g:codi#interpreters = {
         \ 'prompt': '^\(>>>\|\.\.\.\) '
     \ }
 \ }
+" defx.nvim [[[2
+" from https://github.com/brglng/dotfiles/blob/master/vim/zpan/init/plugins/defx.vim
+call defx#custom#option('_', {
+      \ 'columns': 'mark:git:indent:icons:filename',
+      \ 'winwidth': 30,
+      \ 'split': 'vertical',
+      \ 'direction': 'topleft',
+      \ 'show_ignored_files': 0,
+      \ 'buffer_name': '',
+      \ 'toggle': 1,
+      \ 'resume': 1
+      \ })
+
+call defx#custom#column('icon', {
+      \ 'directory_icon': '',
+      \ 'opened_icon': '',
+      \ 'root_icon': ""
+      \ })
+
+call defx#custom#column('mark', {
+      \ 'readonly_icon': "",
+      \ 'selected_icon': "",
+      \ })
+
+autocmd FileType defx call s:defx_my_settings()
+noremap  <silent> <F2> <Esc>:Defx<CR>
+noremap! <silent> <F2> <Esc>:Defx<CR>
+" DefxMySettings: [[[3
+function! s:defx_my_settings() abort
+  setlocal nonumber
+  setlocal listchars=
+  setlocal foldcolumn=0
+  setlocal noswapfile
+  setlocal nolist
+  setlocal nospell
+  setlocal cursorline
+
+  " Define mappings
+  nnoremap <silent><buffer><expr>   <CR>            defx#is_directory() ? defx#do_action('open_or_close_tree') : defx#do_action('multi', ['drop'])
+  nnoremap <silent><buffer><expr>   <2-LeftMouse>   defx#is_directory() ? defx#do_action('open_or_close_tree') : defx#do_action('multi', ['drop'])
+  nnoremap <silent><buffer><expr>   c               defx#do_action('copy')
+  nnoremap <silent><buffer><expr>   m               defx#do_action('move')
+  nnoremap <silent><buffer><expr>   p               defx#do_action('paste')
+  " nnoremap <silent><buffer><expr>   l               defx#do_action('open')
+  nnoremap <silent><buffer><expr>   E               defx#do_action('open', 'vsplit')
+  nnoremap <silent><buffer><expr>   P               defx#do_action('open', 'pedit')
+  " nnoremap <silent><buffer><expr>   o               defx#do_action('open_or_close_tree')
+  nnoremap <silent><buffer><expr>   K               defx#do_action('new_directory')
+  nnoremap <silent><buffer><expr>   N               defx#do_action('new_file')
+  nnoremap <silent><buffer><expr>   M               defx#do_action('new_multiple_files')
+  nnoremap <silent><buffer><expr>   C               defx#do_action('toggle_columns', 'mark:git:icons:filename:size:time')
+  nnoremap <silent><buffer><expr>   S               defx#do_action('toggle_sort', 'time')
+  nnoremap <silent><buffer><expr>   d               defx#do_action('remove')
+  nnoremap <silent><buffer><expr>   r               defx#do_action('rename')
+  nnoremap <silent><buffer><expr>   !               defx#do_action('execute_command')
+  nnoremap <silent><buffer><expr>   x               defx#do_action('execute_system')
+  nnoremap <silent><buffer><expr>   yy              defx#do_action('yank_path')
+  nnoremap <silent><buffer><expr>   .               defx#do_action('toggle_ignored_files')
+  " nnoremap <silent><buffer><expr>   ;               defx#do_action('repeat')
+  nnoremap <silent><buffer><expr>   <C-o>           defx#do_action('cd', ['..'])
+  nnoremap <silent><buffer><expr>   <C-i>           defx#do_action('open')
+  nnoremap <silent><buffer><expr>   q               defx#do_action('quit')
+  nnoremap <silent><buffer><expr>   <Space>         defx#do_action('toggle_select') . 'j'
+  nnoremap <silent><buffer><expr>   *               defx#do_action('toggle_select_all')
+  " nnoremap <silent><buffer><expr>   j               line('.') == line('$') ? 'gg' : 'j'
+  " nnoremap <silent><buffer><expr>   k               line('.') == 1 ? 'G' : 'k'
+  nnoremap <silent><buffer><expr>   <C-l>           defx#do_action('redraw')
+  nnoremap <silent><buffer><expr>   <C-g>           defx#do_action('print')
+  nnoremap <silent><buffer><expr>   cd              defx#do_action('change_vim_cwd')
+endfunction
 " fileheader.nvim [[[2
 let g:fileheader_auto_add = 0
 let g:fileheader_auto_update = 0
@@ -1106,84 +1177,6 @@ let g:neodbg_keymap_print_variable     = '<Nop5>' " view variable under the curs
 let g:neodbg_keymap_stop_debugging     = '<Nop6>' " stop debugging (kill)
 let g:neodbg_keymap_toggle_console_win = '<Nop7>' " toggle console window
 noremap <silent> <F8> <Esc>:NeoDebug ./a.out<CR>
-" NERDTree [[[2
-let NERDTreeShowLineNumbers = 1
-let NERDTreeAutoCenter = 1
-let NERDTreeShowHidden = 1
-let NERDTreeWinSize = 28
-" 在终端启动vim时，共享NERDTree
-let g:nerdtree_tabs_open_on_console_startup = 1
-let NERDTreeIgnore = [
-            \ '\.git$', '\.hg$', '\.svn$', '\.stversions$', '\.pyc$', '\.svn$','\~$',
-	        \ '\.DS_Store$', '\.sass-cache$', '__pycache__$', '\.egg-info$', '\.cache$'
-	        \ ]
-let NERDTreeShowBookmarks = 1
-let g:NERDTreeDirArrowExpandable = '▸'
-let g:NERDTreeDirArrowCollapsible = '▾'
-" 如果只剩下NERDTree则关闭vim
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-" 切换 NERDTree
-noremap  <silent> <F2> <Esc>:call NERDTreeToggler()<CR>
-noremap! <silent> <F2> <Esc>:call NERDTreeToggler()<CR>
-function! NERDTreeToggler()
-  if (exists("t:NERDTreeBufName") && bufwinnr(t:NERDTreeBufName) != -1)
-    exe ":NERDTreeClose"
-  else
-    if (expand("%:t") != '')
-      exe ":NERDTreeCWD"
-    else
-      exe ":NERDTreeToggle"
-    endif
-  endif
-endfunction
-" nerdtree-git-plugin [[[2
-let g:NERDTreeIndicatorMapCustom = {
-            \ "Modified"  : "✹",
-            \ "Staged"    : "✚",
-            \ "Untracked" : "✭",
-            \ "Renamed"   : "➜",
-            \ "Unmerged"  : "═",
-            \ "Deleted"   : "✖",
-            \ "Dirty"     : "✗",
-            \ "Clean"     : "✔︎",
-            \ 'Ignored'   : '☒',
-            \ "Unknown"   : "?"
-            \ }
-" vim-nerdtree-syntax-highlight [[[2
-let g:NERDTreeFileExtensionHighlightFullName = 1
-let g:NERDTreeExactMatchHighlightFullName = 1
-let g:NERDTreePatternMatchHighlightFullName = 1
-
-let g:NERDTreeHighlightFolders = 1 " enables folder icon highlighting using exact match
-let g:NERDTreeHighlightFoldersFullName = 1 " highlights the folder name
-
-let s:brown = "905532"
-let s:aqua =  "3AFFDB"
-let s:blue = "689FB6"
-let s:darkBlue = "44788E"
-let s:purple = "834F79"
-let s:lightPurple = "834F79"
-let s:red = "AE403F"
-let s:beige = "F5C06F"
-let s:yellow = "F09F17"
-let s:orange = "D4843E"
-let s:darkOrange = "F16529"
-let s:pink = "CB6F6F"
-let s:salmon = "EE6E73"
-let s:green = "8FAA54"
-let s:lightGreen = "31B53E"
-let s:white = "FFFFFF"
-let s:rspec_red = 'FE405F'
-let s:git_orange = 'F54D27'
-
-let g:NERDTreeExtensionHighlightColor = {} " this line is needed to avoid error
-let g:NERDTreeExtensionHighlightColor['css'] = s:blue " sets the color of css files to blue
-
-let g:NERDTreeExactMatchHighlightColor = {} " this line is needed to avoid error
-let g:NERDTreeExactMatchHighlightColor['.gitignore'] = s:git_orange " sets the color for .gitignore files
-
-let g:NERDTreePatternMatchHighlightColor = {} " this line is needed to avoid error
-let g:NERDTreePatternMatchHighlightColor['.*_spec\.rb$'] = s:rspec_red " sets the color for files ending with _spec.rb
 " python-syntax [[[2
 let g:python_highlight_all = 1
 let g:python_highlight_space_errors = 0
