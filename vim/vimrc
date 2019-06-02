@@ -211,10 +211,12 @@ nnoremap <silent> N  Nzz
 nnoremap <silent> *  *zz
 nnoremap <silent> #  #zz
 " Diff: [[[2
-vmap dg :diffget<CR>
-vmap dp :diffput<CR>
-nmap dg V:diffget<CR>
-nmap dp V:diffput<CR>
+if &diff == 1
+    vmap <silent> <buffer> dg :diffget<CR>
+    vmap <silent> <buffer> dp :diffput<CR>
+    nmap <silent> <buffer> dg V:diffget<CR>
+    nmap <silent> <buffer> dp V:diffput<CR>
+endif
 " BufferOperation: [[[2
 nmap     <silent> -         :Explore<CR>
 nnoremap <silent> <C-h>     :bprev<CR>
@@ -1390,5 +1392,3 @@ nnoremap <silent> <F10> :Vista!!<CR>
 
 " <Leader>aw       <Esc>:ArgWrap<CR>
 " ,t               <Plug>DictSearch
-
-" source ./plugins/lightline.vim
