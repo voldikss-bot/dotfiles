@@ -9,14 +9,37 @@
 " ========================================================================
 
 " GlobalVariables: [[[1
-" indent count when type <CR> and then \
+" IndentCont: indent count when type <CR> and then \
 let g:vim_indent_cont = &sw
-" Autoformat function
+" AutoformatEnable:
 let g:autoformat_enabled = 0
-" ToggleTerminal function
+" TerminalHeight:
 let g:terminal_height = 15
-" Quickfix height
-let g:quickfix_height = 8
+" QuickfixHeight:
+let g:quickfix_height = 9
+" ToggleWindows:
+let g:windows_toggle = {
+    \ 'defx': {
+        \ 'open': 'Defx',
+        \ 'close': 'Defx'
+    \ },
+    \ 'vista': {
+        \ 'open':'Vista',
+        \ 'close': 'Vista!'
+    \ },
+    \ 'qf': {
+        \ 'open': 'call asyncrun#quickfix_toggle(g:quickfix_height)',
+        \ 'close': 'call asyncrun#quickfix_toggle(g:quickfix_height)'
+    \ },
+    \ 'Mundo': {
+        \ 'open': 'MundoToggle',
+        \ 'close': 'MundoToggle'
+    \ },
+    \ 'terminal': {
+        \ 'open': 'call ToggleTerminal(15)',
+        \ 'close': 'call ToggleTerminal(15)'
+    \ }
+    \ }
 " DontLoad: [[[2
 let g:loaded_gzip = 0
 let g:loaded_zipPlugin = 0
@@ -267,19 +290,30 @@ inoremap <silent> <Esc> <Esc>:noh<CR>
 nnoremap <silent> <Esc> <Esc>:noh<CR>
 endif
 " Customized function [[[2
-noremap  <silent> <F4>         <Esc>:call FileExplore()<CR>
-noremap  <silent> <F5>         <Esc>:call QuickRun()<CR>
-noremap! <silent> <F5>         <Esc>:call QuickRun()<CR>
-noremap  <silent> <Leader>x    <Esc>:call QuickRun()<CR>
-noremap  <silent> <F6>         <Esc>:call Autoformat()<CR>
-noremap! <silent> <F6>         <Esc>:call Autoformat()<CR>
-noremap  <silent> <expr><F12>  &buftype =='terminal' ?
-                               \ "\<C-\><C-n>:call ToggleTerminal(g:terminal_height)\<CR>" :
+noremap  <silent> <F2>            <Esc>:call ToggleWindows('defx')<CR>
+noremap! <silent> <F2>            <Esc>:call ToggleWindows('defx')<CR>
+tnoremap <silent> <F2>            <C-\><C-n>:call ToggleWindows('defx')<CR>
+noremap  <silent> <F3>            <Esc>:call ToggleWindows('Mundo')<CR>
+noremap! <silent> <F3>            <Esc>:call ToggleWindows('Mundo')<CR>
+tnoremap <silent> <F3>            <C-\><C-n>:call ToggleWindows('Mundo')<CR>
+noremap  <silent> <F4>            <Esc>:call FileExplore()<CR>
+noremap  <silent> <F5>            <Esc>:call QuickRun()<CR>
+noremap! <silent> <F5>            <Esc>:call QuickRun()<CR>
+noremap  <silent> <Leader>x       <Esc>:call QuickRun()<CR>
+noremap  <silent> <Leader><Space> <Esc>:call ToggleWindows('qf')<CR>
+tnoremap <silent> <Leader><Space> <C-\><C-n>:call ToggleWindows('qf')<CR>
+noremap  <silent> <F6>            <Esc>:call Autoformat()<CR>
+noremap! <silent> <F6>            <Esc>:call Autoformat()<CR>
+noremap  <silent> <F10>           <Esc>:call ToggleWindows('vista')<CR>
+noremap! <silent> <F10>           <Esc>:call ToggleWindows('vista')<CR>
+tnoremap <silent> <F10>           <C-\><C-n>:call ToggleWindows('vista')<CR>
+noremap  <silent> <expr><F12>     &buftype =='terminal' ?
+                               \ "\<C-\><C-n>:call ToggleWindows('terminal')\<CR>" :
                                \ (has('nvim') ? 
-                               \ "\<Esc>:call ToggleTerminal(g:terminal_height)\<CR>i" :
-                               \ "\<Esc>:call ToggleTerminal(g:terminal_height)\<CR>")
-noremap! <silent> <F12>        <Esc>:call ToggleTerminal(g:terminal_height)<CR>i
-tnoremap <silent> <F12>        <C-\><C-n>:call ToggleTerminal(g:terminal_height)<CR>
+                               \ "\<Esc>:call ToggleWindows('terminal')\<CR>i" :
+                               \ "\<Esc>:call ToggleWindows('terminal')\<CR>")
+noremap! <silent> <F12>        <Esc>:call ToggleWindows('terminal')<CR>i
+tnoremap <silent> <F12>        <C-\><C-n>:call ToggleWindows('terminal')<CR>
 nnoremap <expr>   <CR>         NormalMapForEnter() . "\<Esc>"
 inoremap <expr>   <CR>         InsertMapForEnter()
 inoremap <expr>   <BS>         MapForBackspace()
@@ -566,25 +600,7 @@ function! MapForSemicolonEnter()
 endfunction
 " MapForSemicolonP: ;p [[[2
 function! MapForSemicolonP()
-    if index([
-        \ 'bash',
-        \ 'c',
-        \ 'cpp',
-        \ 'cs',
-        \ 'css',
-        \ 'java',
-        \ 'javascript',
-        \ 'javascript.jsx',
-        \ 'json',
-        \ 'jsonc',
-        \ 'rust',
-        \ 'scss',
-        \ 'sh',
-        \ 'typescript',
-        \ 'typescript.tsx'
-    \ ], &filetype) >= 0
-        return "\<End>\<Space>{}\<Left>\<CR>\<Esc>O"
-    elseif &filetype == 'python'
+    if &filetype == 'python'
         let line = getline('.')
         if trim(line) != '' && line[-1:] != ':'
             return "\<End>:\<CR>"
@@ -592,7 +608,7 @@ function! MapForSemicolonP()
             return ""
         endif
     else
-        return ";p"
+        return "\<End>\<Space>{}\<Left>\<CR>\<Esc>O"
     endif
 endfunction
 " MapForDoubleSemicolon: ;; [[[2
@@ -697,20 +713,13 @@ function! ToggleTerminal(height)
         execute found_winnr . 'wincmd w'
     endif
   else
-    let found_quickfix = 0
     let found_bufnr = 0
     for bufnr in filter(range(1, bufnr('$')), 'bufexists(v:val)')
       let buftype = getbufvar(bufnr, '&buftype')
       if buftype == 'terminal'
         let found_bufnr = bufnr
-      elseif buftype == 'quickfix'
-        let found_quickfix = bufnr
       endif
     endfor
-    " if quickfix was open, close it firstly
-    if found_quickfix > 0
-        execute 'cclose'
-    endif
     if found_bufnr > 0
       if &lines > 30
         execute 'botright ' . a:height . 'split'
@@ -736,6 +745,29 @@ function! ToggleTerminal(height)
       endif
     endif
   endif
+endfunction
+" ToggleWindows: [[[2
+function! ToggleWindows(winname)
+    let found_winnr = 0
+
+    for winnr in range(1, winnr('$'))
+        let buftype = getbufvar(winbufnr(winnr), '&buftype')
+        let filetype = getbufvar(winbufnr(winnr), '&filetype')
+        " terminal window: &buftype is 'terminal' but &filetype is ''
+        let window = filetype != "" ? filetype : buftype
+        if window == a:winname
+            let found_winnr = winnr
+        elseif index(keys(g:windows_toggle), window) >= 0
+            " close other windows
+            execute g:windows_toggle[window]['close']
+        endif
+    endfor
+
+    if found_winnr > 0
+        execute g:windows_toggle[a:winname]['close']
+    else
+        execute g:windows_toggle[a:winname]['open']
+    endif
 endfunction
 " Abbreviate: [[[1
 call SetupCommandAbbrs('As', 'AsyncRun')
@@ -855,9 +887,8 @@ Plug 'tweekmonster/startuptime.vim', {'on': 'StartupTime'}
 call plug#end()
 " PluginConfig: [[[1
 " AsyncRun [[[2
-nnoremap <silent> <Leader><Space> :call asyncrun#quickfix_toggle(g:quickfix_height)<CR>
-" automatically open quickfix
-let g:asyncrun_open = 8
+" automatically open quickfix at height value g:quickfix_height
+let g:asyncrun_open = g:quickfix_height
 " 看到 Python 实时输出
 let $PYTHONUNBUFFERED=1
 " coc.nvim [[[2
@@ -947,8 +978,6 @@ call defx#custom#column('mark', {
       \ })
 
 autocmd FileType defx call s:defx_my_settings()
-noremap  <silent> <F2> <Esc>:Defx<CR>
-noremap! <silent> <F2> <Esc>:Defx<CR>
 " DefxMySettings: [[[3
 function! s:defx_my_settings() abort
   setlocal nonumber
@@ -1290,8 +1319,6 @@ vmap <silent> K <Plug>MoveBlockUp
 nmap <silent> J <Plug>MoveLineDown
 nmap <silent> K <Plug>MoveLineUp
 " vim-mundo [[[2
-noremap  <silent> <F3> <Esc>:MundoToggle<CR>
-noremap! <silent> <F3> <Esc>:MundoToggle<CR>
 let g:mundo_width              = 30
 let g:mundo_preview_height     = 10
 let g:mundo_right              = 0
@@ -1373,8 +1400,6 @@ let g:VM_leader             = ";"
 let g:VM_default_mappings   = 0
 let g:VM_maps               = {}
 let g:VM_maps["Select All"] = '<Leader>A'
-" vista.vim [[[2
-nnoremap <silent> <F10> :Vista!!<CR>
 " NvimQt: [[[1
 if exists('g:GuiLoaded')
     inoremap <S-CR> <Esc>o
