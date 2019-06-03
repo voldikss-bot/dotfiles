@@ -8,84 +8,43 @@
 " Todo:
 " ========================================================================
 
-" PluginLoad: [[[1
-call plug#begin('~/.vim/plugged')
-" Languages [[[2
-Plug 'octol/vim-cpp-enhanced-highlight', {'for': ['c', 'cpp']}
-Plug 'cpiger/NeoDebug', {'for':['c', 'cpp']}
-Plug 'godlygeek/tabular', {'for': 'markdown'}
-Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
-Plug 'iamcco/markdown-preview.nvim', {'for':'markdown', 'do': {-> mkdp#util#install()}, 'frozen': 1}
-Plug 'dhruvasagar/vim-table-mode',{'for': 'markdown', 'do': ':TableFormat'}
-Plug 'rhysd/vim-gfm-syntax', {'for': 'markdown'}
-Plug 'rstacruz/sparkup', {'for':['html', 'htmldjango']}
-Plug 'othree/html5.vim', {'for':['html', 'htmldjango']}
-Plug 'jaxbot/browserlink.vim', {'for': ['html', 'htmldjango', 'css']}
-Plug 'alvan/vim-closetag', {'for': ['html', 'xml', 'htmldjango']}
-Plug 'pangloss/vim-javascript', {'for': 'javascript'}
-Plug 'MTDL9/vim-log-highlighting', {'for': 'log'}
-Plug 'vim-python/python-syntax', {'for':'python'}
-Plug 'numirias/semshi', {'for':'python', 'do': ':UpdateRemotePlugins'}
-Plug 'lervag/vimtex', {'for': 'tex'}
-Plug 'cespare/vim-toml', {'for': 'toml'}
-Plug 'HerringtonDarkholme/yats.vim', {'for': 'typescript'}
-Plug 'leafgarland/typescript-vim', {'for': 'typescript'}
-Plug 'aperezdc/vim-template', {'on': 'Template'}
-" Completion [[[2
-Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile', 'frozen':1}
-" Style [[[2
-Plug 'Yggdroot/indentLine'
-Plug 'Shougo/defx.nvim', {'do': 'UpdateRemotePlugins'}
-Plug 'mhinz/vim-startify'
-Plug 'itchyny/lightline.vim'
-Plug 'mengelbrecht/lightline-bufferline'
-Plug 'ryanoasis/vim-devicons'
-Plug 'simnalamburt/vim-mundo', {'on': 'MundoToggle'}
-Plug 'kshenoy/vim-signature'
-Plug 'mattesgroeger/vim-bookmarks'
-Plug 'guns/xterm-color-table.vim'
-" Git [[[2
-Plug 'tpope/vim-fugitive'
-Plug 'cohama/agit.vim', {'on': 'Agit'}
-Plug 'mattn/gist-vim', {'on': 'Gist'}
-Plug 'mattn/webapi-vim'
-Plug 'rhysd/git-messenger.vim', {'on': '<Plug>(git-messenger)'}
-Plug 'idanarye/vim-merginal'
-" Enhancements [[[2
-Plug 'skywind3000/asyncrun.vim'
-Plug 'jsfaint/gen_tags.vim', {'on': ['GenCtags', 'GenGTAGS']}
-Plug 'Yggdroot/LeaderF'
-Plug 'voldikss/vim-search-me'
-Plug 'voldikss/vim-translate-me'
-Plug 'ahonn/fileheader.nvim', {'on': ['AddFileHeader', 'UpdateFileHeader']}
-Plug 'inkarkat/vim-mark', {'on': '<Plug>MarkSet'}
-Plug 'inkarkat/vim-ingo-library'
-Plug 'moll/vim-bbye'
-Plug 'junegunn/vim-peekaboo'
-Plug 'liuchengxu/vista.vim'
-" Move [[[2
-Plug 'easymotion/vim-easymotion'
-Plug 'tommcdo/vim-exchange'
-Plug 'matze/vim-move'
-Plug 'andrewradev/sideways.vim'
-Plug 'rhysd/clever-f.vim'
-" Edit [[[2
-Plug 'tpope/vim-abolish'
-Plug 'tpope/vim-commentary'
-Plug 'bronson/vim-visual-star-search'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-repeat'
-Plug 'foosoft/vim-argwrap'
-Plug 'junegunn/vim-easy-align'
-Plug 'mg979/vim-visual-multi', {'on': '<Plug>VM-Find-Under'}
-Plug 'michaeljsmith/vim-indent-object'
-Plug 'jeetsukumaran/vim-pythonsense'
-Plug 'wellle/targets.vim'
-" Misc [[[2
-Plug 'yianwillis/vimcdoc'
-Plug 'metakirby5/codi.vim'
-Plug 'tweekmonster/startuptime.vim', {'on': 'StartupTime'}
-call plug#end()
+" GlobalVariables: [[[1
+" indent count when type <CR> and then \
+let g:vim_indent_cont = &sw
+" Autoformat function
+let g:autoformat_enabled = 0
+" ToggleTerminal function
+let g:terminal_height = 15
+" Quickfix height
+let g:quickfix_height = 8
+" DontLoad: [[[2
+let g:loaded_gzip = 0
+let g:loaded_zipPlugin = 0
+let g:loaded_2html_plugin = 0
+let g:loaded_tarPlugin = 0
+" PythonHost: [[[2
+if has('win32') || has('win64') || has('win32unix')
+    let g:python3_host_prog='D:/Applications/Python36/python.exe'
+else
+    let g:python3_host_prog='/usr/bin/python3'
+endif
+" NeoVimTerminalColors: [[[2
+let g:terminal_color_0  = '#282828'
+let g:terminal_color_1  = '#cc241d'
+let g:terminal_color_2  = '#00ffff'
+let g:terminal_color_3  = '#d79921'
+let g:terminal_color_4  = '#458588'
+let g:terminal_color_5  = '#b16286'
+let g:terminal_color_6  = '#689d6a'
+let g:terminal_color_7  = '#a89984'
+let g:terminal_color_8  = '#928374'
+let g:terminal_color_9  = '#fb4934'
+let g:terminal_color_10 = '#00df5f'
+let g:terminal_color_11 = '#fabd2f'
+let g:terminal_color_12 = '#00afff'
+let g:terminal_color_13 = '#d3869b'
+let g:terminal_color_14 = '#8ec07c'
+let g:terminal_color_15 = '#ebdbb2'
 " General: [[[1
 " file & directory & format [[[2
 set history=2000
@@ -168,15 +127,11 @@ set wildignorecase
 set wildignore+=.stversions,*.pyc,*.spl,*.o,*.out,*~,%*
 set wildignore+=*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store
 set wildignore+=__pycache__,*.egg-info
-" set common variable[[[2
-" indent count when type <CR> and then \
-let g:vim_indent_cont = &sw
-" Autoformat function
-let g:autoformat_enabled = 0
-" ToggleTerminal function
-let g:terminal_height = 15
-" Quickfix height
-let g:quickfix_height = 8
+" nvim only [[[2
+if has('nvim')
+set inccommand=nosplit
+set wildoptions+=pum
+endif
 " Keymap: [[[1
 " LeaderKey: [[[2
 let mapleader   = ';'
@@ -280,6 +235,37 @@ else
     nnoremap <silent> <Leader>n :vsplit term://zsh<CR>
     nnoremap <silent> ,n        :edit term://zsh<CR>
 endif
+" WindowOperation: [[[2
+if has('nvim')
+nnoremap <M-h> <C-w>h
+nnoremap <M-j> <C-w>j
+nnoremap <M-k> <C-w>k
+nnoremap <M-l> <C-w>l
+inoremap <M-h> <Esc><C-w>h
+inoremap <M-j> <Esc><C-w>j
+inoremap <M-k> <Esc><C-w>k
+inoremap <M-l> <Esc><C-w>l
+tnoremap <M-h> <C-\><C-n><C-w>h
+tnoremap <M-j> <C-\><C-n><C-w>j
+tnoremap <M-k> <C-\><C-n><C-w>k
+tnoremap <M-l> <C-\><C-n><C-w>l
+cnoremap <expr> <C-n>  pumvisible() ? '<Right>' : '<Down>'
+cnoremap <expr> <C-p>  pumvisible() ? '<Left>' : '<Up>'
+cnoremap <expr> <Up>   pumvisible() ? '<C-p>' : '<up>'
+cnoremap <expr> <Down> pumvisible() ? '<C-n>' : '<down>'
+endif
+" WindowSize: [[[2
+if has('nvim')
+noremap <M-up>    <C-w>+
+noremap <M-down>  <C-w>-
+noremap <M-left>  <C-w>5<
+noremap <M-right> <C-w>5>
+endif
+" ClearnSearchHighlight:  [[[2
+if has('nvim')
+inoremap <silent> <Esc> <Esc>:noh<CR>
+nnoremap <silent> <Esc> <Esc>:noh<CR>
+endif
 " Customized function [[[2
 noremap  <silent> <F4>         <Esc>:call FileExplore()<CR>
 noremap  <silent> <F5>         <Esc>:call QuickRun()<CR>
@@ -353,7 +339,7 @@ augroup AutocmdGroup
     " vim-autoformat [[[3
     autocmd BufWrite * if g:autoformat_enabled | :call Autoformat<CR> | endif
     " vim-commentary [[[3
-    autocmd FileType python,shell,coffee,crontab setlocal commentstring=#\ %s
+    autocmd FileType python,shell,coffee,crontab,toml setlocal commentstring=#\ %s
     autocmd FileType java,c,cpp,json,jsonc            setlocal commentstring=//\ %s
 augroup END
 "
@@ -794,6 +780,79 @@ call SetupCommandAbbrs('gpush', 'AsyncRun git push')
 call SetupCommandAbbrs('gpull', 'AsyncRun git pull')
 call SetupCommandAbbrs('grm', 'Gremove')
 call SetupCommandAbbrs('gmv', 'Gmove')
+" PluginLoad: [[[1
+call plug#begin('~/.vim/plugged')
+" Languages [[[2
+Plug 'octol/vim-cpp-enhanced-highlight', {'for': ['c', 'cpp']}
+Plug 'cpiger/NeoDebug', {'for':['c', 'cpp']}
+Plug 'godlygeek/tabular', {'for': 'markdown'}
+Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
+Plug 'iamcco/markdown-preview.nvim', {'for':'markdown', 'do': {-> mkdp#util#install()}, 'frozen': 1}
+Plug 'dhruvasagar/vim-table-mode',{'for': 'markdown', 'do': ':TableFormat'}
+Plug 'rhysd/vim-gfm-syntax', {'for': 'markdown'}
+Plug 'rstacruz/sparkup', {'for':['html', 'htmldjango']}
+Plug 'othree/html5.vim', {'for':['html', 'htmldjango']}
+Plug 'jaxbot/browserlink.vim', {'for': ['html', 'htmldjango', 'css']}
+Plug 'alvan/vim-closetag', {'for': ['html', 'xml', 'htmldjango']}
+Plug 'pangloss/vim-javascript', {'for': 'javascript'}
+Plug 'vim-python/python-syntax', {'for':'python'}
+Plug 'numirias/semshi', {'for':'python', 'do': ':UpdateRemotePlugins'}
+Plug 'lervag/vimtex', {'for': 'tex'}
+Plug 'HerringtonDarkholme/yats.vim', {'for': 'typescript'}
+Plug 'leafgarland/typescript-vim', {'for': 'typescript'}
+Plug 'aperezdc/vim-template', {'on': 'Template'}
+" Completion [[[2
+Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile', 'frozen':1}
+" Style [[[2
+Plug 'Yggdroot/indentLine'
+Plug 'Shougo/defx.nvim', {'do': ':UpdateRemotePlugins'}
+Plug 'kristijanhusak/defx-git'
+Plug 'kristijanhusak/defx-icons'
+Plug 'mhinz/vim-startify'
+Plug 'itchyny/lightline.vim'
+Plug 'mengelbrecht/lightline-bufferline'
+Plug 'ryanoasis/vim-devicons'
+Plug 'simnalamburt/vim-mundo', {'on': 'MundoToggle'}
+Plug 'kshenoy/vim-signature'
+Plug 'guns/xterm-color-table.vim', {'on': 'XtermColorTable'}
+" Git [[[2
+Plug 'tpope/vim-fugitive'
+Plug 'cohama/agit.vim', {'on': 'Agit'}
+Plug 'mattn/gist-vim', {'on': 'Gist'}
+Plug 'mattn/webapi-vim'
+Plug 'rhysd/git-messenger.vim', {'on': '<Plug>(git-messenger)'}
+Plug 'idanarye/vim-merginal'
+" Enhancements [[[2
+Plug 'skywind3000/asyncrun.vim'
+Plug 'jsfaint/gen_tags.vim', {'on': ['GenCtags', 'GenGTAGS']}
+Plug 'Yggdroot/LeaderF'
+Plug 'voldikss/vim-search-me'
+Plug 'voldikss/vim-translate-me'
+Plug 'ahonn/fileheader.nvim', {'on': ['AddFileHeader', 'UpdateFileHeader']}
+Plug 'inkarkat/vim-mark', {'on': '<Plug>MarkSet'}
+Plug 'inkarkat/vim-ingo-library'
+Plug 'moll/vim-bbye'
+Plug 'liuchengxu/vista.vim', {'on': 'Vista'}
+" Move [[[2
+Plug 'easymotion/vim-easymotion'
+Plug 'tommcdo/vim-exchange', {'on': ['<Plug>(Exchange)', '<Plug>(ExchangeLine)', '<Plug>(ExchangeClear)']}
+Plug 'matze/vim-move', {'on': ['<Plug>MoveLineUp', '<Plug>MoveLineDown', '<Plug>MoveBlockUp', '<Plug>MoveBlockDown']}
+Plug 'andrewradev/sideways.vim', {'on': ['SidewaysLeft', 'SidewaysRight']}
+Plug 'rhysd/clever-f.vim'
+" Edit [[[2
+Plug 'tpope/vim-commentary'
+Plug 'bronson/vim-visual-star-search'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'foosoft/vim-argwrap', {'on': 'ArgWrap'}
+Plug 'junegunn/vim-easy-align'
+Plug 'mg979/vim-visual-multi', {'on': '<Plug>VM-Find-Under'}
+Plug 'wellle/targets.vim'
+" Misc [[[2
+Plug 'yianwillis/vimcdoc'
+Plug 'metakirby5/codi.vim', {'on': 'Codi'}
+Plug 'tweekmonster/startuptime.vim', {'on': 'StartupTime'}
+call plug#end()
 " PluginConfig: [[[1
 " AsyncRun [[[2
 nnoremap <silent> <Leader><Space> :call asyncrun#quickfix_toggle(g:quickfix_height)<CR>
@@ -855,6 +914,13 @@ let g:coc_global_extensions = [
     \ 'coc-word',
     \ ]
 call coc#add_extension()
+if has('nvim')
+highlight GitAdd                guifg=#00FF00 guibg=#232526
+highlight GitModify             guifg=#00FFFF guibg=#232526
+highlight GitDeleteTop          guifg=#FF2222 guibg=#232526
+highlight GitDeleteButtom       guifg=#FF2222 guibg=#232526
+highlight GitDeleteTopAndBottom guifg=#FF2222 guibg=#232526
+endif
 " codi.vim [[[2
 let g:codi#interpreters = {
     \ 'python': {
@@ -873,12 +939,6 @@ call defx#custom#option('_', {
       \ 'buffer_name': '',
       \ 'toggle': 1,
       \ 'resume': 1
-      \ })
-
-call defx#custom#column('icon', {
-      \ 'directory_icon': '',
-      \ 'opened_icon': '',
-      \ 'root_icon': ""
       \ })
 
 call defx#custom#column('mark', {
@@ -959,7 +1019,7 @@ let g:goyo_linenr = 1
 " indentLine [[[2
 let g:indentLine_enabled = 1
 let g:indentLine_color_term = 238
-let g:indentLine_fileTypeExclude = ['startify', 'vista', 'json', 'codi']
+let g:indentLine_fileTypeExclude = ['startify', 'vista', 'json', 'codi', 'defx']
 " LeaderF [[[2
 noremap <silent> <Leader>f :LeaderfFile<CR>
 noremap <silent> <Leader>b :LeaderfBuffer<CR>
@@ -1149,19 +1209,6 @@ nnoremap <silent> <C-right> :SidewaysRight<CR>
 let g:sparkupExecuteMapping = '<C-i>'
 " vim-argwrap [[[2
 noremap <silent> <Leader>aw :ArgWrap<CR>
-" vim-bookmarks [[[2
-" 重新定义按键映射
-let g:bookmark_no_default_key_mappings = 1
-nmap <silent> ,bm <Plug>BookmarkToggle
-nmap <silent> ,bi <Plug>BookmarkAnnotate
-nmap <silent> ,ba <Plug>BookmarkShowAll
-nmap <silent> ,bn <Plug>BookmarkNext
-nmap <silent> ,bp <Plug>BookmarkPrev
-nmap <silent> ,bc <Plug>BookmarkClearAll
-let g:bookmark_sign            = '⚑'
-let g:bookmark_highlight_lines = 1
-" 缓存地址
-let g:bookmark_auto_save_file = $HOME . '/.cache/nvim/vim_bookmarks'
 " vim-cpp-enhanced-highlight [[[2
 let g:cpp_class_scope_highlight                  = 1
 let g:cpp_member_variable_highlight              = 1
@@ -1173,12 +1220,10 @@ xmap <silent> ga <Plug>(EasyAlign)
 nmap <silent> ga <Plug>(EasyAlign)
 " vim-easymotion [[[2
 map  <Plug>NoPrefix <Plug>(easymotion-prefix)
-map  ,e      <Plug>(easymotion-bd-w)
-nmap ,e      <Plug>(easymotion-overwin-w)
-map  ,f      <Plug>(easymotion-bd-f)
-nmap ,f      <Plug>(easymotion-overwin-f)
-map  ,l      <Plug>(easymotion-bd-jk)
-nmap ,l      <Plug>(easymotion-overwin-line)
+map  ,e             <Plug>(easymotion-bd-w)
+map  ,f             <Plug>(easymotion-s2)
+map  ,l             <Plug>(easymotion-bd-jk)
+let g:EasyMotion_smartcase = 1
 " vim-exchange [[[2
 nmap <silent> cx  <Plug>(Exchange)
 xmap <silent> X   <Plug>(Exchange)
@@ -1287,6 +1332,15 @@ let g:startify_custom_header = [
     \ '                          ░░  ░ ░ ░ ▒    ░ ░    ░ ░  ░  ▒ ░░ ░░ ░ ░  ░  ░  ░  ░  ░  ',
     \ '                           ░      ░ ░      ░  ░   ░     ░  ░  ░         ░        ░  ',
     \ '                          ░                     ░                                   ']
+if has('nvim')
+highlight StartifyHeader guifg=#FF00FF
+highlight StartifyNumber guifg=#00FF00
+highlight StartifyPath   guifg=#00AFFF
+highlight StartifySlash  guifg=#DF875F
+" highlight StartifyBracket  guifg=#585858
+" highlight StartifyFooter   guifg=#585858
+" highlight StartifySpecial  guifg=#0000FF
+endif
 " vim-table-mode [[[2
 " for Markdown
 let g:table_mode_corner = '|'
@@ -1321,6 +1375,35 @@ let g:VM_maps               = {}
 let g:VM_maps["Select All"] = '<Leader>A'
 " vista.vim [[[2
 nnoremap <silent> <F10> :Vista!!<CR>
+" NvimQt: [[[1
+if exists('g:GuiLoaded')
+    inoremap <S-CR> <Esc>o
+    inoremap <C-CR> <Esc>O
+    GuiFont! Monaco:h11
+    GuiTabline 0
+    GuiPopupmenu 0
+    let g:GuiWindowMaximized = 1
+endif
+" WindowsOnly: [[[1
+if has('win32') || has('win64')
+    set pythonthreedll=D:\Applications\Python36\python36.dll
+    if has('gui_running')
+        inoremap <S-CR> <Esc>o
+        inoremap <C-CR> <Esc>O
+        set encoding=utf-8
+        au GUIEnter * simalt ~x " 窗口启动时自动最大化
+        set guioptions-=m       " 隐藏菜单栏
+        set guioptions-=T       " 隐藏工具栏
+        set guioptions-=L       " 隐藏左侧滚动条
+        set guioptions-=r       " 隐藏右侧滚动条
+        set guioptions-=b       " 隐藏底部滚动条
+        set guifont=Monaco\ for\ Powerline:h10
+        " set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h11:b
+        source $VIMRUNTIME/delmenu.vim
+        source $VIMRUNTIME/menu.vim
+        language messages zh_CN.utf-8
+    endif
+endif
 " CheatSheet: [[[1
 " J                 移动整行
 " K                 移动整行
