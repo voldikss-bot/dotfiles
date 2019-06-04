@@ -565,9 +565,6 @@ function! SetQuickRunCommand() abort
         let cmd = input("Input your command: ", "", "shellcmd")
         echohl None
         if trim(cmd) == ""
-            echohl ErrorMsg
-            echo "\nInvalid input"
-            echohl None
             return
         endif
         let g:quickrun_command = cmd
@@ -780,10 +777,10 @@ function! ToggleTerminal(height)
   if found_winnr > 0
     if &buftype == 'terminal'
         " if current window is the terminal window, close it
-        execute found_winnr . 'wincmd q'
+        execute found_winnr . ' wincmd q'
     else
         " if current window is not terminal, go to the terminal window
-        execute found_winnr . 'wincmd w'
+        execute found_winnr . ' wincmd w'
     endif
   else
     let found_bufnr = 0
