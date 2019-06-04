@@ -1077,33 +1077,54 @@ let g:Lf_StlSeparator   = {'left': '⮀', 'right': '⮂', 'font': ''}
 " lightline [[[2
 " from https://github.com/brglng/dotfiles/blob/master/vim/zpan/init/plugins/lightline.vim
 let g:lightline = {
-    \ 'colorscheme': 'landscape',
+    \ 'colorscheme': 'aurora',
     \ 'active': {
-    \     'left': [
-    \         ['mode', 'paste'],
-    \         ['fugitive', 'readonly', 'filename', 'modified'] 
-    \     ],
-    \     'right': [
-    \         ['lineinfo'],
-    \         ['percent'],
-    \         ['asyncrun', 'cocstatus', 'fileformat', 'fileencoding', 'filetype' ],
-    \     ]
+    \ 'left': [
+        \ ['mode', 'paste'],
+        \ ['fugitive', 'readonly', 'filename'],
+        \ ['absolutepath']
+    \ ],
+    \ 'right': [
+        \ ['asyncrun_status'],
+        \ ['lineinfo'],
+        \ ['percent'],
+        \ ['cocstatus', 'fileformat', 'fileencoding'],
+        \ ['filetype']
+    \ ]
     \ },
     \ 'component': {
-    \     'lineinfo': ' %4l,%-3v',
-    \     'asyncrun': '%{g:asyncrun_status}'
+        \ 'lineinfo': ' %4l,%-3v',
+        \ 'asyncrun_status': '%{g:asyncrun_status}',
+        \ 'close': '%{has("nvim") ? " NVIM " : " VIM "}',
+        \ 'vim_logo': "\ue7c5"
     \ },
     \ 'component_function': {
-    \     'mode': 'LightlineMode',
-    \     'fugitive': 'LightlineFugitive',
-    \     'cocstatus': 'coc#status',
-    \     'readonly': 'LightlineReadonly',
-    \     'filename': 'LightlineFilename',
-    \     'fileformat': 'LightlineFileFormat',
-    \     'fileencoding': 'LightlineFileEncoding',
-    \     'filetype': 'LightlineFiletype'
+        \ 'mode': 'LightlineMode',
+        \ 'fugitive': 'LightlineFugitive',
+        \ 'cocstatus': 'coc#status',
+        \ 'readonly': 'LightlineReadonly',
+        \ 'filename': 'LightlineFilename',
+        \ 'fileformat': 'LightlineFileFormat',
+        \ 'fileencoding': 'LightlineFileEncoding',
+        \ 'filetype': 'LightlineFiletype',
+        \ 'absolutepath': 'LightlineAbsolutePath'
+    \ },
+    \ 'tabline': {
+        \ 'left': [['vim_logo', 'buffers']],
+        \ 'right': [['close']]
+    \ },
+    \ 'component_expand': {
+        \ 'buffers': 'lightline#bufferline#buffers'
+    \ },
+    \ 'component_type': {
+        \ 'buffers': 'tabsel'
     \ }
 \ }
+
+" LightlineAbsolutePath: [[[3
+function! LightlineAbsolutePath()
+    return winwidth(0) > 70 ? expand('%:p') : ''
+endfunction
 
 " LightlineMode: [[[3
 function! LightlineMode()
@@ -1167,8 +1188,7 @@ function! LightlineFiletype()
         \ &filetype !=# 'startify' &&
         \ &filetype !=# 'Mundo' &&
         \ expand('%:t') !~ '__Tagbar__\|__vista__' &&
-        \ winwidth(0) > 70
-        \ ? &filetype !=# '' ? &filetype : 'no ft' : ''
+        \ winwidth(0) > 70 ? (strlen(&filetype) ? WebDevIconsGetFileTypeSymbol() . ' ' . &filetype : 'no ft') : ''
 endfunction
 " LightlineFileEncoding: [[[3
 function! LightlineFileEncoding()
@@ -1189,10 +1209,6 @@ function! LightlineReadonly()
   return &readonly && &filetype !~# '\v(defx|denite|help|man|qf|startify)' && expand('%:t') !~ ('__Tagbar__\|__vista__') ? '' : ''
 endfunction
 " lightline-bufferline [[[2
-let g:lightline.tabline          = {'left': [['buffers']], 'right': [['close']]}
-let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
-let g:lightline.component_type   = {'buffers': 'tabsel'}
-
 let g:lightline#bufferline#unnamed = '[No Name]'
 let g:lightline#bufferline#filename_modifier = ':t'
 let g:lightline#bufferline#enable_devicons = 1
