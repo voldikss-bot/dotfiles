@@ -1120,7 +1120,9 @@ let g:lightline = {
 
 " LightlineAbsolutePath: [[[3
 function! LightlineAbsolutePath()
-    return winwidth(0) > 70 ? expand('%:p') : ''
+    let path = winwidth(0) > 70 ? expand('%:p') : ''
+    let path = substitute(path, $HOME, '~', 'g')
+    return path
 endfunction
 
 " LightlineMode: [[[3
