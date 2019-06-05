@@ -382,18 +382,16 @@ noremap  <silent> <F10>           <Esc>:call ToggleWindows('vista')<CR>
 noremap! <silent> <F10>           <Esc>:call ToggleWindows('vista')<CR>
 tnoremap <silent> <F10>           <C-\><C-n>:call ToggleWindows('vista')<CR>
 noremap  <silent> <expr><F12>     &buftype =='terminal' ?
-                               \ "\<C-\><C-n>:call ToggleWindows('terminal')\<CR>" :
-                               \ (has('nvim') ? 
-                               \ "\<Esc>:call ToggleWindows('terminal')\<CR>i" :
-                               \ "\<Esc>:call ToggleWindows('terminal')\<CR>")
-noremap! <silent> <F12>        <Esc>:call ToggleWindows('terminal')<CR>i
-tnoremap <silent> <F12>        <C-\><C-n>:call ToggleWindows('terminal')<CR>
-nnoremap <expr>   <CR>         NormalMapForEnter() . "\<Esc>"
-inoremap <expr>   <CR>         InsertMapForEnter()
-inoremap <expr>   <BS>         MapForBackspace()
-inoremap <expr>   ;<CR>        MapForSemicolonEnter()
-inoremap <expr>   ;p           MapForSemicolonP()
-inoremap <expr>   ;;           MapForDoubleSemicolon()
+                                  \ "\<C-\><C-n>:call ToggleWindows('terminal')\<CR>" :
+                                  \ "\<Esc>:call ToggleWindows('terminal')\<CR>i"
+noremap! <silent> <F12>           <Esc>:call ToggleWindows('terminal')<CR>i
+tnoremap <silent> <F12>           <C-\><C-n>:call ToggleWindows('terminal')<CR>
+nnoremap <expr>   <CR>            NormalMapForEnter() . "\<Esc>"
+inoremap <expr>   <CR>            InsertMapForEnter()
+inoremap <expr>   <BS>            MapForBackspace()
+inoremap <expr>   ;<CR>           MapForSemicolonEnter()
+inoremap <expr>   ;p              MapForSemicolonP()
+inoremap <expr>   ;;              MapForDoubleSemicolon()
 " Autocmd: [[[1
 augroup AutocmdGroup
     autocmd!
