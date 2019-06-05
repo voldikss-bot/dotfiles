@@ -881,6 +881,7 @@ call SetupCommandAbbrs('gco', 'AsyncRun git checkout .')
 call SetupCommandAbbrs('gpush', 'AsyncRun git push')
 call SetupCommandAbbrs('gpull', 'AsyncRun git pull')
 call SetupCommandAbbrs('grm', 'Gremove')
+"ddd"
 call SetupCommandAbbrs('gmv', 'Gmove')
 " PluginConfig: [[[1
 " AsyncRun [[[2
