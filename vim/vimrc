@@ -176,6 +176,7 @@ set backspace=2
 set backspace=eol,start,indent
 set whichwrap=b,s,<,>,[,]
 set completeopt-=preview
+set nomodeline
 " style [[[2
 colorscheme molokai
 set termguicolors
