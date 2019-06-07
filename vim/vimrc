@@ -377,6 +377,7 @@ noremap  <silent> <Leader>x       <Esc>:call QuickRun()<CR>
 noremap  <silent> <Leader><Space> <Esc>:call ToggleWindows('qf')<CR>
 tnoremap <silent> <Leader><Space> <C-\><C-n>:call ToggleWindows('qf')<CR>
 noremap  <silent> <F6>            <Esc>:call Autoformat()<CR>
+noremap  <silent> ;;              <Esc>:call Autoformat()<CR>
 noremap! <silent> <F6>            <Esc>:call Autoformat()<CR>
 noremap  <silent> <F10>           <Esc>:call ToggleWindows('vista')<CR>
 noremap! <silent> <F10>           <Esc>:call ToggleWindows('vista')<CR>
