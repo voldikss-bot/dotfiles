@@ -152,11 +152,15 @@ snippet ans
 	}
 ##
 ## Input/Output
-# std::cout
 snippet cout
+	cout << ${1} << endl;
+# std::cout
+snippet stdcout
 	std::cout << ${1} << std::endl;
 # std::cin
 snippet cin
+	cin >> ${1};
+snippet stdcin
 	std::cin >> ${1};
 ##
 ## Casts
