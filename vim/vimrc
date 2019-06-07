@@ -389,9 +389,9 @@ tnoremap <silent> <F12>           <C-\><C-n>:call ToggleWindows('terminal')<CR>
 nnoremap <expr>   <CR>            NormalMapForEnter() . "\<Esc>"
 inoremap <expr>   <CR>            InsertMapForEnter()
 inoremap <expr>   <BS>            MapForBackspace()
-inoremap <expr>   ;<CR>           MapForSemicolonEnter()
-inoremap <expr>   ;p              MapForSemicolonP()
-inoremap <expr>   ;;              MapForDoubleSemicolon()
+inoremap <expr>   ;<CR>           InsertMapForSemicolonEnter()
+inoremap <expr>   ;p              InsertMapForSemicolonP()
+inoremap <expr>   ;;              InsertMapForDoubleSemicolon()
 " Autocmd: [[[1
 augroup AutocmdGroup
     autocmd!
@@ -629,15 +629,23 @@ function! NormalMapForEnter()
     if &filetype ==# 'quickfix'
         return "\<CR>"
     else
-        let line = getline('.')
-        if index(['c', 'cpp', 'cs', 'css', 'java', 'rust', 'scss'],&filetype) >= 0 
-            \ && trim(line) != '' 
-            \ && index([';', '{','[', '(', '\'], line[-1:]) < 0
-                return "A;"
+        let line = trim(getline('.'))
+        if index(['c', 'cpp', 'cs', 'css', 'java', 'rust', 'scss'], &filetype) >= 0 
+            if line != '' 
+                \ && index(['#', '/'], line[0]) < 0
+                \ && index([';', '{','[', '(', '\'], line[-1:]) < 0
+                    return "A;"
+            else
+                return ""
+            endif
         elseif index(['json', 'jsonc'], &filetype) >=0
-            \ && trim(line) != '' 
-            \ && index([',', '[', '{'], line[-1:]) < 0
+            if line != '' 
+                \ && index(['#', '/'], line[0]) < 0
+                \ && index([',', '{','['], line[-1:]) < 0
                 return "A,"
+            else
+                return ""
+            endif
         else
             return "" " prevent entering to the next line
         endif
@@ -645,33 +653,43 @@ function! NormalMapForEnter()
 endfunction
 " InsertMapForEnter: <CR> [[[2
 function! InsertMapForEnter()
+    let line = trim(getline('.'))
     if pumvisible()
         return "\<C-y>"
-    elseif index([')', ']', '}'], strcharpart(getline('.'),getpos('.')[2]-1,1)) >= 0
+    elseif index([')', ']', '}'], strcharpart(line, getpos('.')[2]-1, 1)) >= 0
         return "\<CR>\<Esc>O"
-    elseif strcharpart(getline('.'),getpos('.')[2]-1,2) == '</'
+    elseif strcharpart(line, getpos('.')[2]-1,2) == '</'
         return "\<CR>\<Esc>O"
     else
         return "\<CR>"
     endif
 endfunction
-" MapForSemicolonEnter: ;<CR> [[[2
-function! MapForSemicolonEnter()
-    if index(['c', 'cpp', 'cs', 'css', 'java', 'rust', 'scss'],&filetype) >= 0
-        \ && (getline('.')[-1:] != ';')
-        return "\<End>;\<CR>"
+" InsertMapForSemicolonEnter: ;<CR> [[[2
+function! InsertMapForSemicolonEnter()
+    let line = trim(getline('.'))
+    if index(['c', 'cpp', 'cs', 'css', 'java', 'rust', 'scss'], &filetype) >= 0
+        if line != '' && line[-1:] != ';' && index(['#', '/'], line[0]) < 0
+            return "\<End>;\<CR>"
+        else
+            return "\<Esc>o"
+        endif
     elseif index(['json', 'jsonc'], &filetype) >=0
-        \ && (getline('.')[-1:] != ',')
-        return "\<End>,\<CR>"
+        if line != '' 
+            \ && index(['#', '/'], line[0]) < 0
+            \ && index([',', '{','['], line[-1:]) < 0
+            return "\<End>,\<CR>"
+        else
+            return ""
+        endif
     else
         return "\<Esc>o"
     endif
 endfunction
-" MapForSemicolonP: ;p [[[2
-function! MapForSemicolonP()
+" InsertMapForSemicolonP: ;p [[[2
+function! InsertMapForSemicolonP()
     if &filetype == 'python'
-        let line = getline('.')
-        if trim(line) != '' && line[-1:] != ':'
+        let line = trim(getline('.'))
+        if line != '' && line[-1:] != ':'
             return "\<End>:\<CR>"
         else
             return ""
@@ -680,25 +698,16 @@ function! MapForSemicolonP()
         return "\<End>\<Space>{}\<Left>\<CR>\<Esc>O"
     endif
 endfunction
-" MapForDoubleSemicolon: ;; [[[2
-function! MapForDoubleSemicolon()
-    if index([
-        \ 'c',
-        \ 'cpp',
-        \ 'cs',
-        \ 'css',
-        \ 'java',
-        \ 'rust',
-        \ 'scss'
-    \ ], &filetype) >= 0
-        let line = getline('.')
-        if line[-1:] != ';'
+" InsertMapForDoubleSemicolon: ;; [[[2
+function! InsertMapForDoubleSemicolon()
+    let line = trim(getline('.'))
+    if index(['c', 'cpp', 'cs', 'css', 'java', 'rust', 'scss'], &filetype) >= 0
+        if line != '' && line[-1:] != ';' && index(['#', '/'], line[0]) < 0
             return "\<End>;"
         else
             return ""
         endif
     elseif &filetype == 'python'
-        let line = getline('.')
         if trim(line) != '' && line[-1:] != ':'
             return "\<End>:"
         else
@@ -717,7 +726,8 @@ function! MapForBackspace()
             return ""
         endif
     else
-        let paren = strcharpart(getline('.'), getpos('.')[2]-2, 2)
+        let line = trim(getline('.'))
+        let paren = strcharpart(line, getpos('.')[2]-2, 2)
         if index([
             \ '()',
             \ '[]',
