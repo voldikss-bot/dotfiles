@@ -243,6 +243,7 @@ noremap  U  <C-R>
 noremap  '  `
 inoremap jj <Esc>
 inoremap jk <Esc>
+inoremap kj <Esc>
 vnoremap <  <gv
 vnoremap >  >gv
 noremap <C-U> kkkkkkkkkkkkkkkkkkkkk
