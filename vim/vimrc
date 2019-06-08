@@ -843,6 +843,8 @@ function! ToggleWindows(winname)
         elseif index(keys(g:windows_toggle), window) >= 0
             " close other windows
             execute g:windows_toggle[window]['close']
+        elseif index(['leaderf'], window) >=0
+            execute winnr . 'wincmd q'
         endif
     endfor
 
