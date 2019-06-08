@@ -293,7 +293,7 @@ inoremap <C-b> <Esc>bi
 inoremap <C-f> <Esc>ea
 inoremap <C-a> <Home>
 inoremap <C-e> <End>
-inoremap <C-o> <Esc>o
+inoremap <C-o> <End><CR>
 inoremap <M-o> <Esc>O
 inoremap <C-d> <Esc>ddi
 inoremap <C-c> <Esc>C
@@ -306,7 +306,7 @@ inoremap ;h <Left>
 inoremap ;j <Down>
 inoremap ;k <Up>
 inoremap ;l <Right>
-inoremap ;o <Esc>o
+inoremap ;o <End><CR>
 inoremap ;O <Esc>O
 inoremap ;u <C-u>
 inoremap ;c <Esc><Right>C
