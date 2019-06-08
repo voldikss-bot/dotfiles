@@ -437,10 +437,12 @@ augroup AutocmdGroup
         autocmd CursorHold * silent call CocActionAsync('highlight')
     endif
     " coc-pairs
-    autocmd FileType tex let b:coc_paires = [['$', '$']]
-    autocmd FileType html let b:coc_paires = [['<!--', '-->'], ['{%', '%}']]
-    autocmd FileType markdown let b:coc_paires = [['*', '*']]
-    autocmd FileType javascript,css,c,cpp let b:coc_paires = [['/*', '*/']]
+    let s:coc_pairs_expand = [['（', '）'], ['“', '”'], ['‘', '’'], ['《', '》']]
+    autocmd FileType tex let b:coc_pairs = extend([['$', '$']], s:coc_pairs_expand)
+    autocmd FileType html let b:coc_pairs = extend([['<!--', '-->'], ['{%', '%}']], s:coc_pairs_expand)
+    autocmd FileType markdown let b:coc_pairs = extend([['*', '*']], s:coc_pairs_expand)
+    autocmd FileType javascript,css,c,cpp let b:coc_pairs = extend([['/*', '*/']], s:coc_pairs_expand)
+    autocmd FileType vim let b:coc_pairs_disabled = ['"']
     " vim-argwrap [[[3
     autocmd FileType vim let b:argwrap_line_prefix = '\'
     autocmd FileType vim let b:argwrap_tail_indent_braces = '('
@@ -728,7 +730,7 @@ function! MapForBackspace()
             return ""
         endif
     else
-        let line = trim(getline('.'))
+        let line = getline('.')         " 此处不能用 trim()
         let paren = strcharpart(line, getpos('.')[2]-2, 2)
         if index([
             \ '()',
