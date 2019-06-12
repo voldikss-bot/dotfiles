@@ -1280,6 +1280,7 @@ xmap <silent> ga <Plug>(EasyAlign)
 nmap <silent> ga <Plug>(EasyAlign)
 " vim-easymotion [[[2
 map  <Plug>NoPrefix <Plug>(easymotion-prefix)
+map  <Tab>          <Plug>(easymotion-bd-f)
 map  ,e             <Plug>(easymotion-bd-w)
 map  ,f             <Plug>(easymotion-s2)
 map  ,l             <Plug>(easymotion-bd-jk)

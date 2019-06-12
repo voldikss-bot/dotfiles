@@ -1,7 +1,6 @@
 {
   "coc.source.vimtex.priority": 99,
   "coc.source.file.priority": 10,
-  "coc.source.omni.priority": 9,
   "coc.source.around.priority": 8,
   "coc.source.tag.priority": 3,
   "coc.source.emoji.priority": 3,
