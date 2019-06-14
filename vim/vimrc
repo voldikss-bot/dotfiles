@@ -126,7 +126,7 @@ Plug 'easymotion/vim-easymotion'
 Plug 'tommcdo/vim-exchange', {'on': ['<Plug>(Exchange)', '<Plug>(ExchangeLine)', '<Plug>(ExchangeClear)']}
 Plug 'matze/vim-move', {'on': ['<Plug>MoveLineUp', '<Plug>MoveLineDown', '<Plug>MoveBlockUp', '<Plug>MoveBlockDown']}
 Plug 'andrewradev/sideways.vim', {'on': ['SidewaysLeft', 'SidewaysRight']}
-Plug 'rhysd/clever-f.vim'
+" Plug 'rhysd/clever-f.vim'
 " Edit [[[2
 Plug 'tpope/vim-commentary'
 Plug 'bronson/vim-visual-star-search'
@@ -365,6 +365,7 @@ if has('nvim')
 inoremap <silent> <Esc> <Esc>:noh<CR>
 nnoremap <silent> <Esc> <Esc>:noh<CR>
 endif
+nnoremap <silent> <BS> <Esc>:noh<CR>
 " Customized function [[[2
 noremap  <silent> <F2>            <Esc>:call ToggleWindows('defx')<CR>
 noremap! <silent> <F2>            <Esc>:call ToggleWindows('defx')<CR>
@@ -1002,37 +1003,34 @@ function! s:defx_my_settings() abort
   setlocal cursorline
 
   " Define mappings
-  nnoremap <silent><buffer><expr>   <CR>            defx#is_directory() ? defx#do_action('open_or_close_tree') : defx#do_action('multi', ['drop'])
-  nnoremap <silent><buffer><expr>   <2-LeftMouse>   defx#is_directory() ? defx#do_action('open_or_close_tree') : defx#do_action('multi', ['drop'])
-  nnoremap <silent><buffer><expr>   c               defx#do_action('copy')
-  nnoremap <silent><buffer><expr>   m               defx#do_action('move')
-  nnoremap <silent><buffer><expr>   p               defx#do_action('paste')
-  " nnoremap <silent><buffer><expr>   l               defx#do_action('open')
-  nnoremap <silent><buffer><expr>   E               defx#do_action('open', 'vsplit')
-  nnoremap <silent><buffer><expr>   P               defx#do_action('open', 'pedit')
-  " nnoremap <silent><buffer><expr>   o               defx#do_action('open_or_close_tree')
-  nnoremap <silent><buffer><expr>   K               defx#do_action('new_directory')
-  nnoremap <silent><buffer><expr>   N               defx#do_action('new_file')
-  nnoremap <silent><buffer><expr>   M               defx#do_action('new_multiple_files')
-  nnoremap <silent><buffer><expr>   C               defx#do_action('toggle_columns', 'mark:git:icons:filename:size:time')
-  nnoremap <silent><buffer><expr>   S               defx#do_action('toggle_sort', 'time')
-  nnoremap <silent><buffer><expr>   d               defx#do_action('remove')
-  nnoremap <silent><buffer><expr>   r               defx#do_action('rename')
-  nnoremap <silent><buffer><expr>   !               defx#do_action('execute_command')
-  nnoremap <silent><buffer><expr>   x               defx#do_action('execute_system')
-  nnoremap <silent><buffer><expr>   yy              defx#do_action('yank_path')
-  nnoremap <silent><buffer><expr>   .               defx#do_action('toggle_ignored_files')
-  " nnoremap <silent><buffer><expr>   ;               defx#do_action('repeat')
-  nnoremap <silent><buffer><expr>   <C-o>           defx#do_action('cd', ['..'])
-  nnoremap <silent><buffer><expr>   <C-i>           defx#do_action('open')
-  nnoremap <silent><buffer><expr>   q               defx#do_action('quit')
-  nnoremap <silent><buffer><expr>   <Space>         defx#do_action('toggle_select') . 'j'
-  nnoremap <silent><buffer><expr>   *               defx#do_action('toggle_select_all')
-  " nnoremap <silent><buffer><expr>   j               line('.') == line('$') ? 'gg' : 'j'
-  " nnoremap <silent><buffer><expr>   k               line('.') == 1 ? 'G' : 'k'
-  nnoremap <silent><buffer><expr>   <C-l>           defx#do_action('redraw')
-  nnoremap <silent><buffer><expr>   <C-g>           defx#do_action('print')
-  nnoremap <silent><buffer><expr>   cd              defx#do_action('change_vim_cwd')
+  nnoremap <silent><buffer><expr><nowait>   <CR>            defx#is_directory() ? defx#do_action('open_or_close_tree') : defx#do_action('multi', ['drop'])
+  nnoremap <silent><buffer><expr><nowait>   <2-LeftMouse>   defx#is_directory() ? defx#do_action('open_or_close_tree') : defx#do_action('multi', ['drop'])
+  nnoremap <silent><buffer><expr><nowait>   c               defx#do_action('copy')
+  nnoremap <silent><buffer><expr><nowait>   m               defx#do_action('move')
+  nnoremap <silent><buffer><expr><nowait>   p               defx#do_action('paste')
+  nnoremap <silent><buffer><expr><nowait>   l               defx#do_action('open')
+  nnoremap <silent><buffer><expr><nowait>   E               defx#do_action('open', 'vsplit')
+  nnoremap <silent><buffer><expr><nowait>   P               defx#do_action('open', 'pedit')
+  nnoremap <silent><buffer><expr><nowait>   o               defx#do_action('open_or_close_tree')
+  nnoremap <silent><buffer><expr><nowait>   K               defx#do_action('new_directory')
+  nnoremap <silent><buffer><expr><nowait>   N               defx#do_action('new_file')
+  nnoremap <silent><buffer><expr><nowait>   M               defx#do_action('new_multiple_files')
+  nnoremap <silent><buffer><expr><nowait>   C               defx#do_action('toggle_columns', 'mark:git:icons:filename:size:time')
+  nnoremap <silent><buffer><expr><nowait>   S               defx#do_action('toggle_sort', 'time')
+  nnoremap <silent><buffer><expr><nowait>   d               defx#do_action('remove')
+  nnoremap <silent><buffer><expr><nowait>   r               defx#do_action('rename')
+  nnoremap <silent><buffer><expr><nowait>   !               defx#do_action('execute_command')
+  nnoremap <silent><buffer><expr><nowait>   x               defx#do_action('execute_system')
+  nnoremap <silent><buffer><expr><nowait>   y              defx#do_action('yank_path')
+  nnoremap <silent><buffer><expr><nowait>   I               defx#do_action('toggle_ignored_files')
+  nnoremap <silent><buffer><expr><nowait>   ;               defx#do_action('repeat')
+  nnoremap <silent><buffer><expr><nowait>   h           defx#do_action('cd', ['..'])
+  nnoremap <silent><buffer><expr><nowait>   q               defx#do_action('quit')
+  nnoremap <silent><buffer><expr><nowait>   <Space>         defx#do_action('toggle_select') . 'j'
+  nnoremap <silent><buffer><expr><nowait>   *               defx#do_action('toggle_select_all')
+  " nnoremap <silent><buffer><expr><nowait>   j               line('.') == line('$') ? 'gg' : 'j'
+  " nnoremap <silent><buffer><expr><nowait>   k               line('.') == 1 ? 'G' : 'k'
+  nnoremap <silent><buffer><expr><nowait>   f           defx#do_action('redraw')
 endfunction
 " fileheader.nvim [[[2
 let g:fileheader_auto_add = 0
@@ -1280,7 +1278,8 @@ xmap <silent> ga <Plug>(EasyAlign)
 nmap <silent> ga <Plug>(EasyAlign)
 " vim-easymotion [[[2
 map  <Plug>NoPrefix <Plug>(easymotion-prefix)
-map  <Tab>          <Plug>(easymotion-bd-f)
+map  f          <Plug>(easymotion-bd-f)
+map  F             <Plug>(easymotion-s2)
 map  ,e             <Plug>(easymotion-bd-w)
 map  ,f             <Plug>(easymotion-s2)
 map  ,l             <Plug>(easymotion-bd-jk)
