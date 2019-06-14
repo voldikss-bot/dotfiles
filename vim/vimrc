@@ -18,6 +18,7 @@ let g:terminal_height = 15
 " QuickfixHeight:
 let g:quickfix_height = 9
 " ToggleWindows:
+let g:only_one_win = 1
 let g:windows_toggle = {
     \ 'defx': {
         \ 'open': 'Defx',
@@ -28,16 +29,16 @@ let g:windows_toggle = {
         \ 'close': 'Vista!'
     \ },
     \ 'qf': {
-        \ 'open': 'call asyncrun#quickfix_toggle(g:quickfix_height)',
-        \ 'close': 'call asyncrun#quickfix_toggle(g:quickfix_height)'
+        \ 'open': 'OpenQf',
+        \ 'close': 'cclose'
     \ },
     \ 'Mundo': {
         \ 'open': 'MundoToggle',
         \ 'close': 'MundoToggle'
     \ },
     \ 'terminal': {
-        \ 'open': 'call ToggleTerminal(15)',
-        \ 'close': 'call ToggleTerminal(15)'
+        \ 'open': 'ToggleTerminal',
+        \ 'close': 'ToggleTerminal'
     \ }
     \ }
 " DontLoad: [[[2
@@ -460,7 +461,8 @@ augroup END
 command! -nargs=+ Grep        call Grep(<q-args>)
 command! -nargs=+ -complete=command TabMessage call TabMessage(<q-args>)
 command! -nargs=0 SetQuickRunCommand  call SetQuickRunCommand()
-command! -nargs=1 SetQuickfixHeight   call SetQuickfixHeight(<q-args>)
+command! -nargs=0 OpenQf              execute 'copen' .  g:quickfix_height
+command! -nargs=0 ToggleTerminal        call ToggleTerminal(g:terminal_height)
 " GitOperation: [[[2
 command! Gap  Git add -p
 command! Cd   Gcd
@@ -586,10 +588,6 @@ function! SetQuickRunCommand() abort
     echohl Preproc
     echo g:quickrun_command
     echohl None
-endfunction
-" SetQuickRunCommand: [[[2
-function! SetQuickfixHeight(height)
-    let g:quickfix_height = a:height
 endfunction
 " FileExplore: open cwd in file explore [[[2
 function! FileExplore()
@@ -842,17 +840,21 @@ function! ToggleWindows(winname)
         let window = filetype != "" ? filetype : buftype
         if window == a:winname
             let found_winnr = winnr
-        elseif index(keys(g:windows_toggle), window) >= 0
             " close other windows
-            execute g:windows_toggle[window]['close']
-        elseif index(['leaderf'], window) >=0
-            execute winnr . 'wincmd q'
+        elseif g:only_one_win
+            if index(keys(g:windows_toggle), window) >= 0
+                execute g:windows_toggle[window]['close']
+            elseif index(['leaderf'], window) >=0
+                execute winnr . 'wincmd q'
+            endif
         endif
     endfor
 
     if found_winnr > 0
+        " close or go to that window(for example, terminal...)
         execute g:windows_toggle[a:winname]['close']
     else
+        " open a new window or open that background buffer
         execute g:windows_toggle[a:winname]['open']
     endif
 endfunction
@@ -1023,7 +1025,7 @@ function! s:defx_my_settings() abort
   nnoremap <silent><buffer><expr><nowait>   x               defx#do_action('execute_system')
   nnoremap <silent><buffer><expr><nowait>   y              defx#do_action('yank_path')
   nnoremap <silent><buffer><expr><nowait>   I               defx#do_action('toggle_ignored_files')
-  nnoremap <silent><buffer><expr><nowait>   ;               defx#do_action('repeat')
+  nnoremap <silent><buffer><expr><nowait>   .               defx#do_action('repeat')
   nnoremap <silent><buffer><expr><nowait>   h           defx#do_action('cd', ['..'])
   nnoremap <silent><buffer><expr><nowait>   q               defx#do_action('quit')
   nnoremap <silent><buffer><expr><nowait>   <Space>         defx#do_action('toggle_select') . 'j'
