@@ -123,6 +123,7 @@ function oh_my_zsh_install(){
     cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
     # zsh
     crun sudo apt install zsh -y
+    crun curl -L git.io/antigen > ~/.antigen.zsh
     # oh-my-zsh
     if [ ! -d "$HOME/.oh-my-zsh" ]; then
         crun sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
