@@ -110,14 +110,13 @@ Plug 'cohama/agit.vim', {'on': 'Agit'}
 Plug 'mattn/gist-vim', {'on': 'Gist'}
 Plug 'mattn/webapi-vim'
 Plug 'rhysd/git-messenger.vim', {'on': '<Plug>(git-messenger)'}
-Plug 'idanarye/vim-merginal'
 " Enhancements [[[2
 Plug 'skywind3000/asyncrun.vim'
 Plug 'jsfaint/gen_tags.vim', {'on': ['GenCtags', 'GenGTAGS']}
 Plug 'Yggdroot/LeaderF'
 Plug 'voldikss/vim-search-me'
 Plug 'voldikss/vim-translate-me'
-Plug 'ahonn/fileheader.nvim', {'on': ['AddFileHeader', 'UpdateFileHeader']}
+Plug 'ahonn/fileheader.nvim'
 Plug 'inkarkat/vim-mark', {'on': '<Plug>MarkSet'}
 Plug 'inkarkat/vim-ingo-library'
 Plug 'moll/vim-bbye'
@@ -169,7 +168,7 @@ set timeout
 set ttimeout
 set timeoutlen=500
 set ttimeoutlen=20
-set mouse=a
+set mouse-=a
 set mousehide
 set selectmode=mouse
 set clipboard=
@@ -227,9 +226,10 @@ set wildignore+=.stversions,*.pyc,*.spl,*.o,*.out,*~,%*
 set wildignore+=*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store
 set wildignore+=__pycache__,*.egg-info
 " nvim only [[[2
-if has('nvim')
+if has('nvim') &&  matchstr(execute('silent version'), 'NVIM v\zs[^\n-]*') >= '0.0.4'
 set inccommand=nosplit
 set wildoptions+=pum
+set pumblend=10
 endif
 " Keymap: [[[1
 " LeaderKey: [[[2
@@ -1036,7 +1036,7 @@ function! s:defx_my_settings() abort
 endfunction
 " fileheader.nvim [[[2
 let g:fileheader_auto_add = 0
-let g:fileheader_auto_update = 0
+let g:fileheader_auto_update = 1
 let g:fileheader_author='voldikss'
 let g:fileheader_default_email = 'dyzplus@gmail'
 let g:fileheader_show_email = 0
