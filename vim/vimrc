@@ -244,7 +244,6 @@ noremap  U  <C-R>
 noremap  '  `
 inoremap jj <Esc>
 inoremap jk <Esc>
-inoremap kj <Esc>
 vnoremap <  <gv
 vnoremap >  >gv
 noremap <C-U> kkkkkkkkkkkkkkkkkkkkk
@@ -388,7 +387,7 @@ noremap! <silent> <F10>           <Esc>:call ToggleWindows('vista')<CR>
 tnoremap <silent> <F10>           <C-\><C-n>:call ToggleWindows('vista')<CR>
 noremap  <silent> <expr><F12>     &buftype =='terminal' ?
                                   \ "\<C-\><C-n>:call ToggleWindows('terminal')\<CR>" :
-                                  \ "\<Esc>:call ToggleWindows('terminal')\<CR>i"
+                                  \ "\<Esc>:call ToggleWindows('terminal')\<CR>i<C-u>"
 noremap! <silent> <F12>           <Esc>:call ToggleWindows('terminal')<CR>i
 tnoremap <silent> <F12>           <C-\><C-n>:call ToggleWindows('terminal')<CR>
 nnoremap <expr>   <CR>            NormalMapForEnter() . "\<Esc>"
@@ -561,8 +560,9 @@ function! SetQuickRunCommand() abort
         \ '4. AsyncRun cargo run',
         \ '5. AsyncRun rustc % && ./%:r',
         \ '6. AsyncRun tsc',
-        \ '7. AsyncRun make',
-        \ '8. Codi python'
+        \ '7. AsyncRun tsc --watch',
+        \ '8. AsyncRun make',
+        \ '9. Codi python'
         \ ]
     let select = inputlist(cmd_list)
     if select == 0
@@ -714,6 +714,12 @@ function! InsertMapForDoubleSemicolon()
     elseif &filetype == 'python'
         if trim(line) != '' && line[-1:] != ':'
             return "\<End>:"
+        else
+            return ""
+        endif
+    elseif &filetype == 'json'
+        if trim(line) != '' && line[-1:] != ','
+            return "\<End>,"
         else
             return ""
         endif
@@ -934,6 +940,9 @@ nnoremap <silent> <Leader>hs :CocCommand git.chunkStage<CR>
 nnoremap <silent> <Leader>hu :CocCommand git.chunkUndo<CR>
 nnoremap <silent> <Leader>go :CocCommand git.browserOpen<CR>
 nnoremap <silent> <Leader>gv :CocCommand git.chunkInfo<CR>
+" coc-translator
+" nnoremap <silent> ,, :CocCommand translator.echo<CR>
+nnoremap <silent> ,, :CocCommand translator.popup<CR>
 
 " Install coc extensions
 let g:coc_global_extensions = [
