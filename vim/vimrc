@@ -1024,7 +1024,7 @@ function! s:defx_my_settings() abort
   nnoremap <silent><buffer><expr><nowait>   E               defx#do_action('open', 'vsplit')
   nnoremap <silent><buffer><expr><nowait>   P               defx#do_action('open', 'pedit')
   nnoremap <silent><buffer><expr><nowait>   o               defx#do_action('open_or_close_tree')
-  nnoremap <silent><buffer><expr><nowait>   K               defx#do_action('new_directory')
+  nnoremap <silent><buffer><expr><nowait>   D               defx#do_action('new_directory')
   nnoremap <silent><buffer><expr><nowait>   N               defx#do_action('new_file')
   nnoremap <silent><buffer><expr><nowait>   M               defx#do_action('new_multiple_files')
   nnoremap <silent><buffer><expr><nowait>   C               defx#do_action('toggle_columns', 'mark:git:icons:filename:size:time')
@@ -1146,8 +1146,10 @@ let g:lightline = {
 
 " LightlineAbsolutePath: [[[3
 function! LightlineAbsolutePath()
-    let path = winwidth(0) > 70 ? expand('%:p') : ''
-    let path = substitute(path, $HOME, '~', 'g')
+    let path = substitute(expand('%:p'), $HOME, '~', 'g')
+    if 3*len(path) > winwidth(0)
+        let path = pathshorten(path)
+    endif
     return path
 endfunction
 
