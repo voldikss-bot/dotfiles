@@ -445,6 +445,8 @@ augroup AutocmdGroup
     autocmd FileType markdown let b:coc_pairs = extend([['*', '*']], s:coc_pairs_expand)
     autocmd FileType javascript,css,c,cpp let b:coc_pairs = extend([['/*', '*/']], s:coc_pairs_expand)
     autocmd FileType vim let b:coc_pairs_disabled = ['"']
+    " defx
+    autocmd BufLeave * if &filetype == 'defx' | :Defx | endif
     " vim-argwrap [[[3
     autocmd FileType vim let b:argwrap_line_prefix = '\'
     autocmd FileType vim let b:argwrap_tail_indent_braces = '('
@@ -941,8 +943,7 @@ nnoremap <silent> <Leader>hu :CocCommand git.chunkUndo<CR>
 nnoremap <silent> <Leader>go :CocCommand git.browserOpen<CR>
 nnoremap <silent> <Leader>gv :CocCommand git.chunkInfo<CR>
 " coc-translator
-" nnoremap <silent> ,, :CocCommand translator.echo<CR>
-nnoremap <silent> ,, :CocCommand translator.popup<CR>
+nmap  ,, <Plug>(coc-translator-p)
 
 " Install coc extensions
 let g:coc_global_extensions = [

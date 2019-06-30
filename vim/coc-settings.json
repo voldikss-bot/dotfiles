@@ -38,6 +38,7 @@
     "-smartcase",
     "-regex"
   ],
+  "session.directory": "/home/voldikss/.cache/nvim/session",
   "suggest.noselect": false,
   "suggest.echodocSupport": true,
   "suggest.triggerAfterInsertEnter": false,
