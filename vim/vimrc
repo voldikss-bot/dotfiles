@@ -10,7 +10,7 @@
 
 " GlobalVariables: [[[1
 " IndentCont: indent count when type <CR> and then \
-let g:vim_indent_cont = &sw
+let g:vim_indent_cont = 4
 " AutoformatEnable:
 let g:autoformat_enabled = 0
 " TerminalHeight:
@@ -94,7 +94,13 @@ Plug 'aperezdc/vim-template', {'on': 'Template'}
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile', 'frozen':1}
 " Style [[[2
 Plug 'Yggdroot/indentLine'
-Plug 'Shougo/defx.nvim', {'do': ':UpdateRemotePlugins'}
+if has('nvim')
+  Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/defx.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
 Plug 'kristijanhusak/defx-git'
 Plug 'kristijanhusak/defx-icons'
 Plug 'mhinz/vim-startify'
@@ -965,6 +971,7 @@ let g:coc_global_extensions = [
     \ 'coc-snippets',
     \ 'coc-syntax',
     \ 'coc-tag',
+    \ 'coc-translator',
     \ 'coc-tsserver',
     \ 'coc-vimtex',
     \ 'coc-vimlsp',
@@ -1147,7 +1154,7 @@ let g:lightline = {
 " LightlineAbsolutePath: [[[3
 function! LightlineAbsolutePath()
     let path = substitute(expand('%:p'), $HOME, '~', 'g')
-    if 3*len(path) > winwidth(0)
+    if 2*len(path) > winwidth(0)
         let path = pathshorten(path)
     endif
     return path
@@ -1427,7 +1434,6 @@ nmap <silent>    ,r        <Plug>TranslateR
 vmap <silent>    ,t        <Plug>TranslateV
 vmap <silent>    ,w        <Plug>TranslateWV
 vmap <silent>    ,r        <Plug>TranslateRV
-let g:vtm_default_api = 'youdao'
 " vimtex [[[2
 let g:tex_flavor='latex'
 let g:vimtex_view_method='zathura'
