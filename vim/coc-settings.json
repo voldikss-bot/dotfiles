@@ -40,6 +40,7 @@
   ],
   "session.directory": "/home/voldikss/.cache/nvim/session",
   "suggest.noselect": false,
+  "suggest.numberSelect": true,
   "suggest.echodocSupport": true,
   "suggest.triggerAfterInsertEnter": false,
   "suggest.languageSourcePriority": 99,
