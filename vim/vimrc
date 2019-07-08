@@ -118,7 +118,6 @@ Plug 'mattn/webapi-vim'
 Plug 'rhysd/git-messenger.vim', {'on': '<Plug>(git-messenger)'}
 " Enhancements [[[2
 Plug 'skywind3000/asyncrun.vim'
-Plug 'jsfaint/gen_tags.vim', {'on': ['GenCtags', 'GenGTAGS']}
 Plug 'Yggdroot/LeaderF'
 Plug 'voldikss/vim-search-me'
 Plug 'voldikss/vim-translate-me'
@@ -405,6 +404,8 @@ inoremap <expr>   ;;              InsertMapForDoubleSemicolon()
 " Autocmd: [[[1
 augroup AutocmdGroup
     autocmd!
+" General: [[[2
+    autocmd BufEnter * if &buftype == 'terminal' | setlocal signcolumn=no | endif
 " ParenthesisColor: [[[2
     autocmd VimEnter,BufWinEnter *
         \ if index(['html', 'htmldjango', 'tex', 'mma'], &filetype) < 0 |
@@ -949,7 +950,8 @@ nnoremap <silent> <Leader>hu :CocCommand git.chunkUndo<CR>
 nnoremap <silent> <Leader>go :CocCommand git.browserOpen<CR>
 nnoremap <silent> <Leader>gv :CocCommand git.chunkInfo<CR>
 " coc-translator
-nmap  ,, <Plug>(coc-translator-p)
+nmap <silent> ,, <Plug>(coc-translator-p)
+xmap <silent> <Tab> <Plug>(coc-repl-sendtext)
 
 " Install coc extensions
 let g:coc_global_extensions = [
@@ -1081,13 +1083,19 @@ let g:indentLine_enabled = 1
 let g:indentLine_color_term = 238
 let g:indentLine_fileTypeExclude = ['startify', 'vista', 'json', 'codi', 'defx', 'vtm']
 " LeaderF [[[2
-noremap <silent> <Leader>f :LeaderfFile<CR>
-noremap <silent> <Leader>b :LeaderfBuffer<CR>
-noremap <silent> <Leader>t :LeaderfBufTagAll<CR>
-noremap <silent> <Leader>r :Leaderf rg<CR>
+noremap <silent> <Leader>ff :LeaderfFile<CR>
+noremap <silent> <Leader>fb :LeaderfBuffer<CR>
+noremap <silent> <Leader>ft :LeaderfBufTagAll<CR>
+noremap <silent> <Leader>fg :Leaderf rg<CR>
+noremap <silent> <leader>fr :<C-U><C-R>=printf("Leaderf! gtags -r %s --auto-jump", expand("<cword>"))<CR><CR>
+noremap <silent> <leader>fd :<C-U><C-R>=printf("Leaderf! gtags -d %s --auto-jump", expand("<cword>"))<CR><CR>
+noremap <silent> <leader>fn :<C-U><C-R>=printf("Leaderf gtags --next %s", "")<CR><CR>
+noremap <silent> <leader>fp :<C-U><C-R>=printf("Leaderf gtags --previous %s", "")<CR><CR>
 
+let g:Lf_GtagsAutoGenerate = 1
+let g:Lf_Gtagslabel = 'native-pygments'
 let g:Lf_StlSeparator   = {'left': '', 'right': '', 'font': ''}
-let g:Lf_RootMarkers    = ['.project', '.root', '.svn', '.git']
+let g:Lf_RootMarkers    = ['.project', '.svn', '.git', '.idea']
 let g:Lf_MruFileExclude = ['*.so','*.py[c0]','*.exe','*.sw?']
 let g:Lf_WildIgnore = {
     \ 'dir': ['.svn','.git','.hg','.cache','.idea','.android','.gradle','.IntelliJIdea*'],
@@ -1311,26 +1319,6 @@ nmap <silent> cx  <Plug>(Exchange)
 xmap <silent> X   <Plug>(Exchange)
 nmap <silent> cxc <Plug>(ExchangeClear)
 nmap <silent> cxx <Plug>(ExchangeLine)
-" vim-gen_tags [[[2
-let $GTAGSLABEL = 'native-pygments'
-if has('unix')
-    let $GTAGSCONF = '/usr/local/share/gtags/gtags.conf'
-else
-    let $GTAGSCONF = 'D:\Applications\Gtags\share\gtags'
-endif
-let g:gen_tags#ctags_opts =  ['--extra=+q']
-let g:gen_tags#ctags_opts += ['--c-kinds=+px']
-let g:gen_tags#ctags_opts += ['--fields=+niazS']
-let g:gen_tags#ctags_opts += ['--c++-kinds=+px']
-let g:gen_tags#ctags_opts += ['--output-format=e-ctags']
-let g:gen_tags#use_cache_dir = 1
-let g:gen_tags#cache_dir = '$HOME/.cache/nvim/tags'
-let g:gen_tags#ctags_auto_gen = 0
-let g:gen_tags#gtags_auto_gen = 0
-let g:gen_tags#ctags_auto_update  = 1
-let g:gen_tags#gtags_auto_update  = 1
-let g:gen_tags#blacklist = ['$HOME']
-let g:gen_tags#statusline = 0
 " vim-javascript [[[2
 let g:javascript_plugin_jsdoc = 1
 let g:javascript_plugin_ngdoc = 1
