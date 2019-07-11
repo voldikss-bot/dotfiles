@@ -405,7 +405,10 @@ inoremap <expr>   ;;              InsertMapForDoubleSemicolon()
 augroup AutocmdGroup
     autocmd!
 " General: [[[2
-    autocmd BufEnter * if &buftype == 'terminal' | setlocal signcolumn=no | endif
+    autocmd BufEnter * if &buftype == 'terminal' |
+        \ setlocal signcolumn=no |
+        \ setlocal nobuflisted |
+        \ endif
 " ParenthesisColor: [[[2
     autocmd VimEnter,BufWinEnter *
         \ if index(['html', 'htmldjango', 'tex', 'mma'], &filetype) < 0 |
@@ -436,7 +439,7 @@ augroup AutocmdGroup
 " AutoChdir: [[[2
     autocmd BufEnter * silent! lcd %:p:h
 " GitIgnore: [[[2
-    autocmd BufNewFile .gitignore Template 
+    autocmd BufNewFile .gitignore Template
 " Plugins: [[[2
     " coc.nvim [[[3
     " close preview window when completion is done.
@@ -643,8 +646,8 @@ function! NormalMapForEnter()
         return "\<CR>"
     else
         let line = trim(getline('.'))
-        if index(['c', 'cpp', 'cs', 'css', 'java', 'rust', 'scss'], &filetype) >= 0 
-            if line != '' 
+        if index(['c', 'cpp', 'cs', 'css', 'java', 'rust', 'scss'], &filetype) >= 0
+            if line != ''
                 \ && index(['#', '/'], line[0]) < 0
                 \ && index([';', '{','[', '(', '\'], line[-1:]) < 0
                     return "A;"
@@ -652,7 +655,7 @@ function! NormalMapForEnter()
                 return ""
             endif
         elseif index(['json', 'jsonc'], &filetype) >=0
-            if line != '' 
+            if line != ''
                 \ && index(['#', '/'], line[0]) < 0
                 \ && index([',', '{','['], line[-1:]) < 0
                 return "A,"
@@ -687,7 +690,7 @@ function! InsertMapForSemicolonEnter()
             return "\<Esc>o"
         endif
     elseif index(['json', 'jsonc'], &filetype) >=0
-        if line != '' 
+        if line != ''
             \ && index(['#', '/'], line[0]) < 0
             \ && index([',', '{','['], line[-1:]) < 0
             return "\<End>,\<CR>"
@@ -1039,7 +1042,7 @@ function! s:defx_my_settings() abort
   nnoremap <silent><buffer><expr><nowait>   M               defx#do_action('new_multiple_files')
   nnoremap <silent><buffer><expr><nowait>   C               defx#do_action('toggle_columns', 'mark:git:icons:filename:size:time')
   nnoremap <silent><buffer><expr><nowait>   S               defx#do_action('toggle_sort', 'time')
-  nnoremap <silent><buffer><expr><nowait>   d               defx#do_action('remove')
+  nnoremap <silent><buffer><expr><nowait>   d               defx#do_action('remove_trash')
   nnoremap <silent><buffer><expr><nowait>   r               defx#do_action('rename')
   nnoremap <silent><buffer><expr><nowait>   !               defx#do_action('execute_command')
   nnoremap <silent><buffer><expr><nowait>   x               defx#do_action('execute_system')
