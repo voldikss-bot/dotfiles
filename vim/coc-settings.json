@@ -39,8 +39,10 @@
     "-regex"
   ],
   "session.directory": "/home/voldikss/.cache/nvim/session",
+  "smartf.timeout": 1000,
+  "smartf.jumpOnTrigger": true,
   "suggest.noselect": false,
-  "suggest.numberSelect": true,
+  "suggest.numberSelect": false,
   "suggest.echodocSupport": true,
   "suggest.triggerAfterInsertEnter": false,
   "suggest.languageSourcePriority": 99,
@@ -90,6 +92,7 @@
       "javascript"
     ]
   },
+  "template.path": "~/.vim/templates",
   "tslint.autoFixOnSave": true,
   "yank.highlight.enable": true,
   "yank.highlight.duration": 20,
