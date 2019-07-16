@@ -1,10 +1,14 @@
 {
   "coc.preferences.formatOnSaveFiletypes": [
+    "c",
+    "cpp",
     "css",
-    "markdown",
-    "typescript",
-    "json",
     "html",
+    "javascript",
+    "json",
+    "markdown",
+    "python",
+    "typescript",
     "yaml"
   ],
   "coc.source.vimtex.priority": 99,

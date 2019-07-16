@@ -11,8 +11,6 @@
 " GlobalVariables: [[[1
 " IndentCont: indent count when type <CR> and then \
 let g:vim_indent_cont = 4
-" AutoformatEnable:
-let g:autoformat_enabled = 0
 " TerminalHeight:
 let g:terminal_height = 15
 " QuickfixHeight:
@@ -458,8 +456,6 @@ augroup AutocmdGroup
     " vim-argwrap [[[3
     autocmd FileType vim let b:argwrap_line_prefix = '\'
     autocmd FileType vim let b:argwrap_tail_indent_braces = '('
-    " vim-autoformat [[[3
-    autocmd BufWrite * if g:autoformat_enabled | :call Autoformat<CR> | endif
     " vim-commentary [[[3
     autocmd FileType python,shell,coffee,crontab,toml setlocal commentstring=#\ %s
     autocmd FileType java,c,cpp,json,jsonc            setlocal commentstring=//\ %s
@@ -494,6 +490,7 @@ command! PC  PlugClean
 " Autoformat: format code [[[2
 function! Autoformat()
     let curr_pos = getpos('.')
+    silent! execute '%s/\s\+$//g'
     call CocAction('format')
     update
     call setpos('.', curr_pos)
