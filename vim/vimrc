@@ -431,7 +431,7 @@ augroup AutocmdGroup
         \ endif
 " KeywordHighlight: [[[2
     autocmd Syntax *
-        \ call matchadd('Todo',  '\W\zs\(TODO\|Todo\|todo\|FIXME\|CHANGED\|XXX\|BUG\|HACK\)') |
+        \ call matchadd('Todo',  '\W\zs\(TODO\|FIXME\|CHANGED\|XXX\|BUG\|HACK\)') |
         \ call matchadd('Todo',  '\W\zs\(NOTE\|Note\|INFO\|IDEA\|NOTICE\)') |
         \ call matchadd('Debug', '\W\zs\(Debug\|DEBUG\)') |
 " AutoChdir: [[[2
@@ -494,12 +494,8 @@ command! PC  PlugClean
 " Autoformat: format code [[[2
 function! Autoformat()
     let curr_pos = getpos('.')
-    if &filetype == 'markdown'
-        TableFormat
-    else
-        call CocAction('format')
-    endif
-    exec 'w'
+    call CocAction('format')
+    update
     call setpos('.', curr_pos)
 endfunction
 function! AutoSaveBuffer()
@@ -727,7 +723,7 @@ function! InsertMapForDoubleSemicolon()
         else
             return ""
         endif
-    elseif &filetype == 'json'
+    elseif index(['json', 'jsonc'], &filetype)
         if trim(line) != '' && line[-1:] != ','
             return "\<End>,"
         else
@@ -947,6 +943,7 @@ xmap <silent> <Tab> <Plug>(coc-repl-sendtext)
 " Install coc extensions
 let g:coc_global_extensions = [
     \ 'coc-browser',
+    \ 'coc-clock',
     \ 'coc-css',
     \ 'coc-diagnostic',
     \ 'coc-dictionary',
@@ -957,8 +954,10 @@ let g:coc_global_extensions = [
     \ 'coc-html',
     \ 'coc-lists',
     \ 'coc-json',
+    \ 'coc-marketplace',
     \ 'coc-pairs',
     \ 'coc-post',
+    \ 'coc-prettier',
     \ 'coc-python',
     \ 'coc-rls',
     \ 'coc-smartf',
