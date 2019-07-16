@@ -660,7 +660,7 @@ function! NormalMapForEnter()
 endfunction
 " InsertMapForEnter: <CR> [[[2
 function! InsertMapForEnter()
-    let line = trim(getline('.'))
+    let line = getline('.') " can not use trim
     if pumvisible()
         return "\<C-y>"
     elseif index([')', ']', '}'], strcharpart(line, getpos('.')[2]-1, 1)) >= 0
@@ -741,19 +741,7 @@ function! MapForBackspace()
     else
         let line = getline('.')         " 此处不能用 trim()
         let paren = strcharpart(line, getpos('.')[2]-2, 2)
-        if index([
-            \ '()',
-            \ '[]',
-            \ '{}',
-            \ '<>',
-            \ '%%',
-            \ '$$',
-            \ '**',
-            \ '""',
-            \ "''",
-            \ '~~',
-            \ '``'
-        \ ], paren) >=0
+        if index(['()', '[]', '{}', '<>', '%%', '$$', '**', '""', "''", '~~', '``'], paren) >=0
             return "\<Left>\<Del>\<Del>"
         else
             return "\<Left>\<Del>"
