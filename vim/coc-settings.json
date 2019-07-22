@@ -92,6 +92,8 @@
     "typescript": ["javascript"]
   },
   "template.templatesDirectory": "~/.vim/templates",
+  "todolist.autoUpload": true,
+  "todolist.monitor": true,
   "tslint.autoFixOnSave": true,
   "typescript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
   "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,

@@ -914,8 +914,6 @@ nnoremap <silent> <Leader>gv :CocCommand git.chunkInfo<CR>
 " coc-smartf
 nmap f <Plug>(coc-smartf-forward)
 nmap F <Plug>(coc-smartf-backward)
-nmap ; <Plug>(coc-smartf-repeat)
-nmap , <Plug>(coc-smartf-repeat-opposite)
 
 augroup Smartf
   autocmd User SmartfEnter :hi Conceal ctermfg=220 guifg=#6638F0
@@ -950,6 +948,7 @@ let g:coc_global_extensions = [
     \ 'coc-syntax',
     \ 'coc-tag',
     \ 'coc-template',
+    \ 'coc-todolist',
     \ 'coc-translator',
     \ 'coc-tslint',
     \ 'coc-tsserver',
@@ -1342,33 +1341,26 @@ let g:startify_bookmarks = [
 \ ]
 let g:startify_files_number = 8
 let g:startify_padding_left = 15
-" let g:startify_custom_header = [
-"     \ '                     _    ______  __    ____  ______ ____________',
-"     \ '                    | |  / / __ \/ /   / __ \/  _/ //_/ ___/ ___/',
-"     \ '                    | | / / / / / /   / / / // // ,<  \__ \\__ \ ',
-"     \ '                    | |/ / /_/ / /___/ /_/ // // /| |___/ /__/ / ',
-"     \ '                    |___/\____/_____/_____/___/_/ |_/____/____/  ']
-
-" let g:startify_custom_header = [
-"     \ '                      ___       ___       ___       ___       ___       ___       ___       ___   ',
-"     \ '                     /\__\     /\  \     /\__\     /\  \     /\  \     /\__\     /\  \     /\  \  ',
-"     \ '                    /:/ _/_   /::\  \   /:/  /    /::\  \   _\:\  \   /:/ _/_   /::\  \   /::\  \ ',
-"     \ '                   |::L/\__\ /:/\:\__\ /:/__/    /:/\:\__\ /\/::\__\ /::-"\__\ /\:\:\__\ /\:\:\__\',
-"     \ '                   |::::/  / \:\/:/  / \:\  \    \:\/:/  / \::/\/__/ \;:;-",-" \:\:\/__/ \:\:\/__/',
-"     \ '                    L;;/__/   \::/  /   \:\__\    \::/  /   \:\__\    |:|  |    \::/  /   \::/  / ',
-"     \ '                               \/__/     \/__/     \/__/     \/__/     \|__|     \/__/     \/__/  ']
-
 let g:startify_custom_header = [
-    \ '                      ██▒   █▓ ▒█████   ██▓    ▓█████▄  ██▓ ██ ▄█▀  ██████   ██████ ',
-    \ '                     ▓██░   █▒▒██▒  ██▒▓██▒    ▒██▀ ██▌▓██▒ ██▄█▒ ▒██    ▒ ▒██    ▒ ',
-    \ '                      ▓██  █▒░▒██░  ██▒▒██░    ░██   █▌▒██▒▓███▄░ ░ ▓██▄   ░ ▓██▄   ',
-    \ '                       ▒██ █░░▒██   ██░▒██░    ░▓█▄   ▌░██░▓██ █▄   ▒   ██▒  ▒   ██▒',
-    \ '                        ▒▀█░  ░ ████▓▒░░██████▒░▒████▓ ░██░▒██▒ █▄▒██████▒▒▒██████▒▒',
-    \ '                        ░ ▐░  ░ ▒░▒░▒░ ░ ▒░▓  ░ ▒▒▓  ▒ ░▓  ▒ ▒▒ ▓▒▒ ▒▓▒ ▒ ░▒ ▒▓▒ ▒ ░',
-    \ '                        ░ ░░    ░ ▒ ▒░ ░ ░ ▒  ░ ░ ▒  ▒  ▒ ░░ ░▒ ▒░░ ░▒  ░ ░░ ░▒  ░ ░',
-    \ '                          ░░  ░ ░ ░ ▒    ░ ░    ░ ░  ░  ▒ ░░ ░░ ░ ░  ░  ░  ░  ░  ░  ',
-    \ '                           ░      ░ ░      ░  ░   ░     ░  ░  ░         ░        ░  ',
-    \ '                          ░                     ░                                   ']
+    \ '                      ___       ___       ___       ___       ___       ___       ___       ___   ',
+    \ '                     /\__\     /\  \     /\__\     /\  \     /\  \     /\__\     /\  \     /\  \  ',
+    \ '                    /:/ _/_   /::\  \   /:/  /    /::\  \   _\:\  \   /:/ _/_   /::\  \   /::\  \ ',
+    \ '                   |::L/\__\ /:/\:\__\ /:/__/    /:/\:\__\ /\/::\__\ /::-"\__\ /\:\:\__\ /\:\:\__\',
+    \ '                   |::::/  / \:\/:/  / \:\  \    \:\/:/  / \::/\/__/ \;:;-",-" \:\:\/__/ \:\:\/__/',
+    \ '                    L;;/__/   \::/  /   \:\__\    \::/  /   \:\__\    |:|  |    \::/  /   \::/  / ',
+    \ '                               \/__/     \/__/     \/__/     \/__/     \|__|     \/__/     \/__/  ']
+
+" let g:startify_custom_header = [
+"     \ '                      ██▒   █▓ ▒█████   ██▓    ▓█████▄  ██▓ ██ ▄█▀  ██████   ██████ ',
+"     \ '                     ▓██░   █▒▒██▒  ██▒▓██▒    ▒██▀ ██▌▓██▒ ██▄█▒ ▒██    ▒ ▒██    ▒ ',
+"     \ '                      ▓██  █▒░▒██░  ██▒▒██░    ░██   █▌▒██▒▓███▄░ ░ ▓██▄   ░ ▓██▄   ',
+"     \ '                       ▒██ █░░▒██   ██░▒██░    ░▓█▄   ▌░██░▓██ █▄   ▒   ██▒  ▒   ██▒',
+"     \ '                        ▒▀█░  ░ ████▓▒░░██████▒░▒████▓ ░██░▒██▒ █▄▒██████▒▒▒██████▒▒',
+"     \ '                        ░ ▐░  ░ ▒░▒░▒░ ░ ▒░▓  ░ ▒▒▓  ▒ ░▓  ▒ ▒▒ ▓▒▒ ▒▓▒ ▒ ░▒ ▒▓▒ ▒ ░',
+"     \ '                        ░ ░░    ░ ▒ ▒░ ░ ░ ▒  ░ ░ ▒  ▒  ▒ ░░ ░▒ ▒░░ ░▒  ░ ░░ ░▒  ░ ░',
+"     \ '                          ░░  ░ ░ ░ ▒    ░ ░    ░ ░  ░  ▒ ░░ ░░ ░ ░  ░  ░  ░  ░  ░  ',
+"     \ '                           ░      ░ ░      ░  ░   ░     ░  ░  ░         ░        ░  ',
+"     \ '                          ░                     ░                                   ']
 if has('nvim')
 highlight StartifyHeader guifg=#FF00FF
 highlight StartifyNumber guifg=#00FF00
@@ -1434,60 +1426,3 @@ if has('win32') || has('win64')
         language messages zh_CN.utf-8
     endif
 endif
-" CheatSheet: [[[1
-" J                 移动整行
-" K                 移动整行
-" H                 行首
-" L                 行尾
-
-" <C-j>             跳转函数定义
-" <C-k>             跳转帮助
-" <C-h>             切换buffer
-" <C-l>             切换buffer
-" <C-up>            Diff 跳转
-" <C-down>          Diff 跳转
-" <C-left>          交换单词
-" <C-right>         交换单词
-" <C-up>            <Plug>(coc-git-prevchunk)
-" <C-down>          <Plug>(coc-git-nextchunk)
-
-" <M-h>             窗口间移动光标
-" <M-j>             窗口间移动光标
-" <M-k>             窗口间移动光标
-" <M-l>             窗口间移动光标
-" <M-up>            调整窗口大小
-" <M-down>          调整窗口大小
-" <M-left>          调整窗口大小
-" <M-right>         调整窗口大小
-" <M-n>             <Plug>(coc-diagnostic-next)
-" <M-p>             <Plug>(coc-diagnostic-next)
-
-" <Leader>cd        <Plug>(coc-definition)
-" <Leader>ci        <Plug>(coc-implementation)
-" <Leader>cr        <Plug>(cc-references)
-" <Leader>cf        <Plug>(coc-fix-current)
-
-" <Leader>f        :LeaderfFile<CR>
-" <Leader>t        :LeaderfBufTagAll<CR>
-" <Leader>b        :LeaderfBufferAll<CR>
-" <Leader>r        :Leaderf rg
-
-" ms               <Plug>MarkSet
-" mn               <Plug>MarkSearchCurrentNext
-" mp               <Plug>MarkSearchCurrentPrev
-" mc               <Plug>MarkAllClear
-
-" cx               <Plug>(Exchange)
-" X                <Plug>(Exchange)
-" cxc              <Plug>(ExchangeClear)
-" cxx              <Plug>(ExchangeLine)
-
-" ,bm              <Plug>BookmarkToggle
-" ,bi              <Plug>BookmarkAnnotate
-" ,ba              <Plug>BookmarkShowAll
-" ,bn              <Plug>BookmarkNext
-" ,bp              <Plug>BookmarkPrev
-" ,bc              <Plug>BookmarkClearAll
-
-" <Leader>aw       <Esc>:ArgWrap<CR>
-" ,t               <Plug>DictSearch
