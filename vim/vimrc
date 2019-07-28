@@ -118,7 +118,7 @@ Plug 'skywind3000/asyncrun.vim'
 Plug 'Yggdroot/LeaderF'
 Plug 'voldikss/vim-search-me'
 Plug 'voldikss/vim-translate-me'
-Plug 'ahonn/fileheader.nvim'
+Plug 'ahonn/fileheader.nvim', {'on': ['AddFileHeader', 'UpdateFileHeader']}
 Plug 'inkarkat/vim-mark', {'on': '<Plug>MarkSet'}
 Plug 'inkarkat/vim-ingo-library'
 Plug 'moll/vim-bbye'
@@ -135,7 +135,6 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'foosoft/vim-argwrap', {'on': 'ArgWrap'}
 Plug 'junegunn/vim-easy-align'
-Plug 'mg979/vim-visual-multi', {'on': '<Plug>VM-Find-Under'}
 Plug 'wellle/targets.vim'
 " Misc [[[2
 Plug 'yianwillis/vimcdoc'
@@ -887,7 +886,9 @@ let $PYTHONUNBUFFERED=1
 " coc.nvim [[[2
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
+" multi-cursor support
+nmap <silent> <C-c> <Plug>(coc-cursors-word)
+xmap <silent> <C-c> <Plug>(coc-cursors-range)
 " snippets jump
 let g:coc_snippet_next = '<tab>'
 
@@ -922,6 +923,11 @@ augroup end
 " coc-translator
 nmap <silent> ,, <Plug>(coc-translator-p)
 xmap <silent> <Tab> <Plug>(coc-repl-sendtext)
+" coc-bookmark
+nmap <silent> ,b <Plug>(coc-bookmark-toggle)
+nmap <silent> ,a <Plug>(coc-bookmark-annotate)
+nmap <silent> gh <Plug>(coc-bookmark-prev)
+nmap <silent> gl <Plug>(coc-bookmark-next)
 
 " Install coc extensions
 let g:coc_global_extensions = [
@@ -1390,13 +1396,6 @@ let g:vimtex_quickfix_open_on_warning = 0
 let g:vimtex_compiler_method = 'latexmk'
 let g:vimtex_compiler_latexmk_engines = {'_': '-xelatex'}
 let g:vimtex_compiler_latexrun_engines = {'_': 'xelatex'}
-" vim-visual-multi [[[2
-" for plug on-demand
-map <C-n>  <Plug>VM-Find-Under
-let g:VM_leader             = ";"
-let g:VM_default_mappings   = 0
-let g:VM_maps               = {}
-let g:VM_maps["Select All"] = '<Leader>A'
 " NvimQt: [[[1
 if exists('g:GuiLoaded')
     inoremap <S-CR> <Esc>o

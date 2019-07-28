@@ -50,6 +50,7 @@
   "suggest.noselect": false,
   "suggest.numberSelect": false,
   "suggest.echodocSupport": true,
+  "suggest.enablePreselect": false,
   "suggest.triggerAfterInsertEnter": false,
   "suggest.languageSourcePriority": 99,
   "suggest.completionItemKindLabels": {
