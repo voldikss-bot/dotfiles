@@ -57,12 +57,6 @@ function common_install(){
     crun sudo apt install openssh-client git wget curl unrar unzip tree xclip make cmake -y
     # trash
     crun sudo apt install trash-cli -y
-    # bat
-    if ! command -v bat; then
-        crun wget -O bat.deb https://github.com/sharkdp/bat/releases/download/v0.10.0/bat_0.10.0_amd64.deb
-        crun sudo dpkg -i bat.deb
-        crun rm bat.deb
-    fi
     # catimg
     crun sudo apt install catimg -y
     # ripgrep
@@ -114,6 +108,7 @@ function common_install(){
     if [ ! -d "/etc/v2ray" ] ; then
         crun curl -LO -s https://install.direct/go.sh
         crun sudo bash go.sh
+        crun rm -f go.sh
     fi
 }
 
@@ -141,6 +136,7 @@ function oh_my_zsh_install(){
         crun cd fasd
         crun sudo make install
         crun cd ..
+        crun rm -rf fasd
     fi
     # extract
     crun sudo apt install extract -y
@@ -331,10 +327,12 @@ function others_install(){
     crun wget -O netease-cloud-music.deb http://d1.music.126.net/dmusic/netease-cloud-music_1.1.0_amd64_ubuntu.deb
     crun sudo dpkg -i netease-cloud-music.deb
     crun sudo apt install -f
+    crun rm netease-cloud-music.deb
     # sougou-pinyin input method
     crun wget -O sogou-pinyin.deb http://pinyin.sogou.com/linux/download.php\?f\=linux\&bit\=64
     crun sudo dpkg -i sogou-pinyin.deb
     crun sudo apt install -f
+    crun rm sougou-pinyin.deb
 }
 
 function confirm_install(){

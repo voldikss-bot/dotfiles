@@ -50,9 +50,6 @@ alias du='ncdu --color dark -rr -x --exclude .git --exclude node_modules'
 # nnn
 alias nnn='nnn -d'
 
-# bat
-alias cat='bat'
-
 # where proxy
 alias proxy='export all_proxy=https://127.0.0.1:1081'
 alias unproxy='unset all_proxy'
