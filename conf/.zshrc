@@ -48,6 +48,9 @@ source $HOME/.af-magic.zsh-theme    # theme
 #### others
 ##################################################################
 
+export VISUAL=/usr/bin/nvim 
+export EDITOR=/usr/bin/nvim
+
 # Uncomment the following line to enable command auto-correction.
 ENABLE_CORRECTION="true"
 

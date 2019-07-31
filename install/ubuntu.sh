@@ -162,14 +162,15 @@ function vim_install(){
     nodejs_install
     ctags_install
     gtags_install
-    ccls_install
 
     crun sudo -H pip3 install pynvim yapf flake8 autopep8
     crun sudo yarn global add neovim
     crun sudo yarn global add bash-language-server
     crun sudo yarn global add write-good
     crun sudo yarn global add markdownlint-cli
+
     crun sudo apt install shellcheck -y
+    crun sudo apt install lua5.3 -y
 
     ln -sf $(readlink -f ../vim) $HOME/.vim
     ln -sf $(readlink -f ../vim/init.vim) $HOME/.config/nvim/init.vim
@@ -322,6 +323,8 @@ function others_install(){
     crun sudo apt update
     crun sudo apt install google-chrome-stable -y
     # goldendict
+    # dictionary download
+    # https://github.com/skywind3000/ECDICT/releases/download/1.0.28/ecdict-mdx-style-28.zip
     crun sudo apt install goldendict -y
     # netease-cloud-music
     crun wget -O netease-cloud-music.deb http://d1.music.126.net/dmusic/netease-cloud-music_1.1.0_amd64_ubuntu.deb
@@ -362,6 +365,7 @@ function ubuntu_install()
     # Confirm needed install
     confirm_install tmux tmux_install
     confirm_install latex latex_install
+    confirm_install ccls ccls_install
     echo "Others include: gnome-tweak | chrome | goldendict | netease-cloud-music | sougou-pinyin"
     confirm_install others others_install
 
