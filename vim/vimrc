@@ -931,6 +931,7 @@ nmap <silent> gl <Plug>(coc-bookmark-next)
 
 " Install coc extensions
 let g:coc_global_extensions = [
+    \ 'coc-bookmark',
     \ 'coc-browser',
     \ 'coc-clock',
     \ 'coc-css',
@@ -938,6 +939,7 @@ let g:coc_global_extensions = [
     \ 'coc-dictionary',
     \ 'coc-emoji',
     \ 'coc-emmet',
+    \ 'coc-eslint',
     \ 'coc-git',
     \ 'coc-highlight',
     \ 'coc-html',
@@ -960,6 +962,7 @@ let g:coc_global_extensions = [
     \ 'coc-tsserver',
     \ 'coc-vimtex',
     \ 'coc-vimlsp',
+    \ 'coc-yank',
     \ 'coc-word',
     \ ]
 call coc#add_extension()

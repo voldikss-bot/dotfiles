@@ -11,6 +11,7 @@
     "typescript",
     "yaml"
   ],
+  "coc.preferences.messageLevel": "error",
   "coc.source.vimtex.priority": 99,
   "coc.source.file.priority": 10,
   "coc.source.around.priority": 8,
@@ -45,7 +46,7 @@
   "prettier.singleQuote": true,
   "python.autoComplete.addBrackets": true,
   "session.directory": "/home/voldikss/.cache/nvim/session",
-  "smartf.timeout": 200,
+  "smartf.timeout": 800,
   "smartf.jumpOnTrigger": true,
   "suggest.noselect": false,
   "suggest.numberSelect": false,
