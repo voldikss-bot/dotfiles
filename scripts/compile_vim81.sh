@@ -18,3 +18,4 @@ sudo apt install libncurses5-dev libgnome2-dev libgnomeui-dev libgtk2.0-dev liba
 make VIMRUNTIMEDIR=/usr/local/share/vim/vim81
 
 sudo make install
+sudo ln -sf /usr/local/bin/vim /usr/bin/vim

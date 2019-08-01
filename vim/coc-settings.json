@@ -15,6 +15,7 @@
   "coc.source.vimtex.priority": 99,
   "coc.source.file.priority": 10,
   "coc.source.around.priority": 8,
+  "yank.priority": 7,
   "coc.source.tag.priority": 3,
   "coc.source.emoji.priority": 3,
   "coc.source.dictionary.priority": 1,

@@ -1,6 +1,9 @@
 # For current directory only
 # ----------------------------------------------------------------------------
 
+!/conf/.idlerc/config-main.cfg
+!/conf/.idlerc/config-extensions.cfg
+/conf/.idlerc/*
 plugged
 
 # General

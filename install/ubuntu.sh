@@ -284,18 +284,19 @@ function ccls_install() {
     cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
     cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
     if ! command -v ccls ; then
+        crun sudo apt install zlib1g-dev -y
         crun git clone --depth=1 --recursive https://github.com/MaskRay/ccls
         crun cd ccls
-        crun wget -c http://releases.llvm.org/7.0.1/clang+llvm-7.0.1-x86_64-linux-gnu-ubuntu-16.04.tar.xz
-        crun tar -xf clang+llvm-7.0.1-x86_64-linux-gnu-ubuntu-16.04.tar.xz
-        crun cmake -H. -BRelease -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=$PWD/clang+llvm-7.0.1-x86_64-linux-gnu-ubuntu-16.04
+        crun wget -c wget -c http://releases.llvm.org/8.0.0/clang+llvm-8.0.0-x86_64-linux-gnu-ubuntu-18.04.tar.xz
+        crun tar -xf clang+llvm-8.0.0-x86_64-linux-gnu-ubuntu-18.04.tar.xz
+        crun cmake -H. -BRelease -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=$PWD/clang+llvm-8.0.0-x86_64-linux-gnu-ubuntu-18.04
         crun cmake --build Release
         crun rm clang+llvm-7.0.1-x86_64-linux-gnu-ubuntu-16.04.tar.xz
         crun rm -rf clang+llvm-7.0.1-x86_64-linux-gnu-ubuntu-16.04
         crun cd ..
         crun mkdir -p ~/Applications
         crun mv ccls ~/Applications/
-        crun sudo ln -s ~/Applications/ccls/Release/ccls /usr/bin/ccls
+        crun sudo ln -sf ~/Applications/ccls/Release/ccls /usr/bin/ccls
     else
         cecho "NOTE: ccls has already been installed and won't be installed here"
     fi
@@ -311,6 +312,15 @@ function latex_install() {
     sudo apt install latexmk -y
 }
 
+function goldendict_install() {
+    # goldendict
+    # dictionary download
+    # https://github.com/skywind3000/ECDICT/releases/download/1.0.28/ecdict-mdx-style-28.zip
+    crun sudo apt install libdouble-conversion1 libqt5svg5 -y
+    crun sudo apt install goldendict -y
+    # download the dictionary and put it in the right place
+}
+
 function others_install(){
     cecho "Installing others..."
     cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
@@ -322,10 +332,6 @@ function others_install(){
     crun wget -q -O - https://dl.google.com/linux/linux_signing_key.pub  | sudo apt-key add -
     crun sudo apt update
     crun sudo apt install google-chrome-stable -y
-    # goldendict
-    # dictionary download
-    # https://github.com/skywind3000/ECDICT/releases/download/1.0.28/ecdict-mdx-style-28.zip
-    crun sudo apt install goldendict -y
     # netease-cloud-music
     crun wget -O netease-cloud-music.deb http://d1.music.126.net/dmusic/netease-cloud-music_1.1.0_amd64_ubuntu.deb
     crun sudo dpkg -i netease-cloud-music.deb
