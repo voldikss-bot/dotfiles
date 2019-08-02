@@ -1,3 +1,5 @@
+#! /bin/bash
+
 if [ -f "vim_startup.log" ]; then
     rm ./vim_startup.log
 fi

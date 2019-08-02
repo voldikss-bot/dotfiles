@@ -57,12 +57,6 @@ function common_install(){
     crun sudo apt install openssh-client git wget curl unrar unzip tree xclip make cmake -y
     # trash
     crun sudo apt install trash-cli -y
-    # bat
-    if ! command -v bat; then
-        crun wget -O bat.deb https://github.com/sharkdp/bat/releases/download/v0.10.0/bat_0.10.0_amd64.deb
-        crun sudo dpkg -i bat.deb
-        crun rm bat.deb
-    fi
     # catimg
     crun sudo apt install catimg -y
     # ripgrep
@@ -114,6 +108,7 @@ function common_install(){
     if [ ! -d "/etc/v2ray" ] ; then
         crun curl -LO -s https://install.direct/go.sh
         crun sudo bash go.sh
+        crun rm -f go.sh
     fi
 }
 
@@ -123,6 +118,7 @@ function oh_my_zsh_install(){
     cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
     # zsh
     crun sudo apt install zsh -y
+    crun curl -L git.io/antigen > ~/.antigen.zsh
     # oh-my-zsh
     if [ ! -d "$HOME/.oh-my-zsh" ]; then
         crun sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
@@ -140,6 +136,7 @@ function oh_my_zsh_install(){
         crun cd fasd
         crun sudo make install
         crun cd ..
+        crun rm -rf fasd
     fi
     # extract
     crun sudo apt install extract -y
@@ -165,14 +162,15 @@ function vim_install(){
     nodejs_install
     ctags_install
     gtags_install
-    ccls_install
 
     crun sudo -H pip3 install pynvim yapf flake8 autopep8
     crun sudo yarn global add neovim
     crun sudo yarn global add bash-language-server
     crun sudo yarn global add write-good
     crun sudo yarn global add markdownlint-cli
+
     crun sudo apt install shellcheck -y
+    crun sudo apt install lua5.3 -y
 
     ln -sf $(readlink -f ../vim) $HOME/.vim
     ln -sf $(readlink -f ../vim/init.vim) $HOME/.config/nvim/init.vim
@@ -286,18 +284,19 @@ function ccls_install() {
     cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
     cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
     if ! command -v ccls ; then
+        crun sudo apt install zlib1g-dev -y
         crun git clone --depth=1 --recursive https://github.com/MaskRay/ccls
         crun cd ccls
-        crun wget -c http://releases.llvm.org/7.0.1/clang+llvm-7.0.1-x86_64-linux-gnu-ubuntu-16.04.tar.xz
-        crun tar -xf clang+llvm-7.0.1-x86_64-linux-gnu-ubuntu-16.04.tar.xz
-        crun cmake -H. -BRelease -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=$PWD/clang+llvm-7.0.1-x86_64-linux-gnu-ubuntu-16.04
+        crun wget -c wget -c http://releases.llvm.org/8.0.0/clang+llvm-8.0.0-x86_64-linux-gnu-ubuntu-18.04.tar.xz
+        crun tar -xf clang+llvm-8.0.0-x86_64-linux-gnu-ubuntu-18.04.tar.xz
+        crun cmake -H. -BRelease -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=$PWD/clang+llvm-8.0.0-x86_64-linux-gnu-ubuntu-18.04
         crun cmake --build Release
         crun rm clang+llvm-7.0.1-x86_64-linux-gnu-ubuntu-16.04.tar.xz
         crun rm -rf clang+llvm-7.0.1-x86_64-linux-gnu-ubuntu-16.04
         crun cd ..
         crun mkdir -p ~/Applications
         crun mv ccls ~/Applications/
-        crun sudo ln -s ~/Applications/ccls/Release/ccls /usr/bin/ccls
+        crun sudo ln -sf ~/Applications/ccls/Release/ccls /usr/bin/ccls
     else
         cecho "NOTE: ccls has already been installed and won't be installed here"
     fi
@@ -313,6 +312,15 @@ function latex_install() {
     sudo apt install latexmk -y
 }
 
+function goldendict_install() {
+    # goldendict
+    # dictionary download
+    # https://github.com/skywind3000/ECDICT/releases/download/1.0.28/ecdict-mdx-style-28.zip
+    crun sudo apt install libdouble-conversion1 libqt5svg5 -y
+    crun sudo apt install goldendict -y
+    # download the dictionary and put it in the right place
+}
+
 function others_install(){
     cecho "Installing others..."
     cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
@@ -324,16 +332,16 @@ function others_install(){
     crun wget -q -O - https://dl.google.com/linux/linux_signing_key.pub  | sudo apt-key add -
     crun sudo apt update
     crun sudo apt install google-chrome-stable -y
-    # goldendict
-    crun sudo apt install goldendict -y
     # netease-cloud-music
     crun wget -O netease-cloud-music.deb http://d1.music.126.net/dmusic/netease-cloud-music_1.1.0_amd64_ubuntu.deb
     crun sudo dpkg -i netease-cloud-music.deb
     crun sudo apt install -f
+    crun rm netease-cloud-music.deb
     # sougou-pinyin input method
     crun wget -O sogou-pinyin.deb http://pinyin.sogou.com/linux/download.php\?f\=linux\&bit\=64
     crun sudo dpkg -i sogou-pinyin.deb
     crun sudo apt install -f
+    crun rm sougou-pinyin.deb
 }
 
 function confirm_install(){
@@ -363,6 +371,7 @@ function ubuntu_install()
     # Confirm needed install
     confirm_install tmux tmux_install
     confirm_install latex latex_install
+    confirm_install ccls ccls_install
     echo "Others include: gnome-tweak | chrome | goldendict | netease-cloud-music | sougou-pinyin"
     confirm_install others others_install
 

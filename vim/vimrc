@@ -10,14 +10,13 @@
 
 " GlobalVariables: [[[1
 " IndentCont: indent count when type <CR> and then \
-let g:vim_indent_cont = &sw
-" AutoformatEnable:
-let g:autoformat_enabled = 0
+let g:vim_indent_cont = 4
 " TerminalHeight:
 let g:terminal_height = 15
 " QuickfixHeight:
 let g:quickfix_height = 9
 " ToggleWindows:
+let g:only_one_win = 1
 let g:windows_toggle = {
     \ 'defx': {
         \ 'open': 'Defx',
@@ -28,16 +27,16 @@ let g:windows_toggle = {
         \ 'close': 'Vista!'
     \ },
     \ 'qf': {
-        \ 'open': 'call asyncrun#quickfix_toggle(g:quickfix_height)',
-        \ 'close': 'call asyncrun#quickfix_toggle(g:quickfix_height)'
+        \ 'open': 'OpenQf',
+        \ 'close': 'cclose'
     \ },
     \ 'Mundo': {
         \ 'open': 'MundoToggle',
         \ 'close': 'MundoToggle'
     \ },
     \ 'terminal': {
-        \ 'open': 'call ToggleTerminal(15)',
-        \ 'close': 'call ToggleTerminal(15)'
+        \ 'open': 'ToggleTerminal',
+        \ 'close': 'ToggleTerminal'
     \ }
     \ }
 " DontLoad: [[[2
@@ -75,25 +74,30 @@ Plug 'octol/vim-cpp-enhanced-highlight', {'for': ['c', 'cpp']}
 Plug 'cpiger/NeoDebug', {'for':['c', 'cpp']}
 Plug 'godlygeek/tabular', {'for': 'markdown'}
 Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
-Plug 'iamcco/markdown-preview.nvim', {'for':'markdown', 'do': {-> mkdp#util#install()}, 'frozen': 1}
-Plug 'dhruvasagar/vim-table-mode',{'for': 'markdown', 'do': ':TableFormat'}
+Plug 'iamcco/markdown-preview.nvim', {'for':'markdown', 'do':  ':call mkdp#util#install()', 'frozen': 1}
+Plug 'dhruvasagar/vim-table-mode',{'for': 'markdown', 'on': 'TableFormat'}
 Plug 'rhysd/vim-gfm-syntax', {'for': 'markdown'}
 Plug 'rstacruz/sparkup', {'for':['html', 'htmldjango']}
 Plug 'othree/html5.vim', {'for':['html', 'htmldjango']}
 Plug 'jaxbot/browserlink.vim', {'for': ['html', 'htmldjango', 'css']}
 Plug 'alvan/vim-closetag', {'for': ['html', 'xml', 'htmldjango']}
-Plug 'pangloss/vim-javascript', {'for': 'javascript'}
-Plug 'vim-python/python-syntax', {'for':'python'}
-Plug 'numirias/semshi', {'for':'python', 'do': ':UpdateRemotePlugins'}
-Plug 'lervag/vimtex', {'for': 'tex'}
-Plug 'HerringtonDarkholme/yats.vim', {'for': 'typescript'}
-Plug 'leafgarland/typescript-vim', {'for': 'typescript'}
-Plug 'aperezdc/vim-template', {'on': 'Template'}
+Plug 'pangloss/vim-javascript'
+Plug 'vim-python/python-syntax'
+Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
+Plug 'lervag/vimtex'
+Plug 'HerringtonDarkholme/yats.vim'
+Plug 'leafgarland/typescript-vim'
 " Completion [[[2
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile', 'frozen':1}
 " Style [[[2
 Plug 'Yggdroot/indentLine'
-Plug 'Shougo/defx.nvim', {'do': ':UpdateRemotePlugins'}
+if has('nvim')
+  Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/defx.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
 Plug 'kristijanhusak/defx-git'
 Plug 'kristijanhusak/defx-icons'
 Plug 'mhinz/vim-startify'
@@ -109,24 +113,21 @@ Plug 'cohama/agit.vim', {'on': 'Agit'}
 Plug 'mattn/gist-vim', {'on': 'Gist'}
 Plug 'mattn/webapi-vim'
 Plug 'rhysd/git-messenger.vim', {'on': '<Plug>(git-messenger)'}
-Plug 'idanarye/vim-merginal'
 " Enhancements [[[2
 Plug 'skywind3000/asyncrun.vim'
-Plug 'jsfaint/gen_tags.vim', {'on': ['GenCtags', 'GenGTAGS']}
 Plug 'Yggdroot/LeaderF'
 Plug 'voldikss/vim-search-me'
 Plug 'voldikss/vim-translate-me'
-Plug 'ahonn/fileheader.nvim', {'on': ['AddFileHeader', 'UpdateFileHeader']}
+Plug 'ahonn/fileheader.nvim'
 Plug 'inkarkat/vim-mark', {'on': '<Plug>MarkSet'}
 Plug 'inkarkat/vim-ingo-library'
 Plug 'moll/vim-bbye'
 Plug 'liuchengxu/vista.vim', {'on': 'Vista'}
 " Move [[[2
-Plug 'easymotion/vim-easymotion'
 Plug 'tommcdo/vim-exchange', {'on': ['<Plug>(Exchange)', '<Plug>(ExchangeLine)', '<Plug>(ExchangeClear)']}
 Plug 'matze/vim-move', {'on': ['<Plug>MoveLineUp', '<Plug>MoveLineDown', '<Plug>MoveBlockUp', '<Plug>MoveBlockDown']}
 Plug 'andrewradev/sideways.vim', {'on': ['SidewaysLeft', 'SidewaysRight']}
-Plug 'rhysd/clever-f.vim'
+" Plug 'rhysd/clever-f.vim'
 " Edit [[[2
 Plug 'tpope/vim-commentary'
 Plug 'bronson/vim-visual-star-search'
@@ -134,7 +135,6 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'foosoft/vim-argwrap', {'on': 'ArgWrap'}
 Plug 'junegunn/vim-easy-align'
-Plug 'mg979/vim-visual-multi', {'on': '<Plug>VM-Find-Under'}
 Plug 'wellle/targets.vim'
 " Misc [[[2
 Plug 'yianwillis/vimcdoc'
@@ -168,18 +168,19 @@ set timeout
 set ttimeout
 set timeoutlen=500
 set ttimeoutlen=20
-set mouse=a
+set mouse-=a
 set mousehide
 set selectmode=mouse
 set clipboard=
 set backspace=2
 set backspace=eol,start,indent
 set whichwrap=b,s,<,>,[,]
+set completeopt-=preview
+set nomodeline
 " style [[[2
 colorscheme molokai
 set termguicolors
 set guicursor=
-set signcolumn=yes
 set pumheight=15
 set title
 set ruler
@@ -224,9 +225,11 @@ set wildignore+=.stversions,*.pyc,*.spl,*.o,*.out,*~,%*
 set wildignore+=*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store
 set wildignore+=__pycache__,*.egg-info
 " nvim only [[[2
-if has('nvim')
+if has('nvim') &&  matchstr(execute('silent version'), 'NVIM v\zs[^\n-]*') >= '0.0.4'
 set inccommand=nosplit
 set wildoptions+=pum
+set signcolumn=yes:2
+set pumblend=10
 endif
 " Keymap: [[[1
 " LeaderKey: [[[2
@@ -283,15 +286,15 @@ nnoremap <Leader>P "+P
 noremap  <silent> <Leader>sa <Esc>ggVG
 vnoremap <silent> <C-c> "+y
 " InsertMode: move [[[2
-inoremap <C-k> <Esc>ka
-inoremap <C-j> <Esc>ja
-inoremap <C-h> <Esc>ha
-inoremap <C-l> <Esc>la
+inoremap <C-k> <Up>
+inoremap <C-j> <Down>
+inoremap <C-h> <Left>
+inoremap <C-l> <Right>
 inoremap <C-b> <Esc>bi
 inoremap <C-f> <Esc>ea
 inoremap <C-a> <Home>
 inoremap <C-e> <End>
-inoremap <C-o> <Esc>o
+inoremap <C-o> <End><CR>
 inoremap <M-o> <Esc>O
 inoremap <C-d> <Esc>ddi
 inoremap <C-c> <Esc>C
@@ -304,7 +307,7 @@ inoremap ;h <Left>
 inoremap ;j <Down>
 inoremap ;k <Up>
 inoremap ;l <Right>
-inoremap ;o <Esc>o
+inoremap ;o <End><CR>
 inoremap ;O <Esc>O
 inoremap ;u <C-u>
 inoremap ;c <Esc><Right>C
@@ -362,6 +365,7 @@ if has('nvim')
 inoremap <silent> <Esc> <Esc>:noh<CR>
 nnoremap <silent> <Esc> <Esc>:noh<CR>
 endif
+nnoremap <silent> <BS> <Esc>:noh<CR>
 " Customized function [[[2
 noremap  <silent> <F2>            <Esc>:call ToggleWindows('defx')<CR>
 noremap! <silent> <F2>            <Esc>:call ToggleWindows('defx')<CR>
@@ -376,26 +380,30 @@ noremap  <silent> <Leader>x       <Esc>:call QuickRun()<CR>
 noremap  <silent> <Leader><Space> <Esc>:call ToggleWindows('qf')<CR>
 tnoremap <silent> <Leader><Space> <C-\><C-n>:call ToggleWindows('qf')<CR>
 noremap  <silent> <F6>            <Esc>:call Autoformat()<CR>
+noremap  <silent> ;;              <Esc>:call Autoformat()<CR>
 noremap! <silent> <F6>            <Esc>:call Autoformat()<CR>
 noremap  <silent> <F10>           <Esc>:call ToggleWindows('vista')<CR>
 noremap! <silent> <F10>           <Esc>:call ToggleWindows('vista')<CR>
 tnoremap <silent> <F10>           <C-\><C-n>:call ToggleWindows('vista')<CR>
 noremap  <silent> <expr><F12>     &buftype =='terminal' ?
-                               \ "\<C-\><C-n>:call ToggleWindows('terminal')\<CR>" :
-                               \ (has('nvim') ? 
-                               \ "\<Esc>:call ToggleWindows('terminal')\<CR>i" :
-                               \ "\<Esc>:call ToggleWindows('terminal')\<CR>")
-noremap! <silent> <F12>        <Esc>:call ToggleWindows('terminal')<CR>i
-tnoremap <silent> <F12>        <C-\><C-n>:call ToggleWindows('terminal')<CR>
-nnoremap <expr>   <CR>         NormalMapForEnter() . "\<Esc>"
-inoremap <expr>   <CR>         InsertMapForEnter()
-inoremap <expr>   <BS>         MapForBackspace()
-inoremap <expr>   ;<CR>        MapForSemicolonEnter()
-inoremap <expr>   ;p           MapForSemicolonP()
-inoremap <expr>   ;;           MapForDoubleSemicolon()
+                                  \ "\<C-\><C-n>:call ToggleWindows('terminal')\<CR>" :
+                                  \ "\<Esc>:call ToggleWindows('terminal')\<CR>i<C-u>"
+noremap! <silent> <F12>           <Esc>:call ToggleWindows('terminal')<CR>i
+tnoremap <silent> <F12>           <C-\><C-n>:call ToggleWindows('terminal')<CR>
+nnoremap <expr>   <CR>            NormalMapForEnter() . "\<Esc>"
+inoremap <expr>   <CR>            InsertMapForEnter()
+inoremap <expr>   <BS>            MapForBackspace()
+inoremap <expr>   ;<CR>           InsertMapForSemicolonEnter()
+inoremap <expr>   ;p              InsertMapForSemicolonP()
+inoremap <expr>   ;;              InsertMapForDoubleSemicolon()
 " Autocmd: [[[1
 augroup AutocmdGroup
     autocmd!
+" General: [[[2
+    autocmd BufEnter * if &buftype == 'terminal' |
+        \ setlocal signcolumn=no |
+        \ setlocal nobuflisted |
+        \ endif
 " ParenthesisColor: [[[2
     autocmd VimEnter,BufWinEnter *
         \ if index(['html', 'htmldjango', 'tex', 'mma'], &filetype) < 0 |
@@ -420,13 +428,13 @@ augroup AutocmdGroup
         \ endif
 " KeywordHighlight: [[[2
     autocmd Syntax *
-        \ call matchadd('Todo',  '\W\zs\(TODO\|Todo\|todo\|FIXME\|CHANGED\|XXX\|BUG\|HACK\)') |
+        \ call matchadd('Todo',  '\W\zs\(TODO\|FIXME\|CHANGED\|XXX\|BUG\|HACK\)') |
         \ call matchadd('Todo',  '\W\zs\(NOTE\|Note\|INFO\|IDEA\|NOTICE\)') |
         \ call matchadd('Debug', '\W\zs\(Debug\|DEBUG\)') |
 " AutoChdir: [[[2
     autocmd BufEnter * silent! lcd %:p:h
 " GitIgnore: [[[2
-    autocmd BufNewFile .gitignore Template 
+    autocmd BufNewFile .gitignore CocCommand template.templateTop
 " Plugins: [[[2
     " coc.nvim [[[3
     " close preview window when completion is done.
@@ -436,15 +444,17 @@ augroup AutocmdGroup
         autocmd CursorHold * silent call CocActionAsync('highlight')
     endif
     " coc-pairs
-    autocmd FileType tex let b:coc_paires = [['$', '$']]
-    autocmd FileType html let b:coc_paires = [['<!--', '-->'], ['{%', '%}']]
-    autocmd FileType markdown let b:coc_paires = [['*', '*']]
-    autocmd FileType javascript,css,c,cpp let b:coc_paires = [['/*', '*/']]
+    let s:coc_pairs_expand = [['（', '）'], ['“', '”'], ['‘', '’'], ['《', '》']]
+    autocmd FileType tex let b:coc_pairs = extend([['$', '$']], s:coc_pairs_expand)
+    autocmd FileType html let b:coc_pairs = extend([['<!--', '-->'], ['{%', '%}']], s:coc_pairs_expand)
+    autocmd FileType markdown let b:coc_pairs = extend([['*', '*']], s:coc_pairs_expand)
+    autocmd FileType javascript,css,c,cpp let b:coc_pairs = extend([['/*', '*/']], s:coc_pairs_expand)
+    autocmd FileType vim let b:coc_pairs_disabled = ['"']
+    " defx
+    autocmd BufLeave * if &filetype == 'defx' | :Defx | endif
     " vim-argwrap [[[3
     autocmd FileType vim let b:argwrap_line_prefix = '\'
     autocmd FileType vim let b:argwrap_tail_indent_braces = '('
-    " vim-autoformat [[[3
-    autocmd BufWrite * if g:autoformat_enabled | :call Autoformat<CR> | endif
     " vim-commentary [[[3
     autocmd FileType python,shell,coffee,crontab,toml setlocal commentstring=#\ %s
     autocmd FileType java,c,cpp,json,jsonc            setlocal commentstring=//\ %s
@@ -455,7 +465,8 @@ augroup END
 command! -nargs=+ Grep        call Grep(<q-args>)
 command! -nargs=+ -complete=command TabMessage call TabMessage(<q-args>)
 command! -nargs=0 SetQuickRunCommand  call SetQuickRunCommand()
-command! -nargs=1 SetQuickfixHeight   call SetQuickfixHeight(<q-args>)
+command! -nargs=0 OpenQf              execute 'copen' .  g:quickfix_height
+command! -nargs=0 ToggleTerminal        call ToggleTerminal(g:terminal_height)
 " GitOperation: [[[2
 command! Gap  Git add -p
 command! Cd   Gcd
@@ -478,17 +489,14 @@ command! PC  PlugClean
 " Autoformat: format code [[[2
 function! Autoformat()
     let curr_pos = getpos('.')
-    if &filetype == 'markdown'
-        TableFormat
-    else
-        call CocAction('format')
-    endif
-    exec 'w'
+    silent! execute '%s/\s\+$//g'
+    call CocAction('format')
+    update
     call setpos('.', curr_pos)
 endfunction
 function! AutoSaveBuffer()
+    update
     if index(['html', 'htmldjango', 'css'], &filetype) >= 0
-        update
         BLReloadPage
     endif
 endfunction
@@ -554,8 +562,9 @@ function! SetQuickRunCommand() abort
         \ '4. AsyncRun cargo run',
         \ '5. AsyncRun rustc % && ./%:r',
         \ '6. AsyncRun tsc',
-        \ '7. AsyncRun make',
-        \ '8. Codi python'
+        \ '7. AsyncRun tsc --watch',
+        \ '8. AsyncRun make',
+        \ '9. Codi python'
         \ ]
     let select = inputlist(cmd_list)
     if select == 0
@@ -581,10 +590,6 @@ function! SetQuickRunCommand() abort
     echohl Preproc
     echo g:quickrun_command
     echohl None
-endfunction
-" SetQuickRunCommand: [[[2
-function! SetQuickfixHeight(height)
-    let g:quickfix_height = a:height
 endfunction
 " FileExplore: open cwd in file explore [[[2
 function! FileExplore()
@@ -630,15 +635,23 @@ function! NormalMapForEnter()
     if &filetype ==# 'quickfix'
         return "\<CR>"
     else
-        let line = getline('.')
-        if index(['c', 'cpp', 'cs', 'css', 'java', 'rust', 'scss'],&filetype) >= 0 
-            \ && trim(line) != '' 
-            \ && index([';', '{','[', '(', '\'], line[-1:]) < 0
-                return "A;"
+        let line = trim(getline('.'))
+        if index(['c', 'cpp', 'cs', 'css', 'java', 'rust', 'scss'], &filetype) >= 0
+            if line != ''
+                \ && index(['#', '/'], line[0]) < 0
+                \ && index([';', '{','[', '(', '\'], line[-1:]) < 0
+                    return "A;"
+            else
+                return ""
+            endif
         elseif index(['json', 'jsonc'], &filetype) >=0
-            \ && trim(line) != '' 
-            \ && index([',', '[', '{'], line[-1:]) < 0
+            if line != ''
+                \ && index(['#', '/'], line[0]) < 0
+                \ && index([',', '{','['], line[-1:]) < 0
                 return "A,"
+            else
+                return ""
+            endif
         else
             return "" " prevent entering to the next line
         endif
@@ -646,33 +659,43 @@ function! NormalMapForEnter()
 endfunction
 " InsertMapForEnter: <CR> [[[2
 function! InsertMapForEnter()
+    let line = getline('.') " can not use trim
     if pumvisible()
         return "\<C-y>"
-    elseif index([')', ']', '}'], strcharpart(getline('.'),getpos('.')[2]-1,1)) >= 0
+    elseif index([')', ']', '}'], strcharpart(line, getpos('.')[2]-1, 1)) >= 0
         return "\<CR>\<Esc>O"
-    elseif strcharpart(getline('.'),getpos('.')[2]-1,2) == '</'
+    elseif strcharpart(line, getpos('.')[2]-1,2) == '</'
         return "\<CR>\<Esc>O"
     else
         return "\<CR>"
     endif
 endfunction
-" MapForSemicolonEnter: ;<CR> [[[2
-function! MapForSemicolonEnter()
-    if index(['c', 'cpp', 'cs', 'css', 'java', 'rust', 'scss'],&filetype) >= 0
-        \ && (getline('.')[-1:] != ';')
-        return "\<End>;\<CR>"
+" InsertMapForSemicolonEnter: ;<CR> [[[2
+function! InsertMapForSemicolonEnter()
+    let line = trim(getline('.'))
+    if index(['c', 'cpp', 'cs', 'css', 'java', 'rust', 'scss'], &filetype) >= 0
+        if line != '' && line[-1:] != ';' && index(['#', '/'], line[0]) < 0
+            return "\<End>;\<CR>"
+        else
+            return "\<Esc>o"
+        endif
     elseif index(['json', 'jsonc'], &filetype) >=0
-        \ && (getline('.')[-1:] != ',')
-        return "\<End>,\<CR>"
+        if line != ''
+            \ && index(['#', '/'], line[0]) < 0
+            \ && index([',', '{','['], line[-1:]) < 0
+            return "\<End>,\<CR>"
+        else
+            return "\<Esc>o"
+        endif
     else
         return "\<Esc>o"
     endif
 endfunction
-" MapForSemicolonP: ;p [[[2
-function! MapForSemicolonP()
+" InsertMapForSemicolonP: ;p [[[2
+function! InsertMapForSemicolonP()
     if &filetype == 'python'
-        let line = getline('.')
-        if trim(line) != '' && line[-1:] != ':'
+        let line = trim(getline('.'))
+        if line != '' && line[-1:] != ':'
             return "\<End>:\<CR>"
         else
             return ""
@@ -681,27 +704,24 @@ function! MapForSemicolonP()
         return "\<End>\<Space>{}\<Left>\<CR>\<Esc>O"
     endif
 endfunction
-" MapForDoubleSemicolon: ;; [[[2
-function! MapForDoubleSemicolon()
-    if index([
-        \ 'c',
-        \ 'cpp',
-        \ 'cs',
-        \ 'css',
-        \ 'java',
-        \ 'rust',
-        \ 'scss'
-    \ ], &filetype) >= 0
-        let line = getline('.')
-        if line[-1:] != ';'
+" InsertMapForDoubleSemicolon: ;; [[[2
+function! InsertMapForDoubleSemicolon()
+    let line = trim(getline('.'))
+    if index(['c', 'cpp', 'cs', 'css', 'java', 'rust', 'scss'], &filetype) >= 0
+        if line != '' && line[-1:] != ';' && index(['#', '/'], line[0]) < 0
             return "\<End>;"
         else
             return ""
         endif
     elseif &filetype == 'python'
-        let line = getline('.')
         if trim(line) != '' && line[-1:] != ':'
             return "\<End>:"
+        else
+            return ""
+        endif
+    elseif index(['json', 'jsonc'], &filetype)
+        if trim(line) != '' && line[-1:] != ','
+            return "\<End>,"
         else
             return ""
         endif
@@ -718,20 +738,9 @@ function! MapForBackspace()
             return ""
         endif
     else
-        let paren = strcharpart(getline('.'), getpos('.')[2]-2, 2)
-        if index([
-            \ '()',
-            \ '[]',
-            \ '{}',
-            \ '<>',
-            \ '%%',
-            \ '$$',
-            \ '**',
-            \ '""',
-            \ "''",
-            \ '~~',
-            \ '``'
-        \ ], paren) >=0
+        let line = getline('.')         " 此处不能用 trim()
+        let paren = strcharpart(line, getpos('.')[2]-2, 2)
+        if index(['()', '[]', '{}', '<>', '%%', '$$', '**', '""', "''", '~~', '``'], paren) >=0
             return "\<Left>\<Del>\<Del>"
         else
             return "\<Left>\<Del>"
@@ -827,44 +836,30 @@ function! ToggleWindows(winname)
         let window = filetype != "" ? filetype : buftype
         if window == a:winname
             let found_winnr = winnr
-        elseif index(keys(g:windows_toggle), window) >= 0
             " close other windows
-            execute g:windows_toggle[window]['close']
+        elseif g:only_one_win
+            if index(keys(g:windows_toggle), window) >= 0
+                execute g:windows_toggle[window]['close']
+            elseif index(['leaderf'], window) >=0
+                execute winnr . 'wincmd q'
+            endif
         endif
     endfor
 
     if found_winnr > 0
+        " close or go to that window(for example, terminal...)
         execute g:windows_toggle[a:winname]['close']
     else
+        " open a new window or open that background buffer
         execute g:windows_toggle[a:winname]['open']
     endif
 endfunction
 " Abbreviate: [[[1
-call SetupCommandAbbrs('As', 'AsyncRun')
-call SetupCommandAbbrs('Ass', 'AsyncStop')
-call SetupCommandAbbrs('CC', 'CocConfig')
-call SetupCommandAbbrs('CI', 'CocInstall')
-call SetupCommandAbbrs('CM', 'CocCommand')
-call SetupCommandAbbrs('CU', 'CocUninstall')
-call SetupCommandAbbrs('CL', 'CocList')
-call SetupCommandAbbrs('CR', 'CocRestart')
-call SetupCommandAbbrs('D', 'Dict')
-call SetupCommandAbbrs('Gap', 'Git add -p')
-call SetupCommandAbbrs('Cd', 'Gcd')
-call SetupCommandAbbrs('Gd', 'Gvdiff')
-call SetupCommandAbbrs('Gl', 'Git lg')
-call SetupCommandAbbrs('Gs', 'Gstatus')
-call SetupCommandAbbrs('Gc', 'Gcommit -v')
-call SetupCommandAbbrs('Gca', 'Gcommit --amend -v')
-call SetupCommandAbbrs('Gco', 'AsyncRun git checkout .')
-call SetupCommandAbbrs('Gpush', 'AsyncRun git push')
-call SetupCommandAbbrs('Gpull', 'AsyncRun git pull')
-call SetupCommandAbbrs('Grm', 'Gremove')
-call SetupCommandAbbrs('Gmv', 'Gmove')
-
 call SetupCommandAbbrs('as', 'AsyncRun')
 call SetupCommandAbbrs('ass', 'AsyncStop')
+call SetupCommandAbbrs('ca', 'CocAction')
 call SetupCommandAbbrs('cc', 'CocConfig')
+call SetupCommandAbbrs('cf', 'CocFix')
 call SetupCommandAbbrs('ci', 'CocInstall')
 call SetupCommandAbbrs('cm', 'CocCommand')
 call SetupCommandAbbrs('cu', 'CocUninstall')
@@ -892,7 +887,9 @@ let $PYTHONUNBUFFERED=1
 " coc.nvim [[[2
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
+" multi-cursor support
+nmap <silent> <C-c> <Plug>(coc-cursors-word)
+xmap <silent> <C-c> <Plug>(coc-cursors-range)
 " snippets jump
 let g:coc_snippet_next = '<tab>'
 
@@ -916,30 +913,57 @@ nnoremap <silent> <Leader>hs :CocCommand git.chunkStage<CR>
 nnoremap <silent> <Leader>hu :CocCommand git.chunkUndo<CR>
 nnoremap <silent> <Leader>go :CocCommand git.browserOpen<CR>
 nnoremap <silent> <Leader>gv :CocCommand git.chunkInfo<CR>
+" coc-smartf
+nmap f <Plug>(coc-smartf-forward)
+nmap F <Plug>(coc-smartf-backward)
+
+augroup Smartf
+  autocmd User SmartfEnter :hi Conceal ctermfg=220 guifg=#6638F0
+  autocmd User SmartfLeave :hi Conceal ctermfg=239 guifg=#504945
+augroup end
+" coc-translator
+nmap <silent> ,, <Plug>(coc-translator-p)
+xmap <silent> <Tab> <Plug>(coc-repl-sendtext)
+" coc-bookmark
+nmap <silent> ,b <Plug>(coc-bookmark-toggle)
+nmap <silent> ,a <Plug>(coc-bookmark-annotate)
+nmap <silent> gh <Plug>(coc-bookmark-prev)
+nmap <silent> gl <Plug>(coc-bookmark-next)
 
 " Install coc extensions
 let g:coc_global_extensions = [
+    \ 'coc-bookmark',
     \ 'coc-browser',
+    \ 'coc-clock',
     \ 'coc-css',
     \ 'coc-diagnostic',
     \ 'coc-dictionary',
     \ 'coc-emoji',
     \ 'coc-emmet',
+    \ 'coc-eslint',
     \ 'coc-git',
     \ 'coc-highlight',
     \ 'coc-html',
     \ 'coc-lists',
     \ 'coc-json',
+    \ 'coc-marketplace',
     \ 'coc-pairs',
     \ 'coc-post',
+    \ 'coc-prettier',
     \ 'coc-python',
     \ 'coc-rls',
+    \ 'coc-smartf',
     \ 'coc-snippets',
     \ 'coc-syntax',
     \ 'coc-tag',
+    \ 'coc-template',
+    \ 'coc-todolist',
+    \ 'coc-translator',
+    \ 'coc-tslint-plugin',
     \ 'coc-tsserver',
     \ 'coc-vimtex',
     \ 'coc-vimlsp',
+    \ 'coc-yank',
     \ 'coc-word',
     \ ]
 call coc#add_extension()
@@ -987,41 +1011,38 @@ function! s:defx_my_settings() abort
   setlocal cursorline
 
   " Define mappings
-  nnoremap <silent><buffer><expr>   <CR>            defx#is_directory() ? defx#do_action('open_or_close_tree') : defx#do_action('multi', ['drop'])
-  nnoremap <silent><buffer><expr>   <2-LeftMouse>   defx#is_directory() ? defx#do_action('open_or_close_tree') : defx#do_action('multi', ['drop'])
-  nnoremap <silent><buffer><expr>   c               defx#do_action('copy')
-  nnoremap <silent><buffer><expr>   m               defx#do_action('move')
-  nnoremap <silent><buffer><expr>   p               defx#do_action('paste')
-  " nnoremap <silent><buffer><expr>   l               defx#do_action('open')
-  nnoremap <silent><buffer><expr>   E               defx#do_action('open', 'vsplit')
-  nnoremap <silent><buffer><expr>   P               defx#do_action('open', 'pedit')
-  " nnoremap <silent><buffer><expr>   o               defx#do_action('open_or_close_tree')
-  nnoremap <silent><buffer><expr>   K               defx#do_action('new_directory')
-  nnoremap <silent><buffer><expr>   N               defx#do_action('new_file')
-  nnoremap <silent><buffer><expr>   M               defx#do_action('new_multiple_files')
-  nnoremap <silent><buffer><expr>   C               defx#do_action('toggle_columns', 'mark:git:icons:filename:size:time')
-  nnoremap <silent><buffer><expr>   S               defx#do_action('toggle_sort', 'time')
-  nnoremap <silent><buffer><expr>   d               defx#do_action('remove')
-  nnoremap <silent><buffer><expr>   r               defx#do_action('rename')
-  nnoremap <silent><buffer><expr>   !               defx#do_action('execute_command')
-  nnoremap <silent><buffer><expr>   x               defx#do_action('execute_system')
-  nnoremap <silent><buffer><expr>   yy              defx#do_action('yank_path')
-  nnoremap <silent><buffer><expr>   .               defx#do_action('toggle_ignored_files')
-  " nnoremap <silent><buffer><expr>   ;               defx#do_action('repeat')
-  nnoremap <silent><buffer><expr>   <C-o>           defx#do_action('cd', ['..'])
-  nnoremap <silent><buffer><expr>   <C-i>           defx#do_action('open')
-  nnoremap <silent><buffer><expr>   q               defx#do_action('quit')
-  nnoremap <silent><buffer><expr>   <Space>         defx#do_action('toggle_select') . 'j'
-  nnoremap <silent><buffer><expr>   *               defx#do_action('toggle_select_all')
-  " nnoremap <silent><buffer><expr>   j               line('.') == line('$') ? 'gg' : 'j'
-  " nnoremap <silent><buffer><expr>   k               line('.') == 1 ? 'G' : 'k'
-  nnoremap <silent><buffer><expr>   <C-l>           defx#do_action('redraw')
-  nnoremap <silent><buffer><expr>   <C-g>           defx#do_action('print')
-  nnoremap <silent><buffer><expr>   cd              defx#do_action('change_vim_cwd')
+  nnoremap <silent><buffer><expr><nowait>   <CR>            defx#is_directory() ? defx#do_action('open_or_close_tree') : defx#do_action('multi', ['drop'])
+  nnoremap <silent><buffer><expr><nowait>   <2-LeftMouse>   defx#is_directory() ? defx#do_action('open_or_close_tree') : defx#do_action('multi', ['drop'])
+  nnoremap <silent><buffer><expr><nowait>   c               defx#do_action('copy')
+  nnoremap <silent><buffer><expr><nowait>   m               defx#do_action('move')
+  nnoremap <silent><buffer><expr><nowait>   p               defx#do_action('paste')
+  nnoremap <silent><buffer><expr><nowait>   l               defx#do_action('open')
+  nnoremap <silent><buffer><expr><nowait>   E               defx#do_action('open', 'vsplit')
+  nnoremap <silent><buffer><expr><nowait>   P               defx#do_action('open', 'pedit')
+  nnoremap <silent><buffer><expr><nowait>   o               defx#do_action('open_or_close_tree')
+  nnoremap <silent><buffer><expr><nowait>   D               defx#do_action('new_directory')
+  nnoremap <silent><buffer><expr><nowait>   N               defx#do_action('new_file')
+  nnoremap <silent><buffer><expr><nowait>   M               defx#do_action('new_multiple_files')
+  nnoremap <silent><buffer><expr><nowait>   C               defx#do_action('toggle_columns', 'mark:git:icons:filename:size:time')
+  nnoremap <silent><buffer><expr><nowait>   S               defx#do_action('toggle_sort', 'time')
+  nnoremap <silent><buffer><expr><nowait>   d               defx#do_action('remove_trash')
+  nnoremap <silent><buffer><expr><nowait>   r               defx#do_action('rename')
+  nnoremap <silent><buffer><expr><nowait>   !               defx#do_action('execute_command')
+  nnoremap <silent><buffer><expr><nowait>   x               defx#do_action('execute_system')
+  nnoremap <silent><buffer><expr><nowait>   y              defx#do_action('yank_path')
+  nnoremap <silent><buffer><expr><nowait>   I               defx#do_action('toggle_ignored_files')
+  nnoremap <silent><buffer><expr><nowait>   .               defx#do_action('repeat')
+  nnoremap <silent><buffer><expr><nowait>   h           defx#do_action('cd', ['..'])
+  nnoremap <silent><buffer><expr><nowait>   q               defx#do_action('quit')
+  nnoremap <silent><buffer><expr><nowait>   <Space>         defx#do_action('toggle_select') . 'j'
+  nnoremap <silent><buffer><expr><nowait>   *               defx#do_action('toggle_select_all')
+  " nnoremap <silent><buffer><expr><nowait>   j               line('.') == line('$') ? 'gg' : 'j'
+  " nnoremap <silent><buffer><expr><nowait>   k               line('.') == 1 ? 'G' : 'k'
+  nnoremap <silent><buffer><expr><nowait>   f           defx#do_action('redraw')
 endfunction
 " fileheader.nvim [[[2
 let g:fileheader_auto_add = 0
-let g:fileheader_auto_update = 0
+let g:fileheader_auto_update = 1
 let g:fileheader_author='voldikss'
 let g:fileheader_default_email = 'dyzplus@gmail'
 let g:fileheader_show_email = 0
@@ -1046,15 +1067,21 @@ let g:goyo_linenr = 1
 " indentLine [[[2
 let g:indentLine_enabled = 1
 let g:indentLine_color_term = 238
-let g:indentLine_fileTypeExclude = ['startify', 'vista', 'json', 'codi', 'defx']
+let g:indentLine_fileTypeExclude = ['startify', 'vista', 'json', 'codi', 'defx', 'vtm']
 " LeaderF [[[2
-noremap <silent> <Leader>f :LeaderfFile<CR>
-noremap <silent> <Leader>b :LeaderfBuffer<CR>
-noremap <silent> <Leader>t :LeaderfBufTagAll<CR>
-noremap <silent> <Leader>r :Leaderf rg<CR>
+noremap <silent> <Leader>ff :LeaderfFile<CR>
+noremap <silent> <Leader>fb :LeaderfBuffer<CR>
+noremap <silent> <Leader>ft :LeaderfBufTagAll<CR>
+noremap <silent> <Leader>fg :Leaderf rg<CR>
+noremap <silent> <leader>fr :<C-U><C-R>=printf("Leaderf! gtags -r %s --auto-jump", expand("<cword>"))<CR><CR>
+noremap <silent> <leader>fd :<C-U><C-R>=printf("Leaderf! gtags -d %s --auto-jump", expand("<cword>"))<CR><CR>
+noremap <silent> <leader>fn :<C-U><C-R>=printf("Leaderf gtags --next %s", "")<CR><CR>
+noremap <silent> <leader>fp :<C-U><C-R>=printf("Leaderf gtags --previous %s", "")<CR><CR>
 
+let g:Lf_GtagsAutoGenerate = 1
+let g:Lf_Gtagslabel = 'native-pygments'
 let g:Lf_StlSeparator   = {'left': '', 'right': '', 'font': ''}
-let g:Lf_RootMarkers    = ['.project', '.root', '.svn', '.git']
+let g:Lf_RootMarkers    = ['.project', '.svn', '.git', '.idea']
 let g:Lf_MruFileExclude = ['*.so','*.py[c0]','*.exe','*.sw?']
 let g:Lf_WildIgnore = {
     \ 'dir': ['.svn','.git','.hg','.cache','.idea','.android','.gradle','.IntelliJIdea*'],
@@ -1121,8 +1148,10 @@ let g:lightline = {
 
 " LightlineAbsolutePath: [[[3
 function! LightlineAbsolutePath()
-    let path = winwidth(0) > 70 ? expand('%:p') : ''
-    let path = substitute(path, $HOME, '~', 'g')
+    let path = substitute(expand('%:p'), $HOME, '~', 'g')
+    if 2.6*len(path) > winwidth(0)
+        let path = pathshorten(path)
+    endif
     return path
 endfunction
 
@@ -1263,37 +1292,11 @@ let g:cpp_concepts_highlight                     = 1
 " vim-easy-align [[[2
 xmap <silent> ga <Plug>(EasyAlign)
 nmap <silent> ga <Plug>(EasyAlign)
-" vim-easymotion [[[2
-map  <Plug>NoPrefix <Plug>(easymotion-prefix)
-map  ,e             <Plug>(easymotion-bd-w)
-map  ,f             <Plug>(easymotion-s2)
-map  ,l             <Plug>(easymotion-bd-jk)
-let g:EasyMotion_smartcase = 1
 " vim-exchange [[[2
 nmap <silent> cx  <Plug>(Exchange)
 xmap <silent> X   <Plug>(Exchange)
 nmap <silent> cxc <Plug>(ExchangeClear)
 nmap <silent> cxx <Plug>(ExchangeLine)
-" vim-gen_tags [[[2
-let $GTAGSLABEL = 'native-pygments'
-if has('unix')
-    let $GTAGSCONF = '/usr/local/share/gtags/gtags.conf'
-else
-    let $GTAGSCONF = 'D:\Applications\Gtags\share\gtags'
-endif
-let g:gen_tags#ctags_opts =  ['--extra=+q']
-let g:gen_tags#ctags_opts += ['--c-kinds=+px']
-let g:gen_tags#ctags_opts += ['--fields=+niazS']
-let g:gen_tags#ctags_opts += ['--c++-kinds=+px']
-let g:gen_tags#ctags_opts += ['--output-format=e-ctags']
-let g:gen_tags#use_cache_dir = 1
-let g:gen_tags#cache_dir = '$HOME/.cache/nvim/tags'
-let g:gen_tags#ctags_auto_gen = 0
-let g:gen_tags#gtags_auto_gen = 0
-let g:gen_tags#ctags_auto_update  = 1
-let g:gen_tags#gtags_auto_update  = 1
-let g:gen_tags#blacklist = ['$HOME']
-let g:gen_tags#statusline = 0
 " vim-javascript [[[2
 let g:javascript_plugin_jsdoc = 1
 let g:javascript_plugin_ngdoc = 1
@@ -1348,33 +1351,26 @@ let g:startify_bookmarks = [
 \ ]
 let g:startify_files_number = 8
 let g:startify_padding_left = 15
-" let g:startify_custom_header = [
-"     \ '                     _    ______  __    ____  ______ ____________',
-"     \ '                    | |  / / __ \/ /   / __ \/  _/ //_/ ___/ ___/',
-"     \ '                    | | / / / / / /   / / / // // ,<  \__ \\__ \ ',
-"     \ '                    | |/ / /_/ / /___/ /_/ // // /| |___/ /__/ / ',
-"     \ '                    |___/\____/_____/_____/___/_/ |_/____/____/  ']
-
-" let g:startify_custom_header = [
-"     \ '                      ___       ___       ___       ___       ___       ___       ___       ___   ',
-"     \ '                     /\__\     /\  \     /\__\     /\  \     /\  \     /\__\     /\  \     /\  \  ',
-"     \ '                    /:/ _/_   /::\  \   /:/  /    /::\  \   _\:\  \   /:/ _/_   /::\  \   /::\  \ ',
-"     \ '                   |::L/\__\ /:/\:\__\ /:/__/    /:/\:\__\ /\/::\__\ /::-"\__\ /\:\:\__\ /\:\:\__\',
-"     \ '                   |::::/  / \:\/:/  / \:\  \    \:\/:/  / \::/\/__/ \;:;-",-" \:\:\/__/ \:\:\/__/',
-"     \ '                    L;;/__/   \::/  /   \:\__\    \::/  /   \:\__\    |:|  |    \::/  /   \::/  / ',
-"     \ '                               \/__/     \/__/     \/__/     \/__/     \|__|     \/__/     \/__/  ']
-
 let g:startify_custom_header = [
-    \ '                      ██▒   █▓ ▒█████   ██▓    ▓█████▄  ██▓ ██ ▄█▀  ██████   ██████ ',
-    \ '                     ▓██░   █▒▒██▒  ██▒▓██▒    ▒██▀ ██▌▓██▒ ██▄█▒ ▒██    ▒ ▒██    ▒ ',
-    \ '                      ▓██  █▒░▒██░  ██▒▒██░    ░██   █▌▒██▒▓███▄░ ░ ▓██▄   ░ ▓██▄   ',
-    \ '                       ▒██ █░░▒██   ██░▒██░    ░▓█▄   ▌░██░▓██ █▄   ▒   ██▒  ▒   ██▒',
-    \ '                        ▒▀█░  ░ ████▓▒░░██████▒░▒████▓ ░██░▒██▒ █▄▒██████▒▒▒██████▒▒',
-    \ '                        ░ ▐░  ░ ▒░▒░▒░ ░ ▒░▓  ░ ▒▒▓  ▒ ░▓  ▒ ▒▒ ▓▒▒ ▒▓▒ ▒ ░▒ ▒▓▒ ▒ ░',
-    \ '                        ░ ░░    ░ ▒ ▒░ ░ ░ ▒  ░ ░ ▒  ▒  ▒ ░░ ░▒ ▒░░ ░▒  ░ ░░ ░▒  ░ ░',
-    \ '                          ░░  ░ ░ ░ ▒    ░ ░    ░ ░  ░  ▒ ░░ ░░ ░ ░  ░  ░  ░  ░  ░  ',
-    \ '                           ░      ░ ░      ░  ░   ░     ░  ░  ░         ░        ░  ',
-    \ '                          ░                     ░                                   ']
+    \ '                      ___       ___       ___       ___       ___       ___       ___       ___   ',
+    \ '                     /\__\     /\  \     /\__\     /\  \     /\  \     /\__\     /\  \     /\  \  ',
+    \ '                    /:/ _/_   /::\  \   /:/  /    /::\  \   _\:\  \   /:/ _/_   /::\  \   /::\  \ ',
+    \ '                   |::L/\__\ /:/\:\__\ /:/__/    /:/\:\__\ /\/::\__\ /::-"\__\ /\:\:\__\ /\:\:\__\',
+    \ '                   |::::/  / \:\/:/  / \:\  \    \:\/:/  / \::/\/__/ \;:;-",-" \:\:\/__/ \:\:\/__/',
+    \ '                    L;;/__/   \::/  /   \:\__\    \::/  /   \:\__\    |:|  |    \::/  /   \::/  / ',
+    \ '                               \/__/     \/__/     \/__/     \/__/     \|__|     \/__/     \/__/  ']
+
+" let g:startify_custom_header = [
+"     \ '                      ██▒   █▓ ▒█████   ██▓    ▓█████▄  ██▓ ██ ▄█▀  ██████   ██████ ',
+"     \ '                     ▓██░   █▒▒██▒  ██▒▓██▒    ▒██▀ ██▌▓██▒ ██▄█▒ ▒██    ▒ ▒██    ▒ ',
+"     \ '                      ▓██  █▒░▒██░  ██▒▒██░    ░██   █▌▒██▒▓███▄░ ░ ▓██▄   ░ ▓██▄   ',
+"     \ '                       ▒██ █░░▒██   ██░▒██░    ░▓█▄   ▌░██░▓██ █▄   ▒   ██▒  ▒   ██▒',
+"     \ '                        ▒▀█░  ░ ████▓▒░░██████▒░▒████▓ ░██░▒██▒ █▄▒██████▒▒▒██████▒▒',
+"     \ '                        ░ ▐░  ░ ▒░▒░▒░ ░ ▒░▓  ░ ▒▒▓  ▒ ░▓  ▒ ▒▒ ▓▒▒ ▒▓▒ ▒ ░▒ ▒▓▒ ▒ ░',
+"     \ '                        ░ ░░    ░ ▒ ▒░ ░ ░ ▒  ░ ░ ▒  ▒  ▒ ░░ ░▒ ▒░░ ░▒  ░ ░░ ░▒  ░ ░',
+"     \ '                          ░░  ░ ░ ░ ▒    ░ ░    ░ ░  ░  ▒ ░░ ░░ ░ ░  ░  ░  ░  ░  ░  ',
+"     \ '                           ░      ░ ░      ░  ░   ░     ░  ░  ░         ░        ░  ',
+"     \ '                          ░                     ░                                   ']
 if has('nvim')
 highlight StartifyHeader guifg=#FF00FF
 highlight StartifyNumber guifg=#00FF00
@@ -1387,10 +1383,6 @@ endif
 " vim-table-mode [[[2
 " for Markdown
 let g:table_mode_corner = '|'
-" vim-template [[[2
-let g:templates_directory            = ['~/.vim/templates']
-let g:templates_no_autocmd           = 1
-let g:templates_no_builtin_templates = 1
 " vim-translate-me [[[2
 nmap <silent>    ,t        <Plug>Translate
 nmap <silent>    ,w        <Plug>TranslateW
@@ -1398,7 +1390,6 @@ nmap <silent>    ,r        <Plug>TranslateR
 vmap <silent>    ,t        <Plug>TranslateV
 vmap <silent>    ,w        <Plug>TranslateWV
 vmap <silent>    ,r        <Plug>TranslateRV
-let g:vtm_default_api = 'youdao'
 " vimtex [[[2
 let g:tex_flavor='latex'
 let g:vimtex_view_method='zathura'
@@ -1409,13 +1400,6 @@ let g:vimtex_quickfix_open_on_warning = 0
 let g:vimtex_compiler_method = 'latexmk'
 let g:vimtex_compiler_latexmk_engines = {'_': '-xelatex'}
 let g:vimtex_compiler_latexrun_engines = {'_': 'xelatex'}
-" vim-visual-multi [[[2
-" for plug on-demand
-map <C-n>  <Plug>VM-Find-Under
-let g:VM_leader             = ";"
-let g:VM_default_mappings   = 0
-let g:VM_maps               = {}
-let g:VM_maps["Select All"] = '<Leader>A'
 " NvimQt: [[[1
 if exists('g:GuiLoaded')
     inoremap <S-CR> <Esc>o
@@ -1445,67 +1429,3 @@ if has('win32') || has('win64')
         language messages zh_CN.utf-8
     endif
 endif
-" CheatSheet: [[[1
-" J                 移动整行
-" K                 移动整行
-" H                 行首
-" L                 行尾
-
-" <C-j>             跳转函数定义
-" <C-k>             跳转帮助
-" <C-h>             切换buffer
-" <C-l>             切换buffer
-" <C-up>            Diff 跳转
-" <C-down>          Diff 跳转
-" <C-left>          交换单词
-" <C-right>         交换单词
-" <C-up>            <Plug>(coc-git-prevchunk)
-" <C-down>          <Plug>(coc-git-nextchunk)
-
-" <M-h>             窗口间移动光标
-" <M-j>             窗口间移动光标
-" <M-k>             窗口间移动光标
-" <M-l>             窗口间移动光标
-" <M-up>            调整窗口大小
-" <M-down>          调整窗口大小
-" <M-left>          调整窗口大小
-" <M-right>         调整窗口大小
-" <M-n>             <Plug>(coc-diagnostic-next)
-" <M-p>             <Plug>(coc-diagnostic-next)
-
-" <Leader>cd        <Plug>(coc-definition)
-" <Leader>ci        <Plug>(coc-implementation)
-" <Leader>cr        <Plug>(cc-references)
-" <Leader>cf        <Plug>(coc-fix-current)
-
-" <Leader>f        :LeaderfFile<CR>
-" <Leader>t        :LeaderfBufTagAll<CR>
-" <Leader>b        :LeaderfBufferAll<CR>
-" <Leader>r        :Leaderf rg
-
-" ms               <Plug>MarkSet
-" mn               <Plug>MarkSearchCurrentNext
-" mp               <Plug>MarkSearchCurrentPrev
-" mc               <Plug>MarkAllClear
-
-" cx               <Plug>(Exchange)
-" X                <Plug>(Exchange)
-" cxc              <Plug>(ExchangeClear)
-" cxx              <Plug>(ExchangeLine)
-
-" ,bm              <Plug>BookmarkToggle
-" ,bi              <Plug>BookmarkAnnotate
-" ,ba              <Plug>BookmarkShowAll
-" ,bn              <Plug>BookmarkNext
-" ,bp              <Plug>BookmarkPrev
-" ,bc              <Plug>BookmarkClearAll
-
-" ,e               <Plug>(easymotion-bd-w)
-" ,e               <Plug>(easymotion-overwin-w)
-" ,f               <Plug>(easymotion-bd-f)
-" ,f               <Plug>(easymotion-overwin-f)
-" ,l               <Plug>(easymotion-bd-jk)
-" ,l               <Plug>(easymotion-overwin-line)
-
-" <Leader>aw       <Esc>:ArgWrap<CR>
-" ,t               <Plug>DictSearch

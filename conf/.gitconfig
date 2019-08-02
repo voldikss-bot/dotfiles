@@ -14,8 +14,8 @@
 	helper = cache
 [core]
     editor = nvim
-    filemode = false
-    # onlu for Windows
+	fileMode = false
+    # only for Windows
     # autocrlf = true
 [color]
 	ui = auto
