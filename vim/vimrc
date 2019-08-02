@@ -1411,7 +1411,9 @@ if exists('g:GuiLoaded')
 endif
 " WindowsOnly: [[[1
 if has('win32') || has('win64')
-    set pythonthreedll=D:\Applications\Python36\python36.dll
+    if !has('nvim')
+        set pythonthreedll=D:\Applications\Python36\python36.dll
+    endif
     if has('gui_running')
         inoremap <S-CR> <Esc>o
         inoremap <C-CR> <Esc>O

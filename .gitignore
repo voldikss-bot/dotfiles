@@ -4,7 +4,8 @@
 !/conf/.idlerc/config-main.cfg
 !/conf/.idlerc/config-extensions.cfg
 /conf/.idlerc/*
-plugged
+/vim/plugged
+/vim/sessions
 
 # General
 # ----------------------------------------------------------------------------
