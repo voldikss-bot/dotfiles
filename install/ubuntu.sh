@@ -318,7 +318,23 @@ function goldendict_install() {
     # https://github.com/skywind3000/ECDICT/releases/download/1.0.28/ecdict-mdx-style-28.zip
     crun sudo apt install libdouble-conversion1 libqt5svg5 -y
     crun sudo apt install goldendict -y
-    # download the dictionary and put it in the right place
+
+    # compile the latest version
+    # crun sudo apt-get install git pkg-config build-essential qt4-qmake \
+    #  libvorbis-dev zlib1g-dev libhunspell-dev x11proto-record-dev \
+    #  libqt4-dev libqtwebkit-dev libxtst-dev liblzo2-dev libbz2-dev \
+    #  libao-dev libavutil-dev libavformat-dev libtiff5-dev libeb16-dev
+    # crun sudo apt-get install git pkg-config build-essential qt5-qmake \
+    #  libvorbis-dev zlib1g-dev libhunspell-dev x11proto-record-dev \
+    #  qtdeclarative5-dev libqtwebkit-dev libxtst-dev liblzo2-dev libbz2-dev \
+    #  libao-dev libavutil-dev libavformat-dev libtiff5-dev libeb16-dev \
+    #  libqt5webkit5-dev libqt5svg5-dev libqt5x11extras5-dev qttools5-dev \
+    #  qttools5-dev-tools qtmultimedia5-dev libqt5multimedia5-plugins
+    # crun sudo apt-get install libopencc-dev
+    # crun git clone git://github.com/goldendict/goldendict.git --depth 1
+    # crun cd goldendict && qmake-qt4 && make
+    # crun qmake "CONFIG+=chinese_conversion_support"
+    # crun sudo make install
 }
 
 function others_install(){
