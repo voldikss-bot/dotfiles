@@ -13,6 +13,7 @@
 let g:vim_indent_cont = 4
 " TerminalHeight:
 let g:terminal_height = 15
+let g:terminal_type = 'floating'
 " QuickfixHeight:
 let g:quickfix_height = 9
 " ToggleWindows:
@@ -466,7 +467,7 @@ command! -nargs=+ Grep        call Grep(<q-args>)
 command! -nargs=+ -complete=command TabMessage call TabMessage(<q-args>)
 command! -nargs=0 SetQuickRunCommand  call SetQuickRunCommand()
 command! -nargs=0 OpenQf              execute 'copen' .  g:quickfix_height
-command! -nargs=0 ToggleTerminal        call ToggleTerminal(g:terminal_height)
+command! -nargs=0 ToggleTerminal        call ToggleTerminal(winheight(0)/3*2, &columns)
 " GitOperation: [[[2
 command! Gap  Git add -p
 command! Cd   Gcd
@@ -775,7 +776,7 @@ function! Grep(string)
     endif
 endfunction
 " ToggleTerminal: [[[2
-function! ToggleTerminal(height)
+function! ToggleTerminal(height, width)
   let found_winnr = 0
   for winnr in range(1, winnr('$'))
     if getbufvar(winbufnr(winnr), '&buftype') == 'terminal'
@@ -799,32 +800,103 @@ function! ToggleTerminal(height)
         let found_bufnr = bufnr
       endif
     endfor
-    if found_bufnr > 0
-      if &lines > 30
-        execute 'botright ' . a:height . 'split'
-        execute 'buffer ' . found_bufnr
+
+    if g:terminal_type == 'floating'
+      call s:openTermFloating(found_bufnr, a:height, a:width)
+    else
+      call s:openTermNormal(found_bufnr, a:height, a:width)
+    endif
+  endif
+endfunction
+
+function! s:openTermFloating(found_bufnr, height, width) abort
+  let [row, col, vert, hor] = s:getWinPos(a:width, a:height)
+  let opts = {
+    \ 'relative': 'cursor',
+    \ 'width': a:width,
+    \ 'height': a:height,
+    \ 'col': col,
+    \ 'row': row,
+    \ 'anchor': vert . hor,
+    \ 'style': 'minimal'
+  \ }
+
+  if a:found_bufnr == 0
+    let bufnr = nvim_create_buf(v:false, v:true)
+    call nvim_open_win(bufnr, 1, opts)
+    terminal
+    autocmd TermClose <buffer> if &buftype=='terminal' | wincmd c | endif
+  else
+    call nvim_open_win(a:found_bufnr, 1, opts)
+  endif
+
+  setlocal winblend=30
+  setlocal foldcolumn=1
+  setlocal bufhidden=hide
+  setlocal signcolumn=no
+  setlocal nobuflisted
+  setlocal nocursorline
+  setlocal nonumber
+  setlocal norelativenumber
+endfunction
+
+function! s:openTermNormal(found_bufnr, height, width)
+  if a:found_bufnr > 0
+    if &lines > 30
+      execute 'botright ' . a:height . 'split'
+      execute 'buffer ' . a:found_bufnr
+    else
+      botright split
+      execute 'buffer ' . a:found_bufnr
+    endif
+  else
+    if &lines > 30
+      if has('nvim')
+        execute 'botright ' . a:height . 'split term://' . &shell
       else
-        botright split
-        execute 'buffer ' . found_bufnr
+        botright terminal
+        resize a:height
       endif
     else
-      if &lines > 30
-        if has('nvim')
-          execute 'botright ' . a:height . 'split term://' . &shell
-        else
-          botright terminal
-          resize a:height
-        endif
+      if has('nvim')
+        execute 'botright split term://' . &shell
       else
-        if has('nvim')
-          execute 'botright split term://' . &shell
-        else
-          botright terminal
-        endif
+        botright terminal
       endif
     endif
   endif
 endfunction
+
+function! s:getWinPos(width, height) abort
+    let bottom_line = line('w0') + winheight(0) - 1
+    let curr_pos = getpos('.')
+    let rownr = curr_pos[1]
+    let colnr = curr_pos[2]
+    " a long wrap line
+    if colnr > &columns
+        let colnr = colnr % &columns
+        let rownr += colnr / &columns
+    endif
+
+    if rownr + a:height <= bottom_line
+        let vert = 'N'
+        let row = 1
+    else
+        let vert = 'S'
+        let row = 0
+    endif
+
+    if colnr + a:width <= &columns
+        let hor = 'W'
+        let col = 0
+    else
+        let hor = 'E'
+        let col = 1
+    endif
+
+    return [row, col, vert, hor]
+endfunction
+
 " ToggleWindows: [[[2
 function! ToggleWindows(winname)
     let found_winnr = 0
@@ -1103,7 +1175,7 @@ let g:Lf_StlSeparator   = {'left': '⮀', 'right': '⮂', 'font': ''}
 " lightline [[[2
 " from https://github.com/brglng/dotfiles/blob/master/vim/zpan/init/plugins/lightline.vim
 let g:lightline = {
-    \ 'colorscheme': 'aurora',
+    \ 'colorscheme': 'powerline',
     \ 'active': {
     \ 'left': [
         \ ['mode', 'paste'],

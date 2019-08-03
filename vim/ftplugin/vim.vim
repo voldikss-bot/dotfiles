@@ -5,3 +5,4 @@ if expand('%:t')=='vimrc'
 else
     setlocal foldmethod=indent
 endif
+setlocal shiftwidth=2

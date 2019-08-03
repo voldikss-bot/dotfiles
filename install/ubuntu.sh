@@ -110,6 +110,10 @@ function common_install(){
         crun sudo bash go.sh
         crun rm -f go.sh
     fi
+    # peek
+    crun sudo add-apt-repository ppa:peek-developers/stable -y
+    crun sudo apt update
+    crun sudo apt install peek -y
 }
 
 function oh_my_zsh_install(){
