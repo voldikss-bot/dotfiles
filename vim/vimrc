@@ -118,7 +118,7 @@ Plug 'skywind3000/asyncrun.vim'
 Plug 'Yggdroot/LeaderF'
 Plug 'voldikss/vim-search-me'
 Plug 'voldikss/vim-translate-me'
-Plug 'ahonn/fileheader.nvim'
+Plug 'ahonn/fileheader.nvim', {'on': ['AddFileHeader', 'UpdateFileHeader']}
 Plug 'inkarkat/vim-mark', {'on': '<Plug>MarkSet'}
 Plug 'inkarkat/vim-ingo-library'
 Plug 'moll/vim-bbye'
@@ -225,7 +225,7 @@ set wildignore+=.stversions,*.pyc,*.spl,*.o,*.out,*~,%*
 set wildignore+=*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store
 set wildignore+=__pycache__,*.egg-info
 " nvim only [[[2
-if has('nvim') &&  matchstr(execute('silent version'), 'NVIM v\zs[^\n-]*') >= '0.0.4'
+if has('nvim') &&  matchstr(execute('silent version'), 'NVIM v\zs[^\n-]*') >= '0.4.0'
 set inccommand=nosplit
 set wildoptions+=pum
 set signcolumn=yes:2
@@ -1042,7 +1042,7 @@ function! s:defx_my_settings() abort
 endfunction
 " fileheader.nvim [[[2
 let g:fileheader_auto_add = 0
-let g:fileheader_auto_update = 1
+let g:fileheader_auto_update = 0
 let g:fileheader_author='voldikss'
 let g:fileheader_default_email = 'dyzplus@gmail'
 let g:fileheader_show_email = 0
