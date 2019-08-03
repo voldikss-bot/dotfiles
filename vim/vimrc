@@ -986,12 +986,12 @@ let g:codi#interpreters = {
 call defx#custom#option('_', {
       \ 'columns': 'mark:git:indent:icons:filename',
       \ 'winwidth': 30,
-      \ 'split': 'vertical',
+      \ 'split': 'floating',
       \ 'direction': 'topleft',
       \ 'show_ignored_files': 0,
       \ 'buffer_name': '',
       \ 'toggle': 1,
-      \ 'resume': 1
+      \ 'resume': 0
       \ })
 
 call defx#custom#column('mark', {
@@ -1009,6 +1009,7 @@ function! s:defx_my_settings() abort
   setlocal nolist
   setlocal nospell
   setlocal cursorline
+  setlocal signcolumn=no
 
   " Define mappings
   nnoremap <silent><buffer><expr><nowait>   <CR>            defx#is_directory() ? defx#do_action('open_or_close_tree') : defx#do_action('multi', ['drop'])
