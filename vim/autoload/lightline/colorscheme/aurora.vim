@@ -1,9 +1,9 @@
-" =============================================================================
-" Filename: autoload/lightline/colorscheme/powerline.vim
-" Author: itchyny
-" License: MIT License
-" Last Change: 2013/09/07 15:54:41.
-" =============================================================================
+" vim:fdm=marker:fmr=[[[,]]]
+" ========================================================================
+" Description: autoload/lightline/colorscheme/aurora.vim
+" Author: voldikss
+" GitHub: https://github.com/voldikss/dotfiles
+" ========================================================================
 
 let s:p = {
     \ 'normal': {},
