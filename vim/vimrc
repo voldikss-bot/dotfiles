@@ -7,33 +7,33 @@
 
 " GlobalVariables: [[[1
 " IndentCont: indent count when type <CR> and then \
-let g:vim_indent_cont = 4
+let g:vim_indent_cont = 2
 " QuickfixHeight:
 let g:quickfix_height = 9
 " ToggleWindows:
 let g:only_one_win = 1
 let g:windows_toggle = {
-    \ 'defx': {
-        \ 'open': 'Defx',
-        \ 'close': 'Defx'
-    \ },
-    \ 'vista': {
-        \ 'open':'Vista',
-        \ 'close': 'Vista!'
-    \ },
-    \ 'qf': {
-        \ 'open': 'OpenQf',
-        \ 'close': 'cclose'
-    \ },
-    \ 'Mundo': {
-        \ 'open': 'MundoToggle',
-        \ 'close': 'MundoToggle'
-    \ },
-    \ 'terminal': {
-        \ 'open': 'ToggleTerminal',
-        \ 'close': 'ToggleTerminal'
-    \ }
-    \ }
+  \ 'defx': {
+    \ 'open': 'Defx',
+    \ 'close': 'Defx'
+  \ },
+  \ 'vista': {
+    \ 'open':'Vista',
+    \ 'close': 'Vista!'
+  \ },
+  \ 'qf': {
+    \ 'open': 'OpenQf',
+    \ 'close': 'cclose'
+  \ },
+  \ 'Mundo': {
+    \ 'open': 'MundoToggle',
+    \ 'close': 'MundoToggle'
+  \ },
+  \ 'terminal': {
+    \ 'open': 'ToggleTerminal',
+    \ 'close': 'ToggleTerminal'
+  \ }
+\ }
 " DontLoad: [[[2
 let g:loaded_gzip = 0
 let g:loaded_zipPlugin = 0
@@ -41,9 +41,9 @@ let g:loaded_2html_plugin = 0
 let g:loaded_tarPlugin = 0
 " PythonHost: [[[2
 if has('win32') || has('win64') || has('win32unix')
-    let g:python3_host_prog='D:/Applications/Python36/python.exe'
+  let g:python3_host_prog='D:/Applications/Python36/python.exe'
 else
-    let g:python3_host_prog='/usr/bin/python3'
+  let g:python3_host_prog='/usr/bin/python3'
 endif
 " NeoVimTerminalColors: [[[2
 let g:terminal_color_0  = '#282828'
@@ -256,10 +256,10 @@ nnoremap <silent> *  *zz
 nnoremap <silent> #  #zz
 " Diff: [[[2
 if &diff == 1
-    vmap <silent> <buffer> dg :diffget<CR>
-    vmap <silent> <buffer> dp :diffput<CR>
-    nmap <silent> <buffer> dg V:diffget<CR>
-    nmap <silent> <buffer> dp V:diffput<CR>
+  vmap <silent> <buffer> dg :diffget<CR>
+  vmap <silent> <buffer> dp :diffput<CR>
+  nmap <silent> <buffer> dg V:diffget<CR>
+  nmap <silent> <buffer> dp V:diffput<CR>
 endif
 " BufferOperation: [[[2
 nmap     <silent> -         :Explore<CR>
@@ -325,11 +325,11 @@ cnoremap <C-f> <S-Right>
 " TerminalMode: [[[2
 tnoremap <Esc>  <C-\><C-n>
 if has('win32') || has('win64')
-    nnoremap <silent> <Leader>n :vert term<CR>
-    nnoremap <silent> ,n        :term<CR>
+  nnoremap <silent> <Leader>n :vert term<CR>
+  nnoremap <silent> ,n        :term<CR>
 else
-    nnoremap <silent> <Leader>n :vsplit term://zsh<CR>
-    nnoremap <silent> ,n        :edit term://zsh<CR>
+  nnoremap <silent> <Leader>n :vsplit term://zsh<CR>
+  nnoremap <silent> ,n        :edit term://zsh<CR>
 endif
 " WindowOperation: [[[2
 if has('nvim')
@@ -352,15 +352,15 @@ cnoremap <expr> <Down> pumvisible() ? '<C-n>' : '<down>'
 endif
 " WindowSize: [[[2
 if has('nvim')
-noremap <M-up>    <C-w>+
-noremap <M-down>  <C-w>-
-noremap <M-left>  <C-w>5<
-noremap <M-right> <C-w>5>
+  noremap <M-up>    <C-w>+
+  noremap <M-down>  <C-w>-
+  noremap <M-left>  <C-w>5<
+  noremap <M-right> <C-w>5>
 endif
 " ClearnSearchHighlight:  [[[2
 if has('nvim')
-inoremap <silent> <Esc> <Esc>:noh<CR>
-nnoremap <silent> <Esc> <Esc>:noh<CR>
+  inoremap <silent> <Esc> <Esc>:noh<CR>
+  nnoremap <silent> <Esc> <Esc>:noh<CR>
 endif
 nnoremap <silent> <BS> <Esc>:noh<CR>
 " Customized function [[[2
@@ -395,51 +395,51 @@ inoremap <expr>   ;p              autofix#insertMapForSemicolonP()
 inoremap <expr>   ;;              autofix#insertMapForDoubleSemicolon()
 " Autocmd: [[[1
 augroup AutocmdGroup
-    autocmd!
-" General: [[[2
-    autocmd BufEnter * if &buftype == 'terminal' |
-        \ setlocal signcolumn=no |
-        \ setlocal nobuflisted |
-        \ endif
-" ParenthesisColor: [[[2
-    autocmd VimEnter,BufWinEnter *
-        \ if index(['html', 'htmldjango', 'tex', 'mma'], &filetype) < 0 |
-            \ syntax match paren1 /[{}]/   | hi paren1 guifg=#FF00FF |
-            \ syntax match paren2 /[()]/   | hi paren2 guifg=#DF8700 |
-            \ syntax match paren3 /[<>]/   | hi paren3 guifg=#0087FF |
-            \ syntax match paren4 /[\[\]]/ | hi paren4 guifg=#00FF5F |
-        \ endif
-" AutoSaveBuffer: [[[2
-    autocmd FocusLost * call util#autoSave()
-" DisableAutoComment: [[[2
-    autocmd FileType * set formatoptions-=cro
-" LineNumber: [[[2
-    autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu | set rnu   | endif
-    autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu | set nornu | endif
-" EqualWindowsSize: [[[2
-    autocmd VimResized * exec "normal \<C-w>="
-" LastPosition: [[[2
-    autocmd BufReadPost *
-        \ if line("'\"") > 1 && line("'\"") <= line("$") |
-            \ exe "normal! g'\"" |
-        \ endif
-" KeywordHighlight: [[[2
-    autocmd Syntax *
-        \ call matchadd('Todo',  '\W\zs\(TODO\|FIXME\|CHANGED\|XXX\|BUG\|HACK\)') |
-        \ call matchadd('Todo',  '\W\zs\(NOTE\|Note\|INFO\|IDEA\|NOTICE\)') |
-        \ call matchadd('Debug', '\W\zs\(Debug\|DEBUG\)') |
-" AutoChdir: [[[2
-    autocmd BufEnter * silent! lcd %:p:h
-" GitIgnore: [[[2
-    autocmd BufNewFile .gitignore CocCommand template.templateTop
-" Plugins: [[[2
+  autocmd!
+  " General: [[[2
+  autocmd BufEnter * if &buftype == 'terminal' |
+    \ setlocal signcolumn=no |
+    \ setlocal nobuflisted |
+    \ endif
+  " ParenthesisColor: [[[2
+  autocmd VimEnter,BufWinEnter *
+    \ if index(['html', 'htmldjango', 'tex', 'mma'], &filetype) < 0 |
+      \ syntax match paren1 /[{}]/   | hi paren1 guifg=#FF00FF |
+      \ syntax match paren2 /[()]/   | hi paren2 guifg=#DF8700 |
+      \ syntax match paren3 /[<>]/   | hi paren3 guifg=#0087FF |
+      \ syntax match paren4 /[\[\]]/ | hi paren4 guifg=#00FF5F |
+    \ endif
+  " AutoSaveBuffer: [[[2
+  autocmd FocusLost * call util#autoSave()
+  " DisableAutoComment: [[[2
+  autocmd FileType * set formatoptions-=cro
+  " LineNumber: [[[2
+  autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu | set rnu   | endif
+  autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu | set nornu | endif
+  " EqualWindowsSize: [[[2
+  autocmd VimResized * exec "normal \<C-w>="
+  " LastPosition: [[[2
+  autocmd BufReadPost *
+    \ if line("'\"") > 1 && line("'\"") <= line("$") |
+      \ exe "normal! g'\"" |
+    \ endif
+  " KeywordHighlight: [[[2
+  autocmd Syntax *
+    \ call matchadd('Todo',  '\W\zs\(TODO\|FIXME\|CHANGED\|XXX\|BUG\|HACK\)') |
+    \ call matchadd('Todo',  '\W\zs\(NOTE\|Note\|INFO\|IDEA\|NOTICE\)') |
+    \ call matchadd('Debug', '\W\zs\(Debug\|DEBUG\)') |
+  " AutoChdir: [[[2
+  autocmd BufEnter * silent! lcd %:p:h
+  " GitIgnore: [[[2
+  autocmd BufNewFile .gitignore CocCommand template.templateTop
+  " Plugins: [[[2
     " coc.nvim [[[3
     autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
     " close preview window when completion is done.
     autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
     " coc-highlight
     if exists('g:coc_enabled')
-        autocmd CursorHold * silent call CocActionAsync('highlight')
+      autocmd CursorHold * silent call CocActionAsync('highlight')
     endif
     " coc-pairs
     let s:coc_pairs_expand = [['（', '）'], ['“', '”'], ['‘', '’'], ['《', '》']]
@@ -448,8 +448,12 @@ augroup AutocmdGroup
     autocmd FileType markdown let b:coc_pairs = extend([['*', '*']], s:coc_pairs_expand)
     autocmd FileType javascript,css,c,cpp let b:coc_pairs = extend([['/*', '*/']], s:coc_pairs_expand)
     autocmd FileType vim let b:coc_pairs_disabled = ['"']
+    " coc-smartf
+    autocmd User SmartfEnter :hi Conceal ctermfg=220 guifg=#6638F0
+    autocmd User SmartfLeave :hi Conceal ctermfg=239 guifg=#504945
     " defx
     autocmd BufLeave * if &filetype == 'defx' | Defx | endif
+    autocmd FileType defx call util#defxSettings()
     " vim-argwrap [[[3
     autocmd FileType vim let b:argwrap_line_prefix = '\'
     autocmd FileType vim let b:argwrap_tail_indent_braces = '('
@@ -489,8 +493,8 @@ command! PC  PlugClean
 " Abbreviate: [[[1
 function! SetupCommandAbbrs(from, to)
   exec 'cnoreabbrev <expr> '.a:from
-        \ .' ((getcmdtype() ==# ":" && getcmdline() ==# "'.a:from.'")'
-        \ .'? ("'.a:to.'") : ("'.a:from.'"))'
+    \ .' ((getcmdtype() ==# ":" && getcmdline() ==# "'.a:from.'")'
+    \ .'? ("'.a:to.'") : ("'.a:from.'"))'
 endfunction
 call SetupCommandAbbrs('as', 'AsyncRun')
 call SetupCommandAbbrs('ass', 'AsyncStop')
@@ -552,89 +556,83 @@ nnoremap <silent> <Leader>gv :CocCommand git.chunkInfo<CR>
 " coc-smartf
 nmap f <Plug>(coc-smartf-forward)
 nmap F <Plug>(coc-smartf-backward)
-
-augroup Smartf
-  autocmd User SmartfEnter :hi Conceal ctermfg=220 guifg=#6638F0
-  autocmd User SmartfLeave :hi Conceal ctermfg=239 guifg=#504945
-augroup end
 " coc-translator
 nmap <silent> ,, <Plug>(coc-translator-p)
+" coc-repl
 xmap <silent> <Tab> <Plug>(coc-repl-sendtext)
 " coc-bookmark
 nmap <silent> ,b <Plug>(coc-bookmark-toggle)
 nmap <silent> ,a <Plug>(coc-bookmark-annotate)
 nmap <silent> gh <Plug>(coc-bookmark-prev)
 nmap <silent> gl <Plug>(coc-bookmark-next)
-
-" Install coc extensions
+" coc extensions
 let g:coc_global_extensions = [
-    \ 'coc-bookmark',
-    \ 'coc-browser',
-    \ 'coc-clock',
-    \ 'coc-css',
-    \ 'coc-diagnostic',
-    \ 'coc-dictionary',
-    \ 'coc-emoji',
-    \ 'coc-emmet',
-    \ 'coc-eslint',
-    \ 'coc-git',
-    \ 'coc-highlight',
-    \ 'coc-html',
-    \ 'coc-lists',
-    \ 'coc-json',
-    \ 'coc-marketplace',
-    \ 'coc-pairs',
-    \ 'coc-post',
-    \ 'coc-prettier',
-    \ 'coc-python',
-    \ 'coc-rls',
-    \ 'coc-smartf',
-    \ 'coc-snippets',
-    \ 'coc-syntax',
-    \ 'coc-tag',
-    \ 'coc-template',
-    \ 'coc-todolist',
-    \ 'coc-translator',
-    \ 'coc-tslint-plugin',
-    \ 'coc-tsserver',
-    \ 'coc-vimtex',
-    \ 'coc-vimlsp',
-    \ 'coc-yank',
-    \ 'coc-word',
-    \ ]
+  \ 'coc-bookmark',
+  \ 'coc-browser',
+  \ 'coc-clock',
+  \ 'coc-css',
+  \ 'coc-diagnostic',
+  \ 'coc-dictionary',
+  \ 'coc-emoji',
+  \ 'coc-emmet',
+  \ 'coc-eslint',
+  \ 'coc-git',
+  \ 'coc-highlight',
+  \ 'coc-html',
+  \ 'coc-lists',
+  \ 'coc-json',
+  \ 'coc-marketplace',
+  \ 'coc-pairs',
+  \ 'coc-post',
+  \ 'coc-prettier',
+  \ 'coc-python',
+  \ 'coc-rls',
+  \ 'coc-smartf',
+  \ 'coc-snippets',
+  \ 'coc-syntax',
+  \ 'coc-tag',
+  \ 'coc-template',
+  \ 'coc-todolist',
+  \ 'coc-translator',
+  \ 'coc-tslint-plugin',
+  \ 'coc-tsserver',
+  \ 'coc-vimtex',
+  \ 'coc-vimlsp',
+  \ 'coc-yank',
+  \ 'coc-word'
+\ ]
 call coc#add_extension()
 if has('nvim')
-highlight GitAdd                guifg=#00FF00 guibg=#232526
-highlight GitModify             guifg=#00FFFF guibg=#232526
-highlight GitDeleteTop          guifg=#FF2222 guibg=#232526
-highlight GitDeleteButtom       guifg=#FF2222 guibg=#232526
-highlight GitDeleteTopAndBottom guifg=#FF2222 guibg=#232526
+  highlight GitAdd                guifg=#00FF00 guibg=#232526
+  highlight GitModify             guifg=#00FFFF guibg=#232526
+  highlight GitDeleteTop          guifg=#FF2222 guibg=#232526
+  highlight GitDeleteButtom       guifg=#FF2222 guibg=#232526
+  highlight GitDeleteTopAndBottom guifg=#FF2222 guibg=#232526
 endif
 " codi.vim [[[2
 let g:codi#interpreters = {
-    \ 'python': {
-        \ 'bin': 'python3',
-        \ 'prompt': '^\(>>>\|\.\.\.\) '
-    \ }
+  \ 'python': {
+    \ 'bin': 'python3',
+    \ 'prompt': '^\(>>>\|\.\.\.\) '
+  \ }
 \ }
 " defx.nvim [[[2
 call defx#custom#option('_', {
-      \ 'columns': 'mark:git:indent:icons:filename',
-      \ 'winwidth': 30,
-      \ 'split': 'floating',
-      \ 'direction': 'topleft',
-      \ 'show_ignored_files': 0,
-      \ 'buffer_name': '',
-      \ 'toggle': 1,
-      \ 'resume': 0
-      \ })
+  \ 'columns': 'mark:git:indent:icons:filename',
+  \ 'winwidth': 30,
+  \ 'split': 'floating',
+  \ 'direction': 'topleft',
+  \ 'show_ignored_files': 0,
+  \ 'buffer_name': '',
+  \ 'toggle': 1,
+  \ 'resume': 0
+\ })
 
 call defx#custom#column('mark', {
-      \ 'readonly_icon': "",
-      \ 'selected_icon': "",
-      \ })
+  \ 'readonly_icon': "",
+  \ 'selected_icon': ""
+\ })
 
-autocmd FileType defx call util#defxSettings()
 " fileheader.nvim [[[2
 let g:fileheader_auto_add = 0
 let g:fileheader_auto_update = 0
@@ -679,9 +677,9 @@ let g:Lf_StlSeparator   = {'left': '', 'right': '', 'font': ''}
 let g:Lf_RootMarkers    = ['.project', '.svn', '.git', '.idea']
 let g:Lf_MruFileExclude = ['*.so','*.py[c0]','*.exe','*.sw?']
 let g:Lf_WildIgnore = {
-    \ 'dir': ['.svn','.git','.hg','.cache','.idea','.android','.gradle','.IntelliJIdea*'],
-    \ 'file': ['*.sw?','~$*','*.exe','*.o','*.so','*.py[co]']
-    \ }
+  \ 'dir': ['.svn', '.git', '.hg', '.cache', '.idea', '.android', '.gradle', '.IntelliJIdea*'],
+  \ 'file': ['*.sw?','~$*','*.exe','*.o','*.so','*.py[co]']
+\ }
 let g:Lf_WorkingDirectoryMode = 'Ac'
 let g:Lf_WindowHeight         = 0.30
 let g:Lf_CacheDirectory       = expand('~/.cache/nvim')
@@ -697,48 +695,44 @@ let g:Lf_StlSeparator   = {'left': '⮀', 'right': '⮂', 'font': ''}
 " lightline [[[2
 " from https://github.com/brglng/dotfiles/blob/master/vim/zpan/init/plugins/lightline.vim
 let g:lightline = {
-    \ 'colorscheme': 'powerline',
-    \ 'active': {
+  \ 'colorscheme': 'powerline',
+  \ 'active': {
     \ 'left': [
-        \ ['mode', 'paste'],
-        \ ['fugitive', 'readonly', 'filename'],
-        \ ['absolutepath']
+      \ ['mode', 'paste'],
+      \ ['fugitive', 'readonly', 'filename'],
+      \ ['absolutepath']
     \ ],
     \ 'right': [
-        \ ['asyncrun_status'],
-        \ ['lineinfo'],
-        \ ['percent'],
-        \ ['cocstatus', 'fileformat', 'fileencoding'],
-        \ ['filetype']
+      \ ['asyncrun_status'],
+      \ ['lineinfo'],
+      \ ['percent'],
+      \ ['cocstatus', 'fileformat', 'fileencoding'],
+      \ ['filetype']
     \ ]
-    \ },
-    \ 'component': {
-        \ 'lineinfo': ' %4l,%-3v',
-        \ 'asyncrun_status': '%{g:asyncrun_status}',
-        \ 'close': '%{has("nvim") ? " NVIM " : " VIM "}',
-        \ 'vim_logo': "\ue7c5"
-    \ },
-    \ 'component_function': {
-        \ 'mode': 'util#lightline#mode',
-        \ 'fugitive': 'util#lightline#fugitive',
-        \ 'cocstatus': 'coc#status',
-        \ 'readonly': 'util#lightline#readOnly',
-        \ 'filename': 'util#lightline#fileName',
-        \ 'fileformat': 'util#lightline#fileFormat',
-        \ 'fileencoding': 'util#lightline#fileEncoding',
-        \ 'filetype': 'util#lightline#fileType',
-        \ 'absolutepath': 'util#lightline#absPath'
-    \ },
-    \ 'tabline': {
-        \ 'left': [['vim_logo', 'buffers']],
-        \ 'right': [['close']]
-    \ },
-    \ 'component_expand': {
-        \ 'buffers': 'lightline#bufferline#buffers'
-    \ },
-    \ 'component_type': {
-        \ 'buffers': 'tabsel'
-    \ }
+  \ },
+  \ 'component': {
+    \ 'lineinfo': ' %4l,%-3v',
+    \ 'asyncrun_status': '%{g:asyncrun_status}',
+    \ 'close': '%{has("nvim") ? " NVIM " : " VIM "}',
+    \ 'vim_logo': "\ue7c5"
+  \ },
+  \ 'component_function': {
+    \ 'mode': 'util#lightline#mode',
+    \ 'fugitive': 'util#lightline#fugitive',
+    \ 'cocstatus': 'coc#status',
+    \ 'readonly': 'util#lightline#readOnly',
+    \ 'filename': 'util#lightline#fileName',
+    \ 'fileformat': 'util#lightline#fileFormat',
+    \ 'fileencoding': 'util#lightline#fileEncoding',
+    \ 'filetype': 'util#lightline#fileType',
+    \ 'absolutepath': 'util#lightline#absPath'
+  \ },
+  \ 'tabline': {
+    \ 'left': [['vim_logo', 'buffers']],
+    \ 'right': [['close']]
+  \ },
+  \ 'component_expand': { 'buffers': 'lightline#bufferline#buffers' },
+  \ 'component_type': { 'buffers': 'tabsel' }
 \ }
 
 " lightline-bufferline [[[2
@@ -748,9 +742,9 @@ let g:lightline#bufferline#enable_devicons = 1
 let g:lightline#bufferline#unicode_symbols = 1
 let g:lightline#bufferline#show_number  = 3
 let g:lightline#bufferline#number_map = {
-      \ 0: '⁰', 1: '¹', 2: '²', 3: '³', 4: '⁴',
-      \ 5: '⁵', 6: '⁶', 7: '⁷', 8: '⁸', 9: '⁹'
-      \ }
+  \ 0: '⁰', 1: '¹', 2: '²', 3: '³', 4: '⁴',
+  \ 5: '⁵', 6: '⁶', 7: '⁷', 8: '⁸', 9: '⁹'
+\ }
 nmap <Leader>1 <Plug>lightline#bufferline#go(1)
 nmap <Leader>2 <Plug>lightline#bufferline#go(2)
 nmap <Leader>3 <Plug>lightline#bufferline#go(3)
@@ -850,39 +844,24 @@ let g:mundo_auto_preview_delay = 10
 " vim-startify [[[2
 noremap <silent> <Space> <Esc>:Startify<CR>
 let g:startify_bookmarks = [
-    \ {'v': '~/.vim/vimrc'},
-    \ {'c': '~/.vim/coc-settings.json'}
+  \ {'v': '~/.vim/vimrc'},
+  \ {'c': '~/.vim/coc-settings.json'}
 \ ]
 let g:startify_files_number = 8
 let g:startify_padding_left = 15
 let g:startify_custom_header = [
-    \ '                      ___       ___       ___       ___       ___       ___       ___       ___   ',
-    \ '                     /\__\     /\  \     /\__\     /\  \     /\  \     /\__\     /\  \     /\  \  ',
-    \ '                    /:/ _/_   /::\  \   /:/  /    /::\  \   _\:\  \   /:/ _/_   /::\  \   /::\  \ ',
-    \ '                   |::L/\__\ /:/\:\__\ /:/__/    /:/\:\__\ /\/::\__\ /::-"\__\ /\:\:\__\ /\:\:\__\',
-    \ '                   |::::/  / \:\/:/  / \:\  \    \:\/:/  / \::/\/__/ \;:;-",-" \:\:\/__/ \:\:\/__/',
-    \ '                    L;;/__/   \::/  /   \:\__\    \::/  /   \:\__\    |:|  |    \::/  /   \::/  / ',
-    \ '                               \/__/     \/__/     \/__/     \/__/     \|__|     \/__/     \/__/  ']
-
-" let g:startify_custom_header = [
-"     \ '                      ██▒   █▓ ▒█████   ██▓    ▓█████▄  ██▓ ██ ▄█▀  ██████   ██████ ',
-"     \ '                     ▓██░   █▒▒██▒  ██▒▓██▒    ▒██▀ ██▌▓██▒ ██▄█▒ ▒██    ▒ ▒██    ▒ ',
-"     \ '                      ▓██  █▒░▒██░  ██▒▒██░    ░██   █▌▒██▒▓███▄░ ░ ▓██▄   ░ ▓██▄   ',
-"     \ '                       ▒██ █░░▒██   ██░▒██░    ░▓█▄   ▌░██░▓██ █▄   ▒   ██▒  ▒   ██▒',
-"     \ '                        ▒▀█░  ░ ████▓▒░░██████▒░▒████▓ ░██░▒██▒ █▄▒██████▒▒▒██████▒▒',
-"     \ '                        ░ ▐░  ░ ▒░▒░▒░ ░ ▒░▓  ░ ▒▒▓  ▒ ░▓  ▒ ▒▒ ▓▒▒ ▒▓▒ ▒ ░▒ ▒▓▒ ▒ ░',
-"     \ '                        ░ ░░    ░ ▒ ▒░ ░ ░ ▒  ░ ░ ▒  ▒  ▒ ░░ ░▒ ▒░░ ░▒  ░ ░░ ░▒  ░ ░',
-"     \ '                          ░░  ░ ░ ░ ▒    ░ ░    ░ ░  ░  ▒ ░░ ░░ ░ ░  ░  ░  ░  ░  ░  ',
-"     \ '                           ░      ░ ░      ░  ░   ░     ░  ░  ░         ░        ░  ',
-"     \ '                          ░                     ░                                   ']
+  \ '                      ___       ___       ___       ___       ___       ___       ___       ___   ',
+  \ '                     /\__\     /\  \     /\__\     /\  \     /\  \     /\__\     /\  \     /\  \  ',
+  \ '                    /:/ _/_   /::\  \   /:/  /    /::\  \   _\:\  \   /:/ _/_   /::\  \   /::\  \ ',
+  \ '                   |::L/\__\ /:/\:\__\ /:/__/    /:/\:\__\ /\/::\__\ /::-"\__\ /\:\:\__\ /\:\:\__\',
+  \ '                   |::::/  / \:\/:/  / \:\  \    \:\/:/  / \::/\/__/ \;:;-",-" \:\:\/__/ \:\:\/__/',
+  \ '                    L;;/__/   \::/  /   \:\__\    \::/  /   \:\__\    |:|  |    \::/  /   \::/  / ',
+  \ '                               \/__/     \/__/     \/__/     \/__/     \|__|     \/__/     \/__/  ']
 if has('nvim')
-highlight StartifyHeader guifg=#FF00FF
-highlight StartifyNumber guifg=#00FF00
-highlight StartifyPath   guifg=#00AFFF
-highlight StartifySlash  guifg=#DF875F
-" highlight StartifyBracket  guifg=#585858
-" highlight StartifyFooter   guifg=#585858
-" highlight StartifySpecial  guifg=#0000FF
+  highlight StartifyHeader guifg=#FF00FF
+  highlight StartifyNumber guifg=#00FF00
+  highlight StartifyPath   guifg=#00AFFF
+  highlight StartifySlash  guifg=#DF875F
 endif
 " vim-table-mode [[[2
 " for Markdown
@@ -906,32 +885,32 @@ let g:vimtex_compiler_latexmk_engines = {'_': '-xelatex'}
 let g:vimtex_compiler_latexrun_engines = {'_': 'xelatex'}
 " NvimQt: [[[1
 if exists('g:GuiLoaded')
-    inoremap <S-CR> <Esc>o
-    inoremap <C-CR> <Esc>O
-    GuiFont! Monaco:h11
-    GuiTabline 0
-    GuiPopupmenu 0
-    let g:GuiWindowMaximized = 1
+  inoremap <S-CR> <Esc>o
+  inoremap <C-CR> <Esc>O
+  GuiFont! Monaco:h11
+  GuiTabline 0
+  GuiPopupmenu 0
+  let g:GuiWindowMaximized = 1
 endif
 " WindowsOnly: [[[1
 if has('win32') || has('win64')
-    if !has('nvim')
-        set pythonthreedll=D:\Applications\Python36\python36.dll
-    endif
-    if has('gui_running')
-        inoremap <S-CR> <Esc>o
-        inoremap <C-CR> <Esc>O
-        set encoding=utf-8
-        au GUIEnter * simalt ~x " 窗口启动时自动最大化
-        set guioptions-=m       " 隐藏菜单栏
-        set guioptions-=T       " 隐藏工具栏
-        set guioptions-=L       " 隐藏左侧滚动条
-        set guioptions-=r       " 隐藏右侧滚动条
-        set guioptions-=b       " 隐藏底部滚动条
-        set guifont=Monaco\ for\ Powerline:h10
-        " set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h11:b
-        source $VIMRUNTIME/delmenu.vim
-        source $VIMRUNTIME/menu.vim
-        language messages zh_CN.utf-8
-    endif
+  if !has('nvim')
+    set pythonthreedll=D:\Applications\Python36\python36.dll
+  endif
+  if has('gui_running')
+    inoremap <S-CR> <Esc>o
+    inoremap <C-CR> <Esc>O
+    set encoding=utf-8
+    au GUIEnter * simalt ~x " 窗口启动时自动最大化
+    set guioptions-=m       " 隐藏菜单栏
+    set guioptions-=T       " 隐藏工具栏
+    set guioptions-=L       " 隐藏左侧滚动条
+    set guioptions-=r       " 隐藏右侧滚动条
+    set guioptions-=b       " 隐藏底部滚动条
+    set guifont=Monaco\ for\ Powerline:h10
+    " set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h11:b
+    source $VIMRUNTIME/delmenu.vim
+    source $VIMRUNTIME/menu.vim
+    language messages zh_CN.utf-8
+  endif
 endif

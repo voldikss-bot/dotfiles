@@ -1,4 +1,3 @@
-" vim:fdm=marker:fmr=[[[,]]]
 " ========================================================================
 " Description: autoload/lightline/colorscheme/aurora.vim
 " Author: voldikss

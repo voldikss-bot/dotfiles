@@ -20,157 +20,156 @@ function! util#tabMessage(cmd) abort
 endfunction
 " BrowserOpen: open file or url
 function! util#browserOpen(obj) abort
-    " windows(mingw)
-    if has('win32') || has('win64') || has('win32unix')
-        let l:cmd = 'rundll32 url.dll,FileProtocolHandler ' . a:obj
-    elseif has('mac') || has('macunix') || has('gui_macvim') || system('uname') =~? '^darwin'
-        let l:cmd = 'open ' . a:obj
-    elseif executable('xdg-open')
-        let l:cmd = 'xdg-open ' . a:obj
-    else
-        echoerr "No browser found, please contact the developer."
-    endif
-
-    exec 'AsyncRun -post=cclose' . ' ' . l:cmd
+  " windows(mingw)
+  if has('win32') || has('win64') || has('win32unix')
+    let l:cmd = 'rundll32 url.dll,FileProtocolHandler ' . a:obj
+  elseif has('mac') || has('macunix') || has('gui_macvim') || system('uname') =~? '^darwin'
+    let l:cmd = 'open ' . a:obj
+  elseif executable('xdg-open')
+    let l:cmd = 'xdg-open ' . a:obj
+  else
+    echoerr "No browser found, please contact the developer."
+  endif
+  exec 'AsyncRun -post=cclose' . ' ' . l:cmd
 endfunction
 " FileExplore: open cwd in file explore
 function! util#openFileExplore() abort
-    let l:path = expand(getcwd())
-    call util#browserOpen(l:path)
+  let l:path = expand(getcwd())
+  call util#browserOpen(l:path)
 endfunction
 " SetQuickRunCommand: specify quickrun command
 function! util#setQuickRunCmd() abort
-    echohl Title
-    echo "Select and input the number:"
+  echohl Title
+  echo "Select and input the number:"
+  echohl None
+  let cmd_list = [
+    \ '----------------------------------------',
+    \ '1. Input your own command',
+    \ '2. AsyncRun -raw python3 %',
+    \ '3. AsyncRun -raw python2 %',
+    \ '4. AsyncRun cargo run',
+    \ '5. AsyncRun rustc % && ./%:r',
+    \ '6. AsyncRun tsc',
+    \ '7. AsyncRun tsc --watch',
+    \ '8. AsyncRun make',
+    \ '9. Codi python'
+  \ ]
+  let select = inputlist(cmd_list)
+  if select == 0
+    return
+  elseif select == 1
+    echohl ModeMsg
+    let cmd = input("Input your command: ", "", "shellcmd")
     echohl None
-    let cmd_list = [
-        \ '----------------------------------------',
-        \ '1. Input your own command',
-        \ '2. AsyncRun -raw python3 %',
-        \ '3. AsyncRun -raw python2 %',
-        \ '4. AsyncRun cargo run',
-        \ '5. AsyncRun rustc % && ./%:r',
-        \ '6. AsyncRun tsc',
-        \ '7. AsyncRun tsc --watch',
-        \ '8. AsyncRun make',
-        \ '9. Codi python'
-        \ ]
-    let select = inputlist(cmd_list)
-    if select == 0
-        return
-    elseif select == 1
-		echohl ModeMsg
-        let cmd = input("Input your command: ", "", "shellcmd")
-        echohl None
-        if trim(cmd) == ""
-            return
-        endif
-        let g:quickrun_command = cmd
-    elseif select > 0 && select < len(cmd_list)
-        let g:quickrun_command = cmd_list[select][3:]
-    else
-        echohl ErrorMsg
-        echo "\nInvalid input"
-        echohl None
-        return
+    if trim(cmd) == ""
+      return
     endif
-    echohl Title
-    echo "\n\nYour QuickRun command is"
-    echohl Preproc
-    echo g:quickrun_command
+    let g:quickrun_command = cmd
+  elseif select > 0 && select < len(cmd_list)
+      let g:quickrun_command = cmd_list[select][3:]
+  else
+    echohl ErrorMsg
+    echo "\nInvalid input"
     echohl None
+    return
+  endif
+  echohl Title
+  echo "\n\nYour QuickRun command is"
+  echohl Preproc
+  echo g:quickrun_command
+  echohl None
 endfunction
 " QuickRun: one key to run
 function! util#quickRun() abort
-    exec 'w'
-    AsyncStop
-    sleep 500m  " wait job to stop
-    if exists('g:quickrun_command')
-        execute g:quickrun_command
-    elseif &filetype == 'c'
-        if has('unix')
-            AsyncRun gcc -g % && ./a.out
-        else
-            AsyncRun gcc -g "$(VIM_FILEPATH)" -o "a.exe" && "$(VIM_FILEDIR)/a.exe"
-        endif
-    elseif &filetype == 'cpp'
-        if has('unix')
-            AsyncRun g++ -g % && ./a.out
-        else
-            AsyncRun g++ -g "$(VIM_FILEPATH)" -o "a.exe" && "$(VIM_FILEDIR)\a.exe"
-        endif
-    elseif &filetype == 'html' || &filetype == 'htmldjango'
-        call util#browserOpen(expand("%:p"))
-        BLReloadPage
-    elseif &filetype == 'java'
-        AsyncRun javac % && java %:r
-    elseif &filetype == 'javascript'
-        AsyncRun node %
-    elseif &filetype == 'markdown'
-        MarkdownPreview
-    elseif &filetype == 'python'
-        if has("unix")
-            AsyncRun -raw python3 %
-        else
-            AsyncRun -raw python "$(VIM_FILEPATH)"
-        endif
-    elseif &filetype == 'rust'
-        AsyncRun cargo run
-    elseif &filetype == 'sh'
-        AsyncRun bash %
-    elseif &filetype == 'tex'
-        VimtexCompile
-    elseif &filetype == 'typescript'
-        AsyncRun tsc %
-    elseif &filetype == 'vim'
-        source %
+  exec 'w'
+  AsyncStop
+  sleep 500m  " wait job to stop
+  if exists('g:quickrun_command')
+    execute g:quickrun_command
+  elseif &filetype == 'c'
+    if has('unix')
+      AsyncRun gcc -g % && ./a.out
     else
-        echo "Not supported filetype:" . " " . &filetype
+      AsyncRun gcc -g "$(VIM_FILEPATH)" -o "a.exe" && "$(VIM_FILEDIR)/a.exe"
     endif
+  elseif &filetype == 'cpp'
+    if has('unix')
+      AsyncRun g++ -g % && ./a.out
+    else
+      AsyncRun g++ -g "$(VIM_FILEPATH)" -o "a.exe" && "$(VIM_FILEDIR)\a.exe"
+    endif
+  elseif &filetype == 'html' || &filetype == 'htmldjango'
+    call util#browserOpen(expand("%:p"))
+    BLReloadPage
+  elseif &filetype == 'java'
+    AsyncRun javac % && java %:r
+  elseif &filetype == 'javascript'
+    AsyncRun node %
+  elseif &filetype == 'markdown'
+    MarkdownPreview
+  elseif &filetype == 'python'
+    if has("unix")
+      AsyncRun -raw python3 %
+    else
+      AsyncRun -raw python "$(VIM_FILEPATH)"
+    endif
+  elseif &filetype == 'rust'
+    AsyncRun cargo run
+  elseif &filetype == 'sh'
+    AsyncRun bash %
+  elseif &filetype == 'tex'
+    VimtexCompile
+  elseif &filetype == 'typescript'
+    AsyncRun tsc %
+  elseif &filetype == 'vim'
+    source %
+  else
+    echo "Not supported filetype:" . " " . &filetype
+  endif
 endfunction
 " Autoformat: format code
 function! util#autoFormat() abort
-    let curr_pos = getpos('.')
-    silent! execute '%s/\s\+$//g'
-    call CocAction('format')
-    update
-    call setpos('.', curr_pos)
+  let curr_pos = getpos('.')
+  silent! execute '%s/\s\+$//g'
+  call CocAction('format')
+  update
+  call setpos('.', curr_pos)
 endfunction
 " AutoSaveBuffer:
 function! util#autoSave() abort
-    update
-    if index(['html', 'htmldjango', 'css'], &filetype) >= 0
-        BLReloadPage
-    endif
+  update
+  if index(['html', 'htmldjango', 'css'], &filetype) >= 0
+    BLReloadPage
+  endif
 endfunction
 " ToggleWindows:
 function! util#toggleWindows(winname) abort
-    let found_winnr = 0
+  let found_winnr = 0
 
-    for winnr in range(1, winnr('$'))
-        let buftype = getbufvar(winbufnr(winnr), '&buftype')
-        let filetype = getbufvar(winbufnr(winnr), '&filetype')
-        " terminal window: &buftype is 'terminal' but &filetype is ''
-        let window = filetype != "" ? filetype : buftype
-        if window == a:winname
-            let found_winnr = winnr
-            " close other windows
-        elseif g:only_one_win
-            if index(keys(g:windows_toggle), window) >= 0
-                execute g:windows_toggle[window]['close']
-            elseif index(['leaderf'], window) >=0
-                execute winnr . 'wincmd q'
-            endif
-        endif
-    endfor
-
-    if found_winnr > 0
-        " close or go to that window(for example, terminal...)
-        execute g:windows_toggle[a:winname]['close']
-    else
-        " open a new window or open that background buffer
-        execute g:windows_toggle[a:winname]['open']
+  for winnr in range(1, winnr('$'))
+    let buftype = getbufvar(winbufnr(winnr), '&buftype')
+    let filetype = getbufvar(winbufnr(winnr), '&filetype')
+    " terminal window: &buftype is 'terminal' but &filetype is ''
+    let window = filetype != "" ? filetype : buftype
+    if window == a:winname
+      let found_winnr = winnr
+    " close other windows
+    elseif g:only_one_win
+      if index(keys(g:windows_toggle), window) >= 0
+        execute g:windows_toggle[window]['close']
+      elseif index(['leaderf'], window) >=0
+        execute winnr . 'wincmd q'
+      endif
     endif
+  endfor
+
+  if found_winnr > 0
+    " close or go to that window(for example, terminal...)
+    execute g:windows_toggle[a:winname]['close']
+  else
+    " open a new window or open that background buffer
+    execute g:windows_toggle[a:winname]['open']
+  endif
 endfunction
 " Random:
 function! util#randNum(max) abort
@@ -190,14 +189,21 @@ function! util#randNum(max) abort
 endfunction
 " Grep:
 function! util#grep(string) abort
-    if executable('rg')
-        execute "AsyncRun! rg -n " . a:string . " * "
-        " execute "AsyncRun! -post=copen\ 8 rg -n " . a:string . " * "
-    elseif has('win32') || has('win64')
-        execute "AsyncRun! -cwd=<root> findstr /n /s /C:" . a:string
-    else
-        execute "AsyncRun! -cwd=<root> grep -n -s -R " . a:string . " * " . "--exclude='*.so' --exclude='.git' --exclude='.idea' --exclude='.cache' --exclude='.IntelliJIdea' --exclude='*.py[co]'"
-    endif
+  if executable('rg')
+    execute "AsyncRun! rg -n " . a:string . " * "
+    " execute "AsyncRun! -post=copen\ 8 rg -n " . a:string . " * "
+  elseif has('win32') || has('win64')
+    execute "AsyncRun! -cwd=<root> findstr /n /s /C:" . a:string
+  else
+    execute "AsyncRun! -cwd=<root> grep -n -s -R " . 
+      \ a:string . " * " . 
+      \ "--exclude='*.so' " .
+      \ " --exclude='.git' " . 
+      \ "--exclude='.idea' " .
+      \ "--exclude='.cache' " . 
+      \ "--exclude='.IntelliJIdea' " . 
+      \ "--exclude='*.py[co]'"
+  endif
 endfunction
 " DefxMySettings:
 function! util#defxSettings() abort
