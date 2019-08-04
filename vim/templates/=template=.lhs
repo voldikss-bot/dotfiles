@@ -1,4 +1,0 @@
-%FILE% by %USER%
-%FDATE%
-
-%HERE%

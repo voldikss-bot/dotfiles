@@ -32,7 +32,7 @@ function uninstall() {
 }
 
 function link() {
-    for file in ../conf/.*[!.]; do
+    for file in ../configs/.*[!.]; do
         echo ln -sf $(basename $file) $HOME/$(basename $file)
         ln -sf $(readlink -f $file) $HOME/$(basename $file)
     done
@@ -145,8 +145,8 @@ function oh_my_zsh_install(){
     # extract
     crun sudo apt install extract -y
 
-    ln -sf $(readlink -f ../conf/.zshrc) $HOME/.zshrc
-    ln -sf $(readlink -f ../conf/.af-magic.zsh-theme) $HOME/.af-magic.zsh-theme
+    ln -sf $(readlink -f ../configs/.zshrc) $HOME/.zshrc
+    ln -sf $(readlink -f ../configs/.af-magic.zsh-theme) $HOME/.af-magic.zsh-theme
     crun source ~/.zshrc
 }
 
@@ -190,8 +190,8 @@ function python_install(){
     cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
     crun sudo apt install python-dev python3-dev python-pip python3-pip idle3 -y
     crun sudo -H pip3 install requests numpy scipy matplotlib thefuck
-    ln -sf $(readlink -f ../conf/.pip) $HOME/.pip
-    ln -sf $(readlink -f ../conf/.idlerc) $HOME/.idlerc
+    ln -sf $(readlink -f ../configs/.pip) $HOME/.pip
+    ln -sf $(readlink -f ../configs/.idlerc) $HOME/.idlerc
 }
 
 function tmux_install(){
@@ -199,7 +199,7 @@ function tmux_install(){
     cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
     cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
     crun sudo apt install tmux -y
-    ln -sf $(readlink -f ../conf/.tmux.conf) $HOME/.tmux.conf
+    ln -sf $(readlink -f ../configs/.tmux.conf) $HOME/.tmux.conf
 }
 
 function nodejs_install(){
