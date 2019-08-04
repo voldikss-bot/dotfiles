@@ -458,8 +458,6 @@ augroup AutocmdGroup
     autocmd FileType java,c,cpp,json,jsonc            setlocal commentstring=//\ %s
     " vim-startify
     autocmd User Startified setlocal buflisted
-    " lightline.vim
-    autocmd CursorHold * call lightline#update()
 augroup END
 "
 " Command: [[[1
@@ -597,7 +595,9 @@ let g:coc_global_extensions = [
   \ 'coc-yank',
   \ 'coc-word'
 \ ]
-call coc#add_extension()
+if matchstr(&rtp, 'coc.nvim') != ''
+  call coc#add_extension()
+endif
 if has('nvim')
   highlight GitAdd                guifg=#00FF00 guibg=#232526
   highlight GitModify             guifg=#00FFFF guibg=#232526
@@ -613,21 +613,22 @@ let g:codi#interpreters = {
   \ }
 \ }
 " defx.nvim [[[2
-call defx#custom#option('_', {
-  \ 'columns': 'mark:git:indent:icons:filename',
-  \ 'winwidth': 30,
-  \ 'split': 'floating',
-  \ 'direction': 'topleft',
-  \ 'show_ignored_files': 0,
-  \ 'buffer_name': '',
-  \ 'toggle': 1,
-  \ 'resume': 0
-\ })
-
-call defx#custom#column('mark', {
-  \ 'readonly_icon': "",
-  \ 'selected_icon': ""
-\ })
+if matchstr(&rtp, 'defx.nvim') != ''
+  call defx#custom#option('_', {
+    \ 'columns': 'mark:git:indent:icons:filename',
+    \ 'winwidth': 30,
+    \ 'split': 'floating',
+    \ 'direction': 'topleft',
+    \ 'show_ignored_files': 0,
+    \ 'buffer_name': '',
+    \ 'toggle': 1,
+    \ 'resume': 0
+  \ })
+  call defx#custom#column('mark', {
+    \ 'readonly_icon': "",
+    \ 'selected_icon': ""
+  \ })
+endif
 
 " fileheader.nvim [[[2
 let g:fileheader_auto_add = 0
