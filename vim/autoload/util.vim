@@ -1,12 +1,12 @@
-" vim:fdm=marker:fmr=[[[,]]]
+" vim:fdm=indent
 " ========================================================================
 " Description: autoload/util.vim
 " Author: voldikss
 " GitHub: https://github.com/voldikss/dotfiles
 " ========================================================================
 
-" TabMessage: capture command output [[[1
-function! util#tabMessage(cmd)
+" TabMessage: capture command output
+function! util#tabMessage(cmd) abort
   redir => message
   silent execute a:cmd
   redir END
@@ -18,8 +18,8 @@ function! util#tabMessage(cmd)
     silent put=message
   endif
 endfunction
-" BrowserOpen: open file or url [[[1
-function! util#browserOpen(obj)
+" BrowserOpen: open file or url
+function! util#browserOpen(obj) abort
     " windows(mingw)
     if has('win32') || has('win64') || has('win32unix')
         let l:cmd = 'rundll32 url.dll,FileProtocolHandler ' . a:obj
@@ -33,8 +33,8 @@ function! util#browserOpen(obj)
 
     exec 'AsyncRun -post=cclose' . ' ' . l:cmd
 endfunction
-" FileExplore: open cwd in file explore [[[1
-function! util#openFileExplore()
+" FileExplore: open cwd in file explore
+function! util#openFileExplore() abort
     let l:path = expand(getcwd())
     call util#browserOpen(l:path)
 endfunction
@@ -80,8 +80,8 @@ function! util#setQuickRunCmd() abort
     echo g:quickrun_command
     echohl None
 endfunction
-" QuickRun: one key to run [[[1
-function! util#quickRun()
+" QuickRun: one key to run
+function! util#quickRun() abort
     exec 'w'
     AsyncStop
     sleep 500m  " wait job to stop
@@ -128,23 +128,23 @@ function! util#quickRun()
         echo "Not supported filetype:" . " " . &filetype
     endif
 endfunction
-" Autoformat: format code [[[1
-function! util#autoFormat()
+" Autoformat: format code
+function! util#autoFormat() abort
     let curr_pos = getpos('.')
     silent! execute '%s/\s\+$//g'
     call CocAction('format')
     update
     call setpos('.', curr_pos)
 endfunction
-" AutoSaveBuffer: [[[2
-function! util#autoSave()
+" AutoSaveBuffer:
+function! util#autoSave() abort
     update
     if index(['html', 'htmldjango', 'css'], &filetype) >= 0
         BLReloadPage
     endif
 endfunction
-" ToggleWindows: [[[1
-function! util#toggleWindows(winname)
+" ToggleWindows:
+function! util#toggleWindows(winname) abort
     let found_winnr = 0
 
     for winnr in range(1, winnr('$'))
@@ -172,242 +172,7 @@ function! util#toggleWindows(winname)
         execute g:windows_toggle[a:winname]['open']
     endif
 endfunction
-" ToggleTerminal: [[[1
-function! util#toggleTerminal(height, width)
-  let found_winnr = 0
-  for winnr in range(1, winnr('$'))
-    if getbufvar(winbufnr(winnr), '&buftype') == 'terminal'
-      let found_winnr = winnr
-    endif
-  endfor
-
-  if found_winnr > 0
-    if &buftype == 'terminal'
-        " if current window is the terminal window, close it
-        execute found_winnr . ' wincmd q'
-    else
-        " if current window is not terminal, go to the terminal window
-        execute found_winnr . ' wincmd w'
-    endif
-  else
-    let found_bufnr = 0
-    for bufnr in filter(range(1, bufnr('$')), 'bufexists(v:val)')
-      let buftype = getbufvar(bufnr, '&buftype')
-      if buftype == 'terminal'
-        let found_bufnr = bufnr
-      endif
-    endfor
-
-    if g:terminal_type == 'floating'
-      call s:openTermFloating(found_bufnr, a:height, a:width)
-    else
-      call s:openTermNormal(found_bufnr, a:height, a:width)
-    endif
-  endif
-endfunction
-function! s:openTermFloating(found_bufnr, height, width) abort
-  let [row, col, vert, hor] = s:getWinPos(a:width, a:height)
-  let opts = {
-    \ 'relative': 'cursor',
-    \ 'width': a:width,
-    \ 'height': a:height,
-    \ 'col': col,
-    \ 'row': row,
-    \ 'anchor': vert . hor,
-    \ 'style': 'minimal'
-  \ }
-
-  if a:found_bufnr == 0
-    let bufnr = nvim_create_buf(v:false, v:true)
-    call nvim_open_win(bufnr, 1, opts)
-    terminal
-    autocmd TermClose <buffer> if &buftype=='terminal' | wincmd c | endif
-  else
-    call nvim_open_win(a:found_bufnr, 1, opts)
-  endif
-
-  setlocal winblend=30
-  setlocal foldcolumn=1
-  setlocal bufhidden=hide
-  setlocal signcolumn=no
-  setlocal nobuflisted
-  setlocal nocursorline
-  setlocal nonumber
-  setlocal norelativenumber
-endfunction
-function! s:openTermNormal(found_bufnr, height, width)
-  if a:found_bufnr > 0
-    if &lines > 30
-      execute 'botright ' . a:height . 'split'
-      execute 'buffer ' . a:found_bufnr
-    else
-      botright split
-      execute 'buffer ' . a:found_bufnr
-    endif
-  else
-    if &lines > 30
-      if has('nvim')
-        execute 'botright ' . a:height . 'split term://' . &shell
-      else
-        botright terminal
-        resize a:height
-      endif
-    else
-      if has('nvim')
-        execute 'botright split term://' . &shell
-      else
-        botright terminal
-      endif
-    endif
-  endif
-endfunction
-function! s:getWinPos(width, height) abort
-    let bottom_line = line('w0') + winheight(0) - 1
-    let curr_pos = getpos('.')
-    let rownr = curr_pos[1]
-    let colnr = curr_pos[2]
-    " a long wrap line
-    if colnr > &columns
-        let colnr = colnr % &columns
-        let rownr += colnr / &columns
-    endif
-
-    if rownr + a:height <= bottom_line
-        let vert = 'N'
-        let row = 1
-    else
-        let vert = 'S'
-        let row = 0
-    endif
-
-    if colnr + a:width <= &columns
-        let hor = 'W'
-        let col = 0
-    else
-        let hor = 'E'
-        let col = 1
-    endif
-
-    return [row, col, vert, hor]
-endfunction
-" NormalMapForEnter: <CR> [[[1
-function! util#normalMapForCR()
-    if &filetype ==# 'quickfix'
-        return "\<CR>"
-    else
-        let line = trim(getline('.'))
-        if index(['c', 'cpp', 'cs', 'css', 'java', 'rust', 'scss'], &filetype) >= 0
-            if line != ''
-                \ && index(['#', '/'], line[0]) < 0
-                \ && index([';', '{','[', '(', '\'], line[-1:]) < 0
-                    return "A;"
-            else
-                return ""
-            endif
-        elseif index(['json', 'jsonc'], &filetype) >=0
-            if line != ''
-                \ && index(['#', '/'], line[0]) < 0
-                \ && index([',', '{','['], line[-1:]) < 0
-                return "A,"
-            else
-                return ""
-            endif
-        else
-            return "" " prevent entering to the next line
-        endif
-    endif
-endfunction
-" InsertMapForEnter: <CR> [[[1
-function! util#insertMapForCR()
-    let line = getline('.') " can not use trim
-    if pumvisible()
-        return "\<C-y>"
-    elseif index([')', ']', '}'], strcharpart(line, getpos('.')[2]-1, 1)) >= 0
-        return "\<CR>\<Esc>O"
-    elseif strcharpart(line, getpos('.')[2]-1,2) == '</'
-        return "\<CR>\<Esc>O"
-    else
-        return "\<CR>"
-    endif
-endfunction
-" InsertMapForSemicolonEnter: ;<CR> [[[1
-function! util#insertMapForSemicolonCR()
-    let line = trim(getline('.'))
-    if index(['c', 'cpp', 'cs', 'css', 'java', 'rust', 'scss'], &filetype) >= 0
-        if line != '' && line[-1:] != ';' && index(['#', '/'], line[0]) < 0
-            return "\<End>;\<CR>"
-        else
-            return "\<Esc>o"
-        endif
-    elseif index(['json', 'jsonc'], &filetype) >=0
-        if line != ''
-            \ && index(['#', '/'], line[0]) < 0
-            \ && index([',', '{','['], line[-1:]) < 0
-            return "\<End>,\<CR>"
-        else
-            return "\<Esc>o"
-        endif
-    else
-        return "\<Esc>o"
-    endif
-endfunction
-" InsertMapForSemicolonP: ;p [[[1
-function! util#insertMapForSemicolonP()
-    if &filetype == 'python'
-        let line = trim(getline('.'))
-        if line != '' && line[-1:] != ':'
-            return "\<End>:\<CR>"
-        else
-            return ""
-        endif
-    else
-        return "\<End>\<Space>{}\<Left>\<CR>\<Esc>O"
-    endif
-endfunction
-" InsertMapForDoubleSemicolon: ;; [[[1
-function! util#insertMapForDoubleSemicolon()
-    let line = trim(getline('.'))
-    if index(['c', 'cpp', 'cs', 'css', 'java', 'rust', 'scss'], &filetype) >= 0
-        if line != '' && line[-1:] != ';' && index(['#', '/'], line[0]) < 0
-            return "\<End>;"
-        else
-            return ""
-        endif
-    elseif &filetype == 'python'
-        if trim(line) != '' && line[-1:] != ':'
-            return "\<End>:"
-        else
-            return ""
-        endif
-    elseif index(['json', 'jsonc'], &filetype)
-        if trim(line) != '' && line[-1:] != ','
-            return "\<End>,"
-        else
-            return ""
-        endif
-    else
-        return ""
-    endif
-endfunction
-" MapForBackspace: <BS> [[[1
-function! util#insertMapForBS()
-    if col('.') == 1
-        if line('.')  != 1
-            return  "\<ESC>kA\<Del>"
-        else
-            return ""
-        endif
-    else
-        let line = getline('.')         " 此处不能用 trim()
-        let paren = strcharpart(line, getpos('.')[2]-2, 2)
-        if index(['()', '[]', '{}', '<>', '%%', '$$', '**', '""', "''", '~~', '``'], paren) >=0
-            return "\<Left>\<Del>\<Del>"
-        else
-            return "\<Left>\<Del>"
-        endif
-    endif
-endfunction
-" Random: [[[1
+" Random:
 function! util#randNum(max) abort
   if has("reltime")
     let l:timerstr=reltimestr(reltime())
@@ -423,8 +188,8 @@ function! util#randNum(max) abort
   endif
   return l:number % a:max
 endfunction
-" Grep: [[[1
-function! util#grep(string)
+" Grep:
+function! util#grep(string) abort
     if executable('rg')
         execute "AsyncRun! rg -n " . a:string . " * "
         " execute "AsyncRun! -post=copen\ 8 rg -n " . a:string . " * "
@@ -434,7 +199,7 @@ function! util#grep(string)
         execute "AsyncRun! -cwd=<root> grep -n -s -R " . a:string . " * " . "--exclude='*.so' --exclude='.git' --exclude='.idea' --exclude='.cache' --exclude='.IntelliJIdea' --exclude='*.py[co]'"
     endif
 endfunction
-" DefxMySettings: [[[1
+" DefxMySettings:
 function! util#defxSettings() abort
   setlocal nonumber
   setlocal listchars=

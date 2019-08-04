@@ -8,9 +8,6 @@
 " GlobalVariables: [[[1
 " IndentCont: indent count when type <CR> and then \
 let g:vim_indent_cont = 4
-" TerminalHeight:
-let g:terminal_height = 15
-let g:terminal_type = 'floating'
 " QuickfixHeight:
 let g:quickfix_height = 9
 " ToggleWindows:
@@ -116,6 +113,8 @@ Plug 'skywind3000/asyncrun.vim'
 Plug 'Yggdroot/LeaderF'
 Plug 'voldikss/vim-search-me'
 Plug 'voldikss/vim-translate-me'
+Plug 'voldikss/vim-autofix-me'
+Plug 'voldikss/vim-floaterm'
 Plug 'ahonn/fileheader.nvim', {'on': ['AddFileHeader', 'UpdateFileHeader']}
 Plug 'inkarkat/vim-mark', {'on': '<Plug>MarkSet'}
 Plug 'inkarkat/vim-ingo-library'
@@ -388,12 +387,12 @@ noremap  <silent> <expr><F12>     &buftype =='terminal' ?
                                   \ "\<Esc>:call util#toggleWindows('terminal')\<CR>i<C-u>"
 noremap! <silent> <F12>           <Esc>:call util#toggleWindows('terminal')<CR>i
 tnoremap <silent> <F12>           <C-\><C-n>:call util#toggleWindows('terminal')<CR>
-nnoremap <expr>   <CR>            util#normalMapForCR() . "\<Esc>"
-inoremap <expr>   <CR>            util#insertMapForCR()
-inoremap <expr>   <BS>            util#insertMapForBS()
-inoremap <expr>   ;<CR>           util#insertMapForSemicolonCR()
-inoremap <expr>   ;p              util#insertMapForSemicolonP()
-inoremap <expr>   ;;              util#insertMapForDoubleSemicolon()
+nnoremap <expr>   <CR>            autofix#normalMapForCR() . "\<Esc>"
+inoremap <expr>   <CR>            autofix#insertMapForCR()
+inoremap <expr>   <BS>            autofix#insertMapForBS()
+inoremap <expr>   ;<CR>           autofix#insertMapForSemicolonCR()
+inoremap <expr>   ;p              autofix#insertMapForSemicolonP()
+inoremap <expr>   ;;              autofix#insertMapForDoubleSemicolon()
 " Autocmd: [[[1
 augroup AutocmdGroup
     autocmd!
@@ -435,6 +434,7 @@ augroup AutocmdGroup
     autocmd BufNewFile .gitignore CocCommand template.templateTop
 " Plugins: [[[2
     " coc.nvim [[[3
+    autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
     " close preview window when completion is done.
     autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
     " coc-highlight
@@ -449,13 +449,17 @@ augroup AutocmdGroup
     autocmd FileType javascript,css,c,cpp let b:coc_pairs = extend([['/*', '*/']], s:coc_pairs_expand)
     autocmd FileType vim let b:coc_pairs_disabled = ['"']
     " defx
-    autocmd BufLeave * if &filetype == 'defx' | :Defx | endif
+    autocmd BufLeave * if &filetype == 'defx' | Defx | endif
     " vim-argwrap [[[3
     autocmd FileType vim let b:argwrap_line_prefix = '\'
     autocmd FileType vim let b:argwrap_tail_indent_braces = '('
     " vim-commentary [[[3
     autocmd FileType python,shell,coffee,crontab,toml setlocal commentstring=#\ %s
     autocmd FileType java,c,cpp,json,jsonc            setlocal commentstring=//\ %s
+    " vim-startify
+    autocmd User Startified setlocal buflisted
+    " lightline.vim
+    autocmd CursorHold * call lightline#update()
 augroup END
 "
 " Command: [[[1
@@ -463,7 +467,6 @@ augroup END
 command! -nargs=+ Grep               call util#grep(<q-args>)
 command! -nargs=0 SetQuickRunCommand call util#setQuickRunCmd()
 command! -nargs=0 OpenQf             execute 'copen' .  g:quickfix_height
-command! -nargs=0 ToggleTerminal     call util#toggleTerminal(winheight(0)/2, &columns)
 command! -nargs=+ -complete=command  TabMessage call util#tabMessage(<q-args>)
 " GitOperation: [[[2
 command! Gap  Git add -p
