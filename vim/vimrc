@@ -30,8 +30,8 @@ let g:windows_toggle = {
     \ 'close': 'MundoToggle'
   \ },
   \ 'terminal': {
-    \ 'open': 'ToggleTerminal',
-    \ 'close': 'ToggleTerminal'
+    \ 'open': 'FloatermToggle',
+    \ 'close': 'FloatermToggle'
   \ }
 \ }
 " DontLoad: [[[2
@@ -437,10 +437,6 @@ augroup AutocmdGroup
     autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
     " close preview window when completion is done.
     autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
-    " coc-highlight
-    if exists('g:coc_enabled')
-      autocmd CursorHold * silent call CocActionAsync('highlight')
-    endif
     " coc-pairs
     let s:coc_pairs_expand = [['（', '）'], ['“', '”'], ['‘', '’'], ['《', '》']]
     autocmd FileType tex let b:coc_pairs = extend([['$', '$']], s:coc_pairs_expand)
