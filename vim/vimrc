@@ -164,7 +164,7 @@ set whichwrap=b,s,<,>,[,]
 set completeopt-=preview
 set modeline
 " style [[[2
-colorscheme molokai
+colorscheme gruvbox
 set termguicolors
 set guicursor=
 set pumheight=15
@@ -243,6 +243,9 @@ nnoremap <silent> *  *zz
 nnoremap <silent> #  #zz
 xnoremap * :<C-u>call util#visualStarSearchSet('/')<CR>/<C-R>=@/<CR><CR>
 xnoremap # :<C-u>call util#visualStarSearchSet('?')<CR>?<C-R>=@/<CR><CR>
+" TextObject: [[[2
+xnoremap <silent> ie gg0oG$
+onoremap <silent> ie :<C-U>execute "normal! m`"<Bar>keepjumps normal! ggVG<CR>
 " Diff: [[[2
 if &diff == 1
   vmap <silent> <buffer> dg :diffget<CR>
@@ -624,11 +627,11 @@ let g:Lf_PreviewResult        = {'Function':0, 'BufTag':0}
 let g:Lf_IndexTimeLimit       = 10
 let g:Lf_Ctags                = "/usr/local/bin/ctags"
 " let g:Lf_PreviewCode = 1
-let g:Lf_StlColorscheme = 'powerline'
+let g:Lf_StlColorscheme = 'gruvbox8'
 let g:Lf_StlSeparator   = {'left': '⮀', 'right': '⮂', 'font': ''}
 " lightline [[[2
 let g:lightline = {
-  \ 'colorscheme': 'powerline',
+  \ 'colorscheme': 'gruvbox8',
   \ 'active': {
     \ 'left': [
       \ ['mode', 'paste'],
