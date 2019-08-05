@@ -65,16 +65,18 @@ let g:terminal_color_15 = '#ebdbb2'
 " PluginLoad: [[[1
 call plug#begin('~/.vim/plugged')
 " Languages [[[2
-Plug 'octol/vim-cpp-enhanced-highlight', {'for': ['c', 'cpp']}
+Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'othree/html5.vim'
+Plug 'plasticboy/vim-markdown'
+Plug 'pangloss/vim-javascript'
+Plug 'vim-python/python-syntax'
+Plug 'HerringtonDarkholme/yats.vim'
+Plug 'lervag/vimtex'
 Plug 'cpiger/NeoDebug', {'for':['c', 'cpp']}
 Plug 'iamcco/markdown-preview.nvim', {'for':'markdown', 'do':  ':call mkdp#util#install()', 'frozen': 1}
-Plug 'othree/html5.vim', {'for':['html', 'htmldjango']}
 Plug 'jaxbot/browserlink.vim', {'for': ['html', 'htmldjango', 'css']}
 Plug 'alvan/vim-closetag', {'for': ['html', 'xml', 'htmldjango']}
-Plug 'vim-python/python-syntax'
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
-Plug 'lervag/vimtex'
-Plug 'HerringtonDarkholme/yats.vim'
 " Completion [[[2
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile', 'frozen':1}
 " Style [[[2
@@ -108,10 +110,8 @@ Plug 'voldikss/vim-search-me'
 Plug 'voldikss/vim-translate-me'
 Plug 'voldikss/vim-autofix-me'
 Plug 'voldikss/vim-floaterm'
-Plug 'ahonn/fileheader.nvim', {'on': ['AddFileHeader', 'UpdateFileHeader']}
 Plug 'inkarkat/vim-mark', {'on': '<Plug>MarkSet'}
 Plug 'inkarkat/vim-ingo-library'
-Plug 'moll/vim-bbye'
 Plug 'liuchengxu/vista.vim', {'on': 'Vista'}
 " Move [[[2
 Plug 'tommcdo/vim-exchange', {'on': ['<Plug>(Exchange)', '<Plug>(ExchangeLine)', '<Plug>(ExchangeClear)']}
@@ -152,19 +152,17 @@ set formatoptions+=m
 set formatoptions+=B
 set dictionary+=~/.vim/dict/dictionary.txt
 " key [[[2
-set timeout
 set ttimeout
 set timeoutlen=500
 set ttimeoutlen=20
 set mouse-=a
-set mousehide
 set selectmode=mouse
 set clipboard=
 set backspace=2
 set backspace=eol,start,indent
 set whichwrap=b,s,<,>,[,]
 set completeopt-=preview
-set nomodeline
+set modeline
 " style [[[2
 colorscheme molokai
 set termguicolors
@@ -178,7 +176,6 @@ set showtabline=2
 set guioptions-=e
 set shortmess+=c
 set scrolloff=6
-set wrap
 " match & search [[[2
 set showmatch
 set matchtime=1
@@ -190,7 +187,6 @@ set matchpairs+=“:”
 set matchpairs+=‘:’
 set hlsearch
 set incsearch
-set wrapscan
 set ignorecase
 set smartcase
 " tab & space & indent [[[2
@@ -257,15 +253,10 @@ endif
 " BufferOperation: [[[2
 nmap     <silent> -         :Explore<CR>
 nnoremap <silent> <C-h>     :bprev<CR>
-tnoremap <silent> <C-h>     <C-\><C-n>:bprev<CR>
 nnoremap <silent> <C-l>     :bnext<CR>
-tnoremap <silent> <C-l>     <C-\><C-n>:bnext<CR>
-noremap  <silent> <Leader>d :Bdelete!<CR>
+noremap  <silent> <Leader>d :bdelete!<CR>
 " TabOperation: [[[2
 noremap  <silent> <C-t> <Esc>:tabnew<CR>
-noremap! <silent> <C-t> <Esc>:tabnew<CR>
-nnoremap <silent> gj :tabnext<CR>
-nnoremap <silent> gk :tabprevious<CR>
 " TextCopy: [[[2
 nnoremap Y y$
 nnoremap <Leader>y "+yy
@@ -274,7 +265,6 @@ nnoremap <Leader>Y "+y$
 nnoremap <Leader>p "+p
 nnoremap <Leader>P "+P
 noremap  <silent> <Leader>sa <Esc>ggVG
-vnoremap <silent> <C-c> "+y
 " InsertMode: move [[[2
 inoremap <C-k> <Up>
 inoremap <C-j> <Down>
@@ -326,22 +316,22 @@ else
 endif
 " WindowOperation: [[[2
 if has('nvim')
-nnoremap <M-h> <C-w>h
-nnoremap <M-j> <C-w>j
-nnoremap <M-k> <C-w>k
-nnoremap <M-l> <C-w>l
-inoremap <M-h> <Esc><C-w>h
-inoremap <M-j> <Esc><C-w>j
-inoremap <M-k> <Esc><C-w>k
-inoremap <M-l> <Esc><C-w>l
-tnoremap <M-h> <C-\><C-n><C-w>h
-tnoremap <M-j> <C-\><C-n><C-w>j
-tnoremap <M-k> <C-\><C-n><C-w>k
-tnoremap <M-l> <C-\><C-n><C-w>l
-cnoremap <expr> <C-n>  pumvisible() ? '<Right>' : '<Down>'
-cnoremap <expr> <C-p>  pumvisible() ? '<Left>' : '<Up>'
-cnoremap <expr> <Up>   pumvisible() ? '<C-p>' : '<up>'
-cnoremap <expr> <Down> pumvisible() ? '<C-n>' : '<down>'
+  nnoremap <M-h> <C-w>h
+  nnoremap <M-j> <C-w>j
+  nnoremap <M-k> <C-w>k
+  nnoremap <M-l> <C-w>l
+  inoremap <M-h> <Esc><C-w>h
+  inoremap <M-j> <Esc><C-w>j
+  inoremap <M-k> <Esc><C-w>k
+  inoremap <M-l> <Esc><C-w>l
+  tnoremap <M-h> <C-\><C-n><C-w>h
+  tnoremap <M-j> <C-\><C-n><C-w>j
+  tnoremap <M-k> <C-\><C-n><C-w>k
+  tnoremap <M-l> <C-\><C-n><C-w>l
+  cnoremap <expr> <C-n>  pumvisible() ? '<Right>' : '<Down>'
+  cnoremap <expr> <C-p>  pumvisible() ? '<Left>' : '<Up>'
+  cnoremap <expr> <Up>   pumvisible() ? '<C-p>' : '<up>'
+  cnoremap <expr> <Down> pumvisible() ? '<C-n>' : '<down>'
 endif
 " WindowSize: [[[2
 if has('nvim')
@@ -425,32 +415,6 @@ augroup AutocmdGroup
   autocmd BufEnter * silent! lcd %:p:h
   " GitIgnore: [[[2
   autocmd BufNewFile .gitignore CocCommand template.templateTop
-  " Plugins: [[[2
-    " coc.nvim [[[3
-    autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
-    " close preview window when completion is done.
-    autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
-    " coc-pairs
-    let s:coc_pairs_expand = [['（', '）'], ['“', '”'], ['‘', '’'], ['《', '》']]
-    autocmd FileType tex let b:coc_pairs = extend([['$', '$']], s:coc_pairs_expand)
-    autocmd FileType html let b:coc_pairs = extend([['<!--', '-->'], ['{%', '%}']], s:coc_pairs_expand)
-    autocmd FileType markdown let b:coc_pairs = extend([['*', '*']], s:coc_pairs_expand)
-    autocmd FileType javascript,css,c,cpp let b:coc_pairs = extend([['/*', '*/']], s:coc_pairs_expand)
-    autocmd FileType vim let b:coc_pairs_disabled = ['"']
-    " coc-smartf
-    autocmd User SmartfEnter :hi Conceal ctermfg=220 guifg=#6638F0
-    autocmd User SmartfLeave :hi Conceal ctermfg=239 guifg=#504945
-    " defx
-    autocmd BufLeave * if &filetype == 'defx' | Defx | endif
-    autocmd FileType defx call util#defxSettings()
-    " vim-argwrap [[[3
-    autocmd FileType vim let b:argwrap_line_prefix = '\'
-    autocmd FileType vim let b:argwrap_tail_indent_braces = '('
-    " vim-commentary [[[3
-    autocmd FileType python,shell,coffee,crontab,toml setlocal commentstring=#\ %s
-    autocmd FileType java,c,cpp,json,jsonc            setlocal commentstring=//\ %s
-    " vim-startify
-    autocmd User Startified setlocal buflisted
 augroup END
 "
 " Command: [[[1
@@ -461,7 +425,6 @@ command! -nargs=0 OpenQf             execute 'copen' .  g:quickfix_height
 command! -nargs=+ -complete=command  TabMessage call util#tabMessage(<q-args>)
 " GitOperation: [[[2
 command! Gap  Git add -p
-command! Cd   Gcd
 command! Gd   Gvdiff
 command! Gl   Git lg
 command! Gs   Gstatus
@@ -469,8 +432,6 @@ command! Gc   Gcommit -v
 command! Gca  Gcommit -a -v
 command! Gcaa Gcommit --amend -a -v
 command! Gco  execute "AsyncRun git checkout ."
-command! Grm  Gremove
-command! Gmv  Gmove
 " VimPlug: [[[2
 command! PI  PlugInstall
 command! PU  PlugUpdate
@@ -493,7 +454,6 @@ call SetupCommandAbbrs('cm', 'CocCommand')
 call SetupCommandAbbrs('cu', 'CocUninstall')
 call SetupCommandAbbrs('cl', 'CocList')
 call SetupCommandAbbrs('cr', 'CocRestart')
-call SetupCommandAbbrs('d', 'Dict')
 call SetupCommandAbbrs('gap', 'Git add -p')
 call SetupCommandAbbrs('gd', 'Gvdiff')
 call SetupCommandAbbrs('gl', 'Git lg')
@@ -503,8 +463,6 @@ call SetupCommandAbbrs('gca', 'Gcommit --amend -v')
 call SetupCommandAbbrs('gco', 'AsyncRun git checkout .')
 call SetupCommandAbbrs('gpush', 'AsyncRun git push')
 call SetupCommandAbbrs('gpull', 'AsyncRun git pull')
-call SetupCommandAbbrs('grm', 'Gremove')
-call SetupCommandAbbrs('gmv', 'Gmove')
 " PluginConfig: [[[1
 " AsyncRun [[[2
 " automatically open quickfix at height value g:quickfix_height
@@ -512,18 +470,15 @@ let g:asyncrun_open = g:quickfix_height
 " 看到 Python 实时输出
 let $PYTHONUNBUFFERED=1
 " coc.nvim [[[2
+let g:coc_snippet_next = '<tab>'
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-" multi-cursor support
+autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 nmap <silent> <C-c> <Plug>(coc-cursors-word)
 xmap <silent> <C-c> <Plug>(coc-cursors-range)
-" snippets jump
-let g:coc_snippet_next = '<tab>'
-
-" 语法检查跳转
 nmap <silent> <M-n> <Plug>(coc-diagnostic-next)
 nmap <silent> <M-p> <Plug>(coc-diagnostic-prev)
-" 定义声明实现跳转
+nmap <silent> <Leader>ca :CocAction<CR>
 nmap <silent> <Leader>cd <Plug>(coc-definition)
 nmap <silent> <Leader>ci <Plug>(coc-implementation)
 nmap <silent> <Leader>cf <Plug>(coc-fix-current)
@@ -540,13 +495,18 @@ nnoremap <silent> <Leader>hs :CocCommand git.chunkStage<CR>
 nnoremap <silent> <Leader>hu :CocCommand git.chunkUndo<CR>
 nnoremap <silent> <Leader>go :CocCommand git.browserOpen<CR>
 nnoremap <silent> <Leader>gv :CocCommand git.chunkInfo<CR>
+" coc-pairs
+let s:coc_pairs_expand = [['（', '）'], ['“', '”'], ['‘', '’'], ['《', '》']]
+autocmd FileType tex let b:coc_pairs = extend([['$', '$']], s:coc_pairs_expand)
+autocmd FileType html let b:coc_pairs = extend([['<!--', '-->'], ['{%', '%}']], s:coc_pairs_expand)
+autocmd FileType markdown let b:coc_pairs = extend([['*', '*']], s:coc_pairs_expand)
+autocmd FileType javascript,css,c,cpp let b:coc_pairs = extend([['/*', '*/']], s:coc_pairs_expand)
+autocmd FileType vim let b:coc_pairs_disabled = ['"']
 " coc-smartf
 nmap f <Plug>(coc-smartf-forward)
 nmap F <Plug>(coc-smartf-backward)
-" coc-translator
-nmap <silent> ,, <Plug>(coc-translator-p)
-" coc-repl
-xmap <silent> <Tab> <Plug>(coc-repl-sendtext)
+autocmd User SmartfEnter :hi Conceal ctermfg=220 guifg=#6638F0
+autocmd User SmartfLeave :hi Conceal ctermfg=239 guifg=#504945
 " coc-bookmark
 nmap <silent> ,b <Plug>(coc-bookmark-toggle)
 nmap <silent> ,a <Plug>(coc-bookmark-annotate)
@@ -606,6 +566,8 @@ let g:codi#interpreters = {
   \ }
 \ }
 " defx.nvim [[[2
+autocmd BufLeave * if &filetype == 'defx' | Defx | endif
+autocmd FileType defx call util#defxSettings()
 if matchstr(&rtp, 'defx.nvim') != ''
   call defx#custom#option('_', {
     \ 'columns': 'mark:git:indent:icons:filename',
@@ -622,20 +584,6 @@ if matchstr(&rtp, 'defx.nvim') != ''
     \ 'selected_icon': ""
   \ })
 endif
-
-" fileheader.nvim [[[2
-let g:fileheader_auto_add = 0
-let g:fileheader_auto_update = 0
-let g:fileheader_author='voldikss'
-let g:fileheader_default_email = 'dyzplus@gmail'
-let g:fileheader_show_email = 0
-let g:fileheader_by_git_config = 1
-let g:fileheader_new_line_at_end = 1
-let g:fileheader_last_modified_by = 1
-let g:fileheader_last_modified_time = 1
-nnoremap <silent> <F1> :UpdateFileHeader<CR>
-vnoremap <silent> <F1> <Esc>:UpdateFileHeader<CR>
-inoremap <silent> <F1> <Esc>:UpdateFileHeader<CR>
 " git-messenger.vim [[[2
 " This line necessary to make vim-plug on-demand mode work
 " Otherwise since git-messenger hasn't been loaded, <Leader>gm was not defined yet
@@ -643,10 +591,6 @@ nmap <Leader>gm <Plug>(git-messenger)
 let g:git_messenger_include_diff = 'current'
 let g:git_messenger_max_popup_height = 20
 let g:git_messenger_max_popup_width = 100
-" goyo.vim [[[2
-let g:goyo_width = '50%'
-let g:goyo_height = '100%'
-let g:goyo_linenr = 1
 " indentLine [[[2
 let g:indentLine_enabled = 1
 let g:indentLine_color_term = 238
@@ -656,10 +600,10 @@ noremap <silent> <Leader>ff :LeaderfFile<CR>
 noremap <silent> <Leader>fb :LeaderfBuffer<CR>
 noremap <silent> <Leader>ft :LeaderfBufTagAll<CR>
 noremap <silent> <Leader>fg :Leaderf rg<CR>
-noremap <silent> <leader>fr :<C-U><C-R>=printf("Leaderf! gtags -r %s --auto-jump", expand("<cword>"))<CR><CR>
-noremap <silent> <leader>fd :<C-U><C-R>=printf("Leaderf! gtags -d %s --auto-jump", expand("<cword>"))<CR><CR>
-noremap <silent> <leader>fn :<C-U><C-R>=printf("Leaderf gtags --next %s", "")<CR><CR>
-noremap <silent> <leader>fp :<C-U><C-R>=printf("Leaderf gtags --previous %s", "")<CR><CR>
+noremap <silent> <Leader>fr :<C-U><C-R>=printf("Leaderf! gtags -r %s --auto-jump", expand("<cword>"))<CR><CR>
+noremap <silent> <Leader>fd :<C-U><C-R>=printf("Leaderf! gtags -d %s --auto-jump", expand("<cword>"))<CR><CR>
+noremap <silent> <Leader>fn :<C-U><C-R>=printf("Leaderf gtags --next %s", "")<CR><CR>
+noremap <silent> <Leader>fp :<C-U><C-R>=printf("Leaderf gtags --previous %s", "")<CR><CR>
 
 let g:Lf_GtagsAutoGenerate = 1
 let g:Lf_Gtagslabel = 'native-pygments'
@@ -683,7 +627,6 @@ let g:Lf_Ctags                = "/usr/local/bin/ctags"
 let g:Lf_StlColorscheme = 'powerline'
 let g:Lf_StlSeparator   = {'left': '⮀', 'right': '⮂', 'font': ''}
 " lightline [[[2
-" from https://github.com/brglng/dotfiles/blob/master/vim/zpan/init/plugins/lightline.vim
 let g:lightline = {
   \ 'colorscheme': 'powerline',
   \ 'active': {
@@ -771,6 +714,11 @@ nnoremap <silent> <C-right> :SidewaysRight<CR>
 let g:sparkupExecuteMapping = '<C-i>'
 " vim-argwrap [[[2
 noremap <silent> <Leader>aw :ArgWrap<CR>
+autocmd FileType vim let b:argwrap_line_prefix = '\'
+autocmd FileType vim let b:argwrap_tail_indent_braces = '('
+" vim-commentary [[[2
+autocmd FileType python,shell,coffee,crontab,toml setlocal commentstring=#\ %s
+autocmd FileType java,c,cpp,json,jsonc            setlocal commentstring=//\ %s
 " vim-cpp-enhanced-highlight [[[2
 let g:cpp_class_scope_highlight                  = 1
 let g:cpp_member_variable_highlight              = 1
@@ -790,8 +738,6 @@ let g:javascript_plugin_jsdoc = 1
 let g:javascript_plugin_ngdoc = 1
 let g:javascript_plugin_flow  = 1
 " vim-mark [[[2
-" 和 visual-star-search 有 <Leader>* 冲突(MarkSet)
-" 以及其他冲突
 " 解除 <Leader>r
 map <Plug>DisableMarkRegex         <Plug>MarkRegex
 " 解除 <Leader>/
@@ -847,15 +793,13 @@ let g:startify_custom_header = [
   \ '                   |::::/  / \:\/:/  / \:\  \    \:\/:/  / \::/\/__/ \;:;-",-" \:\:\/__/ \:\:\/__/',
   \ '                    L;;/__/   \::/  /   \:\__\    \::/  /   \:\__\    |:|  |    \::/  /   \::/  / ',
   \ '                               \/__/     \/__/     \/__/     \/__/     \|__|     \/__/     \/__/  ']
+autocmd User Startified setlocal buflisted
 if has('nvim')
   highlight StartifyHeader guifg=#FF00FF
   highlight StartifyNumber guifg=#00FF00
   highlight StartifyPath   guifg=#00AFFF
   highlight StartifySlash  guifg=#DF875F
 endif
-" vim-table-mode [[[2
-" for Markdown
-let g:table_mode_corner = '|'
 " vim-translate-me [[[2
 nmap <silent>    ,t        <Plug>Translate
 nmap <silent>    ,w        <Plug>TranslateW
