@@ -195,13 +195,13 @@ function! util#grep(string) abort
   elseif has('win32') || has('win64')
     execute "AsyncRun! -cwd=<root> findstr /n /s /C:" . a:string
   else
-    execute "AsyncRun! -cwd=<root> grep -n -s -R " . 
-      \ a:string . " * " . 
+    execute "AsyncRun! -cwd=<root> grep -n -s -R " .
+      \ a:string . " * " .
       \ "--exclude='*.so' " .
-      \ " --exclude='.git' " . 
+      \ " --exclude='.git' " .
       \ "--exclude='.idea' " .
-      \ "--exclude='.cache' " . 
-      \ "--exclude='.IntelliJIdea' " . 
+      \ "--exclude='.cache' " .
+      \ "--exclude='.IntelliJIdea' " .
       \ "--exclude='*.py[co]'"
   endif
 endfunction
@@ -245,4 +245,15 @@ function! util#defxSettings() abort
   " nnoremap <silent><buffer><expr><nowait>   j               line('.') == line('$') ? 'gg' : 'j'
   " nnoremap <silent><buffer><expr><nowait>   k               line('.') == 1 ? 'G' : 'k'
   nnoremap <silent><buffer><expr><nowait>   f           defx#do_action('redraw')
+endfunction
+function util#visualStarSearchSet(cmdtype, ...) abort
+  let temp = @"
+  normal! gvy
+  if !a:0 || a:1 != 'raw'
+    let @" = escape(@", a:cmdtype.'\*')
+  endif
+  let @/ = substitute(@", '\n', '\\n', 'g')
+  let @/ = substitute(@/, '\[', '\\[', 'g')
+  let @/ = substitute(@/, '\~', '\\~', 'g')
+  let @" = temp
 endfunction
