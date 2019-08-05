@@ -164,7 +164,6 @@ set whichwrap=b,s,<,>,[,]
 set completeopt-=preview
 set modeline
 " style [[[2
-colorscheme gruvbox
 set termguicolors
 set guicursor=
 set pumheight=15
@@ -176,6 +175,7 @@ set showtabline=2
 set guioptions-=e
 set shortmess+=c
 set scrolloff=6
+colorscheme gruvbox8
 " match & search [[[2
 set showmatch
 set matchtime=1
@@ -419,7 +419,6 @@ augroup AutocmdGroup
   " GitIgnore: [[[2
   autocmd BufNewFile .gitignore CocCommand template.templateTop
 augroup END
-"
 " Command: [[[1
 " Commons: [[[2
 command! -nargs=+ Grep               call util#grep(<q-args>)
