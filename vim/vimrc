@@ -231,9 +231,9 @@ vnoremap >  >gv
 noremap <C-U> kkkkkkkkkkkkkkkkkkkkk
 noremap <C-D> jjjjjjjjjjjjjjjjjjjjj
 " Jump: [[[2
-noremap <C-j>      <C-]>
-noremap <C-W><C-j> <C-W><C-]>
-noremap <C-k>      K
+noremap <silent> <C-j>      <C-]>
+noremap <silent> <C-W><C-j> <C-W><C-]>
+noremap <silent> <C-k>      :<C-u>call util#showDoc()<CR>
 " Search: [[[2
 nnoremap <silent> n  nzz
 nnoremap <silent> N  Nzz

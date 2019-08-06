@@ -247,7 +247,8 @@ function! util#defxSettings() abort
   " nnoremap <silent><buffer><expr><nowait>   k               line('.') == 1 ? 'G' : 'k'
   nnoremap <silent><buffer><expr><nowait>   f           defx#do_action('redraw')
 endfunction
-function util#visualStarSearchSet(cmdtype, ...) abort
+" visual-star-search
+function! util#visualStarSearchSet(cmdtype, ...) abort
   let temp = @"
   normal! gvy
   if !a:0 || a:1 != 'raw'
@@ -257,4 +258,12 @@ function util#visualStarSearchSet(cmdtype, ...) abort
   let @/ = substitute(@/, '\[', '\\[', 'g')
   let @/ = substitute(@/, '\~', '\\~', 'g')
   let @" = temp
+endfunction
+" show document
+function! util#showDoc() abort
+  if (index(['vim','help'], &filetype) >= 0)
+      execute 'h '.expand('<cword>')
+    else
+      call CocAction('jumpDefinition')
+    endif
 endfunction
