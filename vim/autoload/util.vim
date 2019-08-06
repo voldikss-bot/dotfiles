@@ -247,7 +247,7 @@ function! util#defxSettings() abort
   " nnoremap <silent><buffer><expr><nowait>   k               line('.') == 1 ? 'G' : 'k'
   nnoremap <silent><buffer><expr><nowait>   f           defx#do_action('redraw')
 endfunction
-" visual-star-search
+" VisualStarSearch:
 function! util#visualStarSearchSet(cmdtype, ...) abort
   let temp = @"
   normal! gvy
@@ -259,11 +259,24 @@ function! util#visualStarSearchSet(cmdtype, ...) abort
   let @/ = substitute(@/, '\~', '\\~', 'g')
   let @" = temp
 endfunction
-" show document
+" ShowDoc: show document
 function! util#showDoc() abort
   if (index(['vim','help'], &filetype) >= 0)
       execute 'h '.expand('<cword>')
     else
       call CocAction('jumpDefinition')
     endif
+endfunction
+" ToggleCoc: disable coc.nvim for large file
+function! util#toggleCoc() abort
+  let g:trigger_size = get(g:, 'trigger_size', 0.5 * 1048576)
+  let size = getfsize(expand('<afile>'))
+  if (size > g:trigger_size) || (size == -2)
+    echohl WarningMsg
+    echomsg 'Coc.nvim was disabled for this large file'
+    echohl None
+    exec 'CocDisable'
+  else
+    exec 'CocEnable'
+  endif
 endfunction
