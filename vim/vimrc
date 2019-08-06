@@ -476,6 +476,8 @@ let g:asyncrun_open = g:quickfix_height
 " 看到 Python 实时输出
 let $PYTHONUNBUFFERED=1
 " coc.nvim [[[2
+let g:coc_start_at_startup=0
+call timer_start(500, {-> execute('CocStart')}, {'repeat':1})
 let g:coc_snippet_next = '<tab>'
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
