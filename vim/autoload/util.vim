@@ -138,9 +138,10 @@ endfunction
 " AutoSaveBuffer:
 function! util#autoSave() abort
   update
-  if index(['html', 'htmldjango', 'css'], &filetype) >= 0
-    BLReloadPage
-  endif
+  " TODO
+  " if index(['html', 'htmldjango', 'css'], &filetype) >= 0
+  "   BLReloadPage
+  " endif
 endfunction
 " ToggleWindows:
 function! util#toggleWindows(winname) abort
