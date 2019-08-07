@@ -101,13 +101,9 @@ call dein#add('neoclide/coc.nvim', {
 \ })
 " Style [[[2
 call dein#add('Yggdroot/indentLine')
-if has('nvim')
-  call dein#add('Shougo/defx.nvim', {'merged': 0})
-else
-  call dein#add('Shougo/defx.nvim', {'merged': 0})
-  call dein#add('roxma/nvim-yarp')
-  call dein#add('roxma/vim-hug-neovim-rpc')
-endif
+call dein#add('Shougo/defx.nvim', {'merged': 0})
+call dein#add('roxma/nvim-yarp', {'if': !has('nvim')})
+call dein#add('roxma/vim-hug-neovim-rpc', {'if': !has('nvim')})
 call dein#add('kristijanhusak/defx-git')
 call dein#add('kristijanhusak/defx-icons')
 call dein#add('mhinz/vim-startify', {'on_cmd': 'Startify'})
