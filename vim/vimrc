@@ -74,10 +74,10 @@ let g:terminal_color_15 = '#ebdbb2'
 if &compatible
   set nocompatible
 endif
-set runtimepath+=/home/voldikss/.cache/dein/repos/github.com/Shougo/dein.vim
-if dein#load_state('/home/voldikss/.cache/dein')
-call dein#begin('/home/voldikss/.cache/dein')
-call dein#add('/home/voldikss/.cache/dein/repos/github.com/Shougo/dein.vim')
+set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
+if dein#load_state('~/.cache/dein')
+call dein#begin('~/.cache/dein')
+call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
 call dein#add('octol/vim-cpp-enhanced-highlight')
 call dein#add('othree/html5.vim')
 call dein#add('plasticboy/vim-markdown')
