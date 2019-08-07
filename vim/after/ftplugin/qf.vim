@@ -1,17 +1,5 @@
-" Snippets from vim-qf
-" Credits: https://github.com/romainl/vim-qf
-
-if exists('b:did_ftplugin')
-	finish
-endif
-
 " quit vim if the last window is qf
 autocmd BufEnter <buffer> if winnr('$') < 2| q | endif
-
-let b:did_ftplugin = 1
-
-let s:save_cpo = &cpoptions
-set cpoptions&vim
 
 let b:undo_ftplugin = 'setl fo< com< ofu<'
 
@@ -50,5 +38,3 @@ function! s:preview_file()
 	execute 'vert resize '.(winwidth / 2)
 	wincmd p
 endfunction
-
-let &cpoptions = s:save_cpo
