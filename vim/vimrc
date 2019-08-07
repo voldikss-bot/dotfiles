@@ -400,12 +400,12 @@ noremap  <silent> <expr><F12>     &buftype =='terminal' ?
                                   \ "\<Esc>:call util#toggleWindows('terminal')\<CR>i<C-u>"
 noremap! <silent> <F12>           <Esc>:call util#toggleWindows('terminal')<CR>i
 tnoremap <silent> <F12>           <C-\><C-n>:call util#toggleWindows('terminal')<CR>
-nnoremap <expr>   <CR>            autofix#normalMapForCR() . "\<Esc>"
-inoremap <expr>   <CR>            autofix#insertMapForCR()
-inoremap <expr>   <BS>            autofix#insertMapForBS()
-inoremap <expr>   ;<CR>           autofix#insertMapForSemicolonCR()
-inoremap <expr>   ;p              autofix#insertMapForSemicolonP()
-inoremap <expr>   ;;              autofix#insertMapForDoubleSemicolon()
+nnoremap <expr>   <CR>            util#keymapfunc#normalMapForCR() . "\<Esc>"
+inoremap <expr>   <CR>            util#keymapfunc#insertMapForCR()
+inoremap <expr>   <BS>            util#keymapfunc#insertMapForBS()
+inoremap <expr>   ;<CR>           util#keymapfunc#insertMapForSemicolonCR()
+inoremap <expr>   ;p              util#keymapfunc#insertMapForSemicolonP()
+inoremap <expr>   ;;              util#keymapfunc#insertMapForDoubleSemicolon()
 " Autocmd: [[[1
 augroup AutocmdGroup
   autocmd!
@@ -526,12 +526,10 @@ nnoremap <silent> <Leader>hu :CocCommand git.chunkUndo<CR>
 nnoremap <silent> <Leader>go :CocCommand git.browserOpen<CR>
 nnoremap <silent> <Leader>gv :CocCommand git.chunkInfo<CR>
 " coc-pairs
-let s:coc_pairs_expand = [['（', '）'], ['“', '”'], ['‘', '’'], ['《', '》']]
-autocmd FileType tex let b:coc_pairs = extend([['$', '$']], s:coc_pairs_expand)
-autocmd FileType html let b:coc_pairs = extend([['<!--', '-->'], ['{%', '%}']], s:coc_pairs_expand)
-autocmd FileType markdown let b:coc_pairs = extend([['*', '*']], s:coc_pairs_expand)
-autocmd FileType javascript,css,c,cpp let b:coc_pairs = extend([['/*', '*/']], s:coc_pairs_expand)
-autocmd FileType vim let b:coc_pairs_disabled = ['"']
+let g:coc_pairs_expand = [['（', '）'], ['“', '”'], ['‘', '’'], ['《', '》']]
+inoremap <silent> <M-]> <C-R>=util#keymapfunc#moveOutPairs(']')<CR>
+inoremap <silent> <M-]> <C-R>=util#keymapfunc#moveOutPairs('}')<CR>
+inoremap <silent> <M-]> <C-R>=util#keymapfunc#moveOutPairs(')')<CR>
 " coc-smartf
 nmap f <Plug>(coc-smartf-forward)
 nmap F <Plug>(coc-smartf-backward)

@@ -1,12 +1,13 @@
 " vim:fdm=indent
 " ========================================================================
-" Description: autoload/autofix.vim
+" FileName: autoload/util/util#keymapfunc.vim
+" Description: functions for keymappings
 " Author: voldikss
-" GitHub: https://github.com/voldikss/vim-autofix-me
+" GitHub: https://github.com/voldikss/dotfiles
 " ========================================================================
 
 " NormalMapForEnter: <CR>
-function! autofix#normalMapForCR() abort
+function! util#keymapfunc#normalMapForCR() abort
     if &filetype ==# 'quickfix'
         return "\<CR>"
     else
@@ -34,7 +35,7 @@ function! autofix#normalMapForCR() abort
 endfunction
 
 " InsertMapForEnter: <CR>
-function! autofix#insertMapForCR() abort
+function! util#keymapfunc#insertMapForCR() abort
     let line = getline('.') " can not use trim
     if pumvisible()
         return "\<C-y>"
@@ -48,7 +49,7 @@ function! autofix#insertMapForCR() abort
 endfunction
 
 " InsertMapForSemicolonEnter: ;<CR>
-function! autofix#insertMapForSemicolonCR() abort
+function! util#keymapfunc#insertMapForSemicolonCR() abort
     let line = trim(getline('.'))
     if index(['c', 'cpp', 'cs', 'css', 'java', 'rust', 'scss'], &filetype) >= 0
         if line != '' && line[-1:] != ';' && index(['#', '/'], line[0]) < 0
@@ -70,7 +71,7 @@ function! autofix#insertMapForSemicolonCR() abort
 endfunction
 
 " InsertMapForSemicolonP: ;p
-function! autofix#insertMapForSemicolonP() abort
+function! util#keymapfunc#insertMapForSemicolonP() abort
     if &filetype == 'python'
         let line = trim(getline('.'))
         if line != '' && line[-1:] != ':'
@@ -84,7 +85,7 @@ function! autofix#insertMapForSemicolonP() abort
 endfunction
 
 " InsertMapForDoubleSemicolon: ;;
-function! autofix#insertMapForDoubleSemicolon() abort
+function! util#keymapfunc#insertMapForDoubleSemicolon() abort
     let line = trim(getline('.'))
     if index(['c', 'cpp', 'cs', 'css', 'java', 'rust', 'scss'], &filetype) >= 0
         if line != '' && line[-1:] != ';' && index(['#', '/'], line[0]) < 0
@@ -110,7 +111,7 @@ function! autofix#insertMapForDoubleSemicolon() abort
 endfunction
 
 " MapForBackspace: <BS>
-function! autofix#insertMapForBS() abort
+function! util#keymapfunc#insertMapForBS() abort
     if col('.') == 1
         if line('.')  != 1
             return  "\<ESC>kA\<Del>"
@@ -126,4 +127,8 @@ function! autofix#insertMapForBS() abort
             return "\<Left>\<Del>"
         endif
     endif
+endfunction
+" MoveOutPairs:
+function! util#keymapfunc#moveOutPairs(key)
+  return "\<ESC>:call search("."'".a:key."'".")\<CR>a"
 endfunction
