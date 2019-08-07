@@ -128,8 +128,9 @@ call dein#add('Yggdroot/LeaderF', {
 call dein#add('voldikss/vim-search-me')
 call dein#add('voldikss/vim-translate-me', {'on_map': '<Plug>TranslateW'})
 call dein#add('voldikss/vim-floaterm', {'on_cmd': 'FloatermToggle'})
-call dein#add('inkarkat/vim-mark', {'on_map': '<Plug>'})
-call dein#add('inkarkat/vim-ingo-library')
+call dein#add('lfv89/vim-interestingwords', {
+  \ 'on_func': ['InterestingWords', 'UncolorAllWords', 'WordNavigation']
+\ })
 call dein#add('liuchengxu/vista.vim', {'on_cmd': 'Vista'})
 call dein#add('tommcdo/vim-exchange', {'on_map': '<Plug>(Exchange'})
 call dein#add('matze/vim-move', {'on_map': '<Plug>Move'})
@@ -755,27 +756,15 @@ nmap <silent> cx  <Plug>(Exchange)
 xmap <silent> X   <Plug>(Exchange)
 nmap <silent> cxc <Plug>(ExchangeClear)
 nmap <silent> cxx <Plug>(ExchangeLine)
+" vim-interestingwords [[[2
+nnoremap <silent> ms :call InterestingWords('n')<cr>
+nnoremap <silent> mc :call UncolorAllWords()<cr>
+nnoremap <silent> n  :call WordNavigation('forward')<cr>
+nnoremap <silent> N  :call WordNavigation('backward')<cr>
 " vim-javascript [[[2
 let g:javascript_plugin_jsdoc = 1
 let g:javascript_plugin_ngdoc = 1
 let g:javascript_plugin_flow  = 1
-" vim-mark [[[2
-" 解除 <Leader>r
-map <Plug>DisableMarkRegex         <Plug>MarkRegex
-" 解除 <Leader>/
-map <Plug>DisableMarkSearchAnyNext <Plug>MarkSearchAnyNext
-" 解除 <Leader>?
-map <Plug>DisableMarkSearchAnyPrev <Plug>MarkSearchAnyPrev
-" 解除 <Leader>n
-map <Plug>DisableMarkClear         <Plug>MarkClear
-" 解除 */#
-map <Plug>DisableMarkSearchNext    <Plug>MarkSearchNext
-map <Plug>DisableMarkSearchPrev    <Plug>MarkSearchPrev
-" 重新定义映射
-map ms                             <Plug>MarkSet
-map mn                             <Plug>MarkSearchCurrentNext
-map mp                             <Plug>MarkSearchCurrentPrev
-map mc                             <Plug>MarkAllClear
 " vim-markdown [[[2
 " 代码块高亮
 let g:vim_markdown_fenced_languages = ['python=py']
