@@ -515,6 +515,7 @@ nmap <silent> <Leader>cr <Plug>(coc-references)
 nmap <silent> <Leader>cc :CocRestart<CR>
 nmap <silent> <Leader>cl :CocList<CR>
 nmap <silent> ,cr        :call CocAction('rename')<CR>
+autocmd BufReadPre * call util#toggleCoc()
 " coc-git
 nmap <expr> <C-up>   &diff==1 ? '[c' : '<Plug>(coc-git-prevchunk)'
 nmap <expr> <C-down> &diff==1 ? ']c' : '<Plug>(coc-git-nextchunk)'
@@ -581,17 +582,14 @@ if matchstr(&rtp, 'coc.nvim') != ''
   call coc#add_extension()
 endif
 if has('nvim')
-  highlight GitAdd                guifg=#00FF00 guibg=#232526
-  highlight GitModify             guifg=#00FFFF guibg=#232526
-  highlight GitDeleteTop          guifg=#FF2222 guibg=#232526
-  highlight GitDeleteButtom       guifg=#FF2222 guibg=#232526
-  highlight GitDeleteTopAndBottom guifg=#FF2222 guibg=#232526
+  let sclbg = matchstr(execute('hi SignColumn'), 'guibg=\zs\S*')
+  exe 'highlight GitAdd                guifg=#00FF00 guibg=' . sclbg
+  exe 'highlight GitModify             guifg=#00FFFF guibg=' . sclbg
+  exe 'highlight GitDeleteTop          guifg=#FF2222 guibg=' . sclbg
+  exe 'highlight GitDeleteButtom       guifg=#FF2222 guibg=' . sclbg
+  exe 'highlight GitDeleteTopAndBottom guifg=#FF2222 guibg=' . sclbg
+  unlet sclbg
 endif
-" ToggleCoc: [[[2 disable coc for huge file
-augroup ToggleCoc
-  autocmd!
-  autocmd BufReadPre * call util#toggleCoc()
-augroup END
 " codi.vim [[[2
 let g:codi#interpreters = {
   \ 'python': {
