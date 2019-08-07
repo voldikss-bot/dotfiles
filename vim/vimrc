@@ -745,11 +745,6 @@ nnoremap <silent> <C-right> :SidewaysRight<CR>
 let g:sparkupExecuteMapping = '<C-i>'
 " vim-argwrap [[[2
 noremap <silent> <Leader>aw :ArgWrap<CR>
-autocmd FileType vim let b:argwrap_line_prefix = '\'
-autocmd FileType vim let b:argwrap_tail_indent_braces = '('
-" vim-commentary [[[2
-autocmd FileType python,shell,coffee,crontab,toml setlocal commentstring=#\ %s
-autocmd FileType java,c,cpp,json,jsonc            setlocal commentstring=//\ %s
 " vim-cpp-enhanced-highlight [[[2
 let g:cpp_class_scope_highlight                  = 1
 let g:cpp_member_variable_highlight              = 1
