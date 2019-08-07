@@ -759,8 +759,6 @@ nmap <silent> cxx <Plug>(ExchangeLine)
 " vim-interestingwords [[[2
 nnoremap <silent> ms :call InterestingWords('n')<cr>
 nnoremap <silent> mc :call UncolorAllWords()<cr>
-nnoremap <silent> n  :call WordNavigation('forward')<cr>
-nnoremap <silent> N  :call WordNavigation('backward')<cr>
 " vim-javascript [[[2
 let g:javascript_plugin_jsdoc = 1
 let g:javascript_plugin_ngdoc = 1
