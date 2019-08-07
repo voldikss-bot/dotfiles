@@ -3,6 +3,8 @@
 " Description: vimrc
 " Author: voldikss
 " GitHub: https://github.com/voldikss/dotfiles
+" Todo:
+" - let <Space> as a prefix key
 " ========================================================================
 
 " GlobalVariables: [[[1
