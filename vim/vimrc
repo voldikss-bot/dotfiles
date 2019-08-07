@@ -486,6 +486,8 @@ call SetupCommandAbbrs('gca', 'Gcommit --amend -v')
 call SetupCommandAbbrs('gco', 'AsyncRun git checkout .')
 call SetupCommandAbbrs('gpush', 'AsyncRun git push')
 call SetupCommandAbbrs('gpull', 'AsyncRun git pull')
+call SetupCommandAbbrs('sl', 'CocCommand session.load default')
+call SetupCommandAbbrs('ss', 'CocCommand session.save default')
 " PluginConfig: [[[1
 " AsyncRun [[[2
 let g:asyncrun_status = ''  " asyncrun is lazy loaded
