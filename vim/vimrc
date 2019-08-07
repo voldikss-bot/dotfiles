@@ -528,8 +528,8 @@ nnoremap <silent> <Leader>gv :CocCommand git.chunkInfo<CR>
 " coc-pairs
 let g:coc_pairs_expand = [['（', '）'], ['“', '”'], ['‘', '’'], ['《', '》']]
 inoremap <silent> <M-]> <C-R>=util#keymapfunc#moveOutPairs(']')<CR>
-inoremap <silent> <M-]> <C-R>=util#keymapfunc#moveOutPairs('}')<CR>
-inoremap <silent> <M-]> <C-R>=util#keymapfunc#moveOutPairs(')')<CR>
+inoremap <silent> <M-}> <C-R>=util#keymapfunc#moveOutPairs('}')<CR>
+inoremap <silent> <M-)> <C-R>=util#keymapfunc#moveOutPairs(')')<CR>
 " coc-smartf
 nmap f <Plug>(coc-smartf-forward)
 nmap F <Plug>(coc-smartf-backward)
