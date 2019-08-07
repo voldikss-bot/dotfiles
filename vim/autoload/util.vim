@@ -216,6 +216,7 @@ function! util#defxSettings() abort
   setlocal nospell
   setlocal cursorline
   setlocal signcolumn=no
+  setlocal winblend=20
 
   " Define mappings
   nnoremap <silent><buffer><expr><nowait>   <CR>            defx#is_directory() ? defx#do_action('open_or_close_tree') : defx#do_action('multi', ['drop'])

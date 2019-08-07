@@ -181,7 +181,11 @@ function vim_install(){
     ln -sf $(readlink -f ../vim/init.vim) $HOME/.config/nvim/.vimrc
     ln -sf $(readlink -f ../vim/coc-settings.json) $HOME/.config/nvim/coc-settings.json
 
-    crun nvim +PlugInstall +qa
+    crun curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh
+    crun sh ./installer.sh ~/.cache/dein
+    rm -rf ./installer.sh
+
+    crun nvim +PI +qa
 }
 
 function python_install(){

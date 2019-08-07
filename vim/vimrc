@@ -35,10 +35,18 @@ let g:windows_toggle = {
   \ }
 \ }
 " DontLoad: [[[2
-let g:loaded_gzip = 0
-let g:loaded_zipPlugin = 0
-let g:loaded_2html_plugin = 0
-let g:loaded_tarPlugin = 0
+let g:loaded_2html_plugin      = 1
+let g:loaded_logiPat           = 1
+let g:loaded_getscriptPlugin   = 1
+let g:loaded_gzip              = 1
+let g:loaded_man               = 1
+let g:loaded_rrhelper          = 1
+let g:loaded_shada_plugin      = 1
+let g:loaded_spellfile_plugin  = 1
+let g:loaded_tarPlugin         = 1
+let g:loaded_tutor_mode_plugin = 1
+let g:loaded_vimballPlugin     = 1
+let g:loaded_zipPlugin         = 1
 " PythonHost: [[[2
 if has('win32') || has('win64') || has('win32unix')
   let g:python3_host_prog='D:/Applications/Python36/python.exe'
@@ -63,70 +71,86 @@ let g:terminal_color_13 = '#d3869b'
 let g:terminal_color_14 = '#8ec07c'
 let g:terminal_color_15 = '#ebdbb2'
 " PluginLoad: [[[1
-call plug#begin('~/.vim/plugged')
-" Languages [[[2
-Plug 'octol/vim-cpp-enhanced-highlight'
-Plug 'othree/html5.vim'
-Plug 'plasticboy/vim-markdown'
-Plug 'pangloss/vim-javascript'
-Plug 'vim-python/python-syntax'
-Plug 'HerringtonDarkholme/yats.vim'
-Plug 'lervag/vimtex'
-Plug 'cpiger/NeoDebug', {'for':['c', 'cpp']}
-Plug 'iamcco/markdown-preview.nvim', {'for':'markdown', 'do':  ':call mkdp#util#install()', 'frozen': 1}
-Plug 'jaxbot/browserlink.vim', {'for': ['html', 'htmldjango', 'css']}
-Plug 'alvan/vim-closetag', {'for': ['html', 'xml', 'htmldjango']}
-Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
-" Completion [[[2
-Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile', 'frozen':1}
-" Style [[[2
-Plug 'Yggdroot/indentLine'
-if has('nvim')
-  Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
-else
-  Plug 'Shougo/defx.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
+if &compatible
+  set nocompatible
 endif
-Plug 'kristijanhusak/defx-git'
-Plug 'kristijanhusak/defx-icons'
-Plug 'mhinz/vim-startify'
-Plug 'itchyny/lightline.vim'
-Plug 'mengelbrecht/lightline-bufferline'
-Plug 'ryanoasis/vim-devicons'
-Plug 'simnalamburt/vim-mundo', {'on': 'MundoToggle'}
-Plug 'kshenoy/vim-signature'
-Plug 'guns/xterm-color-table.vim', {'on': 'XtermColorTable'}
+set runtimepath+=/home/voldikss/.cache/dein/repos/github.com/Shougo/dein.vim
+if dein#load_state('/home/voldikss/.cache/dein')
+call dein#begin('/home/voldikss/.cache/dein')
+call dein#add('/home/voldikss/.cache/dein/repos/github.com/Shougo/dein.vim')
+call dein#add('octol/vim-cpp-enhanced-highlight')
+call dein#add('othree/html5.vim')
+call dein#add('plasticboy/vim-markdown')
+call dein#add('pangloss/vim-javascript')
+call dein#add('vim-python/python-syntax')
+call dein#add('HerringtonDarkholme/yats.vim')
+call dein#add('lervag/vimtex')
+call dein#add('cpiger/NeoDebug', {'on_ft': ['c', 'cpp']})
+call dein#add('iamcco/markdown-preview.nvim', {
+  \ 'on_ft': ['markdown', 'pandoc.markdown', 'rmd'],
+  \ 'build': 'cd app & yarn install',
+  \ 'frozen': 1
+\ })
+call dein#add('jaxbot/browserlink.vim', {'on_ft': ['html', 'htmldjango', 'css']})
+call dein#add('alvan/vim-closetag', {'on_ft': ['html', 'xml', 'htmldjango']})
+call dein#add('numirias/semshi', {'on_ft': 'python'})
+" Completion [[[2
+call dein#add('neoclide/coc.nvim', {
+  \ 'merged': 0,
+  \ 'build': 'yarn install --frozen-lockfile'
+\ })
+" Style [[[2
+call dein#add('Yggdroot/indentLine')
+if has('nvim')
+  call dein#add('Shougo/defx.nvim', {'merged': 0})
+else
+  call dein#add('Shougo/defx.nvim', {'merged': 0})
+  call dein#add('roxma/nvim-yarp')
+  call dein#add('roxma/vim-hug-neovim-rpc')
+endif
+call dein#add('kristijanhusak/defx-git')
+call dein#add('kristijanhusak/defx-icons')
+call dein#add('mhinz/vim-startify', {'on_cmd': 'Startify'})
+call dein#add('ryanoasis/vim-devicons')
+call dein#add('itchyny/lightline.vim')
+call dein#add('mengelbrecht/lightline-bufferline')
+call dein#add('simnalamburt/vim-mundo', {'on_cmd': 'MundoToggle'})
+call dein#add('kshenoy/vim-signature')
+call dein#add('guns/xterm-color-table.vim', {'on_cmd': 'XtermColorTable'})
 " Git [[[2
-Plug 'tpope/vim-fugitive'
-Plug 'cohama/agit.vim', {'on': 'Agit'}
-Plug 'mattn/gist-vim', {'on': 'Gist'}
-Plug 'mattn/webapi-vim'
-Plug 'rhysd/git-messenger.vim', {'on': '<Plug>(git-messenger)'}
+call dein#add('tpope/vim-fugitive')
+call dein#add('cohama/agit.vim', {'on_cmd': 'Agit'})
+call dein#add('mattn/gist-vim', {'on_cmd': 'Gist'})
+call dein#add('mattn/webapi-vim')
+call dein#add('rhysd/git-messenger.vim', {'on_map': '<Plug>'})
 " Enhancements [[[2
-Plug 'skywind3000/asyncrun.vim'
-Plug 'Yggdroot/LeaderF'
-Plug 'voldikss/vim-search-me'
-Plug 'voldikss/vim-translate-me'
-Plug 'voldikss/vim-floaterm'
-Plug 'inkarkat/vim-mark', {'on': '<Plug>MarkSet'}
-Plug 'inkarkat/vim-ingo-library'
-Plug 'liuchengxu/vista.vim', {'on': 'Vista'}
-" Move [[[2
-Plug 'tommcdo/vim-exchange', {'on': ['<Plug>(Exchange)', '<Plug>(ExchangeLine)', '<Plug>(ExchangeClear)']}
-Plug 'matze/vim-move', {'on': ['<Plug>MoveLineUp', '<Plug>MoveLineDown', '<Plug>MoveBlockUp', '<Plug>MoveBlockDown']}
-Plug 'andrewradev/sideways.vim', {'on': ['SidewaysLeft', 'SidewaysRight']}
-" Edit [[[2
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-repeat'
-Plug 'foosoft/vim-argwrap', {'on': 'ArgWrap'}
-Plug 'junegunn/vim-easy-align', {'on': '<Plug>(EasyAlign)'}
-Plug 'wellle/targets.vim'
-" Misc [[[2
-Plug 'yianwillis/vimcdoc'
-Plug 'metakirby5/codi.vim', {'on': 'Codi'}
-call plug#end()
+call dein#add('skywind3000/asyncrun.vim', {'on_cmd': ['AsyncRun', 'AsyncStop']})
+call dein#add('Yggdroot/LeaderF', {
+  \ 'on_cmd': 'Leaderf',
+  \ 'build': expand('./install'.(has('win64') ? '.bat': '.sh'))
+\ })
+call dein#add('voldikss/vim-search-me')
+call dein#add('voldikss/vim-translate-me', {'on_map': '<Plug>TranslateW'})
+call dein#add('voldikss/vim-floaterm', {'on_cmd': 'FloatermToggle'})
+call dein#add('inkarkat/vim-mark', {'on_map': '<Plug>'})
+call dein#add('inkarkat/vim-ingo-library')
+call dein#add('liuchengxu/vista.vim', {'on_cmd': 'Vista'})
+call dein#add('tommcdo/vim-exchange', {'on_map': '<Plug>(Exchange'})
+call dein#add('matze/vim-move', {'on_map': '<Plug>Move'})
+call dein#add('andrewradev/sideways.vim', {'on_cmd': ['SidewaysLeft', 'SidewaysRight']})
+call dein#add('tpope/vim-commentary')
+call dein#add('tpope/vim-surround')
+call dein#add('tpope/vim-repeat')
+call dein#add('foosoft/vim-argwrap', {'on_cmd': 'ArgWrap'})
+call dein#add('junegunn/vim-easy-align', {'on_map': '<Plug>(EasyAlign)'})
+call dein#add('wellle/targets.vim')
+call dein#add('yianwillis/vimcdoc')
+call dein#add('metakirby5/codi.vim', {'on_cmd': 'Codi'})
+call dein#end()
+call dein#save_state()
+endif
+filetype plugin indent on
+syntax enable
 " General: [[[1
 " file & directory & format [[[2
 set history=2000
@@ -176,7 +200,7 @@ set scrolloff=6
 colorscheme gruvbox8
 " match & search [[[2
 set showmatch
-set matchtime=1
+set matchtime=0
 set matchpairs+=<:>
 set matchpairs+=《:》
 set matchpairs+=（:）
@@ -271,7 +295,6 @@ vnoremap <Leader>y "+y
 nnoremap <Leader>Y "+y$
 nnoremap <Leader>p "+p
 nnoremap <Leader>P "+P
-noremap  <silent> <Leader>sa <Esc>ggVG
 " InsertMode: move [[[2
 inoremap <C-k> <Up>
 inoremap <C-j> <Down>
@@ -439,11 +462,8 @@ command! Gca  Gcommit -a -v
 command! Gcaa Gcommit --amend -a -v
 command! Gco  execute "AsyncRun git checkout ."
 " VimPlug: [[[2
-command! PI  PlugInstall
-command! PU  PlugUpdate
-command! PUU PlugUpgrade
-command! PS  PlugStatus
-command! PC  PlugClean
+command! PI  call dein#update()
+command! PU  call dein#update()
 " Abbreviate: [[[1
 function! SetupCommandAbbrs(from, to)
   exec 'cnoreabbrev <expr> '.a:from
@@ -471,6 +491,7 @@ call SetupCommandAbbrs('gpush', 'AsyncRun git push')
 call SetupCommandAbbrs('gpull', 'AsyncRun git pull')
 " PluginConfig: [[[1
 " AsyncRun [[[2
+let g:asyncrun_status = ''  " asyncrun is lazy loaded
 " automatically open quickfix at height value g:quickfix_height
 let g:asyncrun_open = g:quickfix_height
 " 看到 Python 实时输出
@@ -609,9 +630,9 @@ let g:indentLine_enabled = 1
 let g:indentLine_color_term = 238
 let g:indentLine_fileTypeExclude = ['startify', 'vista', 'json', 'codi', 'defx', 'vtm']
 " LeaderF [[[2
-nmap <silent> <Leader>ff <Plug>LeaderfFileBottom
-nmap <silent> <Leader>fb <Plug>LeaderfBufferBottom
-nmap <silent> <Leader>fm <Plug>LeaderfMruCwdBottom
+nmap <silent> <Leader>ff :Leaderf file<CR>
+nmap <silent> <Leader>fb :Leaderf buffer<CR>
+nmap <silent> <Leader>fm :Leaderf mru<CR>
 nmap <silent> <Leader>fg :Leaderf rg<CR>
 nmap <silent> <Leader>ft :LeaderfBufTagAll<CR>
 noremap <silent> <Leader>fr :<C-U><C-R>=printf("Leaderf! gtags -r %s --auto-jump", expand("<cword>"))<CR><CR>

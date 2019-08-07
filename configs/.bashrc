@@ -128,3 +128,5 @@ alias gpf='git push -f'
 alias gf='git fetch'
 alias gr='git reset --hard HEAD'
 alias vim='nvim'
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
