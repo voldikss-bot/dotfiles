@@ -120,11 +120,17 @@ function! util#keymapfunc#insertMapForBS() abort
         endif
     else
         let line = getline('.')         " 此处不能用 trim()
-        let paren = strcharpart(line, getpos('.')[2]-2, 2)
+        let colnr = getpos('.')[2]
+        let paren = strcharpart(line, colnr-2, 2)
         if index(['()', '[]', '{}', '<>', '%%', '$$', '**', '""', "''", '~~', '``'], paren) >=0
             return "\<Left>\<Del>\<Del>"
         else
-            return "\<Left>\<Del>"
+            let prefix = line[:colnr-2]
+            if prefix =~ '^\s\+$' && len(prefix) % &shiftwidth == 0
+              return "\<BS>"
+            else
+              return "\<Left>\<Del>"
+            endif
         endif
     endif
 endfunction
