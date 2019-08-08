@@ -1,6 +1,6 @@
 {
   "coc.preferences.formatOnSaveFiletypes": [],
-  "coc.preferences.messageLevel": "warning",
+  "coc.preferences.messageLevel": "more",
   "coc.source.vimtex.priority": 99,
   "coc.source.file.priority": 10,
   "coc.source.around.priority": 8,

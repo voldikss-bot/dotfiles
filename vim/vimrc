@@ -760,6 +760,8 @@ nmap <silent> cx  <Plug>(Exchange)
 xmap <silent> X   <Plug>(Exchange)
 nmap <silent> cxc <Plug>(ExchangeClear)
 nmap <silent> cxx <Plug>(ExchangeLine)
+" vim-floaterm [[[2
+let g:floaterm_winblend = 30
 " vim-interestingwords [[[2
 nnoremap <silent> ms :call InterestingWords('n')<cr>
 nnoremap <silent> mc :call UncolorAllWords()<cr>

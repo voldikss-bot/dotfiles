@@ -81,7 +81,7 @@ function! util#setQuickRunCmd() abort
 endfunction
 " QuickRun: one key to run
 function! util#quickRun() abort
-  exec 'w'
+  update
   AsyncStop
   sleep 500m  " wait job to stop
   if exists('g:quickrun_command')
@@ -137,7 +137,9 @@ function! util#autoFormat() abort
 endfunction
 " AutoSaveBuffer:
 function! util#autoSave() abort
-  update
+  if expand('%') != ''
+    update
+  endif
   " TODO
   " if index(['html', 'htmldjango', 'css'], &filetype) >= 0
   "   BLReloadPage
