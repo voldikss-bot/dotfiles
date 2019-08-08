@@ -327,6 +327,9 @@ nnoremap <silent> <Leader>w :wa<CR>
 nnoremap <silent> <Leader>q :q<CR>
 nnoremap <silent> <Leader>Q :qa!<CR>
 nnoremap <silent> Q         :qa!<CR>
+" QuickMessage: [[[2
+nnoremap <silent> <Leader>m :messages<CR>
+nnoremap <silent> <Leader>t :TabMessage messages<CR>
 " CommandMode: [[[2
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
