@@ -130,6 +130,7 @@ call dein#add('Yggdroot/LeaderF', {
 call dein#add('voldikss/vim-search-me')
 call dein#add('voldikss/vim-translate-me', {'on_map': '<Plug>TranslateW'})
 call dein#add('voldikss/vim-floaterm', {'on_cmd': 'FloatermToggle'})
+call dein#add('voldikss/vim-hello-word', {'on_cmd': ['HelloWord', 'HelloWordSetLexicon']})
 call dein#add('lfv89/vim-interestingwords', {
   \ 'on_func': ['InterestingWords', 'UncolorAllWords', 'WordNavigation']
 \ })
