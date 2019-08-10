@@ -239,16 +239,19 @@ function! util#defxSettings() abort
   nnoremap <silent><buffer><expr><nowait>   r               defx#do_action('rename')
   nnoremap <silent><buffer><expr><nowait>   !               defx#do_action('execute_command')
   nnoremap <silent><buffer><expr><nowait>   x               defx#do_action('execute_system')
-  nnoremap <silent><buffer><expr><nowait>   y              defx#do_action('yank_path')
+  nnoremap <silent><buffer><expr><nowait>   y               defx#do_action('yank_path')
   nnoremap <silent><buffer><expr><nowait>   I               defx#do_action('toggle_ignored_files')
   nnoremap <silent><buffer><expr><nowait>   .               defx#do_action('repeat')
-  nnoremap <silent><buffer><expr><nowait>   h           defx#do_action('cd', ['..'])
+  nnoremap <silent><buffer><expr><nowait>   h               defx#do_action('cd', ['..'])
   nnoremap <silent><buffer><expr><nowait>   q               defx#do_action('quit')
+  nnoremap <silent><buffer><expr><nowait>   <Esc>           defx#do_action('quit')
   nnoremap <silent><buffer><expr><nowait>   <Space>         defx#do_action('toggle_select') . 'j'
   nnoremap <silent><buffer><expr><nowait>   *               defx#do_action('toggle_select_all')
+  nmap     <buffer><silent>                 gk              <Plug>(defx-git-prev)
+  nmap     <buffer><silent>                 gj              <Plug>(defx-git-next)
   " nnoremap <silent><buffer><expr><nowait>   j               line('.') == line('$') ? 'gg' : 'j'
   " nnoremap <silent><buffer><expr><nowait>   k               line('.') == 1 ? 'G' : 'k'
-  nnoremap <silent><buffer><expr><nowait>   f           defx#do_action('redraw')
+  nnoremap <silent><buffer><expr><nowait>   f               defx#do_action('redraw')
 endfunction
 " VisualStarSearch:
 function! util#visualStarSearchSet(cmdtype, ...) abort
