@@ -259,8 +259,9 @@ noremap <silent> <C-j>      <C-]>
 noremap <silent> <C-W><C-j> <C-W><C-]>
 noremap <silent> <C-k>      :<C-u>call util#showDoc()<CR>
 " Search: [[[2
-nnoremap <silent> n  nzz
-nnoremap <silent> N  Nzz
+" use set shortmess-=S to display searchindex
+" nnoremap <silent> n  nzz
+" nnoremap <silent> N  Nzz
 nnoremap <silent> *  *zz
 nnoremap <silent> #  #zz
 xnoremap * :<C-u>call util#visualStarSearchSet('/')<CR>/<C-R>=@/<CR><CR>
@@ -375,8 +376,8 @@ if has('nvim')
 endif
 " ClearnSearchHighlight:  [[[2
 if has('nvim')
-  inoremap <silent> <Esc> <Esc>:noh<CR>
-  nnoremap <silent> <Esc> <Esc>:noh<CR>
+  nnoremap <Esc>      <Cmd>nohlsearch<bar>echo ''<CR>
+  inoremap <Esc> <Esc><Cmd>nohlsearch<bar>echo ''<CR>
 endif
 nnoremap <silent> <BS> <Esc>:noh<CR>
 " Customized function [[[2
@@ -480,6 +481,7 @@ call SetupCommandAbbrs('cc', 'CocConfig')
 call SetupCommandAbbrs('cf', 'CocFix')
 call SetupCommandAbbrs('ci', 'CocInstall')
 call SetupCommandAbbrs('cm', 'CocCommand')
+call SetupCommandAbbrs('cs', 'CocSearch')
 call SetupCommandAbbrs('cu', 'CocUninstall')
 call SetupCommandAbbrs('cl', 'CocList')
 call SetupCommandAbbrs('cr', 'CocRestart')
