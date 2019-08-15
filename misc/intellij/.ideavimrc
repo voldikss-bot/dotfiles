@@ -1,4 +1,4 @@
-
+set ideajoin
 set surround
 set multiple-cursors
 
@@ -17,8 +17,6 @@ nnoremap M %
 " Move
 noremap H ^
 noremap L $
-noremap! H ^
-noremap! L $
 " Redo
 nnoremap U <C-r>
 " Go to mark
@@ -64,12 +62,12 @@ noremap <C-p> gT
 
 " Normal mode
 inoremap jj <Esc>
+inoremap jk <Esc>
 " 插入模式下的左右移动
-inoremap <C-k> <Esc>ka
-inoremap <C-j> <Esc>ja
-" IntelliJ 上会卡。。。
-" inoremap <C-h> <Esc>ha
-inoremap <C-l> <Esc>la
+inoremap <C-k> <Up>
+inoremap <C-j> <Down>
+inoremap <C-h> <Left>
+inoremap <C-l> <Right>
 " 词首词尾: forward; bachward
 inoremap <C-b> <Esc>bi
 inoremap <C-f> <Esc>ea
@@ -94,7 +92,10 @@ cnoremap <C-f> <S-Right>
 
 nnoremap <C-j> <C-]>
 nnoremap ;d <Esc>:q<CR>
-" 平滑滚屏
-nnoremap <C-U> <C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y>
-nnoremap <C-D> <C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E>
-inoremap <C-d> <Esc>ddi
+nnoremap ;w <Esc>:w<CR>
+
+nmap gj :action VcsShowNextChangeMarker<CR>
+nmap gk :action VcsShowPrevChangeMarker<CR>
+
+nmap gc :action CommentByLineComment<CR>
+vmap gc :action CommentByBlockComment<CR>
