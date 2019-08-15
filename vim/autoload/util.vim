@@ -11,7 +11,9 @@ function! util#tabMessage(cmd) abort
   silent execute a:cmd
   redir END
   if empty(message)
-    echoerr "no output"
+    echohl Error
+    echo "no output"
+    echohl None
   else
     new
     setlocal buftype=nofile bufhidden=wipe noswapfile nobuflisted nomodified

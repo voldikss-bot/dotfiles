@@ -379,7 +379,7 @@ if has('nvim')
   nnoremap <Esc>      <Cmd>nohlsearch<bar>echo ''<CR>
   inoremap <Esc> <Esc><Cmd>nohlsearch<bar>echo ''<CR>
 endif
-nnoremap <silent> <BS> <Esc>:noh<CR>
+nnoremap <silent> <BS> :noh<bar>echo ''<CR>
 " Customized function [[[2
 noremap  <silent> <F2>            <Esc>:call util#toggleWindows('defx')<CR>
 noremap! <silent> <F2>            <Esc>:call util#toggleWindows('defx')<CR>
