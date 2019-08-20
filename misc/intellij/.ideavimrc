@@ -51,9 +51,6 @@ nnoremap Y y$
 nnoremap ;q  <Esc>:q<CR>
 nnoremap Q <Esc>:q<CR>
 " nnoremap <C-w> <Esc>:q<CR>
-" 移动整行
-" nnoremap J ddp
-" nnoremap K ddkP
 " tab切换
 nnoremap <C-l> gt
 nnoremap <C-h> gT
@@ -61,8 +58,8 @@ noremap <C-n> gt
 noremap <C-p> gT
 
 " Normal mode
-inoremap jj <Esc>
-inoremap jk <Esc>
+" inoremap jj <Esc>
+" inoremap jk <Esc>
 " 插入模式下的左右移动
 inoremap <C-k> <Up>
 inoremap <C-j> <Down>
@@ -99,3 +96,13 @@ nmap gk :action VcsShowPrevChangeMarker<CR>
 
 nmap gc :action CommentByLineComment<CR>
 vmap gc :action CommentByBlockComment<CR>
+
+nmap ;; :action ReformatCode<CR>
+
+nmap J :action MoveLineDown<CR>
+nmap K :action MoveLineUp<CR>
+vmap J :action MoveLineDown<CR>
+vmap K :action MoveLineUp<CR>
+
+nmap <A-n> :action GotoNextError<CR>
+nmap <A-p> :action GotoPreviousError<CR>

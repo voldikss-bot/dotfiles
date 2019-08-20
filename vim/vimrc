@@ -128,6 +128,7 @@ call dein#add('Yggdroot/LeaderF', {
   \ 'build': expand('./install'.(has('win64') ? '.bat': '.sh'))
 \ })
 call dein#add('voldikss/vim-search-me')
+call dein#add('voldikss/vim-codelf')
 call dein#add('voldikss/vim-translate-me', {'on_map': '<Plug>TranslateW'})
 call dein#add('voldikss/vim-floaterm', {'on_cmd': 'FloatermToggle'})
 call dein#add('voldikss/vim-hello-word', {'on_cmd': ['HelloWord', 'HelloWordSetLexicon']})
@@ -197,7 +198,7 @@ set showtabline=2
 set guioptions-=e
 set shortmess+=c
 set scrolloff=6
-colorscheme gruvbox8
+colorscheme molokai
 " match & search [[[2
 set showmatch
 set matchtime=0
@@ -310,20 +311,20 @@ inoremap <M-o> <Esc>O
 inoremap <C-d> <Esc>ddi
 inoremap <C-c> <Esc>C
 " InsertMode: ;* [[[2
-inoremap ;; <End>;
-inoremap ;, <End>,
-inoremap ;a <Home>
-inoremap ;e <End>
-inoremap ;h <Left>
-inoremap ;j <Down>
-inoremap ;k <Up>
-inoremap ;l <Right>
-inoremap ;o <End><CR>
-inoremap ;O <Esc>O
-inoremap ;u <C-u>
-inoremap ;c <Esc><Right>C
-inoremap ;s <Esc>S
-inoremap ;i <Esc>I
+" inoremap ;; <End>;
+" inoremap ;, <End>,
+" inoremap ;a <Home>
+" inoremap ;e <End>
+" inoremap ;h <Left>
+" inoremap ;j <Down>
+" inoremap ;k <Up>
+" inoremap ;l <Right>
+" inoremap ;o <End><CR>
+" inoremap ;O <Esc>O
+" inoremap ;u <C-u>
+" inoremap ;c <Esc><Right>C
+" inoremap ;s <Esc>S
+" inoremap ;i <Esc>I
 " SaveAndQuit: [[[2
 nnoremap <silent> <Leader>w :wa<CR>
 nnoremap <silent> <Leader>q :q<CR>
@@ -407,9 +408,9 @@ tnoremap <silent> <F12>           <C-\><C-n>:call util#toggleWindows('terminal')
 nnoremap <expr>   <CR>            util#keymapfunc#normalMapForCR() . "\<Esc>"
 inoremap <expr>   <CR>            util#keymapfunc#insertMapForCR()
 inoremap <expr>   <BS>            util#keymapfunc#insertMapForBS()
-inoremap <expr>   ;<CR>           util#keymapfunc#insertMapForSemicolonCR()
-inoremap <expr>   ;p              util#keymapfunc#insertMapForSemicolonP()
-inoremap <expr>   ;;              util#keymapfunc#insertMapForDoubleSemicolon()
+" inoremap <expr>   ;<CR>           util#keymapfunc#insertMapForSemicolonCR()
+" inoremap <expr>   ;p              util#keymapfunc#insertMapForSemicolonP()
+" inoremap <expr>   ;;              util#keymapfunc#insertMapForDoubleSemicolon()
 " Autocmd: [[[1
 augroup AutocmdGroup
   autocmd!
@@ -538,10 +539,10 @@ inoremap <silent> <M-]> <C-R>=util#keymapfunc#moveOutPairs(']')<CR>
 inoremap <silent> <M-}> <C-R>=util#keymapfunc#moveOutPairs('}')<CR>
 inoremap <silent> <M-)> <C-R>=util#keymapfunc#moveOutPairs(')')<CR>
 " coc-smartf
-nmap f <Plug>(coc-smartf-forward)
-nmap F <Plug>(coc-smartf-backward)
-autocmd User SmartfEnter :hi Conceal ctermfg=220 guifg=#6638F0
-autocmd User SmartfLeave :hi Conceal ctermfg=239 guifg=#504945
+" nmap f <Plug>(coc-smartf-forward)
+" nmap F <Plug>(coc-smartf-backward)
+" autocmd User SmartfEnter :hi Conceal ctermfg=220 guifg=#6638F0
+" autocmd User SmartfLeave :hi Conceal ctermfg=239 guifg=#504945
 " coc-bookmark
 nmap <silent> ,b <Plug>(coc-bookmark-toggle)
 nmap <silent> ,a <Plug>(coc-bookmark-annotate)
@@ -569,7 +570,6 @@ let g:coc_global_extensions = [
   \ 'coc-prettier',
   \ 'coc-python',
   \ 'coc-rls',
-  \ 'coc-smartf',
   \ 'coc-snippets',
   \ 'coc-syntax',
   \ 'coc-tag',
@@ -629,6 +629,8 @@ let g:git_messenger_include_diff = 'current'
 let g:git_messenger_max_popup_height = 20
 let g:git_messenger_max_popup_width = 100
 " indentLine [[[2
+" let g:indentLine_char = '│'
+let g:indentLine_char = '.'
 let g:indentLine_enabled = 1
 let g:indentLine_color_term = 238
 let g:indentLine_fileTypeExclude = ['startify', 'vista', 'json', 'codi', 'defx', 'vtm']
@@ -662,11 +664,11 @@ let g:Lf_PreviewResult        = {'Function':0, 'BufTag':0}
 let g:Lf_IndexTimeLimit       = 10
 let g:Lf_Ctags                = "/usr/local/bin/ctags"
 " let g:Lf_PreviewCode = 1
-let g:Lf_StlColorscheme = 'gruvbox8'
+let g:Lf_StlColorscheme = 'powerline'
 let g:Lf_StlSeparator   = {'left': '⮀', 'right': '⮂', 'font': ''}
 " lightline [[[2
 let g:lightline = {
-  \ 'colorscheme': 'gruvbox8',
+  \ 'colorscheme': 'powerline',
   \ 'active': {
     \ 'left': [
       \ ['mode', 'paste'],
@@ -700,10 +702,18 @@ let g:lightline = {
   \ },
   \ 'tabline': {
     \ 'left': [['vim_logo', 'buffers']],
-    \ 'right': [['close']]
+    \ 'right': [['close']],
+    \ 'subseparator': {
+      \ 'left': '│',
+      \ 'right': '│'
+    \ }
   \ },
   \ 'component_expand': { 'buffers': 'lightline#bufferline#buffers' },
-  \ 'component_type': { 'buffers': 'tabsel' }
+  \ 'component_type': { 'buffers': 'tabsel' },
+  \ 'subseparator': {
+    \ 'left': '│',
+    \ 'right': '│'
+  \ }
 \ }
 
 " lightline-bufferline [[[2
@@ -745,6 +755,9 @@ noremap <silent> <F8> <Esc>:NeoDebug ./a.out<CR>
 " python-syntax [[[2
 let g:python_highlight_all = 1
 let g:python_highlight_space_errors = 0
+" semshi [[[2
+let g:semshi#always_update_all_highlights = v:true
+let g:semshi#error_sign = v:false
 " sideways.vim [[[2
 nnoremap <silent> <C-left>  :SidewaysLeft<CR>
 nnoremap <silent> <C-right> :SidewaysRight<CR>

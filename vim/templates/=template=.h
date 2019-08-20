@@ -1,9 +1,9 @@
-/*
- * %FFILE%
- * Copyright (C) %YEAR% %USER% <%MAIL%>
- *
- * Distributed under terms of the %LICENSE% license.
- */
+//////////////////////////////////////////////////////////////////////////////
+// FileName: %FFILE%
+// Descrption:
+// Author: %USER% <%MAIL%>
+// GitHub: https://github.com/voldikss
+//////////////////////////////////////////////////////////////////////////////
 
 #ifndef _%GUARD%_
 #define _%GUARD%_

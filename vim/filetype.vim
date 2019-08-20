@@ -24,6 +24,8 @@ augroup filetypedetect
   autocmd BufNewFile,BufRead *.log              setfiletype log
   autocmd BufNewFile,BufRead *_log              setfiletype log
 
+  autocmd BufNewFile,BufRead *.clang-format     setfiletype yaml
+
   autocmd BufNewFile,BufRead *.toml,Gopkg.lock,Cargo.lock,*/.cargo/config,*/.cargo/credentials,Pipfile setfiletype toml
 augroup END
 
