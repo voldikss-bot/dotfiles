@@ -417,10 +417,10 @@ inoremap <expr>   <BS>            util#keymapfunc#insertMapForBS()
 augroup AutocmdGroup
   autocmd!
   " General: [[[2
-  autocmd BufEnter * if &buftype == 'terminal' |
+  autocmd TermOpen *
     \ setlocal signcolumn=no |
     \ setlocal nobuflisted |
-    \ endif
+    \ nmap <silent><buffer> <Esc> :hide<CR>
   " ParenthesisColor: [[[2
   autocmd VimEnter,BufWinEnter *
     \ if index(['html', 'htmldjango', 'tex', 'mma'], &filetype) < 0 |
@@ -430,7 +430,7 @@ augroup AutocmdGroup
       \ syntax match paren4 /[\[\]]/ | hi paren4 guifg=#00FF5F |
     \ endif
   " AutoSaveBuffer: [[[2
-  autocmd FocusLost * call util#autoSave()
+  autocmd FocusLost,InsertLeave * call util#autoSave()
   " DisableAutoComment: [[[2
   autocmd FileType * set formatoptions-=cro
   " LineNumber: [[[2
