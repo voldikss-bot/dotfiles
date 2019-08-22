@@ -9,6 +9,7 @@ setlocal linebreak
 setlocal nolist
 setlocal cursorline
 setlocal nobuflisted
+setlocal nospell
 
 nnoremap <buffer> <CR> <CR><C-w>p
 nnoremap <silent><buffer> p  :call <SID>preview_file()<CR>

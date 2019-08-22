@@ -3,6 +3,7 @@ setlocal shiftwidth=2
 setlocal softtabstop=2
 setlocal commentstring=\"\ %s
 setlocal foldmethod=indent
+setlocal nospell
 
 " coc-pairs
 let b:coc_pairs_disabled = ['"']

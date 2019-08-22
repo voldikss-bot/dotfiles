@@ -1,6 +1,6 @@
 setlocal tabstop=4
 setlocal shiftwidth=4
 setlocal softtabstop=4
-set foldmethod=indent
+setlocal foldmethod=indent
 setlocal commentstring=#\ %s
-
+setlocal nospell

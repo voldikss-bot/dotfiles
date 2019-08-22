@@ -10,3 +10,4 @@ nmap <silent> <buffer> q :quit<CR>
 autocmd BufWinEnter <buffer> wincmd H
 
 setlocal number
+setlocal nospell

@@ -128,7 +128,7 @@ call dein#add('Yggdroot/LeaderF', {
   \ 'build': expand('./install'.(has('win64') ? '.bat': '.sh'))
 \ })
 call dein#add('voldikss/vim-search-me')
-call dein#add('voldikss/vim-codelf')
+" call dein#add('voldikss/vim-codelf')
 call dein#add('voldikss/vim-translate-me', {'on_map': '<Plug>TranslateW'})
 call dein#add('voldikss/vim-floaterm', {'on_cmd': 'FloatermToggle'})
 call dein#add('voldikss/vim-hello-word', {'on_cmd': ['HelloWord', 'HelloWordSetLexicon']})
@@ -174,6 +174,8 @@ set fileignorecase
 set formatoptions+=m
 set formatoptions+=B
 set dictionary+=~/.vim/dict/dictionary.txt
+set spell
+set spellfile=~/.vim/spell/en.utf-8.add
 " key [[[2
 set ttimeout
 set timeoutlen=500
@@ -261,8 +263,8 @@ noremap <silent> <C-W><C-j> <C-W><C-]>
 noremap <silent> <C-k>      :<C-u>call util#showDoc()<CR>
 " Search: [[[2
 " use set shortmess-=S to display searchindex
-" nnoremap <silent> n  nzz
-" nnoremap <silent> N  Nzz
+nnoremap <silent> n  nzz
+nnoremap <silent> N  Nzz
 nnoremap <silent> *  *zz
 nnoremap <silent> #  #zz
 xnoremap * :<C-u>call util#visualStarSearchSet('/')<CR>/<C-R>=@/<CR><CR>
@@ -782,6 +784,7 @@ nmap <silent> cxx <Plug>(ExchangeLine)
 " vim-floaterm [[[2
 let g:floaterm_winblend = 30
 " vim-interestingwords [[[2
+vnoremap <silent> ms :call InterestingWords('n')<cr>
 nnoremap <silent> ms :call InterestingWords('n')<cr>
 nnoremap <silent> mc :call UncolorAllWords()<cr>
 " vim-javascript [[[2
