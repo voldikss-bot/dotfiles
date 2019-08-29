@@ -84,3 +84,7 @@ export FZF_DEFAULT_COMMAND='rg --hidden -l ""'
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export PATH="/usr/local/bin:$PATH"
+# GoLang
+export GOROOT=/usr/local/go
+export GOBIN=$GOROOT/bin
+export PATH=$PATH:$GOBIN

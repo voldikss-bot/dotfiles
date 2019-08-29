@@ -174,7 +174,7 @@ set fileignorecase
 set formatoptions+=m
 set formatoptions+=B
 set dictionary+=~/.vim/dict/dictionary.txt
-set spell
+set nospell
 set spellfile=~/.vim/spell/en.utf-8.add
 " key [[[2
 set ttimeout
@@ -200,7 +200,7 @@ set showtabline=2
 set guioptions-=e
 set shortmess+=c
 set scrolloff=6
-colorscheme molokai
+colorscheme srcery
 " match & search [[[2
 set showmatch
 set matchtime=0
@@ -420,6 +420,7 @@ augroup AutocmdGroup
   autocmd TermOpen *
     \ setlocal signcolumn=no |
     \ setlocal nobuflisted |
+    \ setlocal nospell |
     \ nmap <silent><buffer> <Esc> :hide<CR>
   " ParenthesisColor: [[[2
   autocmd VimEnter,BufWinEnter *
@@ -670,7 +671,7 @@ let g:Lf_StlColorscheme = 'powerline'
 let g:Lf_StlSeparator   = {'left': '⮀', 'right': '⮂', 'font': ''}
 " lightline [[[2
 let g:lightline = {
-  \ 'colorscheme': 'powerline',
+  \ 'colorscheme': 'srcery',
   \ 'active': {
     \ 'left': [
       \ ['mode', 'paste'],
@@ -784,7 +785,7 @@ nmap <silent> cxx <Plug>(ExchangeLine)
 " vim-floaterm [[[2
 let g:floaterm_winblend = 30
 " vim-interestingwords [[[2
-vnoremap <silent> ms :call InterestingWords('n')<cr>
+vnoremap <silent> ms <Esc>:call InterestingWords('n')<cr>
 nnoremap <silent> ms :call InterestingWords('n')<cr>
 nnoremap <silent> mc :call UncolorAllWords()<cr>
 " vim-javascript [[[2

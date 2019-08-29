@@ -1,10 +1,13 @@
-//
-// %FFILE%
-// Copyright (C) %YEAR% %USER% <%MAIL%>
-//
-// Distributed under terms of the %LICENSE% license.
-//
-
+/******************************************************************************
+ *  FileName:  %FFILE%
+ *  Description:
+ *  Author: %USER% <%MAIL%>
+ *  GitHub: https://github.com/voldikss
+ ******************************************************************************/
 package main
 
-%HERE%
+import "fmt"
+
+func main(){
+    %HERE%
+}

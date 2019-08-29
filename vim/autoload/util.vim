@@ -100,6 +100,8 @@ function! util#quickRun() abort
     else
       AsyncRun g++ -g "$(VIM_FILEPATH)" -o "a.exe" && "$(VIM_FILEDIR)\a.exe"
     endif
+  elseif &filetype == 'go'
+    AsyncRun go run %
   elseif &filetype == 'html' || &filetype == 'htmldjango'
     call util#browserOpen(expand("%:p"))
     BLReloadPage
@@ -126,7 +128,9 @@ function! util#quickRun() abort
   elseif &filetype == 'vim'
     source %
   else
+    echohl WarningMsg
     echo "Not supported filetype:" . " " . &filetype
+    echohl None
   endif
 endfunction
 " Autoformat: format code

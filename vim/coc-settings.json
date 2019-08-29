@@ -1,6 +1,6 @@
 {
   "coc.preferences.formatOnSaveFiletypes": [],
-  "coc.preferences.messageLevel": "warning",
+  "coc.preferences.messageLevel": "more",
   "coc.source.vimtex.priority": 99,
   "coc.source.file.priority": 10,
   "coc.source.around.priority": 8,
@@ -18,6 +18,7 @@
   "diagnostic.hintSign": "➤",
   "diagnostic-languageserver.filetypes": {
     "markdown": ["write-good"],
+    "text": ["write-good"],
     "sh": "shellcheck"
   },
   "eslint.enable": true,
@@ -38,8 +39,6 @@
   "prettier.singleQuote": true,
   "python.autoComplete.addBrackets": true,
   "session.directory": "/home/voldikss/.cache/nvim/session",
-  "smartf.timeout": 800,
-  "smartf.jumpOnTrigger": true,
   "suggest.noselect": false,
   "suggest.numberSelect": false,
   "suggest.echodocSupport": true,
