@@ -8,10 +8,12 @@
 #include <algorithm>
 #include <iostream>
 #include <map>
+#include <unordered_map>
 #include <stack>
 #include <vector>
 using namespace std;
 
 int main() {
-  %HERE%
+    %HERE%
+    return 0;
 }

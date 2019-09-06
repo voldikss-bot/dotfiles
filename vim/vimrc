@@ -223,6 +223,7 @@ set expandtab
 set shiftround
 set relativenumber number
 set foldlevel=99
+set foldmethod=indent
 set conceallevel=0
 set autoindent
 set smartindent
@@ -248,7 +249,8 @@ let g:mapleader = ';'
 noremap  H  ^
 noremap  L  $
 "cannot use noremap
-nmap     M  %
+nnoremap     M  %
+vnoremap     M  %
 noremap  U  <C-R>
 noremap  '  `
 inoremap jj <Esc>
@@ -278,6 +280,9 @@ xnoremap il g_o^
 onoremap il :normal vil<CR>
 xnoremap al $o0
 onoremap al :normal val<CR>
+" argument
+xmap ig afovvi)
+omap ig :normal vag<CR>
 " Diff: [[[2
 if &diff == 1
   vmap <silent> <buffer> dg :diffget<CR>
@@ -417,11 +422,13 @@ inoremap <expr>   <BS>            util#keymapfunc#insertMapForBS()
 augroup AutocmdGroup
   autocmd!
   " General: [[[2
-  autocmd TermOpen *
-    \ setlocal signcolumn=no |
-    \ setlocal nobuflisted |
-    \ setlocal nospell |
-    \ nmap <silent><buffer> <Esc> :hide<CR>
+  if has('nvim')
+    autocmd TermOpen *
+      \ setlocal signcolumn=no |
+      \ setlocal nobuflisted |
+      \ setlocal nospell |
+      \ nmap <silent><buffer> <Esc> :hide<CR>
+  endif
   " ParenthesisColor: [[[2
   autocmd VimEnter,BufWinEnter *
     \ if index(['html', 'htmldjango', 'tex', 'mma'], &filetype) < 0 |
@@ -562,6 +569,7 @@ let g:coc_global_extensions = [
   \ 'coc-emoji',
   \ 'coc-emmet',
   \ 'coc-eslint',
+  \ 'coc-explorer',
   \ 'coc-git',
   \ 'coc-highlight',
   \ 'coc-html',
@@ -632,11 +640,11 @@ let g:git_messenger_include_diff = 'current'
 let g:git_messenger_max_popup_height = 20
 let g:git_messenger_max_popup_width = 100
 " indentLine [[[2
-" let g:indentLine_char = '│'
-let g:indentLine_char = '.'
+let g:indentLine_char = '│'
+" let g:indentLine_char = '.'
 let g:indentLine_enabled = 1
 let g:indentLine_color_term = 238
-let g:indentLine_fileTypeExclude = ['startify', 'vista', 'json', 'codi', 'defx', 'vtm']
+let g:indentLine_fileTypeExclude = ['startify', 'vista', 'json', 'codi', 'defx', 'vtm', 'jsonc']
 " LeaderF [[[2
 nmap <silent> <Leader>ff :Leaderf file<CR>
 nmap <silent> <Leader>fb :Leaderf buffer<CR>
@@ -785,7 +793,9 @@ nmap <silent> cxx <Plug>(ExchangeLine)
 " vim-floaterm [[[2
 let g:floaterm_winblend = 30
 " vim-interestingwords [[[2
-vnoremap <silent> ms <Esc>:call InterestingWords('n')<cr>
+" disable built-in keymap
+nmap <Plug>SomeMaps <Plug>InterestingWords
+vnoremap <silent> ms :call InterestingWords('v')<cr>
 nnoremap <silent> ms :call InterestingWords('n')<cr>
 nnoremap <silent> mc :call UncolorAllWords()<cr>
 " vim-javascript [[[2

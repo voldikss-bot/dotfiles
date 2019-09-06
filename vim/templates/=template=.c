@@ -9,5 +9,6 @@
 #include <stdlib.h>
 
 int main(){
-  %HERE%
+    %HERE%
+    return 0;
 }
