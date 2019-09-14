@@ -199,6 +199,7 @@ set laststatus=2
 set showtabline=2
 set guioptions-=e
 set shortmess+=c
+set shortmess-=S
 set scrolloff=6
 colorscheme srcery
 " match & search [[[2
@@ -248,13 +249,15 @@ let g:mapleader = ';'
 " General: [[[2
 noremap  H  ^
 noremap  L  $
+" Esc
+inoremap jk    <C-R>=util#keymapfunc#Esc()<CR>
+inoremap <C-c> <C-R>=util#keymapfunc#Esc()<CR>
+inoremap <C-[> <C-R>=util#keymapfunc#Esc()<CR>
 "cannot use noremap
 nnoremap     M  %
 vnoremap     M  %
 noremap  U  <C-R>
 noremap  '  `
-inoremap jj <Esc>
-inoremap jk <Esc>
 vnoremap <  <gv
 vnoremap >  >gv
 noremap <C-U> kkkkkkkkkkkkkkkkkkkkk
@@ -281,8 +284,8 @@ onoremap il :normal vil<CR>
 xnoremap al $o0
 onoremap al :normal val<CR>
 " argument
-xmap ig afovvi)
-omap ig :normal vag<CR>
+xmap ia afovvi)
+omap ia :normal vag<CR>
 " Diff: [[[2
 if &diff == 1
   vmap <silent> <buffer> dg :diffget<CR>
@@ -311,27 +314,11 @@ inoremap <C-h> <Left>
 inoremap <C-l> <Right>
 inoremap <C-b> <Esc>bi
 inoremap <C-f> <Esc>ea
-inoremap <C-a> <Home>
+inoremap <C-a> <Esc>I
 inoremap <C-e> <End>
 inoremap <C-o> <End><CR>
 inoremap <M-o> <Esc>O
 inoremap <C-d> <Esc>ddi
-inoremap <C-c> <Esc>C
-" InsertMode: ;* [[[2
-" inoremap ;; <End>;
-" inoremap ;, <End>,
-" inoremap ;a <Home>
-" inoremap ;e <End>
-" inoremap ;h <Left>
-" inoremap ;j <Down>
-" inoremap ;k <Up>
-" inoremap ;l <Right>
-" inoremap ;o <End><CR>
-" inoremap ;O <Esc>O
-" inoremap ;u <C-u>
-" inoremap ;c <Esc><Right>C
-" inoremap ;s <Esc>S
-" inoremap ;i <Esc>I
 " SaveAndQuit: [[[2
 nnoremap <silent> <Leader>w :wa<CR>
 nnoremap <silent> <Leader>q :q<CR>
@@ -415,9 +402,6 @@ tnoremap <silent> <F12>           <C-\><C-n>:call util#toggleWindows('terminal')
 nnoremap <expr>   <CR>            util#keymapfunc#normalMapForCR() . "\<Esc>"
 inoremap <expr>   <CR>            util#keymapfunc#insertMapForCR()
 inoremap <expr>   <BS>            util#keymapfunc#insertMapForBS()
-" inoremap <expr>   ;<CR>           util#keymapfunc#insertMapForSemicolonCR()
-" inoremap <expr>   ;p              util#keymapfunc#insertMapForSemicolonP()
-" inoremap <expr>   ;;              util#keymapfunc#insertMapForDoubleSemicolon()
 " Autocmd: [[[1
 augroup AutocmdGroup
   autocmd!
@@ -543,6 +527,8 @@ nnoremap <silent> <Leader>hs :CocCommand git.chunkStage<CR>
 nnoremap <silent> <Leader>hu :CocCommand git.chunkUndo<CR>
 nnoremap <silent> <Leader>go :CocCommand git.browserOpen<CR>
 nnoremap <silent> <Leader>gv :CocCommand git.chunkInfo<CR>
+omap ic <Plug>(coc-text-object-inner)
+xmap ic <Plug>(coc-text-object-inner)
 " coc-pairs
 let g:coc_pairs_expand = [['（', '）'], ['“', '”'], ['‘', '’'], ['《', '》']]
 inoremap <silent> <M-]> <C-R>=util#keymapfunc#moveOutPairs(']')<CR>

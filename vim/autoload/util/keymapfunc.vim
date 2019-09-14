@@ -138,3 +138,13 @@ endfunction
 function! util#keymapfunc#moveOutPairs(key)
   return "\<ESC>:call search("."'".a:key."'".")\<CR>a"
 endfunction
+" Esc:
+function! util#keymapfunc#Esc()
+  let colnr = getpos('.')[2]
+  let linelen = len(getline('.'))
+  if colnr == (linelen + 1)
+    return "\<Esc>"
+  else
+    return "\<Esc>\<Right>"
+  endif
+endfunction
