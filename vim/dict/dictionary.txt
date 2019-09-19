@@ -11,3 +11,4 @@ vimrc
 deoplete
 GitHub
 StackOverflow
+localhost

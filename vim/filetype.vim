@@ -11,6 +11,7 @@ augroup filetypedetect
 
   autocmd BufNewFile,BufRead  *.cjson           setfiletype jsonc
   autocmd BufNewFile,BufRead  coc-settings.json setfiletype jsonc
+  autocmd BufNewFile,BufRead  config.json       setfiletype jsonc
 
   autocmd BufNewFile,BufRead  *.wl              setfiletype mma
   autocmd BufNewFile,BufRead  *.wls             setfiletype mma

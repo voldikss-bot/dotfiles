@@ -250,9 +250,9 @@ let g:mapleader = ';'
 noremap  H  ^
 noremap  L  $
 " Esc
-inoremap jk    <C-R>=util#keymapfunc#Esc()<CR>
 inoremap <C-c> <C-R>=util#keymapfunc#Esc()<CR>
 inoremap <C-[> <C-R>=util#keymapfunc#Esc()<CR>
+inoremap <Esc> <C-r>=util#keymapfunc#Esc()<CR>
 "cannot use noremap
 nnoremap     M  %
 vnoremap     M  %
@@ -372,7 +372,6 @@ endif
 " ClearnSearchHighlight:  [[[2
 if has('nvim')
   nnoremap <Esc>      <Cmd>nohlsearch<bar>echo ''<CR>
-  inoremap <Esc> <Esc><Cmd>nohlsearch<bar>echo ''<CR>
 endif
 nnoremap <silent> <BS> :noh<bar>echo ''<CR>
 " Customized function [[[2

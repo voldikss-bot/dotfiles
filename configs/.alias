@@ -39,7 +39,7 @@ alias o='a -e xdg-open' # quick opening files with xdg-open
 alias vimfzf='vim $(fzf)'
 
 # prettyping
-alias ping='prettyping'
+# alias ping='prettyping'
 
 # htop
 alias top='htop'
