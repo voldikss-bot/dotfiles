@@ -48,6 +48,7 @@ install_common_tools(){
     sudo apt install trash-cli -y
     sudo apt install catimg -y
     sudo apt install zathura -y
+    sudo apt install resolvconf -y
     ### ripgrep
     if ! command -v rg; then
         wget -O rg.deb https://github.com/BurntSushi/ripgrep/releases/download/0.10.0/ripgrep_0.10.0_amd64.deb
@@ -135,9 +136,9 @@ install_nvim(){
         sudo apt install neovim -y
     fi
 
-    nodejs_install
-    ctags_install
-    gtags_install
+    install_nodejs
+    install_ctags
+    install_gtags
 
     sudo -H pip3 install pynvim yapf flake8 autopep8
     sudo yarn global add neovim
@@ -174,7 +175,7 @@ install_tmux(){
     ln -sf $(readlink -f ../configs/.tmux.conf) $HOME/.tmux.conf
 }
 
-nodejs_install(){
+install_nodejs(){
     cecho "Installing nodejs..."
     ### nodejs
     if ! command -v nodejs; then
@@ -195,7 +196,7 @@ nodejs_install(){
     fi
 }
 
-ctags_install(){
+install_ctags(){
     cecho "Installing ctags..."
     if ! command -v ctags; then
         git clone https://github.com/universal-ctags/ctags.git --depth=1
@@ -213,7 +214,7 @@ ctags_install(){
     fi
 }
 
-gtags_install() {
+install_gtags() {
     cecho "Installing gtags..."
     if ! command -v gtags; then
         # currently the latest version is v6.6.3
@@ -252,15 +253,15 @@ install_ccls() {
         sudo apt install zlib1g-dev -y
         git clone --depth=1 --recursive https://github.com/MaskRay/ccls
         cd ccls
-        wget -c wget -c http://releases.llvm.org/8.0.0/clang+llvm-8.0.0-x86_64-linux-gnu-ubuntu-18.04.tar.xz
-        tar -xf clang+llvm-8.0.0-x86_64-linux-gnu-ubuntu-18.04.tar.xz
+        wget -c http://releases.llvm.org/8.0.0/clang+llvm-8.0.0-x86_64-linux-gnu-ubuntu-18.04.tar.xz
+        tar xf clang+llvm-8.0.0-x86_64-linux-gnu-ubuntu-18.04.tar.xz
         cmake -H. -BRelease -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=$PWD/clang+llvm-8.0.0-x86_64-linux-gnu-ubuntu-18.04
         cmake --build Release
-        rm clang+llvm-7.0.1-x86_64-linux-gnu-ubuntu-16.04.tar.xz
-        rm -rf clang+llvm-7.0.1-x86_64-linux-gnu-ubuntu-16.04
+        rm clang+llvm-8.0.0-x86_64-linux-gnu-ubuntu-18.04.tar.xz
+        rm -rf clang+llvm-8.0.0-x86_64-linux-gnu-ubuntu-18.04
         cd ..
         mkdir -p ~/Applications
-        mv ccls ~/Applications/
+        mv -f ccls ~/Applications/
         sudo ln -sf ~/Applications/ccls/Release/ccls /usr/bin/ccls
     else
         cecho "NOTE: ccls has already been installed and won't be installed here"
@@ -275,7 +276,7 @@ install_latex() {
     sudo apt install latexmk -y
 }
 
-goldendict_install() {
+install_goldendict() {
     # dictionary download
     # https://github.com/skywind3000/ECDICT/releases/download/1.0.28/ecdict-mdx-style-28.zip
     sudo apt install libdouble-conversion1 libqt5svg5 -y
@@ -317,7 +318,7 @@ confirm(){
 
 install_dotfiles()
 {
-    sudo
+    sudo echo "Installing dotfiles..."
     # Initial
     initialize
 
@@ -331,7 +332,8 @@ install_dotfiles()
     confirm tmux install_tmux
     confirm latex install_latex
     confirm ccls install_ccls
-    others="Others: gnome-tweak | chrome | goldendict | netease-cloud-music | sougou-pinyin"
+    confirm goldendict install_goldendict
+    others="Others: gnome-tweak | chrome | netease-cloud-music | sougou-pinyin"
     confirm $others install_others
 
     # oh_my_zsh

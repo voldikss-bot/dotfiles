@@ -42,6 +42,7 @@
   "suggest.noselect": false,
   "suggest.numberSelect": false,
   "suggest.echodocSupport": true,
+  "suggest.removeDuplicateItems": true,
   "suggest.enablePreselect": false,
   "suggest.triggerAfterInsertEnter": false,
   "suggest.languageSourcePriority": 99,

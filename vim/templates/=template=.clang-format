@@ -8,3 +8,6 @@ AllowShortBlocksOnASingleLine: false
 AllowShortFunctionsOnASingleLine: false
 AllowShortIfStatementsOnASingleLine: true
 AllowShortLoopsOnASingleLine: true
+AlwaysBreakTemplateDeclarations: true
+ReflowComments: false
+SpacesBeforeTrailingComments: true
