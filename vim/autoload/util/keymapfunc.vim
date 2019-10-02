@@ -15,7 +15,7 @@ function! util#keymapfunc#normalMapForCR() abort
     if index(['c', 'cpp', 'cs', 'css', 'java', 'rust', 'scss'], &filetype) >= 0
       if line != ''
         \ && index(['#', '/'], line[0]) < 0
-        \ && index([';', '{','[', '(', '\'], line[-1:]) < 0
+        \ && index([';', '{','[', '(', '\', '<', '>'], line[-1:]) < 0
           return "A;"
       else
         return ""

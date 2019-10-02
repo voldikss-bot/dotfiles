@@ -133,9 +133,9 @@ call dein#add('rhysd/reply.vim', {
   \ })
 call dein#add('voldikss/vim-search-me')
 " call dein#add('voldikss/vim-codelf')
-call dein#add('voldikss/vim-translate-me', {'on_map': '<Plug>TranslateW'})
+call dein#add('voldikss/vim-translate-me', {'on_map': ['<Plug>TranslateW', '<Plug>Translate']})
 call dein#add('voldikss/vim-floaterm', {'on_cmd': 'FloatermToggle'})
-call dein#add('voldikss/vim-hello-word', {'on_cmd': ['HelloWord', 'HelloWordSetLexicon']})
+call dein#add('voldikss/vim-hello-word', {'on_cmd': ['HelloWord', 'HelloWordSetVocabulary']})
 call dein#add('lfv89/vim-interestingwords', {
   \ 'on_func': ['InterestingWords', 'UncolorAllWords', 'WordNavigation']
 \ })
@@ -496,6 +496,7 @@ call SetupCommandAbbrs('gpush', 'AsyncRun git push')
 call SetupCommandAbbrs('gpull', 'AsyncRun git pull')
 call SetupCommandAbbrs('sl', 'CocCommand session.load default')
 call SetupCommandAbbrs('ss', 'CocCommand session.save default')
+call SetupCommandAbbrs('tm', 'TabMessage')
 " PluginConfig: [[[1
 " AsyncRun [[[2
 let g:asyncrun_status = ''  " asyncrun is lazy loaded
@@ -611,7 +612,7 @@ if matchstr(&rtp, 'defx.nvim') != ''
     \ 'winwidth': 30,
     \ 'split': 'floating',
     \ 'direction': 'topleft',
-    \ 'show_ignored_files': 0,
+    \ 'show_ignored_files': 1,
     \ 'buffer_name': '',
     \ 'toggle': 1,
     \ 'resume': 0
@@ -780,7 +781,7 @@ xmap <silent> X   <Plug>(Exchange)
 nmap <silent> cxc <Plug>(ExchangeClear)
 nmap <silent> cxx <Plug>(ExchangeLine)
 " vim-floaterm [[[2
-let g:floaterm_winblend = 30
+let g:floaterm_winblend = 50
 " vim-interestingwords [[[2
 nnoremap <silent> <leader>k :call InterestingWords('n')<cr>
 vnoremap <silent> <leader>k :call InterestingWords('v')<cr>
