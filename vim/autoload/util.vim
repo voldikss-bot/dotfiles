@@ -11,9 +11,7 @@ function! util#tabMessage(cmd) abort
   silent execute a:cmd
   redir END
   if empty(message)
-    echohl Error
-    echo "no output"
-    echohl None
+    call util#showMessage('No Output', 'warning')
   else
     new
     setlocal buftype=nofile bufhidden=wipe noswapfile nobuflisted nomodified
@@ -135,6 +133,10 @@ function! util#quickRun() abort
 endfunction
 " Autoformat: format code
 function! util#autoFormat() abort
+  if expand('%') == ''
+    call util#showMessage('No File Name', 'warning')
+    return
+  endif
   let curr_pos = getpos('.')
   silent! execute '%s/\s\+$//g'
   call CocAction('format')
@@ -143,9 +145,7 @@ function! util#autoFormat() abort
 endfunction
 " AutoSaveBuffer:
 function! util#autoSave() abort
-  if expand('%') != ''
-    update
-  endif
+  bufdo if expand('%') != '' | update | endif
   " TODO
   " if index(['html', 'htmldjango', 'css'], &filetype) >= 0
   "   BLReloadPage
@@ -291,4 +291,29 @@ function! util#toggleCoc() abort
   else
     exec 'CocEnable'
   endif
+endfunction
+" ShowMessage: show highlighted message
+function! util#showMessage(message, ...)
+  if a:0 == 0
+    let msgType = 'more'
+  else
+    let msgType = a:1
+  endif
+
+  if msgType == 'more'
+    echohl MoreMsg
+  elseif msgType == 'warning'
+    echohl WarningMsg
+  elseif msgType == 'error'
+    echohl ErrorMsg
+  endif
+
+  if type(a:message) != 1
+    let message = join(a:message, "\n")
+  else
+    let message = a:message
+  endif
+
+  echo message
+  echohl None
 endfunction
