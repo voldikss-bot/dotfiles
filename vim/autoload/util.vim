@@ -145,7 +145,7 @@ function! util#autoFormat() abort
 endfunction
 " AutoSaveBuffer:
 function! util#autoSave() abort
-  bufdo if expand('%') != '' | update | endif
+  if expand('%') != '' | update | endif
   " TODO
   " if index(['html', 'htmldjango', 'css'], &filetype) >= 0
   "   BLReloadPage
