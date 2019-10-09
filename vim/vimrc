@@ -783,6 +783,10 @@ nmap <silent> cxc <Plug>(ExchangeClear)
 nmap <silent> cxx <Plug>(ExchangeLine)
 " vim-floaterm [[[2
 let g:floaterm_winblend = 50
+" vim-fugitive [[[2
+nnoremap <silent> <Leader>gw :Gw<CR>
+nnoremap <silent> <Leader>gs :Gs<CR>
+nnoremap <silent> <Leader>gc :Gc<CR>
 " vim-interestingwords [[[2
 nnoremap <silent> <leader>k :call InterestingWords('n')<cr>
 vnoremap <silent> <leader>k :call InterestingWords('v')<cr>
