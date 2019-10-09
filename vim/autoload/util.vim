@@ -138,18 +138,37 @@ function! util#autoFormat() abort
     return
   endif
   let curr_pos = getpos('.')
-  silent! execute '%s/\s\+$//g'
+  " 1. use coc
   call CocAction('format')
+  " 2. remove whitespace
+  silent! execute '%s/\s\+$//g'
+  " 3. remove blank lines
+  call util#removeBlankLines()
   update
   call setpos('.', curr_pos)
 endfunction
+" RemoveBlankLines:
+function! util#removeBlankLines() abort
+  while 1
+    let endlnum = line('$')
+    let endline = getline(endlnum)
+    if trim(endline) == '' && endlnum != 1
+      execute endlnum . 'd'
+    else
+      break
+    endif
+  endwhile
+endfunction
 " AutoSaveBuffer:
 function! util#autoSave() abort
+  let curr_pos = getpos('.')
+  call util#removeBlankLines()
   if expand('%') != '' | update | endif
   " TODO
   " if index(['html', 'htmldjango', 'css'], &filetype) >= 0
   "   BLReloadPage
   " endif
+  call setpos('.', curr_pos)
 endfunction
 " ToggleWindows:
 function! util#toggleWindows(winname) abort
