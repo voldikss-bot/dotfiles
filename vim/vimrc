@@ -49,6 +49,7 @@ let g:loaded_tarPlugin         = 1
 let g:loaded_tutor_mode_plugin = 1
 let g:loaded_vimballPlugin     = 1
 let g:loaded_zipPlugin         = 1
+let g:loaded_netrwPlugin       = 1
 " PythonHost: [[[2
 if has('win32') || has('win64') || has('win32unix')
   let g:python3_host_prog='D:/Applications/Python36/python.exe'
@@ -299,7 +300,7 @@ if &diff == 1
   nmap <silent> <buffer> dp V:diffput<CR>
 endif
 " BufferOperation: [[[2
-nmap     <silent> -         :Explore<CR>
+nmap     <silent> -         :Defx..<CR>
 nnoremap <silent> <C-h>     :bprev<CR>
 nnoremap <silent> <C-l>     :bnext<CR>
 noremap  <silent> <Leader>d :bdelete!<CR>
