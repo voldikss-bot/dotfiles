@@ -149,6 +149,9 @@ function! util#autoFormat() abort
 endfunction
 " RemoveBlankLines:
 function! util#removeBlankLines() abort
+  if !&modifiable
+    return
+  endif
   while 1
     let endlnum = line('$')
     let endline = getline(endlnum)
