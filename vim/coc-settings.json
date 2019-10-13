@@ -3,6 +3,7 @@
   "coc.preferences.messageLevel": "more",
   "coc.source.vimtex.priority": 99,
   "coc.source.file.priority": 10,
+  "tabnine.priority": 5,
   "coc.source.around.priority": 8,
   "coc.source.tag.priority": 5,
   "yank.enableCompletion": false,
