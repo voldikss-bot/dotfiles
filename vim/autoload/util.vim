@@ -152,6 +152,7 @@ function! util#removeBlankLines() abort
   if !&modifiable
     return
   endif
+  let reg_tmp = @"
   while 1
     let endlnum = line('$')
     let endline = getline(endlnum)
@@ -161,6 +162,7 @@ function! util#removeBlankLines() abort
       break
     endif
   endwhile
+  let @" = reg_tmp
 endfunction
 " AutoSaveBuffer:
 function! util#autoSave() abort
