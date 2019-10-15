@@ -141,7 +141,7 @@ function! util#autoFormat() abort
   " 1. use coc
   call CocAction('format')
   " 2. remove whitespace
-  silent! execute '%s/\s\+$//g'
+  call util#removeWhiteSpeces()
   " 3. remove blank lines
   call util#removeBlankLines()
   update
@@ -164,10 +164,15 @@ function! util#removeBlankLines() abort
   endwhile
   let @" = reg_tmp
 endfunction
+" RemoveWhiteSpaces:
+function! util#removeWhiteSpeces()
+  silent! execute '%s/\s\+$//g'
+endfunction
 " AutoSaveBuffer:
 function! util#autoSave() abort
   let curr_pos = getpos('.')
   call util#removeBlankLines()
+  call util#removeWhiteSpeces()
   if expand('%') != '' | update | endif
   " TODO
   " if index(['html', 'htmldjango', 'css'], &filetype) >= 0
@@ -248,7 +253,7 @@ function! util#defxSettings() abort
   setlocal nospell
   setlocal cursorline
   setlocal signcolumn=no
-  setlocal winblend=20
+  setlocal winblend=0
 
   " Define mappings
   nnoremap <silent><buffer><expr><nowait>   <CR>            defx#is_directory() ? defx#do_action('open_or_close_tree') : defx#do_action('multi', ['drop'])
