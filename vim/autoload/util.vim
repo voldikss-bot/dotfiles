@@ -171,8 +171,12 @@ endfunction
 " AutoSaveBuffer:
 function! util#autoSave() abort
   let curr_pos = getpos('.')
-  call util#removeBlankLines()
-  call util#removeWhiteSpeces()
+  if getpos('.')[1] != line('$')
+    call util#removeBlankLines()
+  endif
+  if trim(getline('.')) != ''
+    call util#removeWhiteSpeces()
+  endif
   if expand('%') != '' | update | endif
   " TODO
   " if index(['html', 'htmldjango', 'css'], &filetype) >= 0
