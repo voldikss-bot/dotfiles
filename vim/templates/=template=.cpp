@@ -6,6 +6,7 @@
 //============================================================================
 
 #include <algorithm>
+#include <cassert>
 #include <climits>
 #include <iostream>
 #include <map>

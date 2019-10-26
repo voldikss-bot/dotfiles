@@ -11,3 +11,4 @@ autocmd BufWinEnter <buffer> wincmd H
 
 setlocal number
 setlocal nospell
+setlocal foldmethod=indent

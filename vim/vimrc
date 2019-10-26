@@ -88,7 +88,6 @@ call dein#add('pangloss/vim-javascript')
 call dein#add('vim-python/python-syntax')
 call dein#add('HerringtonDarkholme/yats.vim')
 call dein#add('lervag/vimtex')
-call dein#add('cpiger/NeoDebug', {'on_ft': ['c', 'cpp']})
 call dein#add('iamcco/markdown-preview.nvim', {
   \ 'on_ft': ['markdown', 'pandoc.markdown', 'rmd'],
   \ 'build': 'cd app & yarn install',
@@ -134,9 +133,9 @@ call dein#add('rhysd/reply.vim', {
   \ })
 call dein#add('voldikss/vim-search-me')
 " call dein#add('voldikss/vim-codelf')
-call dein#add('voldikss/vim-translate-me', {'on_map': ['<Plug>TranslateW', '<Plug>Translate']})
-call dein#add('voldikss/vim-floaterm', {'on_cmd': 'FloatermToggle'})
-call dein#add('voldikss/vim-hello-word', {'on_cmd': ['HelloWord', 'HelloWordSetVocabulary']})
+call dein#add('voldikss/vim-translate-me')
+call dein#add('voldikss/vim-floaterm')
+call dein#add('voldikss/vim-hello-word')
 call dein#add('lfv89/vim-interestingwords', {
   \ 'on_func': ['InterestingWords', 'UncolorAllWords', 'WordNavigation']
 \ })
@@ -344,6 +343,7 @@ cnoremap <C-b> <S-Left>
 cnoremap <C-f> <S-Right>
 " TerminalMode: [[[2
 tnoremap <Esc>  <C-\><C-n>
+tnoremap <expr> <C-R> '<C-\><C-N>"'.nr2char(getchar()).'pi'
 if has('win32') || has('win64')
   nnoremap <silent> <Leader>n :vert term<CR>
   nnoremap <silent> ,n        :term<CR>
@@ -671,7 +671,7 @@ let g:Lf_StlColorscheme = 'powerline'
 let g:Lf_StlSeparator   = {'left': '⮀', 'right': '⮂', 'font': ''}
 " lightline [[[2
 let g:lightline = {
-  \ 'colorscheme': 'srcery',
+  \ 'colorscheme': 'aurora',
   \ 'active': {
     \ 'left': [
       \ ['mode', 'paste'],
@@ -741,20 +741,6 @@ nmap <Leader>9 <Plug>lightline#bufferline#go(9)
 nmap <Leader>0 <Plug>lightline#bufferline#go(10)
 " markdown-preview.nvim [[[2
 let g:mkdp_auto_close = 0
-" NeoDebug [[[2
-let g:neodbg_keymap_continue           = '<F5>'   " run or continue
-let g:neodbg_keymap_toggle_breakpoint  = '<F9>'   " toggle breakpoint on current line
-let g:neodbg_keymap_step_into          = '<F10>' " step into
-let g:neodbg_keymap_terminate_debugger = '<F12>'  " terminate debugger
-" following are unuseful
-let g:neodbg_keymap_run_to_cursor      = '<Nop1>' " run to cursor (tb and c)
-let g:neodbg_keymap_jump               = '<Nop2>' " set next statement (tb and jump)
-let g:neodbg_keymap_next               = '<Nop3>'  " next
-let g:neodbg_keymap_step_out           = '<Nop4>' " setp out
-let g:neodbg_keymap_print_variable     = '<Nop5>' " view variable under the cursor
-let g:neodbg_keymap_stop_debugging     = '<Nop6>' " stop debugging (kill)
-let g:neodbg_keymap_toggle_console_win = '<Nop7>' " toggle console window
-noremap <silent> <F8> <Esc>:NeoDebug ./a.out<CR>
 " python-syntax [[[2
 let g:python_highlight_all = 1
 let g:python_highlight_space_errors = 0
@@ -783,7 +769,12 @@ xmap <silent> X   <Plug>(Exchange)
 nmap <silent> cxc <Plug>(ExchangeClear)
 nmap <silent> cxx <Plug>(ExchangeLine)
 " vim-floaterm [[[2
-let g:floaterm_winblend = 50
+let g:floaterm_type          = 'floating'
+let g:floaterm_position      = 'center'
+let g:floaterm_keymap_new    = '<F7>'
+let g:floaterm_keymap_prev   = '<F8>'
+let g:floaterm_keymap_next   = '<F9>'
+let g:floaterm_keymap_toggle = '<F12>'
 " vim-fugitive [[[2
 nnoremap <silent> <Leader>gw :Gw<CR>
 nnoremap <silent> <Leader>gs :Gs<CR>
