@@ -289,8 +289,8 @@ onoremap il :normal vil<CR>
 xnoremap al $o0
 onoremap al :normal val<CR>
 " argument
-xmap ia afovvi)
-omap ia :normal vag<CR>
+xmap ia ifovvi)
+omap ia :normal via<CR>
 " Diff: [[[2
 if &diff == 1
   vmap <silent> <buffer> dg :diffget<CR>
@@ -523,6 +523,10 @@ nmap <silent> <Leader>cr <Plug>(coc-references)
 nmap <silent> <Leader>cc :CocRestart<CR>
 nmap <silent> <Leader>cl :CocList<CR>
 nmap <silent> ,cr        :call CocAction('rename')<CR>
+xmap if <Plug>(coc-funcobj-a)
+omap if <Plug>(coc-funcobj-a)
+omap ig <Plug>(coc-git-chunk-inner)
+xmap ig <Plug>(coc-git-chunk-inner)
 autocmd BufReadPre * call util#toggleCoc()
 " coc-git
 nmap <expr> <C-up>   &diff==1 ? '[c' : '<Plug>(coc-git-prevchunk)'
@@ -584,7 +588,7 @@ let g:coc_global_extensions = [
   \ 'coc-vimtex',
   \ 'coc-vimlsp',
   \ 'coc-yank',
-  \ 'coc-word'
+  \ 'coc-zi'
 \ ]
 if matchstr(&rtp, 'coc.nvim') != ''
   call coc#add_extension()
@@ -750,6 +754,10 @@ let g:semshi#error_sign = v:false
 " sideways.vim [[[2
 nnoremap <silent> <C-left>  :SidewaysLeft<CR>
 nnoremap <silent> <C-right> :SidewaysRight<CR>
+omap as <Plug>SidewaysArgumentTextobjA
+xmap as <Plug>SidewaysArgumentTextobjA
+omap is <Plug>SidewaysArgumentTextobjI
+xmap is <Plug>SidewaysArgumentTextobjI
 " sparkup [[[2
 let g:sparkupExecuteMapping = '<C-i>'
 " vim-argwrap [[[2
@@ -775,6 +783,7 @@ let g:floaterm_keymap_new    = '<F7>'
 let g:floaterm_keymap_prev   = '<F8>'
 let g:floaterm_keymap_next   = '<F9>'
 let g:floaterm_keymap_toggle = '<F12>'
+let g:floaterm_background    = '#000000'
 " vim-fugitive [[[2
 nnoremap <silent> <Leader>gw :Gw<CR>
 nnoremap <silent> <Leader>gs :Gs<CR>
