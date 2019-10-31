@@ -247,51 +247,6 @@ function! util#grep(string) abort
       \ "--exclude='*.py[co]'"
   endif
 endfunction
-" DefxMySettings:
-function! util#defxSettings() abort
-  setlocal nonumber
-  setlocal listchars=
-  setlocal foldcolumn=0
-  setlocal noswapfile
-  setlocal nolist
-  setlocal nospell
-  setlocal cursorline
-  setlocal signcolumn=no
-  setlocal winblend=0
-
-  " Define mappings
-  nnoremap <silent><buffer><expr><nowait>   <CR>            defx#is_directory() ? defx#do_action('open_or_close_tree') : defx#do_action('multi', ['drop'])
-  nnoremap <silent><buffer><expr><nowait>   <2-LeftMouse>   defx#is_directory() ? defx#do_action('open_or_close_tree') : defx#do_action('multi', ['drop'])
-  nnoremap <silent><buffer><expr><nowait>   c               defx#do_action('copy')
-  nnoremap <silent><buffer><expr><nowait>   m               defx#do_action('move')
-  nnoremap <silent><buffer><expr><nowait>   p               defx#do_action('paste')
-  nnoremap <silent><buffer><expr><nowait>   l               defx#do_action('open')
-  nnoremap <silent><buffer><expr><nowait>   E               defx#do_action('open', 'vsplit')
-  nnoremap <silent><buffer><expr><nowait>   P               defx#do_action('open', 'pedit')
-  nnoremap <silent><buffer><expr><nowait>   o               defx#do_action('open_or_close_tree')
-  nnoremap <silent><buffer><expr><nowait>   D               defx#do_action('new_directory')
-  nnoremap <silent><buffer><expr><nowait>   N               defx#do_action('new_file')
-  nnoremap <silent><buffer><expr><nowait>   M               defx#do_action('new_multiple_files')
-  nnoremap <silent><buffer><expr><nowait>   C               defx#do_action('toggle_columns', 'mark:git:icons:filename:size:time')
-  nnoremap <silent><buffer><expr><nowait>   S               defx#do_action('toggle_sort', 'time')
-  nnoremap <silent><buffer><expr><nowait>   d               defx#do_action('remove_trash')
-  nnoremap <silent><buffer><expr><nowait>   r               defx#do_action('rename')
-  nnoremap <silent><buffer><expr><nowait>   !               defx#do_action('execute_command')
-  nnoremap <silent><buffer><expr><nowait>   x               defx#do_action('execute_system')
-  nnoremap <silent><buffer><expr><nowait>   y               defx#do_action('yank_path')
-  nnoremap <silent><buffer><expr><nowait>   I               defx#do_action('toggle_ignored_files')
-  nnoremap <silent><buffer><expr><nowait>   .               defx#do_action('repeat')
-  nnoremap <silent><buffer><expr><nowait>   h               defx#do_action('cd', ['..'])
-  nnoremap <silent><buffer><expr><nowait>   q               defx#do_action('quit')
-  nnoremap <silent><buffer><expr><nowait>   <Esc>           defx#do_action('quit')
-  nnoremap <silent><buffer><expr><nowait>   <Space>         defx#do_action('toggle_select') . 'j'
-  nnoremap <silent><buffer><expr><nowait>   *               defx#do_action('toggle_select_all')
-  nmap     <buffer><silent>                 gk              <Plug>(defx-git-prev)
-  nmap     <buffer><silent>                 gj              <Plug>(defx-git-next)
-  " nnoremap <silent><buffer><expr><nowait>   j               line('.') == line('$') ? 'gg' : 'j'
-  " nnoremap <silent><buffer><expr><nowait>   k               line('.') == 1 ? 'G' : 'k'
-  nnoremap <silent><buffer><expr><nowait>   f               defx#do_action('redraw')
-endfunction
 " VisualStarSearch:
 function! util#visualStarSearchSet(cmdtype, ...) abort
   let temp = @"

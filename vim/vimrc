@@ -15,9 +15,9 @@ let g:quickfix_height = 9
 " ToggleWindows:
 let g:only_one_win = 1
 let g:windows_toggle = {
-  \ 'defx': {
-    \ 'open': 'Defx',
-    \ 'close': 'Defx'
+  \ 'coc-explorer': {
+    \ 'open': 'CocCommand explorer',
+    \ 'close': 'CocCommand explorer'
   \ },
   \ 'vista': {
     \ 'open':'Vista',
@@ -103,11 +103,8 @@ call dein#add('neoclide/coc.nvim', {
 \ })
 " Style [[[2
 call dein#add('Yggdroot/indentLine')
-call dein#add('Shougo/defx.nvim', {'merged': 0})
 call dein#add('roxma/nvim-yarp', {'if': !has('nvim')})
 call dein#add('roxma/vim-hug-neovim-rpc', {'if': !has('nvim')})
-call dein#add('kristijanhusak/defx-git')
-call dein#add('kristijanhusak/defx-icons')
 call dein#add('mhinz/vim-startify', {'on_cmd': 'Startify'})
 call dein#add('ryanoasis/vim-devicons')
 call dein#add('itchyny/lightline.vim')
@@ -299,7 +296,7 @@ if &diff == 1
   nmap <silent> <buffer> dp V:diffput<CR>
 endif
 " BufferOperation: [[[2
-nmap     <silent> -         :Defx..<CR>
+nmap     <silent> -         :CocCommand explorer ..<CR>
 nnoremap <silent> <C-h>     :bprev<CR>
 nnoremap <silent> <C-l>     :bnext<CR>
 noremap  <silent> <Leader>d :bdelete!<CR>
@@ -383,9 +380,9 @@ if has('nvim')
 endif
 nnoremap <silent> <BS> :noh<bar>echo ''<CR>
 " Customized function [[[2
-noremap  <silent> <F2>            <Esc>:call util#toggleWindows('defx')<CR>
-noremap! <silent> <F2>            <Esc>:call util#toggleWindows('defx')<CR>
-tnoremap <silent> <F2>            <C-\><C-n>:call util#toggleWindows('defx')<CR>
+noremap  <silent> <F2>            <Esc>:call util#toggleWindows('coc-explorer')<CR>
+noremap! <silent> <F2>            <Esc>:call util#toggleWindows('coc-explorer')<CR>
+tnoremap <silent> <F2>            <C-\><C-n>:call util#toggleWindows('coc-explorer')<CR>
 noremap  <silent> <F3>            <Esc>:call util#toggleWindows('Mundo')<CR>
 noremap! <silent> <F3>            <Esc>:call util#toggleWindows('Mundo')<CR>
 tnoremap <silent> <F3>            <C-\><C-n>:call util#toggleWindows('Mundo')<CR>
@@ -609,25 +606,6 @@ let g:codi#interpreters = {
     \ 'prompt': '^\(>>>\|\.\.\.\) '
   \ }
 \ }
-" defx.nvim [[[2
-autocmd BufLeave * if &filetype == 'defx' | Defx | endif
-autocmd FileType defx call util#defxSettings()
-if matchstr(&rtp, 'defx.nvim') != ''
-  call defx#custom#option('_', {
-    \ 'columns': 'mark:git:indent:icons:filename',
-    \ 'winwidth': 30,
-    \ 'split': 'floating',
-    \ 'direction': 'topleft',
-    \ 'show_ignored_files': 1,
-    \ 'buffer_name': '',
-    \ 'toggle': 1,
-    \ 'resume': 0
-  \ })
-  call defx#custom#column('mark', {
-    \ 'readonly_icon': "",
-    \ 'selected_icon': ""
-  \ })
-endif
 " git-messenger.vim [[[2
 " This line necessary to make vim-plug on-demand mode work
 " Otherwise since git-messenger hasn't been loaded, <Leader>gm was not defined yet
@@ -640,7 +618,7 @@ let g:indentLine_char = '│'
 " let g:indentLine_char = '.'
 let g:indentLine_enabled = 1
 let g:indentLine_color_term = 238
-let g:indentLine_fileTypeExclude = ['startify', 'vista', 'json', 'codi', 'defx', 'vtm', 'jsonc']
+let g:indentLine_fileTypeExclude = ['startify', 'vista', 'json', 'codi', 'vtm', 'jsonc', 'coc-explorer']
 " LeaderF [[[2
 nmap <silent> <Leader>ff :Leaderf file<CR>
 nmap <silent> <Leader>fb :Leaderf buffer<CR>

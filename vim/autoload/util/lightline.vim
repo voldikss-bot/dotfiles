@@ -14,7 +14,7 @@ function! util#lightline#absPath()
 endfunction
 " LightlineMode:
 function! util#lightline#mode()
-  return &filetype ==# 'defx' ? 'Defx' :
+  return &filetype ==# 'coc-explorer' ? 'coc-explorer' :
     \ &filetype ==# 'denite' ? 'Denite' :
     \ &filetype ==# 'gitv' ? 'GitV' :
     \ &filetype ==# 'help' ? 'Help' :
@@ -29,8 +29,7 @@ function! util#lightline#mode()
 endfunction
 " LightlineFilename:
 function! util#lightline#fileName()
-  let filename = &filetype ==# 'defx' ? '' :
-    \ &filetype ==# 'denite' ? '' :
+  let filename = &filetype ==# 'denite' ? '' :
     \ &filetype ==# 'gitv' ? '' :
     \ &filetype ==# 'help' ? '' :
     \ &filetype ==# 'man' ? '' :
@@ -43,7 +42,7 @@ function! util#lightline#fileName()
 endfunction
 " LightlineFugitive:
 function! util#lightline#fugitive()
-  if exists('*fugitive#head') && &filetype !~# '\v(defx|denite|help|man|qf|tagbar|Mundo|vista)'
+  if exists('*fugitive#head') && &filetype !~# '\v(denite|help|man|qf|tagbar|Mundo|vista)'
     let branch = fugitive#head()
     return branch !=# '' ? ''. branch : ''
   endif
@@ -51,8 +50,7 @@ function! util#lightline#fugitive()
 endfunction
 " LightlineFileFormat:
 function! util#lightline#fileFormat()
-  return &filetype !=# 'defx' &&
-    \ &filetype !=# 'denite' &&
+  return &filetype !=# 'denite' &&
     \ &filetype !=# 'gitv' &&
     \ &filetype !=# 'help' &&
     \ &filetype !=# 'man' &&
@@ -65,8 +63,7 @@ function! util#lightline#fileFormat()
 endfunction
 " LightlineFiletype:
 function! util#lightline#fileType()
-  return &filetype !=# 'defx' &&
-    \ &filetype !=# 'denite' &&
+  return &filetype !=# 'denite' &&
     \ &filetype !=# 'gitv' &&
     \ &filetype !=# 'help' &&
     \ &filetype !=# 'man' &&
@@ -78,8 +75,7 @@ function! util#lightline#fileType()
 endfunction
 " LightlineFileEncoding:
 function! util#lightline#fileEncoding()
-  return &filetype !=# 'defx' &&
-    \ &filetype !=# 'denite' &&
+  return &filetype !=# 'denite' &&
     \ &filetype !=# 'gitv' &&
     \ &filetype !=# 'help' &&
     \ &filetype !=# 'man' &&
@@ -92,5 +88,5 @@ function! util#lightline#fileEncoding()
 endfunction
 " LightlineReadonly:
 function! util#lightline#readOnly()
-  return &readonly && &filetype !~# '\v(defx|denite|help|man|qf|startify)' && expand('%:t') !~ ('__Tagbar__\|__vista__') ? '' : ''
+  return &readonly && &filetype !~# '\v(denite|help|man|qf|startify)' && expand('%:t') !~ ('__Tagbar__\|__vista__') ? '' : ''
 endfunction
