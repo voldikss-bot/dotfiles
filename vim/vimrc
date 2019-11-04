@@ -825,6 +825,7 @@ nmap <silent>    ,r        <Plug>TranslateR
 vmap <silent>    ,t        <Plug>TranslateV
 vmap <silent>    ,w        <Plug>TranslateWV
 vmap <silent>    ,r        <Plug>TranslateRV
+let g:vtm_history_enable = 1
 " vimtex [[[2
 let g:tex_flavor='latex'
 let g:vimtex_view_method='zathura'

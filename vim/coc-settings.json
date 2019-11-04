@@ -12,7 +12,6 @@
   "coc.source.emoji.priority": 3,
   "coc.source.dictionary.priority": 1,
   "coc.source.buffer.priority": 1,
-  "coc.source.word.priority": 0,
   "coc.source.emoji.filetypes": ["markdown", "gitcommit"],
   "coc.source.emoji.shortcut": "E",
   "diagnostic.infoSign": "ℹ",

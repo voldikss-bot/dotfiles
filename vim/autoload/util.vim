@@ -133,10 +133,6 @@ function! util#quickRun() abort
 endfunction
 " Autoformat: format code
 function! util#autoFormat() abort
-  if expand('%') == ''
-    call util#showMessage('No File Name', 'warning')
-    return
-  endif
   let curr_pos = getpos('.')
   " 1. use coc
   call CocAction('format')
@@ -144,7 +140,9 @@ function! util#autoFormat() abort
   call util#removeWhiteSpeces()
   " 3. remove blank lines
   call util#removeBlankLines()
-  update
+  if expand('%') != ''
+    update
+  endif
   call setpos('.', curr_pos)
 endfunction
 " RemoveBlankLines:
