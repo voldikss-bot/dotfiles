@@ -137,6 +137,7 @@ call dein#add('lfv89/vim-interestingwords', {
   \ 'on_func': ['InterestingWords', 'UncolorAllWords', 'WordNavigation']
 \ })
 call dein#add('liuchengxu/vista.vim', {'on_cmd': 'Vista'})
+call dein#add('liuchengxu/vim-clap')
 call dein#add('tommcdo/vim-exchange', {'on_map': '<Plug>(Exchange'})
 call dein#add('matze/vim-move', {'on_map': '<Plug>Move'})
 call dein#add('andrewradev/sideways.vim', {'on_cmd': ['SidewaysLeft', 'SidewaysRight']})
@@ -398,11 +399,6 @@ noremap! <silent> <F6>            <Esc>:call util#autoFormat()<CR>
 noremap  <silent> <F10>           <Esc>:call util#toggleWindows('vista')<CR>
 noremap! <silent> <F10>           <Esc>:call util#toggleWindows('vista')<CR>
 tnoremap <silent> <F10>           <C-\><C-n>:call util#toggleWindows('vista')<CR>
-noremap  <silent> <expr><F12>     &buftype =='terminal' ?
-                                  \ "\<C-\><C-n>:call util#toggleWindows('terminal')\<CR>" :
-                                  \ "\<Esc>:call util#toggleWindows('terminal')\<CR>i<C-u>"
-noremap! <silent> <F12>           <Esc>:call util#toggleWindows('terminal')<CR>i
-tnoremap <silent> <F12>           <C-\><C-n>:call util#toggleWindows('terminal')<CR>
 nnoremap <expr>   <CR>            util#keymapfunc#normalMapForCR() . "\<Esc>"
 inoremap <expr>   <CR>            util#keymapfunc#insertMapForCR()
 inoremap <expr>   <BS>            util#keymapfunc#insertMapForBS()
@@ -524,7 +520,6 @@ xmap if <Plug>(coc-funcobj-a)
 omap if <Plug>(coc-funcobj-a)
 omap ig <Plug>(coc-git-chunk-inner)
 xmap ig <Plug>(coc-git-chunk-inner)
-autocmd BufReadPre * call util#toggleCoc()
 " coc-git
 nmap <expr> <C-up>   &diff==1 ? '[c' : '<Plug>(coc-git-prevchunk)'
 nmap <expr> <C-down> &diff==1 ? ']c' : '<Plug>(coc-git-nextchunk)'
@@ -757,11 +752,10 @@ nmap <silent> cxx <Plug>(ExchangeLine)
 " vim-floaterm [[[2
 let g:floaterm_type          = 'floating'
 let g:floaterm_position      = 'center'
-let g:floaterm_keymap_new    = '<F7>'
-let g:floaterm_keymap_prev   = '<F8>'
-let g:floaterm_keymap_next   = '<F9>'
-let g:floaterm_keymap_toggle = '<F12>'
 let g:floaterm_background    = '#000000'
+noremap  <silent> <F12> :FloatermToggle<CR>
+noremap! <silent> <F12> <Esc>:FloatermToggle<CR>
+tnoremap <silent> <F12> <C-\><C-n>:FloatermToggle<CR>
 " vim-fugitive [[[2
 nnoremap <silent> <Leader>gw :Gw<CR>
 nnoremap <silent> <Leader>gs :Gs<CR>

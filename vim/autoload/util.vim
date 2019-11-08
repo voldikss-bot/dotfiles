@@ -265,19 +265,6 @@ function! util#showDoc() abort
       call CocAction('jumpDefinition')
     endif
 endfunction
-" ToggleCoc: disable coc.nvim for large file
-function! util#toggleCoc() abort
-  let g:trigger_size = get(g:, 'trigger_size', 0.5 * 1048576)
-  let size = getfsize(expand('<afile>'))
-  if (size > g:trigger_size) || (size == -2)
-    echohl WarningMsg
-    echomsg 'Coc.nvim was disabled for this large file'
-    echohl None
-    exec 'CocDisable'
-  else
-    exec 'CocEnable'
-  endif
-endfunction
 " ShowMessage: show highlighted message
 function! util#showMessage(message, ...)
   if a:0 == 0
