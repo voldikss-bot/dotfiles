@@ -461,7 +461,8 @@ command! Gca  Gcommit -a -v
 command! Gcaa Gcommit --amend -a -v
 command! Gco  execute "AsyncRun git checkout ."
 " VimPlug: [[[2
-command! PI  call dein#update()
+command! PI  call dein#install()
+command! PR  call dein#recache_runtimepath()
 command! PU  call dein#update()
 " Abbreviate: [[[1
 function! SetupCommandAbbrs(from, to)
