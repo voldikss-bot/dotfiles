@@ -1,10 +1,9 @@
-
-
 ## 基本模式
 
 `grep [parameter] [match_pattern] [query_scope]`
 
 ## 参数
+
 -o 只输出匹配的文本行
 
 -n 打印匹配的行号
