@@ -20,7 +20,6 @@
   "diagnostic-languageserver.filetypes": {
     "markdown": ["write-good"],
     "text": ["write-good"],
-    "sh": "shellcheck"
   },
   "eslint.enable": true,
   "eslint.filetypes": ["javascript", "javascript.jsx", "javascriptreact"],
