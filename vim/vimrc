@@ -647,9 +647,11 @@ let g:Lf_Ctags                = "/usr/local/bin/ctags"
 " let g:Lf_PreviewCode = 1
 let g:Lf_StlColorscheme = 'powerline'
 let g:Lf_StlSeparator   = {'left': '⮀', 'right': '⮂', 'font': ''}
-" lightline [[[2
+let g:Lf_PreviewInPopup = 1
+let g:Lf_WindowPosition = 'popup'
 let g:lightline = {
   \ 'colorscheme': 'aurora',
+" lightline [[[2
   \ 'active': {
     \ 'left': [
       \ ['mode', 'paste'],
