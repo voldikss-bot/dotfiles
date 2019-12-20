@@ -3,7 +3,7 @@
 if ! command -v nvim; then
     echo "NeoVim was not installed"
 else
-    sudo pip3 install pynvim yapf flake8 autopep8
+    sudo pip3 install pynvim yapf flake8 autopep8 python-language-server pylint
     sudo yarn global add neovim
     sudo yarn global add bash-language-server
     sudo yarn global add write-good

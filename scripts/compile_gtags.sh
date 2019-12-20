@@ -1,5 +1,8 @@
 #! /usr/bin/env bash
 
+# For ubuntu only
+# sudo apt install automake autoconf flex bison gperf libtool libtool-bin texinfo -y
+
 # currently the latest version is v6.6.3
 # https://www.gnu.org/software/global/download.html
 sudo echo "Installing gtags..."
