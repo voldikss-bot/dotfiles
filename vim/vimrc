@@ -318,6 +318,8 @@ cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
 cnoremap <C-b> <S-Left>
 cnoremap <C-f> <S-Right>
+cnoremap <C-h> <Left>
+cnoremap <C-l> <Right>
 " TerminalMode: [[[2
 tnoremap <Esc>  <C-\><C-n>
 tnoremap <expr> <C-R> '<C-\><C-N>"'.nr2char(getchar()).'pi'
@@ -562,7 +564,7 @@ let g:coc_global_extensions = [
   \ 'coc-yank',
   \ 'coc-zi'
 \ ]
-if matchstr(&rtp, 'coc.nvim') != ''
+if exists('*coc#add_extension')
   call coc#add_extension()
 endif
 if has('nvim')

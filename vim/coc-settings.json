@@ -88,7 +88,7 @@
   "prettier.semi": false,
   "prettier.singleQuote": true,
   "python.autoComplete.addBrackets": true,
-  "session.directory": "/home/voldikss/.cache/nvim/session",
+  "session.directory": "~/.cache/nvim/session",
   "suggest.noselect": false,
   "suggest.numberSelect": false,
   "suggest.echodocSupport": true,
