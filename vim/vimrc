@@ -52,7 +52,7 @@ let g:loaded_zipPlugin         = 1
 let g:loaded_netrwPlugin       = 1
 " PythonHost: [[[2
 if has('win32') || has('win64') || has('win32unix')
-  let g:python3_host_prog='D:/Applications/Python36/python.exe'
+  let g:python3_host_prog='C:\Program Files\Python36/python.exe'
 else
   let g:python3_host_prog='/usr/bin/python3'
 endif
@@ -203,7 +203,7 @@ set guioptions-=e
 set shortmess+=c
 set shortmess-=S
 set scrolloff=6
-colorscheme srcery
+colorscheme molokai
 " match & search [[[2
 set showmatch
 set matchtime=0
@@ -233,7 +233,6 @@ set smartindent
 set cpoptions+=I
 " command window [[[2
 set wildmenu
-set wildmode=longest,full
 set wildignorecase
 set wildignore+=.stversions,*.pyc,*.spl,*.o,*.out,*~,%*
 set wildignore+=*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store
@@ -298,8 +297,10 @@ if &diff == 1
 endif
 " BufferOperation: [[[2
 nmap     <silent> -         :CocCommand explorer ..<CR>
-nnoremap <silent> <C-h>     :bprev<CR>
-nnoremap <silent> <C-l>     :bnext<CR>
+nnoremap <expr> <silent> <C-h>  (&buftype == 'terminal') ? ':FloatermPrev<CR>' : ':bprev<CR>'
+nnoremap <expr> <silent> <C-l>  (&buftype == 'terminal') ? ':FloatermNext<CR>' : ':bnext<CR>'
+tnoremap <expr> <silent> <C-h>  (&buftype == 'terminal') ? '<C-\><C-n>:FloatermPrev<CR>' : '<C-\><C-n>:bprev<CR>'
+tnoremap <expr> <silent> <C-l>  (&buftype == 'terminal') ? '<C-\><C-n>:FloatermNext<CR>' : '<C-\><C-n>:bnext<CR>'
 noremap  <silent> <Leader>d :bdelete!<CR>
 " TabOperation: [[[2
 noremap  <silent> <C-t> <Esc>:tabnew<CR>
@@ -573,8 +574,8 @@ let g:coc_global_extensions = [
   \ 'coc-snippets',
   \ 'coc-syntax',
   \ 'coc-tag',
-  \ 'coc-template',
   \ 'coc-todolist',
+  \ 'coc-template',
   \ 'coc-translator',
   \ 'coc-tslint-plugin',
   \ 'coc-tsserver',
@@ -649,9 +650,9 @@ let g:Lf_StlColorscheme = 'powerline'
 let g:Lf_StlSeparator   = {'left': '⮀', 'right': '⮂', 'font': ''}
 let g:Lf_PreviewInPopup = 1
 let g:Lf_WindowPosition = 'popup'
+" lightline [[[2
 let g:lightline = {
   \ 'colorscheme': 'aurora',
-" lightline [[[2
   \ 'active': {
     \ 'left': [
       \ ['mode', 'paste'],
@@ -837,7 +838,8 @@ let g:vimtex_compiler_latexrun_engines = {'_': 'xelatex'}
 if exists('g:GuiLoaded')
   inoremap <S-CR> <Esc>o
   inoremap <C-CR> <Esc>O
-  GuiFont! Monaco:h11
+  GuiFont! Monaco\ Nerd\ Font\ Mono:h11
+  " GuiFont! Consolas:h13
   GuiTabline 0
   GuiPopupmenu 0
   let g:GuiWindowMaximized = 1
