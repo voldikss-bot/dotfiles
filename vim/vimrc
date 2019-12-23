@@ -88,23 +88,14 @@ call dein#add('pangloss/vim-javascript')
 call dein#add('vim-python/python-syntax')
 call dein#add('HerringtonDarkholme/yats.vim')
 call dein#add('lervag/vimtex')
-call dein#add('iamcco/markdown-preview.nvim', {
-  \ 'on_ft': ['markdown', 'pandoc.markdown', 'rmd'],
-  \ 'build': 'cd app & yarn install',
-  \ 'frozen': 1
-\ })
+call dein#add('iamcco/markdown-preview.nvim', {'on_ft': ['markdown', 'pandoc.markdown', 'rmd'], 'build': 'cd app & yarn install', 'frozen': 1 })
 call dein#add('jaxbot/browserlink.vim', {'on_ft': ['html', 'htmldjango', 'css']})
 call dein#add('alvan/vim-closetag', {'on_ft': ['html', 'xml', 'htmldjango']})
 call dein#add('numirias/semshi', {'on_ft': 'python'})
 " Completion [[[2
-call dein#add('neoclide/coc.nvim', {
-  \ 'merged': 0,
-  \ 'build': 'yarn install --frozen-lockfile'
-\ })
+call dein#add('neoclide/coc.nvim', {'merged': 0, 'build': 'yarn install --frozen-lockfile' })
 " Style [[[2
 call dein#add('Yggdroot/indentLine')
-call dein#add('roxma/nvim-yarp', {'if': !has('nvim')})
-call dein#add('roxma/vim-hug-neovim-rpc', {'if': !has('nvim')})
 call dein#add('mhinz/vim-startify', {'on_cmd': 'Startify'})
 call dein#add('ryanoasis/vim-devicons')
 call dein#add('itchyny/lightline.vim')
@@ -114,28 +105,16 @@ call dein#add('kshenoy/vim-signature')
 call dein#add('guns/xterm-color-table.vim', {'on_cmd': 'XtermColorTable'})
 " Git [[[2
 call dein#add('tpope/vim-fugitive')
-call dein#add('cohama/agit.vim', {'on_cmd': 'Agit'})
-call dein#add('mattn/gist-vim', {'on_cmd': 'Gist'})
-call dein#add('mattn/webapi-vim')
-call dein#add('rhysd/git-messenger.vim', {'on_map': '<Plug>'})
 " Enhancements [[[2
 call dein#add('skywind3000/asyncrun.vim', {'on_cmd': ['AsyncRun', 'AsyncStop']})
-call dein#add('Yggdroot/LeaderF', {
-  \ 'on_cmd': 'Leaderf',
-  \ 'build': expand('./install'.(has('win64') ? '.bat': '.sh'))
-  \ })
-call dein#add('rhysd/reply.vim', {
-  \   'lazy' : 1,
-  \   'on_cmd' : ['Repl', 'ReplAuto'],
-  \ })
+call dein#add('Yggdroot/LeaderF', { 'on_cmd': 'Leaderf',  'build': expand('./install'.(has('win64') ? '.bat': '.sh')) })
+call dein#add('rhysd/reply.vim', {'lazy' : 1, 'on_cmd': ['Repl', 'ReplAuto'] })
 call dein#add('voldikss/vim-search-me')
 " call dein#add('voldikss/vim-codelf')
 call dein#add('voldikss/vim-translate-me')
 call dein#add('voldikss/vim-floaterm')
 call dein#add('voldikss/vim-hello-word')
-call dein#add('lfv89/vim-interestingwords', {
-  \ 'on_func': ['InterestingWords', 'UncolorAllWords', 'WordNavigation']
-\ })
+call dein#add('lfv89/vim-interestingwords', {'on_func': ['InterestingWords', 'UncolorAllWords', 'WordNavigation'] })
 call dein#add('liuchengxu/vista.vim', {'on_cmd': 'Vista'})
 call dein#add('liuchengxu/vim-clap')
 call dein#add('tommcdo/vim-exchange', {'on_map': '<Plug>(Exchange'})
@@ -148,7 +127,6 @@ call dein#add('foosoft/vim-argwrap', {'on_cmd': 'ArgWrap'})
 call dein#add('junegunn/vim-easy-align', {'on_map': '<Plug>(EasyAlign)'})
 call dein#add('wellle/targets.vim')
 call dein#add('yianwillis/vimcdoc')
-call dein#add('metakirby5/codi.vim', {'on_cmd': 'Codi'})
 call dein#end()
 call dein#save_state()
 endif
