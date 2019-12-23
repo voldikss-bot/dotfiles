@@ -3,6 +3,7 @@
 if ! command zsh; then
     echo "Please install zsh first."
 else
+    echo "Installing oh_my_zsh..."
     curl -L git.io/antigen > ~/.antigen.zsh
 
     ### Clone oh-my-zsh

@@ -13,7 +13,7 @@ sh reconf.sh
 ./configure
 make
 sudo make install
-sudo -H pip3 install pygments
+sudo pip3 install pygments
 cd ..
 rm -rf global-6.6.3.tar.gz
 rm -rf global-6.6.3
