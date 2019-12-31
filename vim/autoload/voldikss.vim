@@ -6,12 +6,12 @@
 " ========================================================================
 
 " TabMessage: capture command output
-function! util#tabMessage(cmd) abort
+function! voldikss#TabMessage(cmd) abort
   redir => message
   silent execute a:cmd
   redir END
   if empty(message)
-    call util#showMessage('No Output', 'warning')
+    call voldikss#ShowMessage('No Output', 'warning')
   else
     new
     setlocal buftype=nofile bufhidden=wipe noswapfile nobuflisted nomodified
@@ -19,7 +19,7 @@ function! util#tabMessage(cmd) abort
   endif
 endfunction
 " BrowserOpen: open file or url
-function! util#browserOpen(obj) abort
+function! voldikss#BrowserOpen(obj) abort
   " windows(mingw)
   if has('win32') || has('win64') || has('win32unix')
     let l:cmd = 'rundll32 url.dll,FileProtocolHandler ' . a:obj
@@ -33,12 +33,12 @@ function! util#browserOpen(obj) abort
   exec 'AsyncRun -post=cclose' . ' ' . l:cmd
 endfunction
 " FileExplore: open cwd in file explore
-function! util#openFileExplore() abort
+function! voldikss#OpenFileExplore() abort
   let l:path = expand(getcwd())
-  call util#browserOpen(l:path)
+  call voldikss#BrowserOpen(l:path)
 endfunction
 " SetQuickRunCommand: specify quickrun command
-function! util#setQuickRunCmd() abort
+function! voldikss#SetQuickRunCmd() abort
   echohl Title
   echo "Select and input the number:"
   echohl None
@@ -80,7 +80,7 @@ function! util#setQuickRunCmd() abort
   echohl None
 endfunction
 " QuickRun: one key to run
-function! util#quickRun() abort
+function! voldikss#QuickRun() abort
   update
   AsyncStop
   sleep 500m  " wait job to stop
@@ -101,7 +101,7 @@ function! util#quickRun() abort
   elseif &filetype == 'go'
     AsyncRun go run %
   elseif &filetype == 'html' || &filetype == 'htmldjango'
-    call util#browserOpen(expand("%:p"))
+    call voldikss#browserOpen(expand("%:p"))
     BLReloadPage
   elseif &filetype == 'java'
     AsyncRun javac % && java %:r
@@ -132,21 +132,21 @@ function! util#quickRun() abort
   endif
 endfunction
 " Autoformat: format code
-function! util#autoFormat() abort
+function! voldikss#AutoFormat() abort
   let curr_pos = getpos('.')
   " 1. use coc
   call CocAction('format')
   " 2. remove whitespace
-  call util#removeWhiteSpeces()
+  call voldikss#RemoveWhiteSpeces()
   " 3. remove blank lines
-  call util#removeBlankLines()
+  call voldikss#RemoveBlankLines()
   if expand('%') != ''
     update
   endif
   call setpos('.', curr_pos)
 endfunction
 " RemoveBlankLines:
-function! util#removeBlankLines() abort
+function! voldikss#RemoveBlankLines() abort
   if !&modifiable
     return
   endif
@@ -163,17 +163,17 @@ function! util#removeBlankLines() abort
   let @" = reg_tmp
 endfunction
 " RemoveWhiteSpaces:
-function! util#removeWhiteSpeces()
+function! voldikss#RemoveWhiteSpeces()
   silent! execute '%s/\s\+$//g'
 endfunction
 " AutoSaveBuffer:
-function! util#autoSave() abort
+function! voldikss#AutoSave() abort
   let curr_pos = getpos('.')
   if getpos('.')[1] != line('$')
-    call util#removeBlankLines()
+    call voldikss#RemoveBlankLines()
   endif
   if trim(getline('.')) != ''
-    call util#removeWhiteSpeces()
+    call voldikss#RemoveWhiteSpeces()
   endif
   if expand('%') != '' | update | endif
   " TODO
@@ -183,7 +183,7 @@ function! util#autoSave() abort
   call setpos('.', curr_pos)
 endfunction
 " ToggleWindows:
-function! util#toggleWindows(winname) abort
+function! voldikss#ToggleWindows(winname) abort
   let found_winnr = 0
 
   for winnr in range(1, winnr('$'))
@@ -212,7 +212,7 @@ function! util#toggleWindows(winname) abort
   endif
 endfunction
 " Random:
-function! util#randNum(max) abort
+function! voldikss#Random(max) abort
   if has("reltime")
     let l:timerstr=reltimestr(reltime())
     let l:number=split(l:timerstr, '\.')[1]+0
@@ -228,7 +228,7 @@ function! util#randNum(max) abort
   return l:number % a:max
 endfunction
 " Grep:
-function! util#grep(string) abort
+function! voldikss#Grep(string) abort
   if executable('rg')
     execute "AsyncRun! rg -n " . a:string . " * "
     " execute "AsyncRun! -post=copen\ 8 rg -n " . a:string . " * "
@@ -246,7 +246,7 @@ function! util#grep(string) abort
   endif
 endfunction
 " VisualStarSearch:
-function! util#visualStarSearchSet(cmdtype, ...) abort
+function! voldikss#VisualStarSearchSet(cmdtype, ...) abort
   let temp = @"
   normal! gvy
   if !a:0 || a:1 != 'raw'
@@ -258,7 +258,7 @@ function! util#visualStarSearchSet(cmdtype, ...) abort
   let @" = temp
 endfunction
 " ShowDoc: show document
-function! util#showDoc() abort
+function! voldikss#ShowDocumentation() abort
   if (index(['vim','help'], &filetype) >= 0)
       execute 'h '.expand('<cword>')
     else
@@ -266,18 +266,18 @@ function! util#showDoc() abort
     endif
 endfunction
 " ShowMessage: show highlighted message
-function! util#showMessage(message, ...)
+function! voldikss#ShowMessage(message, ...) abort
   if a:0 == 0
-    let msgType = 'more'
+    let msg_type = 'more'
   else
-    let msgType = a:1
+    let msg_type = a:1
   endif
 
-  if msgType == 'more'
+  if msg_type == 'more'
     echohl MoreMsg
-  elseif msgType == 'warning'
+  elseif msg_type == 'warning'
     echohl WarningMsg
-  elseif msgType == 'error'
+  elseif msg_type == 'error'
     echohl ErrorMsg
   endif
 

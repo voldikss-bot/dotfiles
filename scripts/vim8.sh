@@ -25,7 +25,7 @@ make distclean
             --enable-cscope \
             --enable-multibyte
 
-make VIMRUNTIMEDIR=/usr/local/share/vim/vim81
+make VIMRUNTIMEDIR=/usr/local/share/vim/vim82
 
 sudo make install
 sudo ln -sf /usr/local/bin/vim /usr/bin/vim

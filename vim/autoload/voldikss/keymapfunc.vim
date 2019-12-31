@@ -1,13 +1,13 @@
 " vim:fdm=indent
 " ========================================================================
-" FileName: autoload/util/util#keymapfunc.vim
+" FileName: autoload/util/voldikss#keymapfunc.vim
 " Description: functions for keymappings
 " Author: voldikss
 " GitHub: https://github.com/voldikss/dotfiles
 " ========================================================================
 
 " NormalMapForEnter: <CR>
-function! util#keymapfunc#normalMapForCR() abort
+function! voldikss#keymapfunc#NormalMapForCR() abort
   if &filetype ==# 'quickfix'
     return "\<CR>"
   else
@@ -35,7 +35,7 @@ function! util#keymapfunc#normalMapForCR() abort
 endfunction
 
 " InsertMapForEnter: <CR>
-function! util#keymapfunc#insertMapForCR() abort
+function! voldikss#keymapfunc#InsertMapForCR() abort
   let line = getline('.') " can not use trim
   if pumvisible()
     return "\<C-y>"
@@ -49,7 +49,7 @@ function! util#keymapfunc#insertMapForCR() abort
 endfunction
 
 " InsertMapForSemicolonEnter: ;<CR>
-function! util#keymapfunc#insertMapForSemicolonCR() abort
+function! voldikss#keymapfunc#InsertMapForSemicolonCR() abort
   let line = trim(getline('.'))
   if index(['c', 'cpp', 'cs', 'css', 'java', 'rust', 'scss'], &filetype) >= 0
     if line != '' && line[-1:] != ';' && index(['#', '/'], line[0]) < 0
@@ -71,7 +71,7 @@ function! util#keymapfunc#insertMapForSemicolonCR() abort
 endfunction
 
 " InsertMapForSemicolonP: ;p
-function! util#keymapfunc#insertMapForSemicolonP() abort
+function! voldikss#keymapfunc#InsertMapForSemicolonP() abort
   if &filetype == 'python'
     let line = trim(getline('.'))
     if line != '' && line[-1:] != ':'
@@ -85,7 +85,7 @@ function! util#keymapfunc#insertMapForSemicolonP() abort
 endfunction
 
 " InsertMapForDoubleSemicolon: ;;
-function! util#keymapfunc#insertMapForDoubleSemicolon() abort
+function! voldikss#keymapfunc#InsertMapForDoubleSemicolon() abort
   let line = trim(getline('.'))
   if index(['c', 'cpp', 'cs', 'css', 'java', 'rust', 'scss'], &filetype) >= 0
     if line != '' && line[-1:] != ';' && index(['#', '/'], line[0]) < 0
@@ -111,7 +111,7 @@ function! util#keymapfunc#insertMapForDoubleSemicolon() abort
 endfunction
 
 " MapForBackspace: <BS>
-function! util#keymapfunc#insertMapForBS() abort
+function! voldikss#keymapfunc#InsertMapForBS() abort
   if col('.') == 1
     if line('.')  != 1
       return  "\<ESC>kA\<Del>"
@@ -135,11 +135,11 @@ function! util#keymapfunc#insertMapForBS() abort
   endif
 endfunction
 " MoveOutPairs:
-function! util#keymapfunc#moveOutPairs(key)
+function! voldikss#keymapfunc#MoveOutPairs(key)
   return "\<ESC>:call search("."'".a:key."'".")\<CR>a"
 endfunction
 " Esc:
-function! util#keymapfunc#Esc()
+function! voldikss#keymapfunc#Esc()
   let colnr = getpos('.')[2]
   let linelen = len(getline('.'))
   if colnr == (linelen + 1)

@@ -26,7 +26,7 @@
   "eslint.autoFix": false,
   "eslint.autoFixOnSave": false,
   "explorer.width": 30,
-  "explorer.quitOnOpen": true,
+  "explorer.quitOnOpen": false,
   "explorer.icon.enableNerdfont": true,
   "explorer.file.column.indent.indentLine": true,
   "explorer.file.showHiddenFiles": true,

@@ -57,3 +57,6 @@ alias unproxy='unset all_proxy'
 # npm registry
 alias npm_taobao='npm config set registry https://registry.npm.taobao.org'
 alias npm_origin='npm config set registry https://registry.npmjs.org'
+
+# arch
+alias p='sudo pacman'

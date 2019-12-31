@@ -9,7 +9,7 @@ snippet guard script reload guard
 	endif
 	let $1 = 1${0}
 snippet fun function
-	function! ${1:function_name}(${3})
+	function! ${1:function_name}(${3}) abort
 		${0}
 	endfunction
 snippet func function

@@ -15,3 +15,21 @@
   原理：http://www.skywind.me/blog/archives/1857
 
   做法：在配置文件里面选择一个按键绑定，注意查看里面的 <BS> 发送的不是 `^H`的就可以。配置文件一般在 `/usr/share/konsole` 里面（可以用 `whereis konsole`查找），以 `.keytab` 结尾。然后 Vim 里面的 `<C-h>` 就工作正差啦，不过终端下还是和删除键一样的功能，这个应该本来就这样。
+
+- > Peek gif 画质撕裂（其他请看屏幕撕裂也用此解决）
+
+  ```
+  sudo gedit /usr/share/X11/xorg.conf.d/20-intel.conf
+  ```
+
+  贴入以下内容并保存，重启
+
+  ```
+  Section "Device"
+    Identifier  "Intel Graphics"
+    Driver      "intel"
+    Option      "AccelMethod"  "sna"
+    Option      "TearFree"    "true"
+    Option      "DRI"    "3"
+  EndSection
+  ```

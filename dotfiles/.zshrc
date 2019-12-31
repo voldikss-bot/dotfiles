@@ -26,6 +26,7 @@ antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-completions
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zdharma/fast-syntax-highlighting
+antigen bundle momo-lab/zsh-abbrev-alias
 
 ZLUA_EXEC=$(which luajit)
 export _ZL_MATCH_MODE=1
@@ -48,7 +49,7 @@ source $HOME/.af-magic.zsh-theme    # theme
 #### others
 ##################################################################
 
-export VISUAL=/usr/bin/nvim 
+export VISUAL=/usr/bin/nvim
 export EDITOR=/usr/bin/nvim
 
 # Uncomment the following line to enable command auto-correction.

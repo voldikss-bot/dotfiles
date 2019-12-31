@@ -109,9 +109,9 @@ call dein#add('tpope/vim-fugitive')
 call dein#add('skywind3000/asyncrun.vim', {'on_cmd': ['AsyncRun', 'AsyncStop']})
 call dein#add('Yggdroot/LeaderF', { 'on_cmd': 'Leaderf',  'build': expand('./install'.(has('win64') ? '.bat': '.sh')) })
 call dein#add('rhysd/reply.vim', {'lazy' : 1, 'on_cmd': ['Repl', 'ReplAuto'] })
-call dein#add('voldikss/vim-search-me')
-" call dein#add('voldikss/vim-codelf')
-call dein#add('voldikss/vim-translate-me')
+call dein#add('voldikss/vim-browser-search')
+call dein#add('voldikss/vim-codelf')
+call dein#add('voldikss/vim-translator')
 call dein#add('voldikss/vim-floaterm')
 call dein#add('voldikss/vim-hello-word')
 call dein#add('lfv89/vim-interestingwords', {'on_func': ['InterestingWords', 'UncolorAllWords', 'WordNavigation'] })
@@ -125,6 +125,7 @@ call dein#add('tpope/vim-surround')
 call dein#add('tpope/vim-repeat')
 call dein#add('foosoft/vim-argwrap', {'on_cmd': 'ArgWrap'})
 call dein#add('junegunn/vim-easy-align', {'on_map': '<Plug>(EasyAlign)'})
+call dein#add('junegunn/vim-peekaboo')
 call dein#add('wellle/targets.vim')
 call dein#add('yianwillis/vimcdoc')
 call dein#end()
@@ -230,9 +231,9 @@ let g:mapleader = ';'
 noremap  H  ^
 noremap  L  $
 " Esc
-inoremap <C-c> <C-R>=util#keymapfunc#Esc()<CR>
-inoremap <C-[> <C-R>=util#keymapfunc#Esc()<CR>
-inoremap <Esc> <C-r>=util#keymapfunc#Esc()<CR>
+inoremap <C-c> <C-R>=voldikss#keymapfunc#Esc()<CR>
+inoremap <C-[> <C-R>=voldikss#keymapfunc#Esc()<CR>
+inoremap <Esc> <C-r>=voldikss#keymapfunc#Esc()<CR>
 "cannot use noremap
 nnoremap     M  %
 vnoremap     M  %
@@ -245,15 +246,15 @@ noremap <C-D> jjjjjjjjjjjjjjjjjjjjj
 " Jump: [[[2
 noremap <silent> <C-j>      <C-]>
 noremap <silent> <C-W><C-j> <C-W><C-]>
-noremap <silent> <C-k>      :<C-u>call util#showDoc()<CR>
+noremap <silent> <C-k>      :<C-u>call voldikss#ShowDocumentation()<CR>
 " Search: [[[2
 " use set shortmess-=S to display searchindex
 nnoremap <silent> n  nzz
 nnoremap <silent> N  Nzz
 nnoremap <silent> *  *zz
 nnoremap <silent> #  #zz
-xnoremap * :<C-u>call util#visualStarSearchSet('/')<CR>/<C-R>=@/<CR><CR>
-xnoremap # :<C-u>call util#visualStarSearchSet('?')<CR>?<C-R>=@/<CR><CR>
+xnoremap * :<C-u>call voldikss#VisualStarSearchSet('/')<CR>/<C-R>=@/<CR><CR>
+xnoremap # :<C-u>call voldikss#VisualStarSearchSet('?')<CR>?<C-R>=@/<CR><CR>
 " TextObject: [[[2
 " whole buffer
 xnoremap ie GoggV
@@ -279,7 +280,7 @@ nnoremap <expr> <silent> <C-h>  (&buftype == 'terminal') ? ':FloatermPrev<CR>' :
 nnoremap <expr> <silent> <C-l>  (&buftype == 'terminal') ? ':FloatermNext<CR>' : ':bnext<CR>'
 tnoremap <expr> <silent> <C-h>  (&buftype == 'terminal') ? '<C-\><C-n>:FloatermPrev<CR>' : '<C-\><C-n>:bprev<CR>'
 tnoremap <expr> <silent> <C-l>  (&buftype == 'terminal') ? '<C-\><C-n>:FloatermNext<CR>' : '<C-\><C-n>:bnext<CR>'
-noremap  <silent> <Leader>d :bdelete!<CR>
+noremap  <silent> <Leader>d :bp<bar>sp<bar>bn<bar>bd<CR>
 " TabOperation: [[[2
 noremap  <silent> <C-t> <Esc>:tabnew<CR>
 " TextCopy: [[[2
@@ -362,27 +363,30 @@ if has('nvim')
 endif
 nnoremap <silent> <BS> :noh<bar>echo ''<CR>
 " Customized function [[[2
-noremap  <silent> <F2>            <Esc>:call util#toggleWindows('coc-explorer')<CR>
-noremap! <silent> <F2>            <Esc>:call util#toggleWindows('coc-explorer')<CR>
-tnoremap <silent> <F2>            <C-\><C-n>:call util#toggleWindows('coc-explorer')<CR>
-noremap  <silent> <F3>            <Esc>:call util#toggleWindows('Mundo')<CR>
-noremap! <silent> <F3>            <Esc>:call util#toggleWindows('Mundo')<CR>
-tnoremap <silent> <F3>            <C-\><C-n>:call util#toggleWindows('Mundo')<CR>
-noremap  <silent> <F4>            <Esc>:call util#openFileExplore()<CR>
-noremap  <silent> <F5>            <Esc>:call util#quickRun()<CR>
-noremap! <silent> <F5>            <Esc>:call util#quickRun()<CR>
-noremap  <silent> <Leader>x       <Esc>:call util#quickRun()<CR>
-noremap  <silent> <Leader><Space> <Esc>:call util#toggleWindows('qf')<CR>
-tnoremap <silent> <Leader><Space> <C-\><C-n>:call util#toggleWindows('qf')<CR>
-noremap  <silent> <F6>            <Esc>:call util#autoFormat()<CR>
-noremap  <silent> ;;              <Esc>:call util#autoFormat()<CR>
-noremap! <silent> <F6>            <Esc>:call util#autoFormat()<CR>
-noremap  <silent> <F10>           <Esc>:call util#toggleWindows('vista')<CR>
-noremap! <silent> <F10>           <Esc>:call util#toggleWindows('vista')<CR>
-tnoremap <silent> <F10>           <C-\><C-n>:call util#toggleWindows('vista')<CR>
-nnoremap <expr>   <CR>            util#keymapfunc#normalMapForCR() . "\<Esc>"
-inoremap <expr>   <CR>            util#keymapfunc#insertMapForCR()
-inoremap <expr>   <BS>            util#keymapfunc#insertMapForBS()
+noremap  <silent> <F2>            <Esc>:call voldikss#ToggleWindows('coc-explorer')<CR>
+noremap! <silent> <F2>            <Esc>:call voldikss#ToggleWindows('coc-explorer')<CR>
+tnoremap <silent> <F2>            <C-\><C-n>:call voldikss#ToggleWindows('coc-explorer')<CR>
+noremap  <silent> <F3>            <Esc>:call voldikss#ToggleWindows('Mundo')<CR>
+noremap! <silent> <F3>            <Esc>:call voldikss#ToggleWindows('Mundo')<CR>
+tnoremap <silent> <F3>            <C-\><C-n>:call voldikss#ToggleWindows('Mundo')<CR>
+noremap  <silent> <F4>            <Esc>:call voldikss#OpenFileExplore()<CR>
+noremap  <silent> <F5>            <Esc>:call voldikss#QuickRun()<CR>
+noremap! <silent> <F5>            <Esc>:call voldikss#QuickRun()<CR>
+noremap  <silent> <Leader>x       <Esc>:call voldikss#QuickRun()<CR>
+noremap  <silent> <Leader><Space> <Esc>:call voldikss#ToggleWindows('qf')<CR>
+tnoremap <silent> <Leader><Space> <C-\><C-n>:call voldikss#ToggleWindows('qf')<CR>
+noremap  <silent> <F6>            <Esc>:call voldikss#AutoFormat()<CR>
+noremap  <silent> ;;              <Esc>:call voldikss#AutoFormat()<CR>
+noremap! <silent> <F6>            <Esc>:call voldikss#AutoFormat()<CR>
+noremap  <silent> <F10>           <Esc>:call voldikss#ToggleWindows('vista')<CR>
+noremap! <silent> <F10>           <Esc>:call voldikss#ToggleWindows('vista')<CR>
+tnoremap <silent> <F10>           <C-\><C-n>:call voldikss#ToggleWindows('vista')<CR>
+noremap  <silent> <F12>           <Esc>:call voldikss#ToggleWindows('terminal')<CR>
+noremap! <silent> <F12>           <Esc>:call voldikss#ToggleWindows('terminal')<CR>
+tnoremap <silent> <F12>           <C-\><C-n>:call voldikss#ToggleWindows('terminal')<CR>
+nnoremap <expr>   <CR>            voldikss#keymapfunc#NormalMapForCR() . "\<Esc>"
+inoremap <expr>   <CR>            voldikss#keymapfunc#InsertMapForCR()
+inoremap <expr>   <BS>            voldikss#keymapfunc#InsertMapForBS()
 " Autocmd: [[[1
 augroup AutocmdGroup
   autocmd!
@@ -403,7 +407,7 @@ augroup AutocmdGroup
       \ syntax match paren4 /[\[\]]/ | hi paren4 guifg=#00FF5F |
     \ endif
   " AutoSaveBuffer: [[[2
-  autocmd FocusLost,InsertLeave * call util#autoSave()
+  autocmd FocusLost,InsertLeave * call voldikss#AutoSave()
   " DisableAutoComment: [[[2
   autocmd FileType * set formatoptions-=cro
   " LineNumber: [[[2
@@ -428,10 +432,10 @@ augroup AutocmdGroup
 augroup END
 " Command: [[[1
 " Commons: [[[2
-command! -nargs=+ Grep               call util#grep(<q-args>)
-command! -nargs=0 SetQuickRunCommand call util#setQuickRunCmd()
+command! -nargs=+ Grep               call voldikss#Grep(<q-args>)
+command! -nargs=0 SetQuickRunCommand call voldikss#SetQuickRunCmd()
 command! -nargs=0 OpenQf             execute 'copen' .  g:quickfix_height
-command! -nargs=+ -complete=command  TabMessage call util#tabMessage(<q-args>)
+command! -nargs=+ -complete=command  TabMessage call voldikss#TabMessage(<q-args>)
 " GitOperation: [[[2
 command! Gap  Git add -p
 command! Gd   Gvdiff
@@ -515,9 +519,9 @@ omap ic <Plug>(coc-text-object-inner)
 xmap ic <Plug>(coc-text-object-inner)
 " coc-pairs
 let g:coc_pairs_expand = [['（', '）'], ['“', '”'], ['‘', '’'], ['《', '》']]
-inoremap <silent> <M-]> <C-R>=util#keymapfunc#moveOutPairs(']')<CR>
-inoremap <silent> <M-}> <C-R>=util#keymapfunc#moveOutPairs('}')<CR>
-inoremap <silent> <M-)> <C-R>=util#keymapfunc#moveOutPairs(')')<CR>
+inoremap <silent> <M-]> <C-R>=voldikss#keymapfunc#MoveOutPairs(']')<CR>
+inoremap <silent> <M-}> <C-R>=voldikss#keymapfunc#MoveOutPairs('}')<CR>
+inoremap <silent> <M-)> <C-R>=voldikss#keymapfunc#MoveOutPairs(')')<CR>
 " coc-smartf
 " nmap f <Plug>(coc-smartf-forward)
 " nmap F <Plug>(coc-smartf-backward)
@@ -583,13 +587,6 @@ let g:codi#interpreters = {
     \ 'prompt': '^\(>>>\|\.\.\.\) '
   \ }
 \ }
-" git-messenger.vim [[[2
-" This line necessary to make vim-plug on-demand mode work
-" Otherwise since git-messenger hasn't been loaded, <Leader>gm was not defined yet
-nmap <Leader>gm <Plug>(git-messenger)
-let g:git_messenger_include_diff = 'current'
-let g:git_messenger_max_popup_height = 20
-let g:git_messenger_max_popup_width = 100
 " indentLine [[[2
 let g:indentLine_char = '│'
 " let g:indentLine_char = '.'
@@ -654,15 +651,15 @@ let g:lightline = {
     \ 'vim_logo': "\ue7c5"
   \ },
   \ 'component_function': {
-    \ 'mode': 'util#lightline#mode',
-    \ 'fugitive': 'util#lightline#fugitive',
+    \ 'mode': 'voldikss#lightline#mode',
+    \ 'fugitive': 'voldikss#lightline#fugitive',
     \ 'cocstatus': 'coc#status',
-    \ 'readonly': 'util#lightline#readOnly',
-    \ 'filename': 'util#lightline#fileName',
-    \ 'fileformat': 'util#lightline#fileFormat',
-    \ 'fileencoding': 'util#lightline#fileEncoding',
-    \ 'filetype': 'util#lightline#fileType',
-    \ 'absolutepath': 'util#lightline#absPath'
+    \ 'readonly': 'voldikss#lightline#readOnly',
+    \ 'filename': 'voldikss#lightline#fileName',
+    \ 'fileformat': 'voldikss#lightline#fileFormat',
+    \ 'fileencoding': 'voldikss#lightline#fileEncoding',
+    \ 'filetype': 'voldikss#lightline#fileType',
+    \ 'absolutepath': 'voldikss#lightline#absPath'
   \ },
   \ 'tabline': {
     \ 'left': [['vim_logo', 'buffers']],
@@ -719,6 +716,9 @@ xmap is <Plug>SidewaysArgumentTextobjI
 let g:sparkupExecuteMapping = '<C-i>'
 " vim-argwrap [[[2
 noremap <silent> <Leader>aw :ArgWrap<CR>
+" vim-browser-search [[[2
+nmap <silent> <Leader>s <Plug>SearchNormal
+vmap <silent> <Leader>s <Plug>SearchVisual
 " vim-cpp-enhanced-highlight [[[2
 let g:cpp_class_scope_highlight                  = 1
 let g:cpp_member_variable_highlight              = 1
@@ -735,11 +735,8 @@ nmap <silent> cxc <Plug>(ExchangeClear)
 nmap <silent> cxx <Plug>(ExchangeLine)
 " vim-floaterm [[[2
 let g:floaterm_type          = 'floating'
-let g:floaterm_position      = 'center'
+let g:floaterm_position      = 'cursor'
 let g:floaterm_background    = '#000000'
-noremap  <silent> <F12> :FloatermToggle<CR>
-noremap! <silent> <F12> <Esc>:FloatermToggle<CR>
-tnoremap <silent> <F12> <C-\><C-n>:FloatermToggle<CR>
 " vim-fugitive [[[2
 nnoremap <silent> <Leader>gw :Gw<CR>
 nnoremap <silent> <Leader>gs :Gs<CR>
@@ -803,7 +800,7 @@ nmap <silent>    ,r        <Plug>TranslateR
 vmap <silent>    ,t        <Plug>TranslateV
 vmap <silent>    ,w        <Plug>TranslateWV
 vmap <silent>    ,r        <Plug>TranslateRV
-let g:vtm_history_enable = 1
+let g:translator_history_enable = 1
 " vimtex [[[2
 let g:tex_flavor='latex'
 let g:vimtex_view_method='zathura'
