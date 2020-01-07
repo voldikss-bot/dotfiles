@@ -83,9 +83,16 @@ export LESS_TERMCAP_us=$'\e[1;4;31m'
 export FZF_DEFAULT_COMMAND='rg --hidden -l ""'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+##################################################################
+#### path
+##################################################################
 export PATH="/usr/local/bin:$PATH"
+# Yarn
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 # GoLang
 export GOROOT=/usr/local/go
-export GOBIN=$GOROOT/bin
+export GOBIN=$GOPATH/bin
 export PATH=$PATH:$GOBIN
+export GOPATH="$HOME/go"
+# Cargo
+export PATH="$HOME/.cargo/bin:$PATH"

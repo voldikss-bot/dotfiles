@@ -4,22 +4,41 @@
   "coc.preferences.messageLevel": "more",
   "coc.source.vimtex.priority": 99,
   "coc.source.file.priority": 10,
-  "tabnine.priority": 5,
   "coc.source.around.priority": 8,
   "coc.source.tag.priority": 5,
   "yank.enableCompletion": false,
   "yank.priority": 4,
   "coc.browser.priority": 3,
+  "coc.preferences.jumpCommand": "split",
   "coc.source.emoji.priority": 3,
   "coc.source.dictionary.priority": 1,
   "coc.source.buffer.priority": 1,
   "coc.source.emoji.filetypes": ["markdown", "gitcommit"],
   "coc.source.emoji.shortcut": "E",
+  "cSpell.enabledLanguageIds": [
+    "git-commit",
+    "gitcommit",
+    "latex",
+    "markdown",
+    "plaintext",
+    "text"
+  ],
+  "cSpell.dictionaryDefinitions": [
+    {
+      "name": "spell_added",
+      "path": "/home/voldikss/dotfiles/vim/spell/en.utf-8.add"
+    }
+  ],
+  "cSpell.dictionaries": ["spell_added"],
   "diagnostic.infoSign": "ℹ",
   "diagnostic.hintSign": "➤",
   "diagnostic-languageserver.filetypes": {
     // "markdown": ["write-good"],
     // "text": ["write-good"]
+  },
+  "emmet.includeLanguages": {
+    "vue-html": "html",
+    "vue": "html"
   },
   "eslint.enable": true,
   "eslint.filetypes": ["javascript", "javascript.jsx", "javascriptreact"],
@@ -73,14 +92,14 @@
     "]]": "sourceNext",
     "[d": "diagnosticPrev",
     "]d": "diagnosticNext",
-    "[c": "gitPrev",
-    "]c": "gitNext",
+    "gk": "gitPrev",
+    "gj": "gitNext",
     "<<": "gitStage",
     ">>": "gitUnstage"
   },
   "git.enableGutters": true,
   "git.addedSign.hlGroup": "GitAdd",
-  "git.removedSign.hlGroup": "GitDeleteButtom",
+  "git.removedSign.hlGroup": "GitDeleteBottom",
   "git.topRemovedSign.hlGroup": "GitDeleteTop",
   "git.changeRemovedSign.hlGroup": "GitDeleteTopAndBottom",
   "git.changedSign.hlGroup": "GitModify",
@@ -88,10 +107,12 @@
   "prettier.disableLanguages": ["typescript"],
   "prettier.formatterPriority": 1,
   "prettier.printWidth": 85,
+  "prettier.tabWidth": 2,
   "prettier.semi": false,
   "prettier.singleQuote": true,
   "python.autoComplete.addBrackets": true,
   "session.directory": "~/.cache/nvim/session",
+  "session.saveOnVimLeave": false,
   "suggest.noselect": false,
   "suggest.numberSelect": false,
   "suggest.echodocSupport": true,
@@ -144,7 +165,6 @@
   "tslint.autoFixOnSave": true,
   "typescript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
   "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
-  "java.format.comments.enabled": false,
   "typescript.suggestionActions.enabled": false,
   "yank.highlight.enable": true,
   "yank.highlight.duration": 20,
@@ -167,7 +187,8 @@
           }
         },
         "clang": {
-          "extraArgs": ["--gcc-toolchain=/usr"]
+          "extraArgs": ["--gcc-toolchain=/usr"],
+          "resourceDir": "/usr/lib/clang/9.0.1"
         },
         "completion": {
           "detailedLabel": true
@@ -184,8 +205,16 @@
       "args": ["start"],
       "filetypes": ["sh", "zsh"],
       "ignoredRootPaths": ["~"]
+    },
+    "golang": {
+      "command": "gopls",
+      "rootPatterns": ["go.mod", ".vim", ".git"],
+      "filetypes": ["go"]
+    },
+    "lua": {
+      "command": "lua-lsp",
+      "filetypes": ["lua"]
     }
-  },
-  "java.errors.incompleteClasspath.severity": "ignore"
+  }
   // vim:ft=jsonc
 }

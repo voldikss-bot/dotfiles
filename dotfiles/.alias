@@ -1,9 +1,7 @@
 # command
-alias rmf='rm -rf'
 alias ll='ls -laF'
 alias la='ls -laF'
 alias l='ls -lF'
-alias rmf='rm -rf'
 
 # vim
 alias vim=nvim
@@ -15,9 +13,10 @@ alias pip=pip3
 
 # git
 alias ga='git add'
-alias gc='git commit -v'
-alias gca='git commit --amend'
+alias gcm='git commit -v'
+alias gcma='git commit --amend'
 alias gco='git checkout'
+alias gcl='git clone'
 alias gd='git diff'
 alias gf='git fetch'
 alias gr='git reset --hard HEAD'
@@ -28,7 +27,7 @@ alias grc='git rebase --continue'
 alias gs='git status'
 
 # rm 进 trash
-alias rm='trash'
+alias rm='trash -r'
 
 # fasd
 alias v='f -e vim' # quick opening files with vim

@@ -81,17 +81,19 @@ set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
 if dein#load_state('~/.cache/dein')
 call dein#begin('~/.cache/dein')
 call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
+" Languages [[[2
 call dein#add('octol/vim-cpp-enhanced-highlight')
+call dein#add('fatih/vim-go', {'on_ft': 'go'})
 call dein#add('othree/html5.vim')
 call dein#add('plasticboy/vim-markdown')
 call dein#add('pangloss/vim-javascript')
 call dein#add('vim-python/python-syntax')
 call dein#add('HerringtonDarkholme/yats.vim')
 call dein#add('lervag/vimtex')
-call dein#add('iamcco/markdown-preview.nvim', {'on_ft': ['markdown', 'pandoc.markdown', 'rmd'], 'build': 'cd app & yarn install', 'frozen': 1 })
-call dein#add('jaxbot/browserlink.vim', {'on_ft': ['html', 'htmldjango', 'css']})
+call dein#add('iamcco/markdown-preview.nvim', {'on_ft': ['markdown', 'pandoc.markdown', 'rmd'], 'build': 'cd app & yarn install'})
 call dein#add('alvan/vim-closetag', {'on_ft': ['html', 'xml', 'htmldjango']})
 call dein#add('numirias/semshi', {'on_ft': 'python'})
+call dein#add('posva/vim-vue', {'merged': 0})
 " Completion [[[2
 call dein#add('neoclide/coc.nvim', {'merged': 0, 'build': 'yarn install --frozen-lockfile' })
 " Style [[[2
@@ -280,7 +282,7 @@ nnoremap <expr> <silent> <C-h>  (&buftype == 'terminal') ? ':FloatermPrev<CR>' :
 nnoremap <expr> <silent> <C-l>  (&buftype == 'terminal') ? ':FloatermNext<CR>' : ':bnext<CR>'
 tnoremap <expr> <silent> <C-h>  (&buftype == 'terminal') ? '<C-\><C-n>:FloatermPrev<CR>' : '<C-\><C-n>:bprev<CR>'
 tnoremap <expr> <silent> <C-l>  (&buftype == 'terminal') ? '<C-\><C-n>:FloatermNext<CR>' : '<C-\><C-n>:bnext<CR>'
-noremap  <silent> <Leader>d :bp<bar>sp<bar>bn<bar>bd<CR>
+noremap  <silent> <Leader>d :bp<bar>sp<bar>bn<bar>bd!<CR>
 " TabOperation: [[[2
 noremap  <silent> <C-t> <Esc>:tabnew<CR>
 " TextCopy: [[[2
@@ -400,7 +402,7 @@ augroup AutocmdGroup
   endif
   " ParenthesisColor: [[[2
   autocmd VimEnter,BufWinEnter *
-    \ if index(['html', 'htmldjango', 'tex', 'mma'], &filetype) < 0 |
+    \ if index(['html', 'htmldjango', 'tex', 'mma', 'vue'], &filetype) < 0 |
       \ syntax match paren1 /[{}]/   | hi paren1 guifg=#FF00FF |
       \ syntax match paren2 /[()]/   | hi paren2 guifg=#DF8700 |
       \ syntax match paren3 /[<>]/   | hi paren3 guifg=#0087FF |
@@ -487,8 +489,6 @@ let g:asyncrun_open = g:quickfix_height
 let $PYTHONUNBUFFERED=1
 " coc.nvim [[[2
 let g:coc_snippet_next = '<tab>'
-inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 nmap <silent> <C-c> <Plug>(coc-cursors-word)
 xmap <silent> <C-c> <Plug>(coc-cursors-range)
@@ -556,6 +556,7 @@ let g:coc_global_extensions = [
   \ 'coc-python',
   \ 'coc-rls',
   \ 'coc-snippets',
+  \ 'coc-spell-checker',
   \ 'coc-syntax',
   \ 'coc-tag',
   \ 'coc-todolist',
@@ -576,17 +577,10 @@ if has('nvim')
   exe 'highlight GitAdd                guifg=#00FF00 guibg=' . sclbg
   exe 'highlight GitModify             guifg=#00FFFF guibg=' . sclbg
   exe 'highlight GitDeleteTop          guifg=#FF2222 guibg=' . sclbg
-  exe 'highlight GitDeleteButtom       guifg=#FF2222 guibg=' . sclbg
+  exe 'highlight GitDeleteBottom       guifg=#FF2222 guibg=' . sclbg
   exe 'highlight GitDeleteTopAndBottom guifg=#FF2222 guibg=' . sclbg
   unlet sclbg
 endif
-" codi.vim [[[2
-let g:codi#interpreters = {
-  \ 'python': {
-    \ 'bin': 'python3',
-    \ 'prompt': '^\(>>>\|\.\.\.\) '
-  \ }
-\ }
 " indentLine [[[2
 let g:indentLine_char = '│'
 " let g:indentLine_char = '.'
@@ -771,6 +765,7 @@ let g:mundo_right              = 0
 let g:mundo_preview_bottom     = 1
 let g:mundo_auto_preview_delay = 10
 " vim-startify [[[2
+let g:webdevicons_enable_startify = 1
 noremap <silent> <Space> <Esc>:Startify<CR>
 let g:startify_bookmarks = [
   \ {'v': '~/.vim/vimrc'},
@@ -793,7 +788,7 @@ if has('nvim')
   highlight StartifyPath   guifg=#00AFFF
   highlight StartifySlash  guifg=#DF875F
 endif
-" vim-translate-me [[[2
+" vim-translator [[[2
 nmap <silent>    ,t        <Plug>Translate
 nmap <silent>    ,w        <Plug>TranslateW
 nmap <silent>    ,r        <Plug>TranslateR

@@ -107,6 +107,8 @@ function! voldikss#QuickRun() abort
     AsyncRun javac % && java %:r
   elseif &filetype == 'javascript'
     AsyncRun node %
+  elseif &filetype == 'lua'
+    AsyncRun lua %
   elseif &filetype == 'markdown'
     MarkdownPreview
   elseif &filetype == 'python'
