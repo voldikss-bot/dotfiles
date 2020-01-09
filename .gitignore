@@ -4,8 +4,8 @@
 !/conf/.idlerc/config-main.cfg
 !/conf/.idlerc/config-extensions.cfg
 /conf/.idlerc/*
-/vim/plugged
-/vim/sessions
+/nvim/plugged
+/nvim/sessions
 
 # General
 # ----------------------------------------------------------------------------
@@ -20,12 +20,12 @@
 cache/
 /cache
 
-# Windows   
+# Windows
 # ----------------------------------------------------------------------------
 Thumbs.db
 Desktop.ini
 
-# Tags      
+# Tags
 # -----------------------------------------------------------------------------
 TAGS
 !TAGS/
@@ -43,7 +43,7 @@ cscope.out
 cscope.in.out
 cscope.po.out
 
-# Vim       
+# Vim
 # ------------------------------------------------------------------------------
 [._]*.s[a-w][a-z]
 [._]s[a-w][a-z]
