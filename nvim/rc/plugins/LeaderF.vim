@@ -14,12 +14,33 @@ let g:Lf_Gtagslabel = 'native-pygments'
 let g:Lf_StlSeparator   = {'left': '', 'right': '', 'font': ''}
 let g:Lf_RootMarkers    = ['.project', '.svn', '.git', '.idea']
 let g:Lf_MruFileExclude = ['*.so','*.py[c0]','*.exe','*.sw?']
+let g:Lf_DefaultExternalTool = ""
+let g:Lf_UseVersionControlTool = 0
+let g:Lf_RgConfig = [
+    \ "--glob=!OmegaOptions.bak",
+    \ "--no-ignore"
+\ ]
 let g:Lf_WildIgnore = {
-  \ 'dir': ['.svn', '.git', '.hg', '.cache', '.idea', '.android', '.gradle', '.IntelliJIdea*'],
-  \ 'file': ['*.sw?','~$*','*.exe','*.o','*.so','*.py[co]']
+  \ 'dir': [
+    \ '.svn',
+    \ '.git',
+    \ '.hg',
+    \ '.cache',
+    \ '.idea',
+    \ '.android',
+    \ '.gradle',
+    \ '.IntelliJIdea*'
+  \ ],
+  \ 'file': [
+    \ '*.sw?',
+    \ '~$*',
+    \ '*.exe',
+    \ '*.o',
+    \ '*.so',
+    \ '*.py[co]'
+  \ ]
 \ }
 let g:Lf_WorkingDirectoryMode = 'Ac'
-let g:Lf_WindowHeight         = 0.30
 let g:Lf_CacheDirectory       = expand('~/.cache/nvim')
 let g:Lf_ShowRelativePath     = 1
 let g:Lf_HideHelp             = 1
@@ -29,7 +50,5 @@ let g:Lf_IndexTimeLimit       = 10
 let g:Lf_Ctags                = "/usr/local/bin/ctags"
 " let g:Lf_PreviewCode = 1
 let g:Lf_StlColorscheme = 'powerline'
-let g:Lf_StlSeparator   = {'left': '⮀', 'right': '⮂', 'font': ''}
 let g:Lf_PreviewInPopup = 1
 let g:Lf_WindowPosition = 'popup'
-
