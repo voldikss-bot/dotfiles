@@ -1,6 +1,7 @@
 {
-  "coc.preferences.extensionUpdateCheck": "weekly",
+  "coc.preferences.extensionUpdateCheck":                    "weekly",
   "coc.preferences.formatOnSaveFiletypes": [],
+  "coc.preferences.hoverTarget": "float",
   "coc.preferences.messageLevel": "more",
   "coc.source.vimtex.priority": 99,
   "coc.source.file.priority": 10,
@@ -9,6 +10,12 @@
   "yank.enableCompletion": false,
   "yank.priority": 4,
   "coc.browser.priority": 0,
+  "translator.engines": [
+    "bing",
+    "ciba",
+    "google"
+  ],
+  "coc.browser.maxLength": 30,
   "coc.preferences.jumpCommand": "edit",
   "coc.source.emoji.priority": 3,
   "coc.source.dictionary.priority": 1,
@@ -81,7 +88,6 @@
     "R": "refresh",
     "?": "help",
     "q": "quit",
-    "<esc>": "quit",
     "X": "systemExecute",
     "gd": "listDrive",
     "f": "search",
@@ -147,20 +153,14 @@
     "typeParameter": "\uf728",
     "default": "\uf29c"
   },
-  "snippets.ultisnips.directories": [
-    "snippets",
-    "UltiSnips",
-    "javascript",
-    "coffee"
-  ],
   "snippets.priority": -10,
   "snippets.extends": {
     "cpp": ["c"],
     "javascriptreact": ["javascript"],
     "typescript": ["javascript"]
   },
-  "template.templatesDirectory": "~/.vim/templates",
-  "todolist.autoUpload": true,
+  "template.templatesDirectory": "~/dotfiles/nvim/templates",
+  "todolist.autoUpload": false,
   "todolist.monitor": true,
   "tslint.autoFixOnSave": true,
   "typescript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
