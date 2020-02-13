@@ -77,11 +77,33 @@ function! userfunc#utils#ShowMsg(message, ...) abort
   echohl None
 endfunction
 
-" ShowDocument
+" ShowDocument:
 function! userfunc#utils#ShowDocument() abort
   if (index(['vim','help'], &filetype) >= 0)
-      execute 'h '.expand('<cword>')
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('jumpDefinition')
+  endif
+endfunction
+
+" SyntaxAt:
+function! userfunc#utils#SyntaxAt(...)
+  syntax sync fromstart
+  if a:0 < 2
+    let l:pos = getpos('.')
+    let l:cur_lnum = pos[1]
+    let l:cur_col = pos[2]
+    if a:0 == 0
+      let l:lnum = l:cur_lnum
+      let l:col = l:cur_col
     else
-      call CocAction('jumpDefinition')
+      let l:lnum = l:cur_lnum
+      let l:col = a:1
     endif
+  else
+    let l:lnum = a:1
+    let l:col = a:2
+  endif
+  call map(synstack(l:lnum, l:col), 'synIDattr(v:val, "name")')
+  echom synIDattr(synID(l:lnum, l:col, 1), 'name')
 endfunction

@@ -1,6 +1,12 @@
 snippet fn "pub fn name(?) -> ? {}"
-fn ${1:main}($2) -> $3 {
+fn ${1:function_name}($2) -> $3 {
 	${0:// code}
+}
+endsnippet
+
+snippet main "fn main..."
+fn main($2) {
+	${1:// code}
 }
 endsnippet
 
@@ -16,6 +22,10 @@ endsnippet
 
 snippet pln "println!(..)" b
 println!("$1"${2/..*/, /}$2);
+endsnippet
+
+snippet pln, "println!(..)" b
+println!("{$1}", $0);
 endsnippet
 
 snippet fmt "format!(..)"

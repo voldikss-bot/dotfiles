@@ -29,6 +29,8 @@ augroup filetypedetect
 
   autocmd BufNewFile,BufRead *.masm             setfiletype masm
 
+  autocmd BufNewFile,BufRead *.pro              setfiletype qmake
+
   autocmd BufNewFile,BufRead *.toml,Gopkg.lock,Cargo.lock,*/.cargo/config,*/.cargo/credentials,Pipfile setfiletype toml
 augroup END
 

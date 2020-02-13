@@ -49,5 +49,7 @@ endfunction
 
 " RemoveWhiteSpaces:
 function! s:RemoveWhiteSpaces()
-  silent! execute '%s/\s\+$//g'
+  if mode() ==# 'n'
+    silent! keepjumps execute '%s/\s\+$//g'
+  endif
 endfunction

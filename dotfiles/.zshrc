@@ -27,12 +27,18 @@ antigen bundle zsh-users/zsh-completions
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zdharma/fast-syntax-highlighting
 antigen bundle momo-lab/zsh-abbrev-alias
+antigen bundle hlissner/zsh-autopair
 
+antigen bundle skywind3000/z.lua
 ZLUA_EXEC=$(which luajit)
 export _ZL_MATCH_MODE=1
 export _ZL_ADD_ONCE=1
 export _ZL_CMD=j
-antigen bundle skywind3000/z.lua
+export _ZL_HYPHEN=1
+alias jc='j -c'      # 严格匹配当前路径的子路径
+alias jz='j -i'      # 使用交互式选择模式
+alias jf='j -I'      # 使用 fzf 对多个结果进行选择
+alias jb='j -b'      # 快速回到父目录
 
 antigen apply
 

@@ -12,16 +12,11 @@ cd vim-master
 make distclean
 
 ./configure --with-features=huge \
-            --enable-rubyinterp \
             --enable-largefile \
             --disable-netbeans \
             --enable-python3interp \
             --with-python3-config-dir=$(python3-config --configdir) \
-            --enable-perlinterp \
-            --enable-luainterp \
-            --enable-gui=auto \
             --enable-fail-if-missing \
-            --with-lua-prefix=/usr/include/lua5.3 \
             --enable-cscope \
             --enable-multibyte
 

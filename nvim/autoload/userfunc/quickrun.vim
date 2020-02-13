@@ -10,49 +10,61 @@ function! userfunc#quickrun#Run(...) abort
     let b:quickrun_cmd = a:1
   endif
   if exists('b:quickrun_cmd')
-    execute 'AsyncRun ' . b:quickrun_cmd
+    execute b:quickrun_cmd
+    return
   elseif &filetype == 'c'
     if has('unix')
-      AsyncRun gcc -g % && ./a.out
+      let b:quickrun_cmd = 'AsyncRun gcc -g % && ./a.out'
     else
-      AsyncRun gcc -g "$(VIM_FILEPATH)" -o "a.exe" && "$(VIM_FILEDIR)/a.exe"
+      let b:quickrun_cmd = 'AsyncRun gcc -g "$(VIM_FILEPATH)" -o "a.exe" && "$(VIM_FILEDIR)/a.exe"'
     endif
   elseif &filetype == 'cpp'
     if has('unix')
-      AsyncRun g++ -g % && ./a.out
+      let b:quickrun_cmd = 'AsyncRun g++ -g % && ./a.out'
     else
-      AsyncRun g++ -g "$(VIM_FILEPATH)" -o "a.exe" && "$(VIM_FILEDIR)\a.exe"
+      let b:quickrun_cmd = 'AsyncRun g++ -g "$(VIM_FILEPATH)" -o "a.exe" && "$(VIM_FILEDIR)\a.exe"'
     endif
   elseif &filetype == 'go'
-    AsyncRun go run %
+    let b:quickrun_cmd = 'AsyncRun go run %'
   elseif &filetype == 'html' || &filetype == 'htmldjango'
-    call userfunc#utils#BrowserOpen(expand("%:p"))
+    let b:quickrun_cmd = 'call userfunc#utils#BrowserOpen(expand("%:p"))'
   elseif &filetype == 'java'
-    AsyncRun javac % && java %:r
+    let b:quickrun_cmd = 'AsyncRun javac % && java %:r'
   elseif &filetype == 'javascript'
-    AsyncRun node %
+    let b:quickrun_cmd = 'AsyncRun node %'
   elseif &filetype == 'lua'
-    AsyncRun lua %
+    let b:quickrun_cmd = 'AsyncRun lua %'
   elseif &filetype == 'markdown'
-    MarkdownPreview
+    let b:quickrun_cmd = 'MarkdownPreview'
   elseif &filetype == 'python'
     if has("unix")
-      AsyncRun -raw python3 %
+      let b:quickrun_cmd = 'AsyncRun -raw -mode=term python3 %'
     else
-      AsyncRun -raw python "$(VIM_FILEPATH)"
+      let b:quickrun_cmd = 'AsyncRun -raw python "$(VIM_FILEPATH)"'
     endif
   elseif &filetype == 'rust'
-    AsyncRun cargo run
+    let b:quickrun_cmd = 'AsyncRun -mode=term cargo run'
   elseif &filetype == 'sh'
-    AsyncRun bash %
+    let b:quickrun_cmd = 'AsyncRun bash %'
   elseif &filetype == 'tex'
-    VimtexCompile
+    let b:quickrun_cmd = 'VimtexCompile'
   elseif &filetype == 'typescript'
-    AsyncRun tsc % && node $(VIM_FILENOEXT).js
+    let b:quickrun_cmd = 'AsyncRun tsc % && node $(VIM_FILENOEXT).js'
   elseif &filetype == 'vim'
-    source %
+    let b:quickrun_cmd = 'source %'
   else
-    let msg = "Not supported filetype:" . " " . &filetype
+    let msg = printf("Not supported filetype: %s", &filetype)
     call userfunc#utils#ShowMsg(msg, 'warning')
+    return
+  endif
+  execute b:quickrun_cmd
+endfunction
+
+function! userfunc#quickrun#Complete(ArgLead,CmdLine,CursorPos) abort
+  let lst = getcompletion('', 'shellcmd')
+  if match(a:CmdLine, 'AsyncRun') > -1
+    return lst
+  else
+    return ['AsyncRun'] + lst
   endif
 endfunction

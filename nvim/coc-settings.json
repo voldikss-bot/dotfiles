@@ -1,5 +1,5 @@
 {
-  "coc.preferences.extensionUpdateCheck":                    "weekly",
+  "coc.preferences.extensionUpdateCheck": "weekly",
   "coc.preferences.formatOnSaveFiletypes": [],
   "coc.preferences.hoverTarget": "float",
   "coc.preferences.messageLevel": "more",
@@ -10,11 +10,7 @@
   "yank.enableCompletion": false,
   "yank.priority": 4,
   "coc.browser.priority": 0,
-  "translator.engines": [
-    "bing",
-    "ciba",
-    "google"
-  ],
+  "translator.engines": ["bing", "ciba", "google"],
   "coc.browser.maxLength": 30,
   "coc.preferences.jumpCommand": "edit",
   "coc.source.emoji.priority": 3,
@@ -103,6 +99,7 @@
     "<<": "gitStage",
     ">>": "gitUnstage"
   },
+  "explorer.openAction.strategy": "previousBuffer",
   "git.enableGutters": true,
   "git.addedSign.hlGroup": "GitAdd",
   "git.removedSign.hlGroup": "GitDeleteBottom",
@@ -124,6 +121,7 @@
   "suggest.echodocSupport": true,
   "suggest.removeDuplicateItems": true,
   "suggest.enablePreselect": false,
+  "suggest.detailMaxLength": 50,
   "suggest.triggerAfterInsertEnter": false,
   "suggest.languageSourcePriority": 99,
   "suggest.completionItemKindLabels": {
@@ -215,6 +213,6 @@
       "command": "lua-lsp",
       "filetypes": ["lua"]
     }
-  },
+  }
   // vim:ft=jsonc
 }

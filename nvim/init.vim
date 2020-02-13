@@ -162,8 +162,6 @@ endif
 " Plugin: {{{
 call plug#begin('~/.cache/plugged')
 " Languages
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'fatih/vim-go'
 Plug 'rust-lang/rust.vim'
@@ -189,18 +187,23 @@ Plug 'kshenoy/vim-signature'
 Plug 'guns/xterm-color-table.vim', {'on': 'XtermColorTable'}
 " Git
 Plug 'tpope/vim-fugitive'
+Plug 'rhysd/git-messenger.vim', {'on': 'GitMessenger'}
 " Others
+Plug 'skywind3000/vim-quickui'
+Plug 'Shougo/denite.nvim'
+Plug 'brglng/vim-im-select'
 Plug 'skywind3000/asyncrun.vim', {'on': ['AsyncRun', 'AsyncStop']}
-Plug 'Yggdroot/LeaderF', {'on': 'Leaderf', 'do': './install'.(has('win64') ? '.bat': '.sh')}
+Plug 'Yggdroot/LeaderF'
+Plug 'tamago324/LeaderF-filer'
 Plug 'voldikss/vim-browser-search'
 Plug 'voldikss/vim-codelf'
 Plug 'voldikss/vim-translator'
 Plug 'voldikss/vim-floaterm'
 Plug 'voldikss/vim-hello-word'
+Plug 'voldikss/vim-fnote'
 Plug 'simnalamburt/vim-mundo', {'on': 'MundoToggle'}
 Plug 'lfv89/vim-interestingwords'
-Plug 'liuchengxu/vista.vim', {'on': 'Vista'}
-Plug 'liuchengxu/vim-clap', {'on': 'Clap'}
+Plug 'liuchengxu/vista.vim'
 Plug 'tommcdo/vim-exchange'
 Plug 'matze/vim-move'
 Plug 'andrewradev/sideways.vim', {'on': ['SidewaysLeft', 'SidewaysRight']}
@@ -226,6 +229,12 @@ augroup ParenColor
       \ syntax match paren3 /[<>]/   | hi paren3 guifg=#0087FF |
       \ syntax match paren4 /[\[\]]/ | hi paren4 guifg=#00FF5F |
     \ endif
+augroup END
+
+augroup LocalKayMap
+  autocmd!
+  autocmd FileType startify nmap <buffer> l <CR>
+  autocmd BufEnter * if &buftype=='terminal' | nmap <buffer><silent>q :q<CR> | endif
 augroup END
 
 augroup UserAutoSaveBuffer
@@ -330,9 +339,10 @@ call s:SetCommandAbbrs('tm', 'TabMessage')
 command! -nargs=0 OpenFileExplorer call userfunc#utils#OpenFileExplorer()
 command! -nargs=0 AutoFormat call userfunc#format#AutoFormat()
 command! -nargs=+ Grep  call userfunc#utils#Grep(<q-args>)
+command! -nargs=* SyntaxAt call userfunc#utils#SyntaxAt(<f-args>)
 command! -nargs=+ -complete=file  BrowserOpen  call userfunc#utils#BrowserOpen(<q-args>)
-command! -nargs=? -complete=shellcmd QuickRun call userfunc#quickrun#Run(<f-args>)
 command! -nargs=+ -complete=command  TabMessage call userfunc#utils#TabMessage(<q-args>)
+command! -nargs=? -complete=customlist,userfunc#quickrun#Complete QuickRun call userfunc#quickrun#Run(<f-args>)
 command! -nargs=+ -complete=customlist,userfunc#window#Complete SwitchWindow call userfunc#window#SwitchWindow(<q-args>)
 " }}}
 
@@ -346,8 +356,9 @@ inoremap <C-c> <C-R>=userfunc#keymap#Insert_ESC()<CR>
 inoremap <C-[> <C-R>=userfunc#keymap#Insert_ESC()<CR>
 inoremap <Esc> <C-r>=userfunc#keymap#Insert_ESC()<CR>
 "cannot use noremap
-nnoremap     M  %
-vnoremap     M  %
+nmap     M  %
+omap     M  %
+xmap     M  %
 noremap  U  <C-R>
 noremap  '  `
 vnoremap <  <gv
@@ -382,10 +393,10 @@ onoremap <silent> iu :normal viu<CR>
 xmap <silent> ia ifovvi)
 omap <silent> ia :normal via<CR>
 " BufferOperation:
-nnoremap <expr> <silent> <C-h>  (&buftype == 'terminal') ? ':FloatermPrev<CR>' : ':bprev<CR>'
-nnoremap <expr> <silent> <C-l>  (&buftype == 'terminal') ? ':FloatermNext<CR>' : ':bnext<CR>'
-tnoremap <expr> <silent> <C-h>  (&buftype == 'terminal') ? '<C-\><C-n>:FloatermPrev<CR>' : '<C-\><C-n>:bprev<CR>'
-tnoremap <expr> <silent> <C-l>  (&buftype == 'terminal') ? '<C-\><C-n>:FloatermNext<CR>' : '<C-\><C-n>:bnext<CR>'
+nnoremap <expr> <silent> <C-h>  (&filetype == 'floaterm') ? ':FloatermPrev<CR>' : ':bprev<CR>'
+nnoremap <expr> <silent> <C-l>  (&filetype == 'floaterm') ? ':FloatermNext<CR>' : ':bnext<CR>'
+tnoremap <expr> <silent> <C-h>  (&filetype == 'floaterm') ? '<C-\><C-n>:FloatermPrev<CR>' : '<C-\><C-n>:bprev<CR>'
+tnoremap <expr> <silent> <C-l>  (&filetype == 'floaterm') ? '<C-\><C-n>:FloatermNext<CR>' : '<C-\><C-n>:bnext<CR>'
 noremap  <silent> <Leader>d :bp<bar>sp<bar>bn<bar>bd!<bar>:redraw!<CR>
 " TabOperation:
 noremap  <silent> <C-t> <Esc>:tabnew<CR>
@@ -417,7 +428,7 @@ nnoremap <silent> <Leader>Q :qa!<CR>
 nnoremap <silent> Q         :qa!<CR>
 " QuickMessage:
 nnoremap <silent> <Leader>m :messages<CR>
-nnoremap <silent> <Leader>t :userfunc#utils#TabMessage messages<CR>
+nnoremap <silent> <Leader>t :TabMessage messages<CR>
 " CommandMode:
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
@@ -482,8 +493,8 @@ noremap  <silent> <F4>             <Esc>:OpenFileExplorer<CR>
 noremap  <silent> <F5>             <Esc>:QuickRun<CR>
 noremap! <silent> <F5>             <Esc>:QuickRun<CR>
 noremap  <silent> <Leader>x        <Esc>:QuickRun<CR>
-noremap  <silent> <Leader><Space>  <Esc>:SwitchWindow quickfix<CR>
-tnoremap <silent> <Leader><Space>  <C-\><C-n>:SwitchWindow quickfix<CR>
+noremap  <silent> <Leader><Space>  <Esc>:SwitchWindow qf<CR>
+tnoremap <silent> <Leader><Space>  <C-\><C-n>:SwitchWindow qf<CR>
 noremap  <silent> <F6>             <Esc>:AutoFormat<CR>
 noremap  <silent> <Leader><Leader> <Esc>:AutoFormat<CR>
 noremap! <silent> <F6>             <Esc>:AutoFormat<CR>
@@ -520,7 +531,7 @@ let g:python_highlight_all = 1
 let g:python_highlight_space_errors = 0
 " lervag/vimtex
 let g:tex_flavor='latex'
-let g:vimtex_view_method='zathura'
+let g:vimtex_view_method='mupdf'
 let g:vimtex_mappings_enabled = 0
 let g:vimtex_fold_enabled = 1
 let g:vimtex_quickfix_open_on_warning = 0
@@ -563,6 +574,9 @@ omap ic <Plug>(coc-text-object-inner)
 xmap ic <Plug>(coc-text-object-inner)
 if has('nvim')
   let SignColumnGuiBg = matchstr(execute('hi SignColumn'), 'guibg=\zs\S*')
+  if SignColumnGuiBg ==# ''
+    let SignColumnGuiBg = 'NONE'
+  endif
   exe 'hi GitAdd                guifg=#00FF00 guibg=' . SignColumnGuiBg
   exe 'hi GitModify             guifg=#00FFFF guibg=' . SignColumnGuiBg
   exe 'hi GitDeleteTop          guifg=#FF2222 guibg=' . SignColumnGuiBg
@@ -674,11 +688,13 @@ let g:lightline = {
       \ ['lineinfo'],
       \ ['percent'],
       \ ['cocstatus', 'fileformat', 'fileencoding'],
-      \ ['filetype']
+      \ ['filetype'],
+      \ ['codelf_status'],
     \ ]
   \ },
   \ 'component': {
     \ 'lineinfo': ' %4l,%-3v',
+    \ 'codelf_status': '%{g:codelf_status}',
     \ 'asyncrun_status': '%{g:asyncrun_status}',
     \ 'close': '%{has("nvim") ? " NVIM " : " VIM "}',
     \ 'vim_logo': "\ue7c5"
@@ -787,6 +803,7 @@ let g:Lf_Ctags                = "/usr/local/bin/ctags"
 let g:Lf_StlColorscheme = 'powerline'
 let g:Lf_PreviewInPopup = 1
 let g:Lf_WindowPosition = 'popup'
+let g:Lf_FilerShowDevIcons = 1
 " voldikss/vim-browser-search
 nmap <silent> <Leader>s <Plug>SearchNormal
 vmap <silent> <Leader>s <Plug>SearchVisual
@@ -836,4 +853,6 @@ noremap <silent> <Leader>aw :ArgWrap<CR>
 " junegunn/vim-easy-align
 xmap <silent> ga <Plug>(EasyAlign)
 nmap <silent> ga <Plug>(EasyAlign)
+" rhysd/git-messenger
+noremap <silent> <Leader>gm :GitMessenger<CR>
 " }}}

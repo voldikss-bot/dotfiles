@@ -58,14 +58,14 @@ endfunction
 
 " Normal_CR:
 function! userfunc#keymap#Normal_CR() abort
-  if &filetype ==# 'quickfix'
+  if &filetype ==# 'qf'
     return "\<CR>"
   else
     let line = trim(getline('.'))
     if index(['c', 'cpp', 'cs', 'css', 'java', 'rust', 'scss'], &filetype) >= 0
       if line != ''
         \ && index(['#', '/'], line[0]) < 0
-        \ && index([';', '{','[', '(', '\', '<', '>'], line[-1:]) < 0
+        \ && index([',', ';', '{','[', '(', '\', '<', '>'], line[-1:]) < 0
           return "A;"
       else
         return ""

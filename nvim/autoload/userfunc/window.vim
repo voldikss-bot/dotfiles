@@ -11,7 +11,7 @@ let s:winmgr_windows = {
     \ 'open':'Vista',
     \ 'close': 'Vista!'
   \ },
-  \ 'quickfix': {
+  \ 'qf': {
     \ 'open': 'copen 9',
     \ 'close': 'cclose'
   \ },
