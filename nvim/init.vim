@@ -189,10 +189,10 @@ Plug 'guns/xterm-color-table.vim', {'on': 'XtermColorTable'}
 Plug 'tpope/vim-fugitive'
 Plug 'rhysd/git-messenger.vim', {'on': 'GitMessenger'}
 " Others
-Plug 'skywind3000/vim-quickui'
-Plug 'Shougo/denite.nvim'
-Plug 'brglng/vim-im-select'
-Plug 'skywind3000/asyncrun.vim', {'on': ['AsyncRun', 'AsyncStop']}
+" Plug 'brglng/vim-im-select'
+" Plug 'puremourning/vimspector'
+Plug 'skywind3000/asyncrun.vim'
+Plug 'skywind3000/asynctasks.vim'
 Plug 'Yggdroot/LeaderF'
 Plug 'tamago324/LeaderF-filer'
 Plug 'voldikss/vim-browser-search'
@@ -235,6 +235,11 @@ augroup LocalKayMap
   autocmd!
   autocmd FileType startify nmap <buffer> l <CR>
   autocmd BufEnter * if &buftype=='terminal' | nmap <buffer><silent>q :q<CR> | endif
+augroup END
+
+augroup FloatermStyle
+  autocmd!
+  autocmd FileType floaterm setlocal cursorline
 augroup END
 
 augroup UserAutoSaveBuffer
@@ -289,14 +294,17 @@ augroup UserChecktime
   autocmd FocusGained * checktime
 augroup END
 
+if has('nvim')
 augroup UserTermSettings " neovim only
   autocmd!
   autocmd TermOpen *
     \ setlocal signcolumn=no |
     \ setlocal nobuflisted |
     \ setlocal nospell |
-    \ nmap <silent><buffer> <Esc> :hide<CR>
+    \ nmap <silent><buffer> <Esc> :hide<CR> |
+    \ hi TermCursor guifg=yellow
 augroup END
+endif
 
 " }}}
 
@@ -306,8 +314,9 @@ function! s:SetCommandAbbrs(from, to)
     \ .' ((getcmdtype() ==# ":" && getcmdline() ==# "'.a:from.'")'
     \ .'? ("'.a:to.'") : ("'.a:from.'"))'
 endfunction
-call s:SetCommandAbbrs('as', 'AsyncRun')
+call s:SetCommandAbbrs('asr', 'AsyncRun')
 call s:SetCommandAbbrs('ass', 'AsyncStop')
+call s:SetCommandAbbrs('ast', 'AsyncTask')
 call s:SetCommandAbbrs('ca', 'CocAction')
 call s:SetCommandAbbrs('cc', 'CocConfig')
 call s:SetCommandAbbrs('cf', 'CocFix')
@@ -326,6 +335,7 @@ call s:SetCommandAbbrs('gca', 'Gcommit --amend -v')
 call s:SetCommandAbbrs('gco', 'AsyncRun git checkout .')
 call s:SetCommandAbbrs('gpush', 'AsyncRun git push')
 call s:SetCommandAbbrs('gpull', 'AsyncRun git pull')
+call s:SetCommandAbbrs('gw', 'Gw')
 call s:SetCommandAbbrs('pc', 'PlugClean')
 call s:SetCommandAbbrs('pi', 'PlugInstall')
 call s:SetCommandAbbrs('pu', 'PlugUpdate')
@@ -344,6 +354,8 @@ command! -nargs=+ -complete=file  BrowserOpen  call userfunc#utils#BrowserOpen(<
 command! -nargs=+ -complete=command  TabMessage call userfunc#utils#TabMessage(<q-args>)
 command! -nargs=? -complete=customlist,userfunc#quickrun#Complete QuickRun call userfunc#quickrun#Run(<f-args>)
 command! -nargs=+ -complete=customlist,userfunc#window#Complete SwitchWindow call userfunc#window#SwitchWindow(<q-args>)
+command! Line call setline(line('.'), &commentstring[:1] . repeat('-', 76))
+command! Bline call setline(line('.'), &commentstring[:1] . repeat('=', 76))
 " }}}
 
 " Mappings: {{{
@@ -479,7 +491,7 @@ if has('nvim')
 endif
 " ClearnSearchHighlight:
 if has('nvim')
-  nnoremap <Esc>      <Cmd>nohlsearch<bar>echo ''<CR>
+  nnoremap <Esc>      <Cmd>nohlsearch<bar>echo<CR>
 endif
 nnoremap <silent> <BS>            :noh<bar>echo ''<CR>
 
@@ -490,9 +502,9 @@ noremap  <silent> <F3>             <Esc>:SwitchWindow mundo<CR>
 noremap! <silent> <F3>             <Esc>:SwitchWindow mundo<CR>
 tnoremap <silent> <F3>             <C-\><C-n>:SwitchWindow mundo<CR>
 noremap  <silent> <F4>             <Esc>:OpenFileExplorer<CR>
-noremap  <silent> <F5>             <Esc>:QuickRun<CR>
-noremap! <silent> <F5>             <Esc>:QuickRun<CR>
-noremap  <silent> <Leader>x        <Esc>:QuickRun<CR>
+noremap  <silent> <F5>             <Esc>:AsyncTask build-and-run<CR>
+noremap! <silent> <F5>             <Esc>:AsyncTask build-and-run<CR>
+noremap  <silent> <Leader>x        <Esc>:AsyncTask build-and-run<CR>
 noremap  <silent> <Leader><Space>  <Esc>:SwitchWindow qf<CR>
 tnoremap <silent> <Leader><Space>  <C-\><C-n>:SwitchWindow qf<CR>
 noremap  <silent> <F6>             <Esc>:AutoFormat<CR>
@@ -550,7 +562,7 @@ xmap <silent> <C-c> <Plug>(coc-cursors-range)
 nmap <silent> <M-n> <Plug>(coc-diagnostic-next)
 nmap <silent> <M-p> <Plug>(coc-diagnostic-prev)
 nmap <silent> <Leader>ca :CocAction<CR>
-nmap <silent> <Leader>cd <Plug>(coc-definition)
+nmap <silent> <Leader>cd :call userfunc#utils#GoToDefinition()<CR>
 nmap <silent> <Leader>ci <Plug>(coc-implementation)
 nmap <silent> <Leader>cf <Plug>(coc-fix-current)
 nmap <silent> <Leader>cr <Plug>(coc-references)
@@ -748,6 +760,10 @@ nmap <Leader>0 <Plug>lightline#bufferline#go(10)
 " skywind3000/asyncrun.vim
 let g:asyncrun_status = ''  " asyncrun is lazy loaded
 let g:asyncrun_open = 9
+let g:asyncrun_rootmarks = ['.git', '.svn', '.root', '.project', '.hg', '.idea', '.gitignore', 'Makefile']
+" skywind3000/asynctasks.vim
+let g:asynctasks_term_pos = 'bottom'
+let g:asynctasks_term_focus = 1
 " Yggdroot/LeaderF
 nmap <silent> <Leader>ff :Leaderf file<CR>
 nmap <silent> <Leader>fb :Leaderf buffer<CR>
@@ -815,10 +831,14 @@ vmap <silent>    ,t        <Plug>TranslateV
 vmap <silent>    ,w        <Plug>TranslateWV
 vmap <silent>    ,r        <Plug>TranslateRV
 let g:translator_history_enable = 1
+let g:translator_default_engines = ['google', 'ciba', 'youdao']
 " voldikss/vim-floaterm
-let g:floaterm_type          = 'floating'
-let g:floaterm_position      = 'center'
-let g:floaterm_background    = '#000000'
+let g:floaterm_position = 'center'
+" let g:floaterm_type = 'normal'
+" let g:floaterm_keymap_new    = '<F7>'
+" let g:floaterm_keymap_prev   = '<F8>'
+" let g:floaterm_keymap_next   = '<F9>'
+" let g:floaterm_keymap_toggle = '<F12>'
 " simnalamburt/vim-mundo
 let g:mundo_width              = 30
 let g:mundo_preview_height     = 10
@@ -855,4 +875,6 @@ xmap <silent> ga <Plug>(EasyAlign)
 nmap <silent> ga <Plug>(EasyAlign)
 " rhysd/git-messenger
 noremap <silent> <Leader>gm :GitMessenger<CR>
+" puremourning/vimspector
+let g:vimspector_enable_mappings = 'HUMAN'
 " }}}

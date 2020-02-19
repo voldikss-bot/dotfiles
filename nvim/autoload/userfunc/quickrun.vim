@@ -4,8 +4,10 @@
 " QuickRun:
 function! userfunc#quickrun#Run(...) abort
   update
-  AsyncStop
-  sleep 500m  " wait job to stop
+  if g:asyncrun_status ==# 'running'
+    AsyncStop
+    sleep 500m  " wait job to stop
+  endif
   if a:0 > 0
     let b:quickrun_cmd = a:1
   endif

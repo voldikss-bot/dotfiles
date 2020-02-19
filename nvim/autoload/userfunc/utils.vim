@@ -86,6 +86,17 @@ function! userfunc#utils#ShowDocument() abort
   endif
 endfunction
 
+" GoToDefinition
+function! userfunc#utils#GoToDefinition()
+  if CocAction('jumpDefinition')
+    return v:true
+  endif
+  let ret = execute("silent! normal \<C-]>")
+  if ret =~ "Error" || ret =~ "错误"
+    call searchdecl(expand('<cword>'))
+  endif
+endfunction
+
 " SyntaxAt:
 function! userfunc#utils#SyntaxAt(...)
   syntax sync fromstart

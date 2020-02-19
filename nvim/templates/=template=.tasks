@@ -1,0 +1,29 @@
+# vim: set fenc=utf-8 ft=dosini:
+
+# define a new task named "file-build"
+[build]
+
+# shell command, use quotation for filenames containing spaces
+# check ":AsyncTaskMacro" to see available macros
+command=python $(VIM_FILENAME)
+
+[run]
+
+# shell command, use quotation for filenames containing spaces
+# check ":AsyncTaskMacro" to see available macros
+command=python $(VIM_FILENAME)
+
+# working directory, can change to $(VIM_ROOT) for project root
+cwd=$(VIM_FILEDIR)
+
+# output mode, can be one of quickfix and terminal
+# - quickfix: output to quickfix window
+# - terminal: run the command in the internal terminal
+output=terminal
+
+# this is for output=quickfix only
+# if it is omitted, vim's current errorformat will be used.
+errorformat=%f:%l:%m
+
+# save file before execute
+save=1
