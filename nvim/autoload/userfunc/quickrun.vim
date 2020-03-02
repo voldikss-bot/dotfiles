@@ -62,11 +62,19 @@ function! userfunc#quickrun#Run(...) abort
   execute b:quickrun_cmd
 endfunction
 
-function! userfunc#quickrun#Complete(ArgLead,CmdLine,CursorPos) abort
-  let lst = getcompletion('', 'shellcmd')
-  if match(a:CmdLine, 'AsyncRun') > -1
-    return lst
-  else
-    return ['AsyncRun'] + lst
+function! userfunc#quickrun#Complete(arg_lead,cmd_line,cursor_pos) abort
+  let lst = ['AsyncRun'] + getcompletion('', 'shellcmd')
+  let cmd_line_before_cursor = a:cmd_line[:a:cursor_pos - 1]
+  let args = split(cmd_line_before_cursor, '\v\\@<!(\\\\)*\zs\s+', 1)
+  call remove(args, 0)
+
+  if len(args) ==# 1
+    if args[0] ==# ''
+      return lst
+    else
+      let prefix = args[-1]
+      let candidates = filter(lst, 'v:val[:len(prefix) - 1] ==# prefix')
+      return candidates
+    endif
   endif
 endfunction

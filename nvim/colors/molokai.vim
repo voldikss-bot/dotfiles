@@ -1,5 +1,5 @@
 " Vim color file
-" 
+"
 " Maintainer: VOLDIKSS <dyzplus@gmail.com>
 " Author: Tomas Restrepo <tomas@winterdom.com>
 " https://github.com/tomasr/molokai

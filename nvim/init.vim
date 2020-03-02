@@ -68,6 +68,7 @@ set formatoptions+=B
 set dictionary+=~/.vim/dict/dictionary.txt
 set nospell
 set spellfile=~/.vim/spell/en.utf-8.add
+set tags=./tags;,tags
 " key
 set ttimeout
 set timeoutlen=500
@@ -176,7 +177,7 @@ Plug 'alvan/vim-closetag', {'for': ['html', 'xml']}
 Plug 'numirias/semshi', {'for': 'python'}
 Plug 'posva/vim-vue', {'for': 'vue'}
 " Completion
-Plug 'neoclide/coc.nvim'
+Plug 'neoclide/coc.nvim', {'commit': '8ab7a19'}
 " Style
 Plug 'Yggdroot/indentLine'
 Plug 'mhinz/vim-startify', {'on': 'Startify'}
@@ -191,7 +192,7 @@ Plug 'rhysd/git-messenger.vim', {'on': 'GitMessenger'}
 " Others
 " Plug 'brglng/vim-im-select'
 " Plug 'puremourning/vimspector'
-Plug 'skywind3000/asyncrun.vim'
+Plug 'skywind3000/asyncrun.vim', {'on': ['AsyncRun', 'AsyncStop'] }
 Plug 'skywind3000/asynctasks.vim'
 Plug 'Yggdroot/LeaderF'
 Plug 'tamago324/LeaderF-filer'
@@ -233,23 +234,20 @@ augroup END
 
 augroup LocalKayMap
   autocmd!
-  autocmd FileType startify nmap <buffer> l <CR>
   autocmd BufEnter * if &buftype=='terminal' | nmap <buffer><silent>q :q<CR> | endif
 augroup END
 
-augroup FloatermStyle
+augroup FileTypeAutocmds
   autocmd!
+  autocmd FileType startify nmap <buffer> l <CR>
   autocmd FileType floaterm setlocal cursorline
+  autocmd FileType help setlocal number
+  autocmd FileType * set formatoptions-=cro
 augroup END
 
 augroup UserAutoSaveBuffer
   autocmd!
   autocmd FocusLost,InsertLeave * call userfunc#format#AutoSave()
-augroup END
-
-augroup UserDisableAutoComment
-  autocmd!
-  autocmd FileType * set formatoptions-=cro
 augroup END
 
 augroup UserLineNumber
@@ -301,7 +299,7 @@ augroup UserTermSettings " neovim only
     \ setlocal signcolumn=no |
     \ setlocal nobuflisted |
     \ setlocal nospell |
-    \ nmap <silent><buffer> <Esc> :hide<CR> |
+    \ nmap <silent><buffer> <Esc> <Cmd>hide<CR>|
     \ hi TermCursor guifg=yellow
 augroup END
 endif
@@ -314,27 +312,27 @@ function! s:SetCommandAbbrs(from, to)
     \ .' ((getcmdtype() ==# ":" && getcmdline() ==# "'.a:from.'")'
     \ .'? ("'.a:to.'") : ("'.a:from.'"))'
 endfunction
-call s:SetCommandAbbrs('asr', 'AsyncRun')
-call s:SetCommandAbbrs('ass', 'AsyncStop')
-call s:SetCommandAbbrs('ast', 'AsyncTask')
+call s:SetCommandAbbrs('ar', 'AsyncRun')
+call s:SetCommandAbbrs('as', 'AsyncStop')
+call s:SetCommandAbbrs('at', 'AsyncTask')
 call s:SetCommandAbbrs('ca', 'CocAction')
 call s:SetCommandAbbrs('cc', 'CocConfig')
 call s:SetCommandAbbrs('cf', 'CocFix')
 call s:SetCommandAbbrs('ci', 'CocInstall')
+call s:SetCommandAbbrs('cl', 'CocList')
 call s:SetCommandAbbrs('cm', 'CocCommand')
+call s:SetCommandAbbrs('cr', 'CocRestart')
 call s:SetCommandAbbrs('cs', 'CocSearch')
 call s:SetCommandAbbrs('cu', 'CocUninstall')
-call s:SetCommandAbbrs('cl', 'CocList')
-call s:SetCommandAbbrs('cr', 'CocRestart')
 call s:SetCommandAbbrs('gap', 'Git add -p')
-call s:SetCommandAbbrs('gd', 'Gvdiff')
-call s:SetCommandAbbrs('gl', 'Git lg')
-call s:SetCommandAbbrs('gs', 'Gstatus')
 call s:SetCommandAbbrs('gc', 'Gcommit -v')
 call s:SetCommandAbbrs('gca', 'Gcommit --amend -v')
 call s:SetCommandAbbrs('gco', 'AsyncRun git checkout .')
-call s:SetCommandAbbrs('gpush', 'AsyncRun git push')
+call s:SetCommandAbbrs('gd', 'Gvdiff')
+call s:SetCommandAbbrs('gl', 'Git lg')
 call s:SetCommandAbbrs('gpull', 'AsyncRun git pull')
+call s:SetCommandAbbrs('gpush', 'AsyncRun git push')
+call s:SetCommandAbbrs('gs', 'Gstatus')
 call s:SetCommandAbbrs('gw', 'Gw')
 call s:SetCommandAbbrs('pc', 'PlugClean')
 call s:SetCommandAbbrs('pi', 'PlugInstall')
@@ -433,6 +431,7 @@ inoremap <C-o> <End><CR>
 inoremap <M-o> <Esc>O
 inoremap <C-d> <Esc>ddi
 " SaveAndQuit:
+cnoremap w!! %!sudo tee >/dev/null %
 nnoremap <silent> <Leader>w :w<CR>
 nnoremap <silent> <Leader>W :wa<CR>
 nnoremap <silent> <Leader>q :q<CR>
@@ -502,9 +501,9 @@ noremap  <silent> <F3>             <Esc>:SwitchWindow mundo<CR>
 noremap! <silent> <F3>             <Esc>:SwitchWindow mundo<CR>
 tnoremap <silent> <F3>             <C-\><C-n>:SwitchWindow mundo<CR>
 noremap  <silent> <F4>             <Esc>:OpenFileExplorer<CR>
-noremap  <silent> <F5>             <Esc>:AsyncTask build-and-run<CR>
-noremap! <silent> <F5>             <Esc>:AsyncTask build-and-run<CR>
-noremap  <silent> <Leader>x        <Esc>:AsyncTask build-and-run<CR>
+noremap  <silent> <F5>             <Esc>:AsyncTask start<CR>
+noremap! <silent> <F5>             <Esc>:AsyncTask start<CR>
+noremap  <silent> <Leader>x        <Esc>:AsyncTask start<CR>
 noremap  <silent> <Leader><Space>  <Esc>:SwitchWindow qf<CR>
 tnoremap <silent> <Leader><Space>  <C-\><C-n>:SwitchWindow qf<CR>
 noremap  <silent> <F6>             <Esc>:AutoFormat<CR>
@@ -513,9 +512,9 @@ noremap! <silent> <F6>             <Esc>:AutoFormat<CR>
 noremap  <silent> <F10>            <Esc>:SwitchWindow vista<CR>
 noremap! <silent> <F10>            <Esc>:SwitchWindow vista<CR>
 tnoremap <silent> <F10>            <C-\><C-n>:SwitchWindow vista<CR>
-noremap  <silent> <F12>            <Esc>:SwitchWindow terminal<CR>
-noremap! <silent> <F12>            <Esc>:SwitchWindow terminal<CR>
-tnoremap <silent> <F12>            <C-\><C-n>:SwitchWindow terminal<CR>
+noremap  <silent> <F12>            <Esc>:SwitchWindow floaterm<CR>
+noremap! <silent> <F12>            <Esc>:SwitchWindow floaterm<CR>
+tnoremap <silent> <F12>            <C-\><C-n>:SwitchWindow floaterm<CR>
 nnoremap <expr>   <CR>             userfunc#keymap#Normal_CR() . "\<Esc>"
 inoremap <expr>   <CR>             userfunc#keymap#Insert_CR()
 inoremap <expr>   <BS>             userfunc#keymap#Insert_BS()
@@ -622,16 +621,17 @@ let g:coc_global_extensions = [
   \ 'coc-css',
   \ 'coc-diagnostic',
   \ 'coc-dictionary',
-  \ 'coc-emoji',
   \ 'coc-emmet',
+  \ 'coc-emoji',
   \ 'coc-eslint',
   \ 'coc-explorer',
+  \ 'coc-floaterm',
   \ 'coc-git',
   \ 'coc-highlight',
   \ 'coc-html',
-  \ 'coc-lists',
   \ 'coc-json',
   \ 'coc-kite',
+  \ 'coc-lists',
   \ 'coc-marketplace',
   \ 'coc-pairs',
   \ 'coc-post',
@@ -639,16 +639,15 @@ let g:coc_global_extensions = [
   \ 'coc-python',
   \ 'coc-rls',
   \ 'coc-snippets',
-  \ 'coc-spell-checker',
   \ 'coc-syntax',
   \ 'coc-tag',
-  \ 'coc-todolist',
   \ 'coc-template',
+  \ 'coc-todolist',
   \ 'coc-translator',
   \ 'coc-tslint-plugin',
   \ 'coc-tsserver',
-  \ 'coc-vimtex',
   \ 'coc-vimlsp',
+  \ 'coc-vimtex',
   \ 'coc-yank',
   \ 'coc-zi'
 \ ]
@@ -760,7 +759,7 @@ nmap <Leader>0 <Plug>lightline#bufferline#go(10)
 " skywind3000/asyncrun.vim
 let g:asyncrun_status = ''  " asyncrun is lazy loaded
 let g:asyncrun_open = 9
-let g:asyncrun_rootmarks = ['.git', '.svn', '.root', '.project', '.hg', '.idea', '.gitignore', 'Makefile']
+let g:asyncrun_rootmarks = ['.git', '.svn', '.root', '.project', '.hg', '.idea', '.gitignore', 'Makefile', 'CMakeLists.txt']
 " skywind3000/asynctasks.vim
 let g:asynctasks_term_pos = 'bottom'
 let g:asynctasks_term_focus = 1

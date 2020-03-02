@@ -19,7 +19,7 @@ let s:winmgr_windows = {
     \ 'open': 'MundoToggle',
     \ 'close': 'MundoToggle'
   \ },
-  \ 'terminal': {
+  \ 'floaterm': {
     \ 'open': 'FloatermToggle',
     \ 'close': 'FloatermToggle'
   \ }
@@ -27,31 +27,41 @@ let s:winmgr_windows = {
 
 function! userfunc#window#SwitchWindow(winname) abort
   let found_winnr = 0
+  let other_winids = []
   for winnr in range(1, winnr('$'))
-    let buftype = getbufvar(winbufnr(winnr), '&buftype')
     let filetype = getbufvar(winbufnr(winnr), '&filetype')
-    " terminal window: &buftype is 'terminal' but &filetype is ''
-    let window = filetype != "" ? filetype : buftype
-    if window == a:winname
+    if filetype == a:winname
       let found_winnr = winnr
-    " close other windows
-    elseif g:winmgr_only_one_win
-      if index(keys(s:winmgr_windows), window) >= 0
-        execute s:winmgr_windows[window]['close']
-      elseif index(['leaderf'], window) >=0
-        execute winnr . 'wincmd q'
-      endif
+    elseif has_key(s:winmgr_windows, filetype)
+      call add(other_winids, win_getid(winnr))
     endif
   endfor
+
   if found_winnr > 0
-    " close or go to that window(for example, terminal...)
     execute s:winmgr_windows[a:winname]['close']
   else
-    " open a new window or open that background buffer
+    if g:winmgr_only_one_win
+      for winid in other_winids
+        call nvim_win_close(winid, v:true)
+      endfor
+    endif
     execute s:winmgr_windows[a:winname]['open']
   endif
 endfunction
 
-function! userfunc#window#Complete(...) abort
-  return keys(s:winmgr_windows)
+function! userfunc#window#Complete(arg_lead,cmd_line,cursor_pos) abort
+  let lst = keys(s:winmgr_windows)
+  let cmd_line_before_cursor = a:cmd_line[:a:cursor_pos - 1]
+  let args = split(cmd_line_before_cursor, '\v\\@<!(\\\\)*\zs\s+', 1)
+  call remove(args, 0)
+
+  if len(args) ==# 1
+    if args[0] ==# ''
+      return sort(lst)
+    else
+      let prefix = args[-1]
+      let candidates = filter(lst, 'v:val[:len(prefix) - 1] ==# prefix')
+      return sort(candidates)
+    endif
+  endif
 endfunction

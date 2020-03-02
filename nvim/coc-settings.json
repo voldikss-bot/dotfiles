@@ -1,65 +1,40 @@
 {
+  "browser.maxLength": 30,
+  "browser.priority": 0,
   "coc.preferences.extensionUpdateCheck": "weekly",
   "coc.preferences.formatOnSaveFiletypes": [],
   "coc.preferences.hoverTarget": "float",
-  "coc.preferences.messageLevel": "more",
-  "coc.source.vimtex.priority": 99,
-  "coc.source.file.priority": 10,
-  "coc.source.around.priority": 8,
-  "coc.source.tag.priority": 5,
-  "yank.enableCompletion": false,
-  "yank.priority": 4,
-  "coc.browser.priority": 0,
-  "translator.engines": ["bing", "ciba", "google"],
-  "coc.browser.maxLength": 30,
   "coc.preferences.jumpCommand": "edit",
-  "coc.source.emoji.priority": 3,
-  "coc.source.dictionary.priority": 1,
+  "coc.preferences.messageLevel": "more",
+  "coc.source.around.priority": 8,
   "coc.source.buffer.priority": 1,
+  "coc.source.dictionary.priority": 1,
   "coc.source.emoji.filetypes": ["markdown", "gitcommit"],
+  "coc.source.emoji.priority": 3,
   "coc.source.emoji.shortcut": "E",
-  "cSpell.enabledLanguageIds": [
-    "git-commit",
-    "gitcommit",
-    "latex",
-    "markdown",
-    "plaintext",
-    "text"
-  ],
-  "cSpell.dictionaryDefinitions": [
-    {
-      "name": "spell_added",
-      "path": "/home/voldikss/dotfiles/vim/spell/en.utf-8.add"
-    }
-  ],
-  "cSpell.dictionaries": ["spell_added"],
-  "diagnostic.infoSign": "ℹ",
-  "diagnostic.hintSign": "➤",
+  "coc.source.file.priority": 10,
+  "coc.source.tag.priority": 5,
+  "coc.source.vimtex.priority": 99,
   "diagnostic-languageserver.filetypes": {
-    // "markdown": ["write-good"],
-    // "text": ["write-good"]
+    "diagnostic.hintSign": "➤",
+    "diagnostic.infoSign": "ℹ"
   },
-  "emmet.includeLanguages": {
-    "vue-html": "html",
-    "vue": "html"
-  },
-  "eslint.enable": true,
-  "eslint.filetypes": ["javascript", "javascript.jsx", "javascriptreact"],
+  "emmet.includeLanguages": { "vue": "html", "vue-html": "html" },
   "eslint.autoFix": false,
   "eslint.autoFixOnSave": false,
-  "explorer.width": 30,
-  "explorer.quitOnOpen": false,
-  "explorer.icon.enableNerdfont": true,
+  "eslint.enable": true,
+  "eslint.filetypes": ["javascript", "javascript.jsx", "javascriptreact"],
+  "explorer.file.column.git.showIgnored": true,
   "explorer.file.column.indent.indentLine": true,
   "explorer.file.showHiddenFiles": true,
-  "explorer.file.column.git.showIgnored": true,
+  "explorer.icon.enableNerdfont": true,
   "explorer.keyMappings": {
     "k": "nodePrev",
     "j": "nodeNext",
     "*": "toggleSelection",
     "<tab>": "actionMenu",
     "h": "collapse",
-    "l": "expand",
+    "l": ["expandable?", "expand", "open"],
     "J": ["toggleSelection", "normal:j"],
     "K": ["toggleSelection", "normal:k"],
     "gl": "expandRecursive",
@@ -99,33 +74,69 @@
     "<<": "gitStage",
     ">>": "gitUnstage"
   },
-  "explorer.openAction.strategy": "previousBuffer",
-  "git.enableGutters": true,
+  "explorer.openAction.changeDirectory": false,
+  "explorer.previewAction.onHover": false,
+  "explorer.quitOnOpen": false,
+  "explorer.width": 30,
   "git.addedSign.hlGroup": "GitAdd",
-  "git.removedSign.hlGroup": "GitDeleteBottom",
-  "git.topRemovedSign.hlGroup": "GitDeleteTop",
   "git.changeRemovedSign.hlGroup": "GitDeleteTopAndBottom",
   "git.changedSign.hlGroup": "GitModify",
+  "git.enableGutters": true,
+  "git.removedSign.hlGroup": "GitDeleteBottom",
+  "git.topRemovedSign.hlGroup": "GitDeleteTop",
+  "languageserver": {
+    "ccls": {
+      "command": "ccls",
+      "filetypes": ["c", "cpp", "cuda", "objc", "objcpp"],
+      "rootPatterns": [".ccls", "compile_commands.json", ".vim/", ".git/", ".hg/"],
+      "initializationOptions": {
+        "cache": {
+          "format": "b",
+          "directory": "/home/voldikss/.cache/nvim/ccls-cache"
+        },
+        "capabilities": {
+          "foldingRangeProvider": false,
+          "workspace": { "workspaceFolders": { "supported": false } }
+        },
+        "clang": {
+          "extraArgs": ["--gcc-toolchain=/usr"],
+          "resourceDir": "/usr/lib/clang/9.0.1"
+        },
+        "completion": { "detailedLabel": true },
+        "index": { "onChange": false, "initialNoLinkage": true, "threads": 2 }
+      }
+    },
+    "bash": {
+      "command": "bash-language-server",
+      "args": ["start"],
+      "filetypes": ["sh", "zsh"],
+      "ignoredRootPaths": ["~"]
+    },
+    "golang": {
+      "command": "gopls",
+      "rootPatterns": ["go.mod", ".vim", ".git"],
+      "filetypes": ["go"]
+    },
+    "lua": { "command": "lua-lsp", "filetypes": ["lua"] }
+  },
   "list.source.grep.defaultArgs": ["-smartcase", "-regex"],
   "marketplace.npmsio": true,
   "prettier.disableLanguages": ["typescript"],
   "prettier.formatterPriority": 1,
   "prettier.printWidth": 85,
-  "prettier.tabWidth": 2,
   "prettier.semi": false,
   "prettier.singleQuote": true,
+  "prettier.tabWidth": 2,
   "python.autoComplete.addBrackets": true,
   "python.formatting.provider": "black",
   "session.directory": "~/.cache/nvim/session",
   "session.saveOnVimLeave": false,
-  "suggest.noselect": false,
-  "suggest.numberSelect": false,
-  "suggest.echodocSupport": true,
-  "suggest.removeDuplicateItems": true,
-  "suggest.enablePreselect": false,
-  "suggest.detailMaxLength": 50,
-  "suggest.triggerAfterInsertEnter": false,
-  "suggest.languageSourcePriority": 99,
+  "snippets.extends": {
+    "cpp": ["c"],
+    "javascriptreact": ["javascript"],
+    "typescript": ["javascript"]
+  },
+  "snippets.priority": -10,
   "suggest.completionItemKindLabels": {
     "function": "\u0192",
     "method": "\uf09a",
@@ -153,68 +164,26 @@
     "typeParameter": "\uf728",
     "default": "\uf29c"
   },
-  "snippets.priority": -10,
-  "snippets.extends": {
-    "cpp": ["c"],
-    "javascriptreact": ["javascript"],
-    "typescript": ["javascript"]
-  },
+  "suggest.detailMaxLength": 50,
+  "suggest.echodocSupport": true,
+  "suggest.enablePreselect": false,
+  "suggest.labelMaxLength": 50,
+  "suggest.languageSourcePriority": 99,
+  "suggest.noselect": false,
+  "suggest.numberSelect": false,
+  "suggest.removeDuplicateItems": true,
+  "suggest.triggerAfterInsertEnter": false,
   "template.templatesDirectory": "~/dotfiles/nvim/templates",
   "todolist.autoUpload": false,
   "todolist.monitor": true,
+  "translator.engines": ["bing", "ciba", "google"],
   "tslint.autoFixOnSave": true,
   "typescript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
   "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
   "typescript.suggestionActions.enabled": false,
-  "yank.highlight.enable": true,
+  "yank.enableCompletion": false,
   "yank.highlight.duration": 20,
-  "languageserver": {
-    "ccls": {
-      "command": "ccls",
-      "filetypes": ["c", "cpp", "cuda", "objc", "objcpp"],
-      "rootPatterns": [".ccls", "compile_commands.json", ".vim/", ".git/", ".hg/"],
-      "initializationOptions": {
-        "cache": {
-          "format": "b",
-          "directory": "/home/voldikss/.cache/nvim/ccls-cache"
-        },
-        "capabilities": {
-          "foldingRangeProvider": false,
-          "workspace": {
-            "workspaceFolders": {
-              "supported": false
-            }
-          }
-        },
-        "clang": {
-          "extraArgs": ["--gcc-toolchain=/usr"],
-          "resourceDir": "/usr/lib/clang/9.0.1"
-        },
-        "completion": {
-          "detailedLabel": true
-        },
-        "index": {
-          "onChange": false,
-          "initialNoLinkage": true,
-          "threads": 2
-        }
-      }
-    },
-    "bash": {
-      "command": "bash-language-server",
-      "args": ["start"],
-      "filetypes": ["sh", "zsh"],
-      "ignoredRootPaths": ["~"]
-    },
-    "golang": {
-      "command": "gopls",
-      "rootPatterns": ["go.mod", ".vim", ".git"],
-      "filetypes": ["go"]
-    },
-    "lua": {
-      "command": "lua-lsp",
-      "filetypes": ["lua"]
-    }
-  }
+  "yank.highlight.enable": true,
+  "yank.priority": 4
   // vim:ft=jsonc
 }

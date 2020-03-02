@@ -1,6 +1,8 @@
-# command
+# ls
 alias ll='ls -laF'
 alias la='ls -laF'
+alias lh='ls -lh'
+alias lR='ls -lR'
 alias l='ls -lF'
 
 # vim

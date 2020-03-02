@@ -1,13 +1,23 @@
-cmake_minimum_required (VERSION 2.8)
+cmake_minimum_required(VERSION 3.5)
 
-# projectname is the same as the main-executable
 project(%HERE%%FDIR%)
 
-add_definitions('-g')
-add_definitions('-Wall')
-#add_definitions('-std=c++11')
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-add_executable(${PROJECT_NAME} ${PROJECT_NAME}.cpp)
+set(CMAKE_AUTOUIC ON)
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
 
-add_custom_target(${PROJECT_NAME}-symlink ALL ln --force -s ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME} ${CMAKE_SOURCE_DIR}/${PROJECT_NAME} DEPENDS ${PROJECT_NAME})
-set_directory_properties(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES ${CMAKE_SOURCE_DIR}/${PROJECT_NAME})
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+add_executable(%FDIR%
+    main.cpp
+    )
+
+# ============================================================================
+# For Qt
+# ----------------------------------------------------------------------------
+# find_package(Qt5 COMPONENTS Widgets REQUIRED)
+# target_link_libraries(%FDIR% PRIVATE Qt5::Widgets)
+# ============================================================================
