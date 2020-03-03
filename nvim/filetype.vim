@@ -9,6 +9,11 @@ augroup filetypedetect
   autocmd BufNewFile,BufRead  .eslintrc         setfiletype json
   autocmd BufNewFile,BufRead  .jscsrc           setfiletype json
 
+  autocmd BufNewFile,BufRead  npm-debug.log      setfiletype=npm-debug-log
+  autocmd BufNewFile,BufRead  .npmignore         setfiletype=conf
+  autocmd BufNewFile,BufRead  npmrc,.npmrc       setfiletype=npmrc
+
+
   autocmd BufNewFile,BufRead  *.cjson           setfiletype jsonc
   autocmd BufNewFile,BufRead  coc-settings.json setfiletype jsonc
   autocmd BufNewFile,BufRead  config.json       setfiletype jsonc

@@ -74,7 +74,8 @@
     "<<": "gitStage",
     ">>": "gitUnstage"
   },
-  "explorer.openAction.changeDirectory": false,
+  "explorer.openAction.changeDirectory": true,
+  "explorer.file.tabCD": false,
   "explorer.previewAction.onHover": false,
   "explorer.quitOnOpen": false,
   "explorer.width": 30,

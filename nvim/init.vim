@@ -130,6 +130,7 @@ set autoindent
 set smartindent
 set cpoptions+=I
 " command window
+set wildmode=longest,full
 set wildmenu
 set wildignorecase
 set suffixes=.bak,~,.o,.h,.info,.swp,.obj,.pyc,.pyo,.egg-info,.class
@@ -339,8 +340,10 @@ call s:SetCommandAbbrs('pi', 'PlugInstall')
 call s:SetCommandAbbrs('pu', 'PlugUpdate')
 call s:SetCommandAbbrs('sl', 'CocCommand session.load default')
 call s:SetCommandAbbrs('ss', 'CocCommand session.save default')
+call s:SetCommandAbbrs('st', 'Startify')
 call s:SetCommandAbbrs('sw', 'SwitchWindow')
 call s:SetCommandAbbrs('tm', 'TabMessage')
+call s:SetCommandAbbrs('w!!', '%!sudo tee >/dev/null %')
 " }}}
 
 " Commands: {{{
@@ -407,7 +410,6 @@ nnoremap <expr> <silent> <C-h>  (&filetype == 'floaterm') ? ':FloatermPrev<CR>' 
 nnoremap <expr> <silent> <C-l>  (&filetype == 'floaterm') ? ':FloatermNext<CR>' : ':bnext<CR>'
 tnoremap <expr> <silent> <C-h>  (&filetype == 'floaterm') ? '<C-\><C-n>:FloatermPrev<CR>' : '<C-\><C-n>:bprev<CR>'
 tnoremap <expr> <silent> <C-l>  (&filetype == 'floaterm') ? '<C-\><C-n>:FloatermNext<CR>' : '<C-\><C-n>:bnext<CR>'
-noremap  <silent> <Leader>d :bp<bar>sp<bar>bn<bar>bd!<bar>:redraw!<CR>
 " TabOperation:
 noremap  <silent> <C-t> <Esc>:tabnew<CR>
 " TextCopy:
@@ -430,13 +432,15 @@ inoremap <C-e> <End>
 inoremap <C-o> <End><CR>
 inoremap <M-o> <Esc>O
 inoremap <C-d> <Esc>ddi
-" SaveAndQuit:
-cnoremap w!! %!sudo tee >/dev/null %
+
 nnoremap <silent> <Leader>w :w<CR>
 nnoremap <silent> <Leader>W :wa<CR>
-nnoremap <silent> <Leader>q :q<CR>
-nnoremap <silent> <Leader>Q :qa!<CR>
+nnoremap <silent> gq        q
+nnoremap <silent> gQ        Q
 nnoremap <silent> Q         :qa!<CR>
+nnoremap <silent><expr> q userfunc#keymap#Normal_q()
+" nnoremap <silent> <Leader>Q :qa!<CR>
+" noremap  <silent> <Leader>d :bp<bar>sp<bar>bn<bar>bd!<bar>:redraw!<CR>
 " QuickMessage:
 nnoremap <silent> <Leader>m :messages<CR>
 nnoremap <silent> <Leader>t :TabMessage messages<CR>
@@ -566,7 +570,8 @@ nmap <silent> <Leader>ci <Plug>(coc-implementation)
 nmap <silent> <Leader>cf <Plug>(coc-fix-current)
 nmap <silent> <Leader>cr <Plug>(coc-references)
 nmap <silent> <Leader>cc :CocRestart<CR>
-nmap <silent> <Leader>cl :CocList<CR>
+nmap <silent> cl :CocList<CR>
+nmap <silent> <Leader>ct :CocList tasks<CR>
 nmap <silent> ,cr        :call CocAction('rename')<CR>
 xmap if <Plug>(coc-funcobj-a)
 omap if <Plug>(coc-funcobj-a)
@@ -641,6 +646,7 @@ let g:coc_global_extensions = [
   \ 'coc-snippets',
   \ 'coc-syntax',
   \ 'coc-tag',
+  \ 'coc-tasks',
   \ 'coc-template',
   \ 'coc-todolist',
   \ 'coc-translator',
