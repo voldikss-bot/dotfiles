@@ -18,6 +18,6 @@ add_executable(%FDIR%
 # ============================================================================
 # For Qt
 # ----------------------------------------------------------------------------
-# find_package(Qt5 COMPONENTS Widgets REQUIRED)
-# target_link_libraries(%FDIR% PRIVATE Qt5::Widgets)
+# find_package(Qt5 COMPONENTS Core Gui Widgets Sql REQUIRED)
+# target_link_libraries(%FDIR% PRIVATE Qt5::Core Qt5::Gui Qt5::Widgets Qt5::Sql)
 # ============================================================================

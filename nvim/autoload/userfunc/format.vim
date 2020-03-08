@@ -10,9 +10,7 @@ function! userfunc#format#AutoFormat() abort
   call s:RemoveWhiteSpaces()
   " 3. remove blank lines
   call s:RemoveBlankLines()
-  if expand('%') != ''
-    update
-  endif
+  if expand('%') != '' | update | endif
   call setpos('.', curr_pos)
 endfunction
 
@@ -50,6 +48,6 @@ endfunction
 " RemoveWhiteSpaces:
 function! s:RemoveWhiteSpaces()
   if mode() ==# 'n'
-    silent! keepjumps execute '%s/\s\+$//g'
+    silent! keeppatterns keepjumps execute 'undojoin | %s/[ \t]\+$//g'
   endif
 endfunction

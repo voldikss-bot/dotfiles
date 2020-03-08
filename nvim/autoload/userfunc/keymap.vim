@@ -99,8 +99,9 @@ endfunction
 function! userfunc#keymap#Normal_q() abort
   " is the last buffer
   if len(getbufinfo({'buflisted':1})) == 1
-    \ && getbufinfo()[0]['linecount'] == 1
-    \ && &filetype == ''
+    \ && winnr('$') == 1
+    \ && getbufinfo()[1]['linecount'] == 1
+    " \ && &filetype == ''
     return ":q!\<CR>"
   else
     return ":bp\<bar>sp\<bar>bn\<bar>bd!\<bar>:redraw!\<CR>"

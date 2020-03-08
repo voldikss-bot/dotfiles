@@ -86,6 +86,12 @@
   "git.removedSign.hlGroup": "GitDeleteBottom",
   "git.topRemovedSign.hlGroup": "GitDeleteTop",
   "languageserver": {
+    "bash": {
+      "command": "bash-language-server",
+      "args": ["start"],
+      "filetypes": ["sh", "zsh"],
+      "ignoredRootPaths": ["~"]
+    },
     "ccls": {
       "command": "ccls",
       "filetypes": ["c", "cpp", "cuda", "objc", "objcpp"],
@@ -106,12 +112,6 @@
         "completion": { "detailedLabel": true },
         "index": { "onChange": false, "initialNoLinkage": true, "threads": 2 }
       }
-    },
-    "bash": {
-      "command": "bash-language-server",
-      "args": ["start"],
-      "filetypes": ["sh", "zsh"],
-      "ignoredRootPaths": ["~"]
     },
     "golang": {
       "command": "gopls",
@@ -168,7 +168,7 @@
   "suggest.detailMaxLength": 50,
   "suggest.echodocSupport": true,
   "suggest.enablePreselect": false,
-  "suggest.labelMaxLength": 50,
+  "suggest.labelMaxLength": 75,
   "suggest.languageSourcePriority": 99,
   "suggest.noselect": false,
   "suggest.numberSelect": false,

@@ -12,7 +12,7 @@ function! userfunc#utils#BrowserOpen(obj) abort
   else
     echoerr "No browser found, please contact the developer."
   endif
-  exec 'AsyncRun -post=cclose' . ' ' . cmd
+  exec 'AsyncRun -silent' . ' ' . cmd
 endfunction
 
 " FileExplore:

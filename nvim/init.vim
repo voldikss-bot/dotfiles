@@ -124,7 +124,7 @@ set expandtab
 set shiftround
 set relativenumber number
 set foldlevel=99
-set foldmethod=indent
+set foldmethod=manual
 set conceallevel=0
 set autoindent
 set smartindent
@@ -195,6 +195,7 @@ Plug 'rhysd/git-messenger.vim', {'on': 'GitMessenger'}
 " Plug 'puremourning/vimspector'
 Plug 'skywind3000/asyncrun.vim', {'on': ['AsyncRun', 'AsyncStop'] }
 Plug 'skywind3000/asynctasks.vim'
+Plug 'skywind3000/vim-dict'
 Plug 'Yggdroot/LeaderF'
 Plug 'tamago324/LeaderF-filer'
 Plug 'voldikss/vim-browser-search'
@@ -433,12 +434,13 @@ inoremap <C-o> <End><CR>
 inoremap <M-o> <Esc>O
 inoremap <C-d> <Esc>ddi
 
-nnoremap <silent> <Leader>w :w<CR>
-nnoremap <silent> <Leader>W :wa<CR>
-nnoremap <silent> gq        q
-nnoremap <silent> gQ        Q
-nnoremap <silent> Q         :qa!<CR>
-nnoremap <silent><expr> q userfunc#keymap#Normal_q()
+nnoremap <silent>       <Leader>w :w<CR>
+nnoremap <silent>       <Leader>W :wa<CR>
+nnoremap <silent>       gq        q
+nnoremap <silent>       gQ        Q
+nnoremap <silent>       q         :q!<CR>
+nnoremap <silent>       Q         :qa!<CR>
+nnoremap <silent><expr> gd        userfunc#keymap#Normal_q()
 " nnoremap <silent> <Leader>Q :qa!<CR>
 " noremap  <silent> <Leader>d :bp<bar>sp<bar>bn<bar>bd!<bar>:redraw!<CR>
 " QuickMessage:
@@ -603,6 +605,8 @@ if has('nvim')
   exe 'hi CocWarningSign        guifg=#ff922b guibg=' . SignColumnGuiBg
   exe 'hi CocErrorSign          guifg=#ff0000 guibg=' . SignColumnGuiBg
   unlet SignColumnGuiBg
+  " coclist will(might) change my cursor highlight
+  hi Cursor gui=reverse guifg=NONE guibg=NONE
 endif
 " coc-pairs
 let g:coc_pairs_expand = [['（', '）'], ['“', '”'], ['‘', '’'], ['《', '》']]
@@ -623,6 +627,7 @@ let g:coc_global_extensions = [
   \ 'coc-bookmark',
   \ 'coc-browser',
   \ 'coc-clock',
+  \ 'coc-cmake',
   \ 'coc-css',
   \ 'coc-diagnostic',
   \ 'coc-dictionary',

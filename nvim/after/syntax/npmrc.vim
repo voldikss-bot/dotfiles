@@ -14,4 +14,3 @@ hi def link npmrcEntryValue String
 hi def link npmrcBooleanValue Constant
 
 let b:current_syntax = 'npmrc'
-Terms

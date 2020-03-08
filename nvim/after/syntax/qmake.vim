@@ -9,11 +9,6 @@ if exists("b:current_syntax")
   finish
 endif
 
-let s:cpo_save = &cpo
-set cpo&vim
-
-
-syn case ignore
 syn keyword	qmakeFunctionConst		contained basename CONFIG count dirname error eval exists find for
 									\ include infile isEmpty join member message prompt quote replace
 									\ sprintf system unique warning contains
@@ -104,6 +99,3 @@ hi def link qmakeOptionsTEMPLATEConst	Constant
 hi def link qmakeOptionsCONFIGConst		Constant
 
 let b:current_syntax = "qmake"
-
-let &cpo = s:cpo_save
-unlet s:cpo_save
