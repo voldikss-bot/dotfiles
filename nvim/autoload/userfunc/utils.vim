@@ -118,3 +118,21 @@ function! userfunc#utils#SyntaxAt(...)
   call map(synstack(l:lnum, l:col), 'synIDattr(v:val, "name")')
   echom synIDattr(synID(l:lnum, l:col, 1), 'name')
 endfunction
+
+" DelimiterLine:
+function! userfunc#utils#DelimiterLine(style, ...) abort
+  if a:0 > 0
+    let count = a:1
+  else
+    let count = 78
+  endif
+  let commenthead = &commentstring[:-4]
+  if a:style == 'light'
+    let line = commenthead . repeat('-', count - len(commenthead))
+  elseif a:style == 'bold'
+    let line = commenthead . repeat('=', count - len(commenthead))
+  elseif a:style == 'comment'
+    let line = repeat(&commentstring[0], count)
+  endif
+  call append(line('.'), line)
+endfunction

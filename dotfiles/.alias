@@ -1,3 +1,4 @@
+# vim:ft=sh
 # ls
 alias ll='ls -laF'
 alias la='ls -laF'
