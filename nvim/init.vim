@@ -178,7 +178,7 @@ Plug 'alvan/vim-closetag', {'for': ['html', 'xml']}
 Plug 'numirias/semshi', {'for': 'python'}
 Plug 'posva/vim-vue', {'for': 'vue'}
 " Completion
-Plug 'neoclide/coc.nvim', {'commit': '8ab7a19'}
+Plug 'neoclide/coc.nvim'
 " Style
 Plug 'Yggdroot/indentLine'
 Plug 'mhinz/vim-startify', {'on': 'Startify'}
@@ -356,8 +356,9 @@ command! -nargs=+ -complete=file  BrowserOpen  call userfunc#utils#BrowserOpen(<
 command! -nargs=+ -complete=command  TabMessage call userfunc#utils#TabMessage(<q-args>)
 command! -nargs=? -complete=customlist,userfunc#quickrun#Complete QuickRun call userfunc#quickrun#Run(<f-args>)
 command! -nargs=+ -complete=customlist,userfunc#window#Complete SwitchWindow call userfunc#window#SwitchWindow(<q-args>)
-command! Line call setline(line('.'), &commentstring[:1] . repeat('-', 76))
-command! Bline call setline(line('.'), &commentstring[:1] . repeat('=', 76))
+command! -nargs=? Line call userfunc#utils#DelimiterLine('light', <f-args>)
+command! -nargs=? Bline call userfunc#utils#DelimiterLine('bold', <f-args>)
+command! -nargs=? Cline call userfunc#utils#DelimiterLine('comment', <f-args>)
 " }}}
 
 " Mappings: {{{
