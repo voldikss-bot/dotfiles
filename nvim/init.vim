@@ -198,7 +198,6 @@ Plug 'skywind3000/asyncrun.vim', {'on': ['AsyncRun', 'AsyncStop'] }
 Plug 'skywind3000/asynctasks.vim'
 Plug 'skywind3000/vim-dict'
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
-Plug 'tamago324/LeaderF-filer'
 Plug 'voldikss/vim-browser-search'
 Plug 'voldikss/vim-codelf'
 Plug 'voldikss/vim-translator'
