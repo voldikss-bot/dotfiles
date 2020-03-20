@@ -38,7 +38,8 @@ alias m='f -e mplayer' # quick opening files with mplayer
 alias o='a -e xdg-open' # quick opening files with xdg-open
 
 # fzf
-alias vimfzf='vim $(fzf)'
+alias fzfvim='vim $(fzf)'
+alias fzf="fzf --preview 'bat --style=numbers --color=always {} | head -500'"
 
 # prettyping
 # alias ping='prettyping'

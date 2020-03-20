@@ -69,6 +69,7 @@ set dictionary+=~/.vim/dict/dictionary.txt
 set nospell
 set spellfile=~/.vim/spell/en.utf-8.add
 set tags=./tags;,tags
+set tagfunc=CocTagFunc
 " key
 set ttimeout
 set timeoutlen=500
@@ -196,7 +197,7 @@ Plug 'rhysd/git-messenger.vim', {'on': 'GitMessenger'}
 Plug 'skywind3000/asyncrun.vim', {'on': ['AsyncRun', 'AsyncStop'] }
 Plug 'skywind3000/asynctasks.vim'
 Plug 'skywind3000/vim-dict'
-Plug 'Yggdroot/LeaderF'
+Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 Plug 'tamago324/LeaderF-filer'
 Plug 'voldikss/vim-browser-search'
 Plug 'voldikss/vim-codelf'
@@ -490,10 +491,14 @@ if has('nvim')
 endif
 " WindowSize:
 if has('nvim')
-  noremap <M-up>    <C-w>+
-  noremap <M-down>  <C-w>-
-  noremap <M-left>  <C-w>5<
-  noremap <M-right> <C-w>5>
+  nnoremap <M-up>    <C-w>+
+  nnoremap <M-down>  <C-w>-
+  nnoremap <M-left>  <C-w>5<
+  nnoremap <M-right> <C-w>5>
+  inoremap <M-up>    <Esc><C-w>+
+  inoremap <M-down>  <Esc><C-w>-
+  inoremap <M-left>  <Esc><C-w>5<
+  inoremap <M-right> <Esc><C-w>5>
 endif
 " ClearnSearchHighlight:
 if has('nvim')
@@ -774,7 +779,8 @@ let g:asyncrun_open = 9
 let g:asyncrun_rootmarks = ['.git', '.svn', '.root', '.project', '.hg', '.idea', '.gitignore', 'Makefile', 'CMakeLists.txt']
 " skywind3000/asynctasks.vim
 let g:asynctasks_term_pos = 'bottom'
-let g:asynctasks_term_focus = 1
+let g:asynctasks_term_reuse = 1
+let g:asynctasks_term_rows = 10
 " Yggdroot/LeaderF
 nmap <silent> <Leader>ff :Leaderf file<CR>
 nmap <silent> <Leader>fb :Leaderf buffer<CR>
@@ -829,11 +835,15 @@ let g:Lf_Ctags                = "/usr/local/bin/ctags"
 " let g:Lf_PreviewCode = 1
 let g:Lf_StlColorscheme = 'powerline'
 let g:Lf_PreviewInPopup = 1
-let g:Lf_WindowPosition = 'popup'
+" let g:Lf_WindowPosition = 'popup'
+let g:Lf_WindowHeight = 0.4
 let g:Lf_FilerShowDevIcons = 1
 " voldikss/vim-browser-search
 nmap <silent> <Leader>s <Plug>SearchNormal
 vmap <silent> <Leader>s <Plug>SearchVisual
+let g:browser_search_engines = {
+  \ 'qt': 'https://doc.qt.io/qt-5/search-results.html?q=%s'
+  \ }
 " voldikss/vim-translator
 nmap <silent>    ,t        <Plug>Translate
 nmap <silent>    ,w        <Plug>TranslateW
@@ -842,7 +852,7 @@ vmap <silent>    ,t        <Plug>TranslateV
 vmap <silent>    ,w        <Plug>TranslateWV
 vmap <silent>    ,r        <Plug>TranslateRV
 let g:translator_history_enable = 1
-let g:translator_default_engines = ['google', 'ciba', 'youdao']
+let g:translator_default_engines = ['ciba', 'youdao']
 " voldikss/vim-floaterm
 let g:floaterm_position = 'center'
 " let g:floaterm_type = 'normal'

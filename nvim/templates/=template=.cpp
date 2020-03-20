@@ -1,10 +1,3 @@
-//============================================================================
-// FileName: %FFILE%
-// Descrption:
-// Author: %USER% <%MAIL%>
-// GitHub: https://github.com/voldikss
-//============================================================================
-
 #include <algorithm>
 #include <cassert>
 #include <climits>

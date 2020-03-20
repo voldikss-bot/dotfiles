@@ -100,7 +100,7 @@ function! userfunc#keymap#Normal_q() abort
   " is the last buffer
   if len(getbufinfo({'buflisted':1})) == 1
     \ && winnr('$') == 1
-    \ && getbufinfo()[1]['linecount'] == 1
+    \ && bufname() == ''
     " \ && &filetype == ''
     return ":q!\<CR>"
   else

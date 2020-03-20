@@ -11,7 +11,6 @@ setlocal cursorline
 setlocal nobuflisted
 setlocal nospell
 
-nnoremap <buffer> <CR> <CR><C-w>p
 nnoremap <silent><buffer> p  :call <SID>preview_file()<CR>
 nnoremap <silent><buffer> q  :pclose!<CR>:quit<CR>
 nnoremap <buffer> o    <CR><C-w>p
