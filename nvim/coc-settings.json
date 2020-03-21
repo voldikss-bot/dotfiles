@@ -30,7 +30,9 @@
   "explorer.icon.enableNerdfont": true,
   "explorer.keyMappings": {
     "k": "nodePrev",
+    "<C-k>": "nodePrev",
     "j": "nodeNext",
+    "<C-j>": "nodeNext",
     "*": "toggleSelection",
     "<tab>": "actionMenu",
     "h": "collapse",
@@ -52,6 +54,7 @@
     "c": "copyFile",
     "x": "cutFile",
     "p": "pasteFile",
+    "P": "preview",
     "d": "delete",
     "D": "deleteForever",
     "a": "addFile",

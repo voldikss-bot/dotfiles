@@ -775,7 +775,7 @@ nmap <Leader>0 <Plug>lightline#bufferline#go(10)
 " skywind3000/asyncrun.vim
 let g:asyncrun_status = ''  " asyncrun is lazy loaded
 let g:asyncrun_open = 9
-let g:asyncrun_rootmarks = ['.git', '.svn', '.root', '.project', '.hg', '.idea', '.gitignore', 'Makefile', 'CMakeLists.txt']
+let g:asyncrun_rootmarks = ['.git', '.svn', '.root', '.project', '.hg', '.idea', '.gitignore', 'Makefile', 'CMakeLists.txt', '*.pro']
 " skywind3000/asynctasks.vim
 let g:asynctasks_term_pos = 'bottom'
 let g:asynctasks_term_reuse = 1

@@ -1,37 +1,60 @@
-cmake_minimum_required(VERSION 3.5)
+## For Qt development
 
+cmake_minimum_required(VERSION 3.5)
 project(%HERE%%FDIR%)
 
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
-set(CMAKE_CXX_STANDARD 11)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-add_executable(%FDIR%
-    main.cpp
+find_package(Qt5 COMPONENTS
+    Core
+    Gui
+    Widgets
+    # Sql
+    # Network
+    # Xml
+    # WebKit
+    # WebEngine
+    REQUIRED
     )
 
-# ============================================================================
-# For Qt
-# ----------------------------------------------------------------------------
-# find_package(Qt5 COMPONENTS
-#     Core
-#     Gui
-#     Widgets
-#     Sql
-#     Network
-#     Xml
-#     REQUIRED)
-# target_link_libraries(%FDIR% PRIVATE
-#     Qt5::Core
-#     Qt5::Gui
-#     Qt5::Widgets
-#     Qt5::Sql
-#     Qt5::Network
-#     Qt5::Xml
+set(HEADERS
+    mainwindow.h
+    )
+
+set(SOURCES
+    main.cpp
+    mainwindow.cpp
+    )
+
+# set(RESOURCES
+#     qml.qrc
 #     )
-# ============================================================================
+
+# set(QMLS
+#     main.qml
+#     )
+
+add_executable(${PROJECT_NAME}
+    ${HEADERS}
+    ${SOURCES}
+    # ${RESOURCES}
+    # ${QMLS}
+    )
+
+target_link_libraries({PROJECT_NAME} PRIVATE
+    Qt5::Core
+    Qt5::Gui
+    Qt5::Widgets
+    # Qt5::Sql
+    # Qt5::Network
+    # Qt5::Xml
+    # Qt5::WebKit
+    # Qt5::WebEngine
+    )
