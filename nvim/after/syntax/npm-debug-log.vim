@@ -1,6 +1,3 @@
-if exists('b:current_syntax')
-  finish
-endif
 
 syn match npmDebugLogID "^\d\+" display
 syn match npmDebugLogInfo "\%(^\d\+ \)\@<=\%(info\|http\)\>" display

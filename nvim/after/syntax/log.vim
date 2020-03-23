@@ -3,13 +3,6 @@
 " Maintainer:       MTDL9 <https://github.com/MTDL9>
 " Latest Revision:  2019-04-16
 
-if exists('b:current_syntax')
-  finish
-endif
-
-let s:cpo_save = &cpoptions
-set cpoptions&vim
-
 
 " Operators
 "---------------------------------------------------------------------------

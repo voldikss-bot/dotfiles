@@ -1,21 +1,23 @@
-QT       += core gui sql webkitwidgets printsupport
+QT       += core gui
 
-TARGET   = %FDIR%
-TEMPLATE = app
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++11
 
+TARGET   = %FDIR%
+
+TEMPLATE = app
 
 SOURCES += \
-    main.cpp \
-    mainwindow.cpp \
+    src/main.cpp \
+    src/mainwindow.cpp \
 
 HEADERS += \
-    mainwindow.h \
+    src/mainwindow.hpp \
 
 FORMS += \
-    mainwindow.ui \
+    src/mainwindow.ui \
 
 RESOURCES += \
-    resource.qrc \
-    qss.qrc
+    src/resource.qrc \
+    src/qss.qrc

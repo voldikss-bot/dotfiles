@@ -74,12 +74,13 @@
     "]]": "sourceNext",
     "[d": "diagnosticPrev",
     "]d": "diagnosticNext",
+    "ga": "gitStage",
+    "gu": "gitUnstage",
     "gk": "gitPrev",
     "gj": "gitNext",
     "<<": "gitStage",
     ">>": "gitUnstage"
   },
-  "explorer.openAction.changeDirectory": true,
   "explorer.file.tabCD": false,
   "explorer.previewAction.onHover": false,
   "explorer.quitOnOpen": false,
@@ -126,6 +127,22 @@
     "lua": { "command": "lua-lsp", "filetypes": ["lua"] }
   },
   "list.source.grep.defaultArgs": ["-smartcase", "-regex"],
+  "list.indicator": "⚡️",
+  "list.insertMappings": {
+    "<C-c>": "do:exit",
+    "<C-j>": "do:next",
+    "<C-k>": "do:previous",
+    "<C-r>": "action:preview",
+    "<C-t>": "do:toggle"
+  },
+  "list.normalMappings": {
+    "<C-c>": "do:exit",
+    "<C-j>": "do:next",
+    "<C-k>": "do:previous",
+    "<C-p>": "action:preview",
+    "p": "action:preview",
+    "<C-t>": "do:toggle"
+  },
   "marketplace.npmsio": true,
   "prettier.disableLanguages": ["typescript"],
   "prettier.formatterPriority": 1,

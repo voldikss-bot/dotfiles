@@ -178,6 +178,7 @@ Plug 'iamcco/markdown-preview.nvim', {'for': 'markdown', 'do': 'cd app && yarn i
 Plug 'alvan/vim-closetag', {'for': ['html', 'xml']}
 Plug 'numirias/semshi', {'for': 'python'}
 Plug 'posva/vim-vue', {'for': 'vue'}
+Plug 'tpope/vim-dadbod'
 " Completion
 Plug 'neoclide/coc.nvim'
 " Style
@@ -775,7 +776,19 @@ nmap <Leader>0 <Plug>lightline#bufferline#go(10)
 " skywind3000/asyncrun.vim
 let g:asyncrun_status = ''  " asyncrun is lazy loaded
 let g:asyncrun_open = 9
-let g:asyncrun_rootmarks = ['.git', '.svn', '.root', '.project', '.hg', '.idea', '.gitignore', 'Makefile', 'CMakeLists.txt', '*.pro']
+let g:asyncrun_rootmarks = [
+  \ '.git',
+  \ '.svn',
+  \ '.root',
+  \ '.project',
+  \ '.hg',
+  \ '.idea',
+  \ '.gitignore',
+  \ 'Makefile',
+  \ 'CMakeLists.txt',
+  \ '*.pro',
+  \ '.tasks'
+  \ ]
 " skywind3000/asynctasks.vim
 let g:asynctasks_term_pos = 'bottom'
 let g:asynctasks_term_reuse = 1
@@ -800,7 +813,9 @@ let g:Lf_UseVersionControlTool = 0
 let g:Lf_RgConfig = [
     \ "--glob=!OmegaOptions.bak",
     \ "--glob=!node_modules",
-    \ "--no-ignore"
+    \ "--glob=!.git",
+    \ "--no-ignore",
+    \ "--hidden"
 \ ]
 let g:Lf_WildIgnore = {
   \ 'dir': [

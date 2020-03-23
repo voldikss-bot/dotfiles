@@ -70,8 +70,8 @@ export LC_CTYPE=en_US.UTF-8
 export SSH_KEY_PATH="~/.ssh/rsa_id"
 
 # thefuck
-export DEFAULT_USER="VOLDIKSS"
-eval $(thefuck --alias fk)
+# export DEFAULT_USER="VOLDIKSS"
+# eval $(thefuck --alias fk)
 
 # 自动进入和关闭 tmux
 # if [ $(command -v tmux) ] && [ -t 0 ] && [[ -z $TMUX ]] && [[ $- = *i* ]]; then exec tmux; fi

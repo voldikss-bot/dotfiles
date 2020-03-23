@@ -4,11 +4,6 @@
 " URL:		https://github.com/fedorenchik/qt-support.vim
 " Last Change:	2018 Jan 28
 
-" quit when a syntax file was already loaded
-if exists("b:current_syntax")
-  finish
-endif
-
 syn keyword	qmakeFunctionConst		contained basename CONFIG count dirname error eval exists find for
 									\ include infile isEmpty join member message prompt quote replace
 									\ sprintf system unique warning contains

@@ -62,7 +62,7 @@ function! userfunc#keymap#Normal_CR() abort
     return "\<CR>"
   else
     let line = trim(getline('.'))
-    if index(['c', 'cpp', 'cs', 'css', 'java', 'rust', 'scss'], &filetype) >= 0
+    if index(['c', 'cpp', 'cs', 'css', 'java', 'rust', 'scss', 'sql'], &filetype) >= 0
       if line != ''
         \ && index(['#', '/'], line[0]) < 0
         \ && index([',', ';', '{','[', '(', '\', '<', '>'], line[-1:]) < 0

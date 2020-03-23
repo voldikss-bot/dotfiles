@@ -3,10 +3,6 @@
 " URL:        https://github.com/cespare/vim-toml
 " LICENSE:    MIT
 
-if exists("b:current_syntax")
-  finish
-endif
-
 syn match tomlEscape /\\[btnfr"/\\]/ display contained
 syn match tomlEscape /\\u\x\{4}/ contained
 syn match tomlEscape /\\U\x\{8}/ contained

@@ -4,10 +4,6 @@ scriptencoding utf-8
 " Use of this source code is governed by an MIT license that can be
 " found in the LICENSE file.
 
-if exists('b:current_syntax')
-  finish
-endif
-
 " https://git-scm.com/docs/gitignore#_pattern_format
 syntax keyword gitignoreTodo TODO FIXME XXX NOTE SEE contained
 syntax match gitignoreComment '^#.*' contains=gitignoreTodo

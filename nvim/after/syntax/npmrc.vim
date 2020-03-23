@@ -1,7 +1,3 @@
-if exists('b:current_syntax')
-    finish
-endif
-
 syn match npmrcEntry "^[^=]\+=.*$" contains=npmrcEntryKey,npmrcEntryValue,npmrcBooleanValue display
 syn match npmrcEntryKey "^[^=]\+\ze=" contained containedin=npmrcEntry display
 syn match npmrcEntryValue "=\zs.*$" contained containedin=npmrcEntry display

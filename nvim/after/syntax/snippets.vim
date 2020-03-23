@@ -1,10 +1,6 @@
 " Syntax highlighting for snippet files (used for UltiSnips.vim)
 " Revision: 26/03/11 19:53:33
 
-if exists("b:current_syntax")
-  finish
-endif
-
 if expand("%:p:h") =~ "snippets" && search("^endsnippet", "nw") == 0
             \ && !exists("b:ultisnips_override_snipmate")
     " this appears to be a snipmate file

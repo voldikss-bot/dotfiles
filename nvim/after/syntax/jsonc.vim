@@ -1,7 +1,3 @@
-" Syntax setup {{{1
-if exists('b:current_syntax') && b:current_syntax == 'jsonc'
-  finish
-endif
 
 " Syntax: Strings {{{1
 syn region  jsoncString    start=+"+  skip=+\\\\\|\\"+  end=+"+  contains=jsoncEscape
