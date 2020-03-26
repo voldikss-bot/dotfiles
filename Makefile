@@ -51,8 +51,8 @@ link:
 .ONESHELL:
 .SILENT:
 nvim: link
-	echo "Installing nvim..."
 	if ! command -v nvim >/dev/null; then
+		echo "Installing nvim..."
 		if [ $(OS) == 'Arch' ]; then
 			sudo pacman -S neovim --noconfirm
 		elif [ $(OS) == 'Ubuntu' ]; then
@@ -82,11 +82,11 @@ nvim: link
 oh-my-zsh:
 	if [ ! -d "$(HOME)/.oh-my-zsh" ]; then
 		echo "Installing oh-my-zsh..."
-		sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+		sh -c "$$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 		# plugins
 		curl -L git.io/antigen > ~/.antigen.zsh
-		git clone https://github.com/zsh-users/zsh-autosuggestions "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
-		git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
+		git clone https://github.com/zsh-users/zsh-autosuggestions "$(HOME)/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
+		git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$(HOME)/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
 		# linking
 		for f in $(DOTFILES); do ln -svf "$(PWD)/home/$$f" "$(HOME)"; done
 		source ~/.zshrc
@@ -106,7 +106,7 @@ vim8:
 				--enable-largefile \
 				--disable-netbeans \
 				--enable-python3interp \
-				--with-python3-config-dir=$(python3-config --configdir) \
+				--with-python3-config-dir=$$(python3-config --configdir) \
 				--enable-fail-if-missing \
 				--enable-cscope \
 				--enable-multibyte
@@ -131,8 +131,8 @@ fonts:
 .ONESHELL:
 .SILENT:
 nodejs:
-	echo "Installing nodejs..."
 	if ! command -v node >/dev/null; then
+		echo "Installing nodejs..."
 		if [ $(OS) == 'Arch' ]; then
 			sudo pacman -S node --noconfirm
 		elif [ $(OS) == 'Ubuntu' ]; then
@@ -142,6 +142,7 @@ nodejs:
 		fi
 	fi
 	if ! command -v yarn >/dev/null; then
+		echo "Installing yarn..."
 		if [ $(OS) == 'Arch' ]; then
 			sudo pacman -S yarn --noconfirm
 		elif [ $(OS) == 'Ubuntu' ]; then
@@ -191,19 +192,19 @@ ccls:
 		if [ $(OS) == 'Arch' ]; then
 			sudo pacman -S ccls --noconfirm
 		elif [ $(OS) == 'Ubuntu' ]; then
-			cwd=$(pwd)
-				sudo apt install zlib1g-dev -y
-				mkdir -p ~/Applications
-				cd ~/Applications
-				git clone --depth=1 --recursive https://github.com/MaskRay/ccls
-				cd ccls
-				wget -c http://releases.llvm.org/8.0.0/clang+llvm-8.0.0-x86_64-linux-gnu-ubuntu-18.04.tar.xz
-				tar xf clang+llvm-8.0.0-x86_64-linux-gnu-ubuntu-18.04.tar.xz
-				cmake -H. -BRelease -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=$PWD/clang+llvm-8.0.0-x86_64-linux-gnu-ubuntu-18.04
-				cmake --build Release
-				rm -rf clang+llvm-8.0.0-x86_64-linux-gnu-ubuntu-18.04*
-				sudo ln -sf ~/Applications/ccls/Release/ccls /usr/bin/ccls
-				cd $cwd
+			cwd:=$(PWD)
+			sudo apt install zlib1g-dev -y
+			mkdir -p ~/Applications
+			cd ~/Applications
+			git clone --depth=1 --recursive https://github.com/MaskRay/ccls
+			cd ccls
+			wget -c http://releases.llvm.org/8.0.0/clang+llvm-8.0.0-x86_64-linux-gnu-ubuntu-18.04.tar.xz
+			tar xf clang+llvm-8.0.0-x86_64-linux-gnu-ubuntu-18.04.tar.xz
+			cmake -H. -BRelease -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=$$PWD/clang+llvm-8.0.0-x86_64-linux-gnu-ubuntu-18.04
+			cmake --build Release
+			rm -rf clang+llvm-8.0.0-x86_64-linux-gnu-ubuntu-18.04*
+			sudo ln -sf ~/Applications/ccls/Release/ccls /usr/bin/ccls
+			cd $(cwd)
 		fi
 	fi
 
@@ -249,15 +250,14 @@ ctags:
 .ONESHELL:
 .SILENT:
 gtags:
-	echo "Installing gtags..."
 	if ! command -v gtags >/dev/null; then
+		echo "Installing gtags..."
 		if [ $(OS) == 'Arch' ]; then
 			sudo pacman -S gtags --noconfirm
 		elif [ $(OS) == 'Ubuntu' ]; then
 			sudo apt install automake autoconf flex bison gperf libtool libtool-bin texinfo -y
 			# The latest version is v6.6.3 for now
 			# https://www.gnu.org/software/global/download.html
-			echo "Installing gtags..."
 			wget -c http://tamacom.com/global/global-6.6.3.tar.gz
 			tar -xf global-6.6.3.tar.gz
 			cd global-6.6.3
