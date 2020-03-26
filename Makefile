@@ -52,7 +52,7 @@ link:
 .SILENT:
 nvim: link
 	echo "Installing nvim..."
-	if ! command -v nvim; then
+	if ! command -v nvim >/dev/null; then
 		if [ $(OS) == 'Arch' ]; then
 			sudo pacman -S neovim --noconfirm
 		elif [ $(OS) == 'Ubuntu' ]; then
@@ -132,7 +132,7 @@ fonts:
 .SILENT:
 nodejs:
 	echo "Installing nodejs..."
-	if ! command -v node; then
+	if ! command -v node >/dev/null; then
 		if [ $(OS) == 'Arch' ]; then
 			sudo pacman -S node --noconfirm
 		elif [ $(OS) == 'Ubuntu' ]; then
@@ -141,7 +141,7 @@ nodejs:
 			rm ./lts
 		fi
 	fi
-	if ! command -v yarn; then
+	if ! command -v yarn >/dev/null; then
 		if [ $(OS) == 'Arch' ]; then
 			sudo pacman -S yarn --noconfirm
 		elif [ $(OS) == 'Ubuntu' ]; then
@@ -157,7 +157,7 @@ nodejs:
 .ONESHELL:
 .SILENT:
 python:
-	if ! command -v python; then
+	if ! command -v python >/dev/null; then
 		echo "Installing python..."
 		if [ $(OS) == 'Arch' ]; then
 			sudo pacman -S python --noconfirm
@@ -170,7 +170,7 @@ python:
 .ONESHELL:
 .SILENT:
 latex:
-	if ! command -v latex; then
+	if ! command -v latex >/dev/null; then
 		echo "Installing latex..."
 		if [ $(OS) == 'Arch' ]; then
 			# sudo pacman -S latex --noconfirm
@@ -186,7 +186,7 @@ latex:
 .ONESHELL:
 .SILENT:
 ccls:
-	if ! command -v ccls ; then
+	if ! command -v ccls >/dev/null; then
 		echo "Installing ccls..."
 		if [ $(OS) == 'Arch' ]; then
 			sudo pacman -S ccls --noconfirm
@@ -211,7 +211,7 @@ ccls:
 .ONESHELL:
 .SILENT:
 goldendict:
-	if ! command -v goldendict ; then
+	if ! command -v goldendict >/dev/null; then
 		echo "Installing goldendict..."
 		# https://github.com/skywind3000/ECDICT/releases/download/1.0.28/ecdict-mdx-style-28.zip
 		if [ $(OS) == 'Arch' ]; then
@@ -226,7 +226,7 @@ goldendict:
 .ONESHELL:
 .SILENT:
 ctags:
-	if ! command -v ctags ; then
+	if ! command -v ctags >/dev/null; then
 		echo "Installing ctags..."
 		# https://github.com/skywind3000/ECDICT/releases/download/1.0.28/ecdict-mdx-style-28.zip
 		if [ $(OS) == 'Arch' ]; then
@@ -250,7 +250,7 @@ ctags:
 .SILENT:
 gtags:
 	echo "Installing gtags..."
-	if ! command -v gtags; then
+	if ! command -v gtags >/dev/null; then
 		if [ $(OS) == 'Arch' ]; then
 			sudo pacman -S gtags --noconfirm
 		elif [ $(OS) == 'Ubuntu' ]; then
@@ -276,7 +276,7 @@ gtags:
 .ONESHELL:
 .SILENT:
 rg:
-	if ! command -v rg ; then
+	if ! command -v rg >/dev/null; then
 		echo "Installing rg..."
 		if [ $(OS) == 'Arch' ]; then
 			sudo pacman -S ripgrep --noconfirm
@@ -291,7 +291,7 @@ rg:
 .ONESHELL:
 .SILENT:
 fzf:
-	if ! command -v fzf ; then
+	if ! command -v fzf >/dev/null; then
 		echo "Installing fzf..."
 		if [ $(OS) == 'Arch' ]; then
 			sudo pacman -S fzf --noconfirm
@@ -305,7 +305,7 @@ fzf:
 .ONESHELL:
 .SILENT:
 ncdu:
-	if ! command -v ncdu ; then
+	if ! command -v ncdu >/dev/null; then
 		echo "Installing ncdu..."
 		if [ $(OS) == 'Arch' ]; then
 			sudo pacman -S ncdu --noconfirm
@@ -326,7 +326,7 @@ ncdu:
 .ONESHELL:
 .SILENT:
 nnn:
-	if ! command -v nnn; then
+	if ! command -v nnn >/dev/null; then
 		echo "Installing nnn..."
 		if [ $(OS) == 'Arch' ]; then
 			sudo pacman -S nnn --noconfirm
@@ -356,7 +356,7 @@ v2ray:
 .ONESHELL:
 .SILENT:
 peek:
-	if ! command -v peek; then
+	if ! command -v peek >/dev/null then
 		echo "Installing peek..."
 		if [ $(OS) == 'Arch' ]; then
 			sudo pacman -S peek --noconfirm
@@ -371,7 +371,7 @@ peek:
 .ONESHELL:
 .SILENT:
 google-chrome:
-	if ! command -v google-chrome; then
+	if ! command -v google-chrome >/dev/null; then
 		echo "Installing google-chrome..."
 		if [ $(OS) == 'Arch' ]; then
 			sudo pacman -S google-chrome --noconfirm
@@ -387,7 +387,7 @@ google-chrome:
 .ONESHELL:
 .SILENT:
 netease-cloud-music:
-	if ! command -v netease-cloud-music; then
+	if ! command -v netease-cloud-music dev/null then
 		echo "Installing netease-cloud-music..."
 		if [ $(OS) == 'Arch' ]; then
 			sudo pacman -S netease-cloud-music --noconfirm
