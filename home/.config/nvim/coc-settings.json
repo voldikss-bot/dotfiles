@@ -197,7 +197,7 @@
   "suggest.numberSelect": false,
   "suggest.removeDuplicateItems": false,
   "suggest.triggerAfterInsertEnter": false,
-  "template.templatesDirectory": "~/dotfiles/nvim/templates",
+  "template.templatesDirectory": "~/.config/nvim/templates",
   "todolist.autoUpload": false,
   "todolist.monitor": true,
   "translator.engines": ["bing", "ciba", "google"],

@@ -125,7 +125,7 @@ set expandtab
 set shiftround
 set relativenumber number
 set foldlevel=99
-set foldmethod=manual
+set foldmethod=indent
 set conceallevel=0
 set autoindent
 set smartindent
@@ -163,7 +163,7 @@ endif
 " }}}
 
 " Plugin: {{{
-call plug#begin('~/.cache/plugged')
+call plug#begin('~/.cache/nvim/plugged')
 " Languages
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'fatih/vim-go'
@@ -682,19 +682,19 @@ let g:indentLine_fileTypeExclude = ['startify', 'vista', 'json', 'codi', 'vtm', 
 let g:webdevicons_enable_startify = 1
 noremap <silent> <Space> <Esc>:Startify<CR>
 let g:startify_bookmarks = [
-  \ {'c': '~/.config/nvim/coc-settings.json'},
-  \ {'v': '~/.config/nvim/init.vim'}
+  \ {'c': stdpath('config') . '/coc-settings.json'},
+  \ {'v': stdpath('config') . '/init.vim'}
 \ ]
 let g:startify_files_number = 8
 let g:startify_padding_left = 15
-let g:startify_custom_header = [
-  \ '                      ___       ___       ___       ___       ___       ___       ___       ___   ',
-  \ '                     /\__\     /\  \     /\__\     /\  \     /\  \     /\__\     /\  \     /\  \  ',
-  \ '                    /:/ _/_   /::\  \   /:/  /    /::\  \   _\:\  \   /:/ _/_   /::\  \   /::\  \ ',
-  \ '                   |::L/\__\ /:/\:\__\ /:/__/    /:/\:\__\ /\/::\__\ /::-"\__\ /\:\:\__\ /\:\:\__\',
-  \ '                   |::::/  / \:\/:/  / \:\  \    \:\/:/  / \::/\/__/ \;:;-",-" \:\:\/__/ \:\:\/__/',
-  \ '                    L;;/__/   \::/  /   \:\__\    \::/  /   \:\__\    |:|  |    \::/  /   \::/  / ',
-  \ '                               \/__/     \/__/     \/__/     \/__/     \|__|     \/__/     \/__/  ']
+" let g:startify_custom_header = [
+"   \ '                      ___       ___       ___       ___       ___       ___       ___       ___   ',
+"   \ '                     /\__\     /\  \     /\__\     /\  \     /\  \     /\__\     /\  \     /\  \  ',
+"   \ '                    /:/ _/_   /::\  \   /:/  /    /::\  \   _\:\  \   /:/ _/_   /::\  \   /::\  \ ',
+"   \ '                   |::L/\__\ /:/\:\__\ /:/__/    /:/\:\__\ /\/::\__\ /::-"\__\ /\:\:\__\ /\:\:\__\',
+"   \ '                   |::::/  / \:\/:/  / \:\  \    \:\/:/  / \::/\/__/ \;:;-",-" \:\:\/__/ \:\:\/__/',
+"   \ '                    L;;/__/   \::/  /   \:\__\    \::/  /   \:\__\    |:|  |    \::/  /   \::/  / ',
+"   \ '                               \/__/     \/__/     \/__/     \/__/     \|__|     \/__/     \/__/  ']
 autocmd User Startified setlocal buflisted
 if has('nvim')
   highlight StartifyHeader guifg=#FF00FF
