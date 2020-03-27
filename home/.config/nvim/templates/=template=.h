@@ -1,5 +1,5 @@
-#ifndef _%GUARD%_
-#define _%GUARD%_
+#ifndef __%GUARD%__
+#define __%GUARD%__
 
 %HERE%
 

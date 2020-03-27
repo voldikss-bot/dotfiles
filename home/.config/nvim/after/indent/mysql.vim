@@ -49,15 +49,19 @@ function! GetMySqlIndent(lnum) abort
 
   if line =~ '^\s*--.*'
     return indent(a:lnum)
-  elseif line =~ ');$'
+  elseif line =~ ';\s*\(--\)*.*$' " `;` at the end of line (with comment)
     return previdnt - s:small_indentwidth
+  elseif line =~ '^\s*).*$'
+    return 0
   endif
 
-  if prevline =~ '($'
+  if prevline =~ '(\s*\(--\)*.*$'  " `(` at the end of line (with comment)
     return previdnt + s:small_indentwidth
-  elseif prevline =~ 'foreign key'
+  elseif prevline =~ 'foreign key\|begin'
     return previdnt + s:small_indentwidth
-  else
+  elseif prevline =~ ',\s*\(--\)*.*$' " `,` at the end of line (with comment)
     return previdnt
+  else
+    return 0
   endif
 endfunction

@@ -1,7 +1,7 @@
 " Author: voldikss <dyzplus@gmail.com>
 " GitHub: https://github.com/voldikss
 
-let g:winmgr_only_one_win = 1
+let g:winmgr_only_one_win = get(g:, 'winmgr_only_one_win', 1)
 let s:winmgr_windows = {
   \ 'coc-explorer': {
     \ 'open': 'CocCommand explorer',

@@ -42,6 +42,8 @@ let g:terminal_color_12 = '#00afff'
 let g:terminal_color_13 = '#d3869b'
 let g:terminal_color_14 = '#8ec07c'
 let g:terminal_color_15 = '#ebdbb2'
+" Others:
+let g:winmgr_only_one_win = 0
 " }}}
 
 " Basic: {{{
@@ -259,10 +261,10 @@ augroup UserLineNumber
   autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu | set nornu | endif
 augroup END
 
-augroup UserEqualWindowSize
-  autocmd!
-  autocmd VimResized * exec "normal \<C-w>="
-augroup END
+" augroup UserEqualWindowSize
+"   autocmd!
+"   autocmd VimResized * exec "normal \<C-w>="
+" augroup END
 
 augroup UserJumpToLastPosition
   autocmd!
@@ -517,7 +519,7 @@ noremap  <silent> <F5>             <Esc>:AsyncTask start<CR>
 noremap! <silent> <F5>             <Esc>:AsyncTask start<CR>
 noremap  <silent> <Leader>x        <Esc>:AsyncTask start<CR>
 noremap  <silent> <Leader><Space>  <Esc>:SwitchWindow qf<CR>
-tnoremap <silent> <Leader><Space>  <C-\><C-n>:SwitchWindow qf<CR>
+" tnoremap <silent> <Leader><Space>  <C-\><C-n>:SwitchWindow qf<CR>
 noremap  <silent> <F6>             <Esc>:AutoFormat<CR>
 noremap  <silent> <Leader><Leader> <Esc>:AutoFormat<CR>
 noremap! <silent> <F6>             <Esc>:AutoFormat<CR>

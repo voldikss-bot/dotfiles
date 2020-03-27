@@ -3,6 +3,9 @@
 
 " AutoFormat:
 function! userfunc#format#AutoFormat() abort
+  if &readonly || !&modifiable
+    return
+  endif
   let curr_pos = getpos('.')
   " 1. use coc
   call CocAction('format')
@@ -16,6 +19,9 @@ endfunction
 
 " AutoSave:
 function! userfunc#format#AutoSave() abort
+  if &readonly || !&modifiable
+    return
+  endif
   let curr_pos = getpos('.')
   if getpos('.')[1] != line('$')
     call s:RemoveBlankLines()
@@ -23,15 +29,14 @@ function! userfunc#format#AutoSave() abort
   if trim(getline('.')) != ''
     call s:RemoveWhiteSpaces()
   endif
-  if expand('%') != '' | update | endif
+  if expand('%') != ''
+    update
+  endif
   call setpos('.', curr_pos)
 endfunction
 
 " RemoveBlankLines:
 function! s:RemoveBlankLines() abort
-  if !&modifiable
-    return
-  endif
   let reg_tmp = @"
   while 1
     let endlnum = line('$')

@@ -62,7 +62,7 @@ function! userfunc#keymap#Normal_CR() abort
     return "\<CR>"
   else
     let line = trim(getline('.'))
-    if index(['c', 'cpp', 'cs', 'css', 'java', 'rust', 'scss', 'sql'], &filetype) >= 0
+    if index(['c', 'cpp', 'cs', 'css', 'java', 'rust', 'scss', 'mysql'], &filetype) >= 0
       if line != ''
         \ && index(['#', '/'], line[0]) < 0
         \ && index([',', ';', '{','[', '(', '\', '<', '>'], line[-1:]) < 0
@@ -104,6 +104,6 @@ function! userfunc#keymap#Normal_q() abort
     " \ && &filetype == ''
     return ":q!\<CR>"
   else
-    return ":bp\<bar>sp\<bar>bn\<bar>bd!\<bar>:redraw!\<CR>"
+    return ":bp\<bar>vsp\<bar>bn\<bar>bd!\<bar>:redraw!\<CR>"
   endif
 endfunction
