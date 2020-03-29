@@ -407,6 +407,9 @@ onoremap <silent> al :normal val<CR>
 " url
 xnoremap <silent> iu :<C-u>call userfunc#textobj#url()<CR>
 onoremap <silent> iu :normal viu<CR>
+" ip
+xnoremap <silent> iI :<C-u>call userfunc#textobj#ip()<CR>
+onoremap <silent> iI :normal viI<CR>
 " function argument(NOTE: dont use 'nore')
 xmap <silent> ia ifovvi)
 omap <silent> ia :normal via<CR>
