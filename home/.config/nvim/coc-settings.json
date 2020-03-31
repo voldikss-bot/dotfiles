@@ -6,6 +6,15 @@
   "coc.preferences.hoverTarget": "float",
   "coc.preferences.jumpCommand": "edit",
   "coc.preferences.messageLevel": "more",
+  "coc.preferences.rootPatterns": [
+    ".git",
+    "Cargo.toml",
+    ".root",
+    ".gitignore",
+    "Makefile",
+    ".tasks",
+    "CMakeLists.txt"
+  ],
   "coc.source.around.priority": 8,
   "coc.source.buffer.priority": 1,
   "coc.source.dictionary.priority": 1,
@@ -152,6 +161,7 @@
   "prettier.tabWidth": 2,
   "python.autoComplete.addBrackets": true,
   "python.formatting.provider": "black",
+  "rust-analyzer.raLspServerPath": "~/.cargo/bin/ra_lsp_server",
   "session.directory": "~/.cache/nvim/session",
   "session.saveOnVimLeave": false,
   "snippets.extends": {
@@ -198,8 +208,8 @@
   "suggest.removeDuplicateItems": false,
   "suggest.triggerAfterInsertEnter": false,
   "template.templatesDirectory": "~/.config/nvim/templates",
-  "todolist.autoUpload": false,
   "todolist.monitor": true,
+  "todolist.promptForReminder": false,
   "translator.engines": ["bing", "ciba", "google"],
   "tslint.autoFixOnSave": true,
   "typescript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,

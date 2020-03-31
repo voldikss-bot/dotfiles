@@ -279,6 +279,7 @@ augroup UserKeywordHighlight
   autocmd Syntax *
     \ call matchadd('Todo',  '\W\zs\(TODO\|FIXME\|CHANGED\|XXX\|BUG\|HACK\)') |
     \ call matchadd('Todo',  '\W\zs\(NOTE\|Note\|INFO\|IDEA\|NOTICE\)') |
+    \ call matchadd('Todo',  '\W\zs\(Ref\)') |
     \ call matchadd('Debug', '\W\zs\(Debug\|DEBUG\)') |
 augroup END
 
@@ -404,6 +405,9 @@ xnoremap <silent> il g_o^
 onoremap <silent> il :normal vil<CR>
 xnoremap <silent> al $o0
 onoremap <silent> al :normal val<CR>
+" block comment
+xnoremap i? [*o]*
+onoremap i? :<C-u>normal va?V<CR>
 " url
 xnoremap <silent> iu :<C-u>call userfunc#textobj#url()<CR>
 onoremap <silent> iu :normal viu<CR>
@@ -658,7 +662,7 @@ let g:coc_global_extensions = [
   \ 'coc-post',
   \ 'coc-prettier',
   \ 'coc-python',
-  \ 'coc-rls',
+  \ 'coc-rust-analyzer',
   \ 'coc-snippets',
   \ 'coc-syntax',
   \ 'coc-tag',
@@ -794,6 +798,7 @@ let g:asyncrun_rootmarks = [
   \ '*.pro',
   \ '.tasks'
   \ ]
+command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
 " skywind3000/asynctasks.vim
 let g:asynctasks_term_pos = 'bottom'
 let g:asynctasks_term_reuse = 1
@@ -815,9 +820,11 @@ let g:Lf_RootMarkers    = ['.project', '.svn', '.git', '.idea']
 let g:Lf_MruFileExclude = ['*.so','*.py[c0]','*.exe','*.sw?']
 let g:Lf_DefaultExternalTool = ""
 let g:Lf_UseVersionControlTool = 0
+" target: ignore rust build directory
 let g:Lf_RgConfig = [
     \ "--glob=!OmegaOptions.bak",
     \ "--glob=!node_modules",
+    \ "--glob=!target",
     \ "--glob=!.git",
     \ "--no-ignore",
     \ "--hidden"

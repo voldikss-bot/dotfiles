@@ -142,10 +142,3 @@ hi def link logLevelNotice Character
 hi def link logLevelInfo Repeat
 hi def link logLevelDebug Debug
 hi def link logLevelTrace Comment
-
-
-
-let b:current_syntax = 'log'
-
-let &cpoptions = s:cpo_save
-unlet s:cpo_save

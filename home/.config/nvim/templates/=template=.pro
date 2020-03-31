@@ -10,13 +10,13 @@ TEMPLATE = app
 
 SOURCES += \
     src/main.cpp \
-    src/mainwindow.cpp \
+    src/mainwindow.cpp
 
 HEADERS += \
-    src/mainwindow.hpp \
+    src/mainwindow.hpp
 
 FORMS += \
-    src/mainwindow.ui \
+    src/mainwindow.ui
 
 RESOURCES += \
     src/resource.qrc \
