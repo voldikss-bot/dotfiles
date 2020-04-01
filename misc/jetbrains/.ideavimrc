@@ -12,13 +12,14 @@ set relativenumber
 set scrolloff=3
 set history=1000
 
-" Matchpairs
-nnoremap M %
+nmap     M  %
+omap     M  %
+xmap     M  %
+noremap  U  <C-R>
 " Move
 noremap H ^
 noremap L $
 " Redo
-nnoremap U <C-r>
 " Go to mark
 nnoremap ' `
 " 查找时将结果置于屏幕中央
@@ -48,8 +49,9 @@ nnoremap <silent> ;sa <Esc>ggVG
 " 复制当前到行尾
 nnoremap Y y$
 " 快速退出
-nnoremap ;q  <Esc>:q<CR>
-nnoremap Q <Esc>:q<CR>
+nnoremap ;q <Esc>:q<CR>
+nnoremap gd <Esc>:q<CR>
+nnoremap Q  <Esc>:q<CR>
 " nnoremap <C-w> <Esc>:q<CR>
 " tab切换
 nnoremap <C-l> gt
@@ -71,7 +73,7 @@ inoremap <C-f> <Esc>ea
 " 另开一行
 " inoremap <C-o> <Esc>o
 " 行首行尾:
-inoremap <C-a> <Esc>I
+inoremap <C-a> <Home>
 inoremap <C-e> <End>
 " 清除整行
 inoremap <C-u> <Esc>cc
@@ -106,3 +108,13 @@ vmap K :action MoveLineUp<CR>
 
 nmap <A-n> :action GotoNextError<CR>
 nmap <A-p> :action GotoPreviousError<CR>
+
+" TextObject:
+" whole buffer
+xnoremap <silent> ie GoggV
+onoremap <silent> ie :normal vie<CR>
+" line
+xnoremap <silent> il g_o^
+onoremap <silent> il :normal vil<CR>
+xnoremap <silent> al $o0
+onoremap <silent> al :normal val<CR>

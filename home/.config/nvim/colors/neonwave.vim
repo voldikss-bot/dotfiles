@@ -41,8 +41,8 @@ if v:version >= 700
 endif
 
 
+hi Cursor gui=reverse guifg=NONE guibg=NONE
 hi Boolean           ctermfg=45    ctermbg=NONE  gui=NONE       cterm=NONE      guifg=#00d7ff  guibg=NONE
-hi Cursor            ctermfg=66    ctermbg=15    gui=NONE       cterm=NONE      guifg=#080808  guibg=#6c6c6c
 hi Constant          ctermfg=33    ctermbg=NONE  gui=bold       cterm=bold      guifg=#0087ff  guibg=NONE
 hi Character         ctermfg=207   ctermbg=NONE  gui=NONE       cterm=NONE      guifg=#ff5fff  guibg=NONE
 hi Conditional       ctermfg=201   ctermbg=NONE  gui=bold       cterm=bold      guifg=#ff00ff  guibg=NONE

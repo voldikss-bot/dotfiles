@@ -76,7 +76,7 @@ set tagfunc=CocTagFunc
 set ttimeout
 set timeoutlen=500
 set ttimeoutlen=20
-set mouse-=a
+set mouse=a
 set selectmode=mouse
 set clipboard=
 set backspace=2
@@ -279,7 +279,6 @@ augroup UserKeywordHighlight
   autocmd Syntax *
     \ call matchadd('Todo',  '\W\zs\(TODO\|FIXME\|CHANGED\|XXX\|BUG\|HACK\)') |
     \ call matchadd('Todo',  '\W\zs\(NOTE\|Note\|INFO\|IDEA\|NOTICE\)') |
-    \ call matchadd('Todo',  '\W\zs\(Ref\)') |
     \ call matchadd('Debug', '\W\zs\(Debug\|DEBUG\)') |
 augroup END
 
@@ -577,6 +576,8 @@ let g:semshi#always_update_all_highlights = v:true
 let g:semshi#error_sign = v:false
 " neoclide/coc.nvim
 autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
+inoremap <silent><expr> <C-j> coc#util#has_float() ? userfunc#coc#float_scroll(1) : "\<down>"
+inoremap <silent><expr> <C-k> coc#util#has_float() ? userfunc#coc#float_scroll(0) :  "\<up>"
 nmap <silent> <C-c> <Plug>(coc-cursors-word)
 xmap <silent> <C-c> <Plug>(coc-cursors-range)
 nmap <silent> <M-n> <Plug>(coc-diagnostic-next)

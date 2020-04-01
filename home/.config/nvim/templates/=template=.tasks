@@ -4,3 +4,9 @@
 command=:AsyncTask file-build-and-run
 # command=:AsyncTask cmake-build-and-run
 # command=:AsyncTask qmake-build-and-run
+cwd=$(VIM_FILEDIR)
+output=terminal
+# silent=1
+focus=1
+notify=echo
+save=2
