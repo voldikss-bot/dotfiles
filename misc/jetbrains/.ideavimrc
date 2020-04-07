@@ -96,6 +96,9 @@ nnoremap ;w <Esc>:w<CR>
 nmap gj :action VcsShowNextChangeMarker<CR>
 nmap gk :action VcsShowPrevChangeMarker<CR>
 
+nmap ;hu :action Vcs.RollbackChangedLines<CR>
+nmap ;hs :action Git.Stash<CR>
+
 nmap gc :action CommentByLineComment<CR>
 vmap gc :action CommentByBlockComment<CR>
 

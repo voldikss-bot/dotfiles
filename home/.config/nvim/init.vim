@@ -167,59 +167,60 @@ endif
 " Plugin: {{{
 call plug#begin('~/.cache/nvim/plugged')
 " Languages
-Plug 'octol/vim-cpp-enhanced-highlight'
-Plug 'fatih/vim-go'
-Plug 'rust-lang/rust.vim'
-Plug 'othree/html5.vim'
-Plug 'plasticboy/vim-markdown'
-Plug 'pangloss/vim-javascript'
-Plug 'vim-python/python-syntax'
 Plug 'HerringtonDarkholme/yats.vim'
-Plug 'lervag/vimtex'
-Plug 'iamcco/markdown-preview.nvim', {'for': 'markdown', 'do': 'cd app && yarn install'}
 Plug 'alvan/vim-closetag', {'for': ['html', 'xml']}
+Plug 'fatih/vim-go'
+Plug 'iamcco/markdown-preview.nvim', {'for': 'markdown', 'do': 'cd app && yarn install'}
+Plug 'lervag/vimtex'
 Plug 'numirias/semshi', {'for': 'python'}
+Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'othree/html5.vim'
+Plug 'pangloss/vim-javascript'
+Plug 'plasticboy/vim-markdown'
 Plug 'posva/vim-vue', {'for': 'vue'}
+Plug 'rust-lang/rust.vim'
 Plug 'tpope/vim-dadbod'
+Plug 'vim-python/python-syntax'
 " Completion
 Plug 'neoclide/coc.nvim'
 " Style
 Plug 'Yggdroot/indentLine'
+Plug 'guns/xterm-color-table.vim', {'on': 'XtermColorTable'}
+Plug 'itchyny/lightline.vim'
+Plug 'kshenoy/vim-signature'
+Plug 'mengelbrecht/lightline-bufferline'
 Plug 'mhinz/vim-startify', {'on': 'Startify'}
 Plug 'ryanoasis/vim-devicons'
-Plug 'itchyny/lightline.vim'
-Plug 'mengelbrecht/lightline-bufferline'
-Plug 'kshenoy/vim-signature'
-Plug 'guns/xterm-color-table.vim', {'on': 'XtermColorTable'}
 " Git
 Plug 'tpope/vim-fugitive'
 Plug 'rhysd/git-messenger.vim', {'on': 'GitMessenger'}
 " Others
 " Plug 'brglng/vim-im-select'
 " Plug 'puremourning/vimspector'
+Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
+Plug 'andrewradev/sideways.vim', {'on': ['SidewaysLeft', 'SidewaysRight']}
+Plug 'foosoft/vim-argwrap', {'on': 'ArgWrap'}
+Plug 'junegunn/vader.vim'
+Plug 'junegunn/vim-easy-align'
+Plug 'junegunn/vim-peekaboo'
+Plug 'kristijanhusak/vim-carbon-now-sh', {'on': 'CarbonNowSh'}
+Plug 'lfv89/vim-interestingwords'
+Plug 'liuchengxu/vista.vim'
+Plug 'matze/vim-move'
+Plug 'simnalamburt/vim-mundo', {'on': 'MundoToggle'}
 Plug 'skywind3000/asyncrun.vim', {'on': ['AsyncRun', 'AsyncStop'] }
 Plug 'skywind3000/asynctasks.vim'
 Plug 'skywind3000/vim-dict'
-Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
+Plug 'tommcdo/vim-exchange'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
 Plug 'voldikss/vim-browser-search'
 Plug 'voldikss/vim-codelf'
-Plug 'voldikss/vim-translator'
 Plug 'voldikss/vim-floaterm'
-Plug 'voldikss/vim-hello-word'
 Plug 'voldikss/vim-fnote'
-Plug 'simnalamburt/vim-mundo', {'on': 'MundoToggle'}
-Plug 'lfv89/vim-interestingwords'
-Plug 'liuchengxu/vista.vim'
-Plug 'tommcdo/vim-exchange'
-Plug 'matze/vim-move'
-Plug 'andrewradev/sideways.vim', {'on': ['SidewaysLeft', 'SidewaysRight']}
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-repeat'
-Plug 'foosoft/vim-argwrap', {'on': 'ArgWrap'}
-Plug 'junegunn/vim-easy-align'
-Plug 'junegunn/vim-peekaboo'
-Plug 'junegunn/vader.vim'
+Plug 'voldikss/vim-hello-word'
+Plug 'voldikss/vim-translator'
 Plug 'wellle/targets.vim'
 Plug 'yianwillis/vimcdoc'
 call plug#end()
@@ -245,7 +246,7 @@ augroup END
 augroup FileTypeAutocmds
   autocmd!
   autocmd FileType startify nmap <buffer> l <CR>
-  autocmd FileType floaterm setlocal cursorline
+  autocmd FileType floaterm setlocal nocursorline
   autocmd FileType help setlocal number
   autocmd FileType * set formatoptions-=cro
 augroup END
@@ -882,6 +883,8 @@ let g:translator_history_enable = 1
 let g:translator_default_engines = ['ciba', 'youdao']
 " voldikss/vim-floaterm
 let g:floaterm_position = 'center'
+let g:floaterm_gitcommit = 'split'
+hi FloatermBorderNF guifg=orange
 " let g:floaterm_type = 'normal'
 " let g:floaterm_keymap_new    = '<F7>'
 " let g:floaterm_keymap_prev   = '<F8>'

@@ -161,7 +161,7 @@
   "prettier.tabWidth": 2,
   "python.autoComplete.addBrackets": true,
   "python.formatting.provider": "black",
-  "rust-analyzer.raLspServerPath": "~/.cargo/bin/ra_lsp_server",
+  "rust-analyzer.serverPath": "~/.cargo/bin/rust-analyzer",
   "session.directory": "~/.cache/nvim/session",
   "session.saveOnVimLeave": false,
   "snippets.extends": {
@@ -170,6 +170,7 @@
     "typescript": ["javascript"]
   },
   "snippets.priority": -10,
+  "suggest.acceptSuggestionOnCommitCharacter": true,
   "suggest.completionItemKindLabels": {
     "class": "\uf0e8",
     "color": "\ue22b",
@@ -204,7 +205,7 @@
   "suggest.labelMaxLength": 75,
   "suggest.languageSourcePriority": 99,
   "suggest.noselect": false,
-  "suggest.numberSelect": false,
+  "suggest.numberSelect": true,
   "suggest.removeDuplicateItems": false,
   "suggest.triggerAfterInsertEnter": false,
   "template.templatesDirectory": "~/.config/nvim/templates",
