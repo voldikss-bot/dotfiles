@@ -172,7 +172,7 @@ Plug 'alvan/vim-closetag', {'for': ['html', 'xml']}
 Plug 'fatih/vim-go'
 Plug 'iamcco/markdown-preview.nvim', {'for': 'markdown', 'do': 'cd app && yarn install'}
 Plug 'lervag/vimtex'
-Plug 'numirias/semshi', {'for': 'python'}
+" Plug 'numirias/semshi', {'for': 'python'}
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'othree/html5.vim'
 Plug 'pangloss/vim-javascript'
@@ -279,7 +279,7 @@ augroup UserKeywordHighlight
   autocmd!
   autocmd Syntax *
     \ call matchadd('Todo',  '\W\zs\(TODO\|FIXME\|CHANGED\|XXX\|BUG\|HACK\)') |
-    \ call matchadd('Todo',  '\W\zs\(NOTE\|Note\|INFO\|IDEA\|NOTICE\)') |
+    \ call matchadd('Todo',  '\W\zs\(NOTE\|INFO\|IDEA\|NOTICE\)') |
     \ call matchadd('Debug', '\W\zs\(Debug\|DEBUG\)') |
 augroup END
 
@@ -522,9 +522,9 @@ noremap  <silent> <F3>             <Esc>:SwitchWindow mundo<CR>
 noremap! <silent> <F3>             <Esc>:SwitchWindow mundo<CR>
 tnoremap <silent> <F3>             <C-\><C-n>:SwitchWindow mundo<CR>
 noremap  <silent> <F4>             <Esc>:OpenFileExplorer<CR>
-noremap  <silent> <F5>             <Esc>:AsyncTask start<CR>
-noremap! <silent> <F5>             <Esc>:AsyncTask start<CR>
-noremap  <silent> <Leader>x        <Esc>:AsyncTask start<CR>
+noremap  <silent> <F5>             <Esc>:QuickRun<CR>
+noremap! <silent> <F5>             <Esc>:QuickRun<CR>
+noremap  <silent> <Leader>x        <Esc>:QuickRun<CR>
 noremap  <silent> <Leader><Space>  <Esc>:SwitchWindow qf<CR>
 " tnoremap <silent> <Leader><Space>  <C-\><C-n>:SwitchWindow qf<CR>
 noremap  <silent> <F6>             <Esc>:AutoFormat<CR>

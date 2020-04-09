@@ -152,6 +152,7 @@
     "p": "action:preview",
     "<C-t>": "do:toggle"
   },
+  "list.previewSplitRight": false,
   "marketplace.npmsio": true,
   "prettier.disableLanguages": ["typescript"],
   "prettier.formatterPriority": 1,
@@ -205,7 +206,7 @@
   "suggest.labelMaxLength": 75,
   "suggest.languageSourcePriority": 99,
   "suggest.noselect": false,
-  "suggest.numberSelect": true,
+  "suggest.numberSelect": false,
   "suggest.removeDuplicateItems": false,
   "suggest.triggerAfterInsertEnter": false,
   "template.templatesDirectory": "~/.config/nvim/templates",
