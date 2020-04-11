@@ -182,7 +182,7 @@ Plug 'rust-lang/rust.vim'
 Plug 'tpope/vim-dadbod'
 Plug 'vim-python/python-syntax'
 " Completion
-Plug 'neoclide/coc.nvim'
+Plug 'neoclide/coc.nvim', {'commit': '14a9440'}
 " Style
 Plug 'Yggdroot/indentLine'
 Plug 'guns/xterm-color-table.vim', {'on': 'XtermColorTable'}
@@ -197,6 +197,7 @@ Plug 'rhysd/git-messenger.vim', {'on': 'GitMessenger'}
 " Others
 " Plug 'brglng/vim-im-select'
 " Plug 'puremourning/vimspector'
+Plug 'easymotion/vim-easymotion'
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 Plug 'andrewradev/sideways.vim', {'on': ['SidewaysLeft', 'SidewaysRight']}
 Plug 'foosoft/vim-argwrap', {'on': 'ArgWrap'}
@@ -691,7 +692,7 @@ let g:indentLine_color_term = 238
 let g:indentLine_fileTypeExclude = ['startify', 'vista', 'json', 'codi', 'vtm', 'jsonc', 'coc-explorer']
 " mhinz/vim-startify
 let g:webdevicons_enable_startify = 1
-noremap <silent> <Space> <Esc>:Startify<CR>
+noremap <silent> <Space><Space> <Esc>:Startify<CR>
 let g:startify_bookmarks = [
   \ {'c': stdpath('config') . '/coc-settings.json'},
   \ {'v': stdpath('config') . '/init.vim'}
@@ -880,7 +881,9 @@ vmap <silent>    ,t        <Plug>TranslateV
 vmap <silent>    ,w        <Plug>TranslateWV
 vmap <silent>    ,r        <Plug>TranslateRV
 let g:translator_history_enable = 1
-let g:translator_default_engines = ['ciba', 'youdao']
+let g:translator_default_engines = ['baicizhan', 'bing', 'google', 'haici', 'iciba', 'trans', 'youdao']
+let g:translator_window_max_height = 0.8
+let g:translator_window_max_width = 0.8
 " voldikss/vim-floaterm
 let g:floaterm_position = 'center'
 let g:floaterm_gitcommit = 'split'
@@ -928,4 +931,13 @@ nmap <silent> ga <Plug>(EasyAlign)
 noremap <silent> <Leader>gm :GitMessenger<CR>
 " puremourning/vimspector
 let g:vimspector_enable_mappings = 'HUMAN'
+" easymotion.vim
+let g:EasyMotion_do_mapping = 0
+nmap <Space>f <Plug>(easymotion-overwin-f2)
+let g:EasyMotion_smartcase = 1
+nmap <Space>j <Plug>(easymotion-j)
+nmap <Space>k <Plug>(easymotion-k)
+nmap <Space>l <Plug>(easymotion-bd-jk)
+nmap <Space>w <Plug>(easymotion-bd-w)
+nmap <Space>f <Plug>(easymotion-bd-f)
 " }}}
