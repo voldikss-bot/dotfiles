@@ -20,7 +20,7 @@ endif
 let s:small_indentwidth = 2
 
 function! s:GetPrevNonCommentLnum(lnum)
-  let SKIP_LINES = '^\s*--.*'
+  let SKIP_LINES = '^\s*#.*'
 
   let nline = a:lnum
   while nline > 0
@@ -47,19 +47,21 @@ function! GetMySqlIndent(lnum) abort
     return 0
   endif
 
-  if line =~ '^\s*--.*'
+  if line =~ '\v^\s*#.*'
     return indent(a:lnum)
-  elseif line =~ ';\s*\(--\)*.*$' " `;` at the end of line (with comment)
+  elseif line =~ '\v;\s*#*.*$' " `;` at the end of line (with comment)
     return previdnt - s:small_indentwidth
-  elseif line =~ '^\s*).*$'
+  elseif line =~ '\v^\s*\).*$'
     return 0
   endif
 
-  if prevline =~ ',\s*\(--\)*.*$' " `,` at the end of line (with comment)
+  if prevline =~ '\v,(\s*#+.*)*$' " `,` at the end of line (with comment)
     return previdnt
   elseif prevline =~ 'foreign key\|begin'
     return previdnt + s:small_indentwidth
-  elseif prevline =~ '(\s*\(--\)\+.*$' || prevline =~ '(\s*$'  " `(` at the end of line (with comment)
+  elseif prevline =~ '\v\(\s*#+.*$' || prevline =~ '(\s*$'  " `(` at the end of line (with comment)
+    return previdnt + s:small_indentwidth
+  elseif prevline =~ 'values$'
     return previdnt + s:small_indentwidth
   else
     return 0

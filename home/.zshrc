@@ -112,9 +112,10 @@ antigen apply
 # oh-my-zsh
 #=============================================================================
 export ZSH=$HOME/.oh-my-zsh
+ZSH_THEME="gnzh"
 source $ZSH/oh-my-zsh.sh
+# source $HOME/.af-magic.zsh-theme    # theme
 source $HOME/.alias
-source $HOME/.af-magic.zsh-theme    # theme
 
 
 #=============================================================================

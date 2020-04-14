@@ -182,7 +182,7 @@ Plug 'rust-lang/rust.vim'
 Plug 'tpope/vim-dadbod'
 Plug 'vim-python/python-syntax'
 " Completion
-Plug 'neoclide/coc.nvim', {'commit': '14a9440'}
+Plug 'neoclide/coc.nvim'
 " Style
 Plug 'Yggdroot/indentLine'
 Plug 'guns/xterm-color-table.vim', {'on': 'XtermColorTable'}
@@ -427,24 +427,24 @@ tnoremap <expr> <silent> <C-l>  (&filetype == 'floaterm') ? '<C-\><C-n>:Floaterm
 noremap  <silent> <C-t> <Esc>:tabnew<CR>
 " TextCopy:
 nnoremap Y y$
-nnoremap <Leader>y "+yy
-vnoremap <Leader>y "+y
-nnoremap <Leader>Y "+y$
-nnoremap <Leader>p "+p
-nnoremap <Leader>P "+P
+nnoremap <silent> <Leader>y "+yy
+vnoremap <silent> <Leader>y "+y
+nnoremap <silent> <Leader>Y "+y$
+nnoremap <silent> <Leader>p "+p
+nnoremap <silent> <Leader>P "+P
 " InsertMode: move
-inoremap <C-k> <Up>
-inoremap <C-j> <Down>
-snoremap <C-j> <Down>
-inoremap <C-h> <Left>
-inoremap <C-l> <Right>
-inoremap <C-b> <Esc>bi
-inoremap <C-f> <Esc>ea
-inoremap <C-a> <Esc>I
-inoremap <C-e> <End>
-inoremap <C-o> <End><CR>
-inoremap <M-o> <Esc>O
-inoremap <C-d> <Esc>ddi
+inoremap <silent> <C-k> <Up>
+inoremap <silent> <C-j> <Down>
+snoremap <silent> <C-j> <Down>
+inoremap <silent> <C-h> <Left>
+inoremap <silent> <C-l> <Right>
+inoremap <silent> <C-b> <C-r>=userfunc#keymap#Exec('normal! b')<CR>
+inoremap <silent> <C-f> <C-r>=userfunc#keymap#Exec('normal! w')<CR>
+inoremap <silent> <C-a> <Home>
+inoremap <silent> <C-e> <End>
+inoremap <silent> <C-o> <End><CR>
+inoremap <silent> <M-o> <Esc>O
+inoremap <silent> <C-d> <Esc>ddi
 
 nnoremap <silent>       <Leader>w :w<CR>
 nnoremap <silent>       <Leader>W :wa<CR>
@@ -887,7 +887,7 @@ let g:translator_window_max_width = 0.8
 " voldikss/vim-floaterm
 let g:floaterm_position = 'center'
 let g:floaterm_gitcommit = 'split'
-hi FloatermBorderNF guifg=orange
+hi FloatermBorder guifg=orange
 " let g:floaterm_type = 'normal'
 " let g:floaterm_keymap_new    = '<F7>'
 " let g:floaterm_keymap_prev   = '<F8>'
@@ -899,6 +899,8 @@ let g:mundo_preview_height     = 10
 let g:mundo_right              = 0
 let g:mundo_preview_bottom     = 1
 let g:mundo_auto_preview_delay = 10
+" voldikss/vim-codelf
+let g:codelf_status = ''
 " lfv89/vim-interestingwords
 nnoremap <silent> <leader>k :call InterestingWords('n')<cr>
 vnoremap <silent> <leader>k :call InterestingWords('v')<cr>

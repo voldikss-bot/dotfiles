@@ -1,16 +1,22 @@
 set ideajoin
 set surround
+set commentary
+set easymotion
 set multiple-cursors
-
+set number
+set relativenumber
 set hlsearch
 set incsearch
 set ignorecase
 set smartcase
 set showmode
-set number
-set relativenumber
 set scrolloff=3
-set history=1000
+set sidescrolloff=4
+set history=10000
+set clipboard+=unnamed
+
+let mapleader   = ';'
+let g:mapleader = ';'
 
 nmap     M  %
 omap     M  %
@@ -93,6 +99,33 @@ nnoremap <C-j> <C-]>
 nnoremap ;d <Esc>:q<CR>
 nnoremap ;w <Esc>:w<CR>
 
+noremap <c-o> :action Back<cr>
+noremap <c-i> :action Forward<cr>
+
+" easymotion
+" map \ <Plug>(easymotion-prefix)
+" nmap s <Plug>(easymotion-s)
+
+" File search
+noremap <Leader><space> :action GotoAction<CR>
+noremap <Leader>f       :action GotoFile<cr>
+noremap <Leader>c       :action GotoClass<cr>
+noremap <Leader>s       :action GotoSymbol<cr>
+noremap <Leader>o       :action FileStructurePopup<cr>
+noremap <Leader>e       :action SearchEverywhere<cr>
+noremap <Leader>g       :action Git.Menu<CR>
+noremap <Leader>b       :action RecentFiles<CR>
+
+" Run
+noremap <Leader>x :action Run<cr>
+
+" Goto
+noremap <Leader>cd :action GotoDeclaration<cr>
+noremap <Leader>ci :action GotoImplementation<cr>
+
+" Refactor
+noremap <Leader><Leader> :action ReformatCode<CR>
+noremap ,r        :action RenameElement<CR>
 nmap gj :action VcsShowNextChangeMarker<CR>
 nmap gk :action VcsShowPrevChangeMarker<CR>
 

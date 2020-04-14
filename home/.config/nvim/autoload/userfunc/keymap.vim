@@ -107,3 +107,8 @@ function! userfunc#keymap#Normal_q() abort
     return ":bp\<bar>vsp\<bar>bn\<bar>bd!\<bar>:redraw!\<CR>"
   endif
 endfunction
+
+function! userfunc#keymap#Exec(cmd)
+  execute a:cmd
+  return ''
+endfunction
