@@ -14,19 +14,20 @@ function! userfunc#keymap#Insert_BS() abort
     else
       return ""
     endif
+  endif
+
+  let line = getline('.')       " don't use trim() here
+  let colnr = getpos('.')[2]
+  let paren = strcharpart(line, colnr-2, 2)
+  let pairs = ['()', '[]', '{}', '<>', '%%', '$$', '**', '""', "''", '~~', '``']
+  if index(pairs, paren) >=0
+    return "\<Left>\<Del>\<Del>"
   else
-    let line = getline('.')       " 此处不能用 trim()
-    let colnr = getpos('.')[2]
-    let paren = strcharpart(line, colnr-2, 2)
-    if index(['()', '[]', '{}', '<>', '%%', '$$', '**', '""', "''", '~~', '``'], paren) >=0
-      return "\<Left>\<Del>\<Del>"
+    let prefix = line[:colnr-2]
+    if prefix =~ '^\s\+$' && len(prefix) % &shiftwidth == 0
+      return "\<BS>"
     else
-      let prefix = line[:colnr-2]
-      if prefix =~ '^\s\+$' && len(prefix) % &shiftwidth == 0
-        return "\<BS>"
-      else
-        return "\<Left>\<Del>"
-      endif
+      return "\<Left>\<Del>"
     endif
   endif
 endfunction
@@ -58,39 +59,25 @@ endfunction
 
 " Normal: <CR>
 function! userfunc#keymap#Normal_CR() abort
-  if &filetype ==# 'qf'
+  let line = trim(getline('.'))
+  let disable_if_begin_with = ['#', '/']
+  let disable_if_end_with = [',', ';', '{','[', '(', '\', '<', '>']
+
+  if line == '' || index(disable_if_begin_with, line[0]) >= 0 || index(disable_if_end_with, line[-1:]) >= 0
     return "\<CR>"
-  else
-    let line = trim(getline('.'))
-    if index(['c', 'cpp', 'cs', 'css', 'java', 'rust', 'scss', 'mysql'], &filetype) >= 0
-      if line != ''
-        \ && index(['#', '/'], line[0]) < 0
-        \ && index([',', ';', '{','[', '(', '\', '<', '>'], line[-1:]) < 0
-          return "A;"
-      else
-        return ""
-      endif
-    elseif index(['json', 'jsonc'], &filetype) >=0
-      if line != ''
-        \ && index(['#', '/'], line[0]) < 0
-        \ && index([',', '{','['], line[-1:]) < 0
-        return "A,"
-      else
-        return ""
-      endif
-    else
-      return "" " prevent entering to the next line
-    endif
+  endif
+
+  if index(['c', 'cpp', 'cs', 'css', 'java', 'rust', 'scss', 'mysql'], &filetype) >= 0
+    return "A;"
+  elseif index(['json', 'jsonc'], &filetype) >= 0
+    return "A,"
   endif
 endfunction
 
 " Normal: q
 function! userfunc#keymap#Normal_q() abort
   " is the last buffer
-  if len(getbufinfo({'buflisted':1})) == 1
-    \ && winnr('$') == 1
-    \ && bufname() == ''
-    " \ && &filetype == ''
+  if len(getbufinfo({'buflisted':1})) == 1 && winnr('$') == 1 && bufname() == ''
     return ":q!\<CR>"
   else
     return ":bp\<bar>vsp\<bar>bn\<bar>bd!\<bar>:redraw!\<CR>"
