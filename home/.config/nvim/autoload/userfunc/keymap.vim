@@ -6,7 +6,7 @@ function! userfunc#keymap#FlyOutPairs(key)
   return "\<ESC>:call search("."'".a:key."'".")\<CR>a"
 endfunction
 
-" InsertMap_BS:
+" Insert: <BS>
 function! userfunc#keymap#Insert_BS() abort
   if col('.') == 1
     if line('.')  != 1
@@ -31,7 +31,7 @@ function! userfunc#keymap#Insert_BS() abort
   endif
 endfunction
 
-"Insert_CR:
+" Insert: <CR>
 function! userfunc#keymap#Insert_CR() abort
   let line = getline('.') " can not use trim
   if pumvisible()
@@ -45,7 +45,7 @@ function! userfunc#keymap#Insert_CR() abort
   endif
 endfunction
 
-" Insert_ESC:
+" Insert: <Esc>
 function! userfunc#keymap#Insert_ESC()
   let colnr = getpos('.')[2]
   let linelen = len(getline('.'))
@@ -56,7 +56,7 @@ function! userfunc#keymap#Insert_ESC()
   endif
 endfunction
 
-" Normal_CR:
+" Normal: <CR>
 function! userfunc#keymap#Normal_CR() abort
   if &filetype ==# 'qf'
     return "\<CR>"
@@ -84,18 +84,7 @@ function! userfunc#keymap#Normal_CR() abort
   endif
 endfunction
 
-" VisualStarSearch:
-function! userfunc#keymap#VisualStarSearch(cmdtype, ...) abort
-  let temp = @"
-  normal! gvy
-  if !a:0 || a:1 != 'raw'
-    let @" = escape(@", a:cmdtype.'\*')
-  endif
-  let @/ = substitute(@", '\n', '\\n', 'g')
-  let @/ = substitute(@/, '\[', '\\[', 'g')
-  let @/ = substitute(@/, '\~', '\\~', 'g')
-endfunction
-
+" Normal: q
 function! userfunc#keymap#Normal_q() abort
   " is the last buffer
   if len(getbufinfo({'buflisted':1})) == 1
@@ -106,6 +95,36 @@ function! userfunc#keymap#Normal_q() abort
   else
     return ":bp\<bar>vsp\<bar>bn\<bar>bd!\<bar>:redraw!\<CR>"
   endif
+endfunction
+
+" Normal: [[
+function! userfunc#keymap#Square_Brackets_Left() abort
+  if empty(getline(line('.')-1))
+    normal! {
+  else
+    normal! {j
+  endif
+endfunction
+
+" Normal: ]]
+function! userfunc#keymap#Square_Brackets_Right() abort
+  if empty(getline(line('.')+1))
+    normal! }
+  else
+    normal! }k
+  endif
+endfunction
+
+" VisualStarSearch:
+function! userfunc#keymap#VisualStarSearch(cmdtype, ...) abort
+  let temp = @"
+  normal! gvy
+  if !a:0 || a:1 != 'raw'
+    let @" = escape(@", a:cmdtype.'\*')
+  endif
+  let @/ = substitute(@", '\n', '\\n', 'g')
+  let @/ = substitute(@/, '\[', '\\[', 'g')
+  let @/ = substitute(@/, '\~', '\\~', 'g')
 endfunction
 
 function! userfunc#keymap#Exec(cmd)

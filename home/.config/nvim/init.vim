@@ -385,6 +385,9 @@ vnoremap <  <gv
 vnoremap >  >gv
 noremap <C-U> kkkkkkkkkkkkkkkkkkkkk
 noremap <C-D> jjjjjjjjjjjjjjjjjjjjj
+" Move:
+nnoremap <silent> [[  :<C-u>call userfunc#keymap#Square_Brackets_Left()<CR>
+nnoremap <silent> ]]  :<C-u>call userfunc#keymap#Square_Brackets_Right()<CR>
 " Jump:
 noremap <silent> <C-j>      <C-]>
 noremap <silent> <C-W><C-j> <C-W><C-]>
