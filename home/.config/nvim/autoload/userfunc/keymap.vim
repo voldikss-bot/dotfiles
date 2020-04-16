@@ -112,3 +112,12 @@ function! userfunc#keymap#Exec(cmd)
   execute a:cmd
   return ''
 endfunction
+
+function! userfunc#keymap#incyank() abort
+  let old = getreg('"')
+  let tmp = getreg('a')
+  normal! gv"ay
+  let new = old . getreg('"')
+  call setreg('"', new)
+  call setreg('a', tmp)
+endfunction

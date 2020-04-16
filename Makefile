@@ -102,14 +102,26 @@ vim8:
 	git clone https://github.com/vim/vim  vim-master --depth 1
 	cd vim-master
 	make distclean
-	./configure --with-features=huge \
-				--enable-largefile \
-				--disable-netbeans \
-				--enable-python3interp \
-				--with-python3-config-dir=$$(python3-config --configdir) \
-				--enable-fail-if-missing \
-				--enable-cscope \
-				--enable-multibyte
+	# copied from https://git.archlinux.org/svntogit/packages.git/tree/trunk/PKGBUILD?h=packages/vim
+	./configure \
+      --prefix=/usr \
+      --localstatedir=/var/lib/vim \
+      --with-features=huge \
+      --with-compiledby='Arch Linux' \
+      --enable-gpm \
+      --enable-acl \
+      --with-x=no \
+      --disable-gui \
+      --enable-multibyte \
+      --enable-cscope \
+      --enable-netbeans \
+      --enable-perlinterp=dynamic \
+      --enable-pythoninterp=dynamic \
+      --enable-python3interp=dynamic \
+      --enable-rubyinterp=dynamic \
+      --enable-luainterp=dynamic \
+      --enable-tclinterp=dynamic \
+      --disable-canberra
 	make VIMRUNTIMEDIR=/usr/local/share/vim/vim82
 	sudo make install
 	sudo ln -sf /usr/local/bin/vim /usr/bin/vim
