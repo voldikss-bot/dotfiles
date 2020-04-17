@@ -290,9 +290,9 @@ augroup UserAutoChangeDir
   autocmd BufEnter * silent! lcd %:p:h
 augroup END
 
-augroup UserAutoAddGitignore
+augroup UserAutoTemplate
   autocmd!
-  autocmd BufNewFile .gitignore CocCommand template.templateTop
+  autocmd BufNewFile .gitignore,.tasks CocCommand template.templateTop
 augroup END
 
 augroup UserChecktime
