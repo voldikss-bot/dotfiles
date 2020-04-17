@@ -42,8 +42,8 @@ endfunction
 
 " GitBranch:
 function! userfunc#lightline#GitBranch()
-  if exists('*fugitive#head') && &filetype !~# '\v(denite|help|man|qf|tagbar|Mundo|vista)'
-    let branch = fugitive#head()
+  if exists('*FugitiveHead') && &filetype !~# '\v(denite|help|man|qf|tagbar|Mundo|vista)'
+    let branch = FugitiveHead()
     return branch !=# '' ? ''. branch : ''
   endif
   return ''

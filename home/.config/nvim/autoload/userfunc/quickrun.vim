@@ -15,6 +15,8 @@ function! userfunc#quickrun#Run(...) abort
     echom 'b:quickrun_cmd: ' . b:quickrun_cmd
     execute b:quickrun_cmd
     return
+  elseif expand('%') == 'init.vim'
+    source %
   else
     AsyncTask start
   endif

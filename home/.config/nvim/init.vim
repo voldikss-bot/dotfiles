@@ -170,7 +170,7 @@ call plug#begin('~/.cache/nvim/plugged')
 Plug 'HerringtonDarkholme/yats.vim'
 Plug 'alvan/vim-closetag', {'for': ['html', 'xml']}
 Plug 'fatih/vim-go'
-Plug 'iamcco/markdown-preview.nvim', {'for': 'markdown', 'do': 'cd app && yarn install'}
+Plug 'iamcco/markdown-preview.nvim', {'for': 'markdown', 'do': 'cd app && npm install'}
 Plug 'lervag/vimtex'
 " Plug 'numirias/semshi', {'for': 'python'}
 Plug 'octol/vim-cpp-enhanced-highlight'
@@ -182,7 +182,7 @@ Plug 'rust-lang/rust.vim'
 Plug 'tpope/vim-dadbod'
 Plug 'vim-python/python-syntax'
 " Completion
-Plug 'neoclide/coc.nvim'
+Plug 'neoclide/coc.nvim', {'do': 'npm install'}
 " Style
 Plug 'Yggdroot/indentLine'
 Plug 'guns/xterm-color-table.vim', {'on': 'XtermColorTable'}
@@ -239,11 +239,6 @@ augroup ParenColor
     \ endif
 augroup END
 
-augroup LocalKayMap
-  autocmd!
-  autocmd BufEnter * if &buftype=='terminal' | nmap <buffer><silent>q :q<CR> | endif
-augroup END
-
 augroup FileTypeAutocmds
   autocmd!
   autocmd FileType startify nmap <buffer> l <CR>
@@ -292,7 +287,7 @@ augroup END
 
 augroup UserAutoTemplate
   autocmd!
-  autocmd BufNewFile .gitignore,.tasks CocCommand template.templateTop
+  autocmd BufNewFile .gitignore,.tasks,.clang-format CocCommand template.templateTop
 augroup END
 
 augroup UserChecktime
@@ -318,7 +313,9 @@ augroup UserTermSettings " neovim only
     \ setlocal signcolumn=no |
     \ setlocal nobuflisted |
     \ setlocal nospell |
+    \ setlocal modifiable |
     \ nmap <silent><buffer> <Esc> <Cmd>hide<CR>|
+    \ nmap <silent><buffer> q :q<CR> |
     \ hi TermCursor guifg=yellow
 augroup END
 
@@ -416,8 +413,8 @@ noremap  U  <C-R>
 noremap  '  `
 vnoremap <  <gv
 vnoremap >  >gv
-noremap <C-U> kkkkkkkkkkkkkkkkkkkkk
-noremap <C-D> jjjjjjjjjjjjjjjjjjjjj
+noremap <C-u> <C-u>zz
+noremap <C-d> <C-d>zz
 " Move:
 nnoremap <silent> [[  :<C-u>call userfunc#keymap#Square_Brackets_Left()<CR>
 nnoremap <silent> ]]  :<C-u>call userfunc#keymap#Square_Brackets_Right()<CR>
@@ -835,57 +832,68 @@ noremap <silent> <Leader>fr :<C-U><C-R>=printf("Leaderf! gtags -r %s --auto-jump
 noremap <silent> <Leader>fd :<C-U><C-R>=printf("Leaderf! gtags -d %s --auto-jump", expand("<cword>"))<CR><CR>
 noremap <silent> <Leader>fn :<C-U><C-R>=printf("Leaderf gtags --next %s", "")<CR><CR>
 noremap <silent> <Leader>fp :<C-U><C-R>=printf("Leaderf gtags --previous %s", "")<CR><CR>
+let g:Lf_CacheDirectory       = expand('~/.cache/nvim')
+let g:Lf_CommandMap = {
+  \'<Up>': ['<C-p>'],
+  \'<Down>': ['<C-n>']
+\}
+let g:Lf_Ctags                = "/usr/local/bin/ctags"
+let g:Lf_DefaultExternalTool = ""
+let g:Lf_FilerShowDevIcons = 1
 let g:Lf_GtagsAutoGenerate = 1
 let g:Lf_Gtagslabel = 'native-pygments'
-let g:Lf_StlSeparator   = {'left': '', 'right': '', 'font': ''}
-let g:Lf_RootMarkers    = ['.project', '.svn', '.git', '.idea']
-let g:Lf_MruFileExclude = ['*.so','*.py[c0]','*.exe','*.sw?']
-let g:Lf_DefaultExternalTool = ""
-let g:Lf_UseVersionControlTool = 0
-" target: ignore rust build directory
-let g:Lf_RgConfig = [
-    \ "--glob=!OmegaOptions.bak",
-    \ "--glob=!node_modules",
-    \ "--glob=!target",
-    \ "--glob=!.git",
-    \ "--no-ignore",
-    \ "--hidden"
-\ ]
-let g:Lf_WildIgnore = {
-  \ 'dir': [
-    \ '.svn',
-    \ '.git',
-    \ '.hg',
-    \ '.cache',
-    \ '.idea',
-    \ '.android',
-    \ '.gradle',
-    \ '.IntelliJIdea*',
-    \ 'node_modules'
-  \ ],
-  \ 'file': [
-    \ '*.sw?',
-    \ '~$*',
-    \ '*.exe',
-    \ '*.o',
-    \ '*.so',
-    \ '*.py[co]'
-  \ ]
-\ }
-let g:Lf_WorkingDirectoryMode = 'Ac'
-let g:Lf_CacheDirectory       = expand('~/.cache/nvim')
-let g:Lf_ShowRelativePath     = 1
 let g:Lf_HideHelp             = 1
-let g:Lf_ShowHidden           = 1
-let g:Lf_PreviewResult        = {'Function':0, 'BufTag':0}
 let g:Lf_IndexTimeLimit       = 10
-let g:Lf_Ctags                = "/usr/local/bin/ctags"
-" let g:Lf_PreviewCode = 1
-let g:Lf_StlColorscheme = 'powerline'
+let g:Lf_MruFileExclude = ['*.so','*.py[c0]','*.exe','*.sw?']
 let g:Lf_PreviewInPopup = 1
-" let g:Lf_WindowPosition = 'popup'
+let g:Lf_PreviewResult        = {'Function':0, 'BufTag':0}
+let g:Lf_RgConfig = [
+  \"--glob=!OmegaOptions.bak",
+  \"--glob=!node_modules",
+  \"--glob=!target",
+  \"--glob=!.git",
+  \"--no-ignore",
+  \"--hidden"
+\]
+let g:Lf_RootMarkers    = [
+  \'.project',
+  \'.svn',
+  \'.git',
+  \'.idea',
+  \'.gitignore',
+  \'.tasks',
+  \'.clang-format',
+  \'CMakeLists.txt',
+  \'compile_commands.json'
+\]
+let g:Lf_ShowHidden           = 1
+let g:Lf_ShowRelativePath     = 1
+let g:Lf_StlColorscheme = 'powerline'
+let g:Lf_StlSeparator   = {'left': '', 'right': '', 'font': ''}
+let g:Lf_UseVersionControlTool = 0
+let g:Lf_WildIgnore = {
+  \'dir': [
+    \'.svn',
+    \'.git',
+    \'.hg',
+    \'.cache',
+    \'.idea',
+    \'.android',
+    \'.gradle',
+    \'.IntelliJIdea*',
+    \'node_modules'
+  \],
+  \'file': [
+    \'*.sw?',
+    \'~$*',
+    \'*.exe',
+    \'*.o',
+    \'*.so',
+    \'*.py[co]'
+  \]
+\}
 let g:Lf_WindowHeight = 0.4
-let g:Lf_FilerShowDevIcons = 1
+let g:Lf_WorkingDirectoryMode = 'Ac'
 " voldikss/vim-browser-search
 nmap <silent> <Leader>s <Plug>SearchNormal
 vmap <silent> <Leader>s <Plug>SearchVisual
