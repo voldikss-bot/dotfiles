@@ -100,6 +100,28 @@ function! userfunc#keymap#Square_Brackets_Right() abort
   endif
 endfunction
 
+" Command: <BS>
+function! userfunc#keymap#Command_BS() abort
+  let pos = getcmdpos()
+  let surround = getcmdline()[pos-2:pos-1]
+  if index(["''", '<>', '()', '[]', '{}'], surround) >=0
+    return "\<Right>\<BS>\<BS>"
+  else
+    return "\<BS>"
+  endif
+endfunction
+
+" Command: ''|<>|()|[]|{}
+function! userfunc#keymap#Command_Pairs(pairs) abort
+  let pos = getcmdpos()
+  let prechar = getcmdline()[pos-2]
+  if prechar == "'"
+    return "'"
+  else
+    return a:pairs . "\<Left>"
+  endif
+endfunction
+
 " VisualStarSearch:
 function! userfunc#keymap#VisualStarSearch(cmdtype, ...) abort
   let temp = @"
