@@ -125,3 +125,12 @@ function! userfunc#keymap#incyank() abort
   call setreg('"', new)
   call setreg('a', tmp)
 endfunction
+
+function! userfunc#keymap#incdelete() abort
+  let old = getreg('"')
+  let tmp = getreg('a')
+  normal! gv"ad
+  let new = old . getreg('"')
+  call setreg('"', new)
+  call setreg('a', tmp)
+endfunction

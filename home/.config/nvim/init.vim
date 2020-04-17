@@ -436,6 +436,7 @@ nnoremap <silent> <Leader>Y "+y$
 nnoremap <silent> <Leader>p "+p
 nnoremap <silent> <Leader>P "+P
 vnoremap <silent> <Leader>Y :<C-u>call userfunc#keymap#incyank()<CR>
+vnoremap <silent> <Leader>D :<C-u>call userfunc#keymap#incdelete()<CR>
 " InsertMode: move
 inoremap <silent> <C-k> <Up>
 inoremap <silent> <C-j> <Down>
