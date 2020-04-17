@@ -250,6 +250,7 @@ augroup FileTypeAutocmds
   autocmd FileType floaterm setlocal nocursorline
   autocmd FileType help setlocal number
   autocmd FileType * set formatoptions-=cro
+  autocmd FileType coc-explorer setlocal relativenumber
 augroup END
 
 augroup UserAutoSaveBuffer
@@ -299,6 +300,17 @@ augroup UserChecktime
   autocmd FocusGained * checktime
 augroup END
 
+augroup UserCocAutocmds
+  autocmd!
+  autocmd User Startified setlocal buflisted
+  autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
+augroup END
+
+augroup UserStartifyAutocmds
+  autocmd!
+  autocmd User Startified setlocal buflisted
+augroup END
+
 if has('nvim')
 augroup UserTermSettings " neovim only
   autocmd!
@@ -308,6 +320,27 @@ augroup UserTermSettings " neovim only
     \ setlocal nospell |
     \ nmap <silent><buffer> <Esc> <Cmd>hide<CR>|
     \ hi TermCursor guifg=yellow
+augroup END
+
+function! s:OnColorSchemeLoaded() abort
+  let s:scl_guibg = matchstr(execute('hi SignColumn'), 'guibg=\zs\S*')
+  if empty(s:scl_guibg) | let s:scl_guibg = 'NONE' | endif
+  exe 'hi GitAdd                guifg=#00FF00 guibg=' . s:scl_guibg
+  exe 'hi GitModify             guifg=#00FFFF guibg=' . s:scl_guibg
+  exe 'hi GitDeleteTop          guifg=#FF2222 guibg=' . s:scl_guibg
+  exe 'hi GitDeleteBottom       guifg=#FF2222 guibg=' . s:scl_guibg
+  exe 'hi GitDeleteTopAndBottom guifg=#FF2222 guibg=' . s:scl_guibg
+  exe 'hi CocHintSign           guifg=#15aabf guibg=' . s:scl_guibg
+  exe 'hi CocInfoSign           guifg=#fab005 guibg=' . s:scl_guibg
+  exe 'hi CocWarningSign        guifg=#ff922b guibg=' . s:scl_guibg
+  exe 'hi CocErrorSign          guifg=#ff0000 guibg=' . s:scl_guibg
+  " coclist will(might) change my cursor highlight
+  hi Cursor gui=reverse guifg=NONE guibg=NONE
+endfunction
+call s:OnColorSchemeLoaded()
+augroup UserGitSignColumnColor
+  autocmd!
+  autocmd ColorScheme * call s:OnColorSchemeLoaded()
 augroup END
 endif
 
@@ -582,7 +615,6 @@ let g:mkdp_auto_close = 0
 let g:semshi#always_update_all_highlights = v:true
 let g:semshi#error_sign = v:false
 " neoclide/coc.nvim
-autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 inoremap <silent><expr> <C-j> coc#util#has_float() ? userfunc#coc#float_scroll(1) : "\<down>"
 inoremap <silent><expr> <C-k> coc#util#has_float() ? userfunc#coc#float_scroll(0) :  "\<up>"
 nmap <silent> <C-c> <Plug>(coc-cursors-word)
@@ -613,24 +645,6 @@ nnoremap <silent> <Leader>go :CocCommand git.browserOpen<CR>
 nnoremap <silent> <Leader>gv :CocCommand git.chunkInfo<CR>
 omap ic <Plug>(coc-text-object-inner)
 xmap ic <Plug>(coc-text-object-inner)
-if has('nvim')
-  let SignColumnGuiBg = matchstr(execute('hi SignColumn'), 'guibg=\zs\S*')
-  if SignColumnGuiBg ==# ''
-    let SignColumnGuiBg = 'NONE'
-  endif
-  exe 'hi GitAdd                guifg=#00FF00 guibg=' . SignColumnGuiBg
-  exe 'hi GitModify             guifg=#00FFFF guibg=' . SignColumnGuiBg
-  exe 'hi GitDeleteTop          guifg=#FF2222 guibg=' . SignColumnGuiBg
-  exe 'hi GitDeleteBottom       guifg=#FF2222 guibg=' . SignColumnGuiBg
-  exe 'hi GitDeleteTopAndBottom guifg=#FF2222 guibg=' . SignColumnGuiBg
-  exe 'hi CocHintSign           guifg=#15aabf guibg=' . SignColumnGuiBg
-  exe 'hi CocInfoSign           guifg=#fab005 guibg=' . SignColumnGuiBg
-  exe 'hi CocWarningSign        guifg=#ff922b guibg=' . SignColumnGuiBg
-  exe 'hi CocErrorSign          guifg=#ff0000 guibg=' . SignColumnGuiBg
-  unlet SignColumnGuiBg
-  " coclist will(might) change my cursor highlight
-  hi Cursor gui=reverse guifg=NONE guibg=NONE
-endif
 " coc-pairs
 let g:coc_pairs_expand = [['（', '）'], ['“', '”'], ['‘', '’'], ['《', '》']]
 " coc-smartf
@@ -685,11 +699,6 @@ let g:coc_global_extensions = [
   \ 'coc-yank',
   \ 'coc-zi'
 \ ]
-" coc-explorer
-augroup coc-explorer-settings
-  autocmd!
-  autocmd FileType coc-explorer setlocal relativenumber
-augroup END
 " Yggdroot/indentLine
 let g:indentLine_char = '│'
 let g:indentLine_enabled = 1
@@ -712,7 +721,6 @@ let g:startify_padding_left = 15
 "   \ '                   |::::/  / \:\/:/  / \:\  \    \:\/:/  / \::/\/__/ \;:;-",-" \:\:\/__/ \:\:\/__/',
 "   \ '                    L;;/__/   \::/  /   \:\__\    \::/  /   \:\__\    |:|  |    \::/  /   \::/  / ',
 "   \ '                               \/__/     \/__/     \/__/     \/__/     \|__|     \/__/     \/__/  ']
-autocmd User Startified setlocal buflisted
 if has('nvim')
   highlight StartifyHeader guifg=#FF00FF
   highlight StartifyNumber guifg=#00FF00
