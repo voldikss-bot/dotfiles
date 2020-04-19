@@ -38,15 +38,9 @@ endfunction
 " RemoveBlankLines:
 function! s:RemoveBlankLines() abort
   let reg_tmp = @"
-  while 1
-    let endlnum = line('$')
-    let endline = getline(endlnum)
-    if trim(endline) == '' && endlnum != 1
-      execute endlnum . 'd'
-    else
-      break
-    endif
-  endwhile
+  let endlnum = line('$')
+  let lastnoblank = prevnonblank(endlnum)
+  execute printf('%s,%sdelete', lastnoblank+1, endlnum)
   let @" = reg_tmp
 endfunction
 

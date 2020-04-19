@@ -224,6 +224,7 @@ ccls:
 .ONESHELL:
 .SILENT:
 goldendict:
+	# Note: google translate for goldendict https://github.com/xinebf/google-translate-for-goldendict/
 	if ! command -v goldendict >/dev/null; then
 		echo "Installing goldendict..."
 		# https://github.com/skywind3000/ECDICT/releases/download/1.0.28/ecdict-mdx-style-28.zip

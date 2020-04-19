@@ -65,3 +65,6 @@ alias npm_origin='npm config set registry https://registry.npmjs.org'
 
 # arch
 alias p='sudo pacman'
+
+# dos2unix
+alias dos2unix_all='find . -type f -print0 | xargs -0 dos2unix'

@@ -16,8 +16,9 @@
     editor = nvim
 	fileMode = false
 	quotepath = false
-    # only for Windows
-    # autocrlf = true
+    autocrlf = false
+    safecrlf = true
+	eol = lf
 [color]
 	ui = auto
 [diff]

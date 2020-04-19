@@ -231,7 +231,7 @@ call plug#end()
 augroup ParenColor
   autocmd!
   autocmd VimEnter,BufWinEnter *
-    \ if index(['html', 'htmldjango', 'tex', 'mma', 'vue'], &filetype) < 0 |
+    \ if index(['html', 'htmldjango', 'tex', 'mma', 'vue', 'xml'], &filetype) < 0 |
       \ syntax match paren1 /[{}]/   | hi paren1 guifg=#FF00FF |
       \ syntax match paren2 /[()]/   | hi paren2 guifg=#DF8700 |
       \ syntax match paren3 /[<>]/   | hi paren3 guifg=#0087FF |
@@ -418,6 +418,8 @@ noremap <C-d> <C-d>zz
 " Move:
 nnoremap <silent> [[  :<C-u>call userfunc#keymap#Square_Brackets_Left()<CR>
 nnoremap <silent> ]]  :<C-u>call userfunc#keymap#Square_Brackets_Right()<CR>
+vnoremap <silent> [[  {j
+vnoremap <silent> ]]  }k
 " Jump:
 noremap <silent> <C-j>      <C-]>
 noremap <silent> <C-W><C-j> <C-W><C-]>
