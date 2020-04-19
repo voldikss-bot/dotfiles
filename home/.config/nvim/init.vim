@@ -506,9 +506,9 @@ cnoremap <C-b> <S-Left>
 cnoremap <C-f> <S-Right>
 cnoremap <C-h> <Left>
 cnoremap <C-l> <Right>
-cnoremap <expr> '    userfunc#keymap#Command_Pairs("''")
+" cnoremap <expr> '    userfunc#keymap#Command_Pairs("''")
 cnoremap <expr> <    userfunc#keymap#Command_Pairs('<>')
-cnoremap <expr> (    userfunc#keymap#Command_Pairs('()')
+" cnoremap <expr> (    userfunc#keymap#Command_Pairs('()')
 cnoremap <expr> [    userfunc#keymap#Command_Pairs('[]')
 cnoremap <expr> {    userfunc#keymap#Command_Pairs('{}')
 cnoremap <expr> <BS> userfunc#keymap#Command_BS()
