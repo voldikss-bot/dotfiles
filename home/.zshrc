@@ -123,6 +123,7 @@ source $HOME/.alias
 #=============================================================================
 export VISUAL=/usr/bin/nvim
 export EDITOR=/usr/bin/nvim
+export MANPAGER="nvim -u NORC '+set background=dark' '+set ft=man' -"
 
 # Uncomment the following line to enable command auto-correction.
 ENABLE_CORRECTION="true"

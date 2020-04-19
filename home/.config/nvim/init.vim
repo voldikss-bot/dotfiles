@@ -450,9 +450,11 @@ onoremap <silent> iu :normal viu<CR>
 " ip
 xnoremap <silent> iI :<C-u>call userfunc#textobj#ip()<CR>
 onoremap <silent> iI :normal viI<CR>
-" function argument(NOTE: dont use 'nore')
-xmap <silent> ia ifovvi)
-omap <silent> ia :normal via<CR>
+" function argument
+xnoremap <silent> ia :<C-u>call userfunc#textobj#arguments(1, 1)<CR>
+xnoremap <silent> aa :<C-u>call userfunc#textobj#arguments(0, 1)<CR>
+onoremap <silent> ia :<C-u>call userfunc#textobj#arguments(1, 0)<CR>
+onoremap <silent> aa :<C-u>call userfunc#textobj#arguments(0, 0)<CR>
 " BufferOperation:
 nnoremap <expr> <silent> <C-h>  (&filetype == 'floaterm') ? ':FloatermPrev<CR>' : ':bprev<CR>'
 nnoremap <expr> <silent> <C-l>  (&filetype == 'floaterm') ? ':FloatermNext<CR>' : ':bnext<CR>'

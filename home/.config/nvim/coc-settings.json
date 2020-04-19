@@ -153,7 +153,7 @@
     "<C-t>": "do:toggle"
   },
   "list.previewSplitRight": false,
-  "prettier.disableLanguages": ["typescript"],
+  "prettier.disableLanguages": ["typescript", "html"],
   "prettier.formatterPriority": 1,
   "prettier.printWidth": 85,
   "prettier.semi": false,
