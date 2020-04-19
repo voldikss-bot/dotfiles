@@ -86,17 +86,27 @@ endfunction
 
 " Normal: [[
 function! userfunc#keymap#Square_Brackets_Left() abort
-  normal! {
-  if empty(getline('.'))
-    normal! j
+  let curline = line('.')
+  if empty(getline(curline-1))
+    normal! {
+  else
+    normal! {
+    if empty(getline('.'))
+      normal! j
+    endif
   endif
 endfunction
 
 " Normal: ]]
 function! userfunc#keymap#Square_Brackets_Right() abort
-  normal! }
-  if empty(getline('.'))
-    normal! k
+  let curline = line('.')
+  if empty(getline(curline+1))
+    normal! }
+  else
+    normal! }
+    if empty(getline('.'))
+      normal! k
+    endif
   endif
 endfunction
 
