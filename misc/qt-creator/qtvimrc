@@ -16,18 +16,18 @@ noremap  '  `
 vnoremap <  <gv
 vnoremap >  >gv
 " Jump: [[[2
-noremap <silent> <C-j>      <C-]>
+noremap  <C-j>      <C-]>
 " Search: [[[2
-nnoremap <silent> n  nzz
-nnoremap <silent> N  Nzz
-nnoremap <silent> *  *zz
-nnoremap <silent> #  #zz
+nnoremap  n  nzz
+nnoremap  N  Nzz
+nnoremap  *  *zz
+nnoremap  #  #zz
 " BufferOperation: [[[2
-nnoremap <silent> <C-h>     :bprev<CR>
-nnoremap <silent> <C-l>     :bnext<CR>
-noremap  <silent> ;d :q<CR>
+nnoremap  <C-h>     :bprev<CR>
+nnoremap  <C-l>     :bnext<CR>
+noremap   ;d :q<CR>
 " TabOperation: [[[2
-noremap  <silent> <C-t> <Esc>:tabnew<CR>
+noremap   <C-t> <Esc>:tabnew<CR>
 " TextCopy: [[[2
 nnoremap Y y$
 nnoremap ;y "+yy
@@ -46,11 +46,11 @@ inoremap <C-f> <Esc>ea
 inoremap <C-a> <Esc>I
 inoremap <C-e> <End>
 inoremap <C-o> <End><CR>
-inoremap <M-o> <Esc>O
+" inoremap <M-o> <Esc>O " 会造成输入 << 时的延迟
 inoremap <C-d> <Esc>ddi
 " SaveAndQuit: [[[2
-nnoremap <silent> ;w :w<CR>
-nnoremap <silent> ;W :wa<CR>
-nnoremap <silent> ;q :q<CR>
-nnoremap <silent> ;Q :qa!<CR>
-nnoremap <silent> Q         :qa!<CR>
+nnoremap  ;w :w<CR>
+nnoremap  ;W :wa<CR>
+nnoremap  ;q :q<CR>
+nnoremap  ;Q :qa!<CR>
+nnoremap  Q         :qa!<CR>

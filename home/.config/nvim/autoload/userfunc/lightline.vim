@@ -4,8 +4,11 @@
 " AbsPath:
 function! userfunc#lightline#AbsPath()
   let path = substitute(expand('%:p'), $HOME, '~', 'g')
-  if 2.6*len(path) > winwidth(0)
+  if len(path) > winwidth(0)/2.5
     let path = pathshorten(path)
+    if len(path) > winwidth(0)/2.5
+      return ''
+    endif
   endif
   return path
 endfunction

@@ -153,7 +153,7 @@ function! userfunc#keymap#incyank() abort
   let old = getreg('"')
   let tmp = getreg('a')
   normal! gv"ay
-  let new = old . getreg('"')
+  let new = trim(old) . "\n" . trim(getreg('"'))
   call setreg('"', new)
   call setreg('a', tmp)
 endfunction
@@ -162,7 +162,7 @@ function! userfunc#keymap#incdelete() abort
   let old = getreg('"')
   let tmp = getreg('a')
   normal! gv"ad
-  let new = old . getreg('"')
+  let new = trim(old) . "\n" . trim(getreg('"'))
   call setreg('"', new)
   call setreg('a', tmp)
 endfunction

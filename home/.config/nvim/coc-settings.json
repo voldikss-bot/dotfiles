@@ -6,6 +6,7 @@
   "coc.preferences.hoverTarget": "float",
   "coc.preferences.jumpCommand": "edit",
   "coc.preferences.messageLevel": "more",
+  "coc.preferences.promptWorkspaceEdit": true,
   "coc.preferences.rootPatterns": [
     ".git",
     "Cargo.toml",
@@ -24,6 +25,7 @@
   "coc.source.file.priority": 10,
   "coc.source.tag.priority": 5,
   "coc.source.vimtex.priority": 99,
+  "cursors.cancelKey": "<esc>",
   "diagnostic-languageserver.filetypes": {
     "diagnostic.hintSign": "➤",
     "diagnostic.infoSign": "ℹ"
@@ -122,7 +124,7 @@
         },
         "clang": {
           "extraArgs": ["--gcc-toolchain=/usr"],
-          "resourceDir": "/usr/lib/clang/9.0.1"
+          "resourceDir": "/usr/lib/clang/10.0.0"
         },
         "completion": { "detailedLabel": true },
         "index": { "onChange": false, "initialNoLinkage": true, "threads": 2 }
@@ -217,8 +219,8 @@
   "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
   "typescript.suggestionActions.enabled": false,
   "yank.enableCompletion": false,
-  "yank.highlight.duration": 20,
-  "yank.highlight.enable": true,
+  // "yank.highlight.duration": 20,
+  "yank.highlight.enable": false,
   "yank.priority": 4
   // vim:ft=jsonc
 }

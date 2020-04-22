@@ -18,6 +18,8 @@ endfunction
 " AutoSave:
 function! userfunc#format#AutoSave() abort
   if &readonly || !&modifiable | return | endif
+  " resolve CocSearch acwrite invcompatibility
+  if &buftype == 'acwrite' | return | endif
   let curr_pos = getpos('.')
   if getpos('.')[1] != line('$')
     call s:RemoveBlankLines()

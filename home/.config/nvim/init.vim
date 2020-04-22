@@ -64,6 +64,7 @@ set fileencodings=utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
 set fileformats=unix,dos,mac
 set nrformats=
 set hidden
+set nowrap
 set fileignorecase
 set formatoptions+=m
 set formatoptions+=B
@@ -159,7 +160,7 @@ if matchstr(execute('silent version'), 'NVIM v\zs[^\n-]*') >= '0.4.0'
   set shada='20,<50,s10
   set inccommand=nosplit
   set wildoptions+=pum
-  set signcolumn=yes:2
+  set signcolumn=yes:1
   set pumblend=10
 endif
 " }}}
@@ -299,6 +300,8 @@ augroup UserCocAutocmds
   autocmd!
   autocmd User Startified setlocal buflisted
   autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup END
 
 augroup UserStartifyAutocmds
@@ -331,6 +334,8 @@ function! s:OnColorSchemeLoaded() abort
   exe 'hi CocInfoSign           guifg=#fab005 guibg=' . s:scl_guibg
   exe 'hi CocWarningSign        guifg=#ff922b guibg=' . s:scl_guibg
   exe 'hi CocErrorSign          guifg=#ff0000 guibg=' . s:scl_guibg
+  exe 'hi CursorLineNr          guibg=' . s:scl_guibg
+  exe 'hi NonText               guifg=' . s:scl_guibg
   " coclist will(might) change my cursor highlight
   hi Cursor gui=reverse guifg=NONE guibg=NONE
 endfunction
@@ -458,8 +463,8 @@ onoremap <silent> aa :<C-u>call userfunc#textobj#arguments(0, 0)<CR>
 " BufferOperation:
 nnoremap <expr> <silent> <C-h>  (&filetype == 'floaterm') ? ':FloatermPrev<CR>' : ':bprev<CR>'
 nnoremap <expr> <silent> <C-l>  (&filetype == 'floaterm') ? ':FloatermNext<CR>' : ':bnext<CR>'
-tnoremap <expr> <silent> <C-h>  (&filetype == 'floaterm') ? '<C-\><C-n>:FloatermPrev<CR>' : '<C-\><C-n>:bprev<CR>'
-tnoremap <expr> <silent> <C-l>  (&filetype == 'floaterm') ? '<C-\><C-n>:FloatermNext<CR>' : '<C-\><C-n>:bnext<CR>'
+" tnoremap <expr> <silent> <C-h>  (&filetype == 'floaterm') ? '<C-\><C-n>:FloatermPrev<CR>' : '<C-\><C-n>:bprev<CR>'
+" tnoremap <expr> <silent> <C-l>  (&filetype == 'floaterm') ? '<C-\><C-n>:FloatermNext<CR>' : '<C-\><C-n>:bnext<CR>'
 " TabOperation:
 noremap  <silent> <C-t> <Esc>:tabnew<CR>
 " TextCopy:
@@ -624,16 +629,21 @@ let g:semshi#error_sign = v:false
 " neoclide/coc.nvim
 inoremap <silent><expr> <C-j> coc#util#has_float() ? userfunc#coc#float_scroll(1) : "\<down>"
 inoremap <silent><expr> <C-k> coc#util#has_float() ? userfunc#coc#float_scroll(0) :  "\<up>"
-nmap <silent> <C-c> <Plug>(coc-cursors-word)
-xmap <silent> <C-c> <Plug>(coc-cursors-range)
+nmap <expr> <silent> <C-c> <SID>select_current_word_and_go_next()
+function! s:select_current_word_and_go_next()
+  if !get(g:, 'coc_cursors_activated', 0)
+    return "\<Plug>(coc-cursors-word)"
+  endif
+  return "*\<Plug>(coc-cursors-word):nohlsearch\<CR>"
+endfunction
 nmap <silent> <M-n> <Plug>(coc-diagnostic-next)
 nmap <silent> <M-p> <Plug>(coc-diagnostic-prev)
 nmap <silent> <Leader>ca :CocAction<CR>
 nmap <silent> <Leader>cd :call userfunc#utils#GoToDefinition()<CR>
 nmap <silent> <Leader>ci <Plug>(coc-implementation)
 nmap <silent> <Leader>cf <Plug>(coc-fix-current)
-nmap <silent> <Leader>cr <Plug>(coc-references)
-nmap <silent> <Leader>cc :CocRestart<CR>
+nmap <silent> <Leader>rf <Plug>(coc-references)
+nmap <silent> <Leader>cr :CocRestart<CR>
 nmap <silent> cl :CocList<CR>
 nmap <silent> <Leader>ct :CocList tasks<CR>
 nmap <silent> ,cr        :call CocAction('rename')<CR>
@@ -827,11 +837,14 @@ let g:asynctasks_term_pos = 'bottom'
 let g:asynctasks_term_reuse = 1
 let g:asynctasks_term_rows = 10
 " Yggdroot/LeaderF
-nmap <silent> <Leader>ff :Leaderf file<CR>
 nmap <silent> <Leader>fb :Leaderf buffer<CR>
-nmap <silent> <Leader>fm :Leaderf mru<CR>
+nmap <silent> <Leader>fc :Leaderf command<CR>
+nmap <silent> <Leader>ff :Leaderf file<CR>
 nmap <silent> <Leader>fg :Leaderf rg<CR>
-nmap <silent> <Leader>ft :LeaderfBufTagAll<CR>
+nmap <silent> <Leader>fl :Leaderf line<CR>
+nmap <silent> <Leader>fm :Leaderf mru<CR>
+nmap <silent> <Leader>ft :Leaderf bufTag<CR>
+nmap <silent> <Leader>fu :Leaderf function<CR>
 noremap <silent> <Leader>fr :<C-U><C-R>=printf("Leaderf! gtags -r %s --auto-jump", expand("<cword>"))<CR><CR>
 noremap <silent> <Leader>fd :<C-U><C-R>=printf("Leaderf! gtags -d %s --auto-jump", expand("<cword>"))<CR><CR>
 noremap <silent> <Leader>fn :<C-U><C-R>=printf("Leaderf gtags --next %s", "")<CR><CR>
@@ -918,12 +931,13 @@ let g:translator_window_max_width = 0.8
 " voldikss/vim-floaterm
 let g:floaterm_position = 'center'
 let g:floaterm_gitcommit = 'split'
+let g:floaterm_autoclose = v:true
+let g:floaterm_keymap_new    = '<F7>'
+let g:floaterm_keymap_prev   = '<F8>'
+let g:floaterm_keymap_next   = '<F9>'
+let g:floaterm_keymap_toggle = '<F12>'
 hi FloatermBorder guifg=orange
-" let g:floaterm_type = 'normal'
-" let g:floaterm_keymap_new    = '<F7>'
-" let g:floaterm_keymap_prev   = '<F8>'
-" let g:floaterm_keymap_next   = '<F9>'
-" let g:floaterm_keymap_toggle = '<F12>'
+command! PythonREPL  :FloatermNew --wintype=normal --width=0.5 --position=right python
 " simnalamburt/vim-mundo
 let g:mundo_width              = 30
 let g:mundo_preview_height     = 10

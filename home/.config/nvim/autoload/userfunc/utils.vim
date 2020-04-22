@@ -82,7 +82,7 @@ function! userfunc#utils#ShowDocument() abort
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
   else
-    call CocAction('jumpDefinition')
+    call CocAction('doHover')
   endif
 endfunction
 
