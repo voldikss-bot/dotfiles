@@ -4,7 +4,7 @@ BasedOnStyle: LLVM
 IndentWidth: 4
 ---
 Language: Cpp
-ColumnLimit: 78
+ColumnLimit: 80
 AllowShortBlocksOnASingleLine: false
 AllowShortFunctionsOnASingleLine: false
 AllowShortIfStatementsOnASingleLine: true

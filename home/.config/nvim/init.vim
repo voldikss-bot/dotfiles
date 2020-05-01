@@ -173,7 +173,7 @@ Plug 'alvan/vim-closetag', {'for': ['html', 'xml']}
 Plug 'fatih/vim-go'
 Plug 'iamcco/markdown-preview.nvim', {'for': 'markdown', 'do': 'cd app && npm install'}
 Plug 'lervag/vimtex'
-" Plug 'numirias/semshi', {'for': 'python'}
+Plug 'numirias/semshi', {'for': 'python'}
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'othree/html5.vim'
 Plug 'pangloss/vim-javascript'
@@ -206,7 +206,7 @@ Plug 'junegunn/vader.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/vim-peekaboo'
 Plug 'kristijanhusak/vim-carbon-now-sh', {'on': 'CarbonNowSh'}
-Plug 'lfv89/vim-interestingwords'
+Plug 'voldikss/vim-mark', {'on': '<Plug>MarkSet'}
 Plug 'liuchengxu/vista.vim'
 Plug 'matze/vim-move'
 Plug 'simnalamburt/vim-mundo', {'on': 'MundoToggle'}
@@ -760,11 +760,13 @@ let g:lightline = {
       \ ['cocstatus', 'fileformat', 'fileencoding'],
       \ ['filetype'],
       \ ['codelf_status'],
+      \ ['translator_status'],
     \ ]
   \ },
   \ 'component': {
     \ 'lineinfo': ' %4l,%-3v',
     \ 'codelf_status': '%{g:codelf_status}',
+    \ 'translator_status': '%{g:translator_status}',
     \ 'asyncrun_status': '%{g:asyncrun_status}',
     \ 'close': '%{has("nvim") ? " NVIM " : " VIM "}',
     \ 'vim_logo': "\ue7c5"
@@ -938,6 +940,22 @@ let g:floaterm_keymap_next   = '<F9>'
 let g:floaterm_keymap_toggle = '<F12>'
 hi FloatermBorder guifg=orange
 command! PythonREPL  :FloatermNew --wintype=normal --width=0.5 --position=right python
+" function! s:runner_proc(opts)
+"   let curr_bufnr = floaterm#curr()
+"   if has_key(a:opts, 'silent') && a:opts.silent == 1
+"     call floaterm#hide()
+"   endif
+"   let cmd = 'cd ' . shellescape(getcwd())
+"   call floaterm#terminal#send(curr_bufnr, [cmd])
+"   call floaterm#terminal#send(curr_bufnr, [a:opts.cmd])
+"   stopinsert
+"   if &filetype == 'floaterm' && g:floaterm_autoinsert
+"     call floaterm#util#startinsert()
+"   endif
+" endfunction
+" let g:asyncrun_runner = get(g:, 'asyncrun_runner', {})
+" let g:asyncrun_runner.floaterm = function('s:runner_proc')
+" let g:asynctasks_term_pos='floaterm'
 " simnalamburt/vim-mundo
 let g:mundo_width              = 30
 let g:mundo_preview_height     = 10
@@ -947,9 +965,9 @@ let g:mundo_auto_preview_delay = 10
 " voldikss/vim-codelf
 let g:codelf_status = ''
 " lfv89/vim-interestingwords
-nnoremap <silent> <leader>k :call InterestingWords('n')<cr>
-vnoremap <silent> <leader>k :call InterestingWords('v')<cr>
-nnoremap <silent> <leader>K :call UncolorAllWords()<cr>
+nmap <silent> <Leader>k <Plug>MarkSet
+vmap <silent> <Leader>k <Plug>MarkSet
+nmap <silent> <Leader>K <Plug>MarkClear
 " tommcdo/vim-exchange
 nmap <silent> cx  <Plug>(Exchange)
 xmap <silent> X   <Plug>(Exchange)

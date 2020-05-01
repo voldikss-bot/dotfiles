@@ -1,7 +1,7 @@
 {
   "browser.maxLength": 30,
   "browser.priority": 0,
-  "coc.preferences.extensionUpdateCheck": "weekly",
+  "coc.preferences.extensionUpdateCheck": "daily",
   "coc.preferences.formatOnSaveFiletypes": [],
   "coc.preferences.hoverTarget": "float",
   "coc.preferences.jumpCommand": "edit",
@@ -130,6 +130,14 @@
         "index": { "onChange": false, "initialNoLinkage": true, "threads": 2 }
       }
     },
+    "cmake": {
+      "command": "cmake-language-server",
+      "filetypes": ["cmake"],
+      "rootPatterns": ["build/"],
+      "initializationOptions": {
+        "buildDirectory": "build"
+      }
+    },
     "golang": {
       "command": "gopls",
       "rootPatterns": ["go.mod", ".vim", ".git"],
@@ -218,6 +226,7 @@
   "typescript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
   "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
   "typescript.suggestionActions.enabled": false,
+  "vimlsp.indexes.runtimepath": false,
   "yank.enableCompletion": false,
   // "yank.highlight.duration": 20,
   "yank.highlight.enable": false,
