@@ -1,5 +1,8 @@
+" ============================================================================
+" FileName: utils.vim
 " Author: voldikss <dyzplus@gmail.com>
 " GitHub: https://github.com/voldikss
+" ============================================================================
 
 " BrowserOpen:
 function! userfunc#utils#BrowserOpen(obj) abort
@@ -15,7 +18,7 @@ function! userfunc#utils#BrowserOpen(obj) abort
   exec 'AsyncRun -silent' . ' ' . cmd
 endfunction
 
-" FileExplore:
+" OpenFileExplore:
 function! userfunc#utils#OpenFileExplorer() abort
   let path = expand(getcwd())
   call userfunc#utils#BrowserOpen(path)
@@ -75,26 +78,6 @@ function! userfunc#utils#ShowMsg(message, ...) abort
   endif
   echo message
   echohl None
-endfunction
-
-" ShowDocument:
-function! userfunc#utils#ShowDocument() abort
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-
-" GoToDefinition
-function! userfunc#utils#GoToDefinition()
-  if CocAction('jumpDefinition')
-    return v:true
-  endif
-  let ret = execute("silent! normal \<C-]>")
-  if ret =~ "Error" || ret =~ "错误"
-    call searchdecl(expand('<cword>'))
-  endif
 endfunction
 
 " SyntaxAt:

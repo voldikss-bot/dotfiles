@@ -251,7 +251,7 @@ augroup END
 
 augroup UserAutoSaveBuffer
   autocmd!
-  autocmd FocusLost,InsertLeave * call userfunc#format#AutoSave()
+  autocmd FocusLost,InsertLeave * call userfunc#file#AutoSave()
 augroup END
 
 augroup UserLineNumber
@@ -396,17 +396,23 @@ call s:SetCommandAbbrs('w!!', '%!sudo tee >/dev/null %')
 " }}}
 
 " Commands: {{{
+command! -nargs=0 AutoFormat call userfunc#file#AutoFormat()
+command! -nargs=0 CloseHiddenBuffers call userfunc#buffer#CloseNoDisplayedBuffers()
 command! -nargs=0 OpenFileExplorer call userfunc#utils#OpenFileExplorer()
-command! -nargs=0 AutoFormat call userfunc#format#AutoFormat()
-command! -nargs=+ Grep  call userfunc#utils#Grep(<q-args>)
+command! -nargs=0 CloseNoBuflistedBuffers call userfunc#buffer#CloseNoBuflistedBuffers()
+command! -nargs=0 CloseNoCurrentBuffers call userfunc#buffer#CloseNoCurrentBuffers()
+command! -nargs=0 CloseNoDisplayedBuffers call userfunc#buffer#CloseNoDisplayedBuffers()
+command! -nargs=? Bline call userfunc#utils#DelimiterLine('bold', <f-args>)
+command! -nargs=? Cline call userfunc#utils#DelimiterLine('comment', <f-args>)
+command! -nargs=? Line call userfunc#utils#DelimiterLine('light', <f-args>)
+command! -nargs=? RenameFile call userfunc#file#Rename(<q-args>)
+command! -nargs=? RemoveFile call userfunc#file#Remove()
 command! -nargs=* SyntaxAt call userfunc#utils#SyntaxAt(<f-args>)
+command! -nargs=+ Grep  call userfunc#utils#Grep(<q-args>)
 command! -nargs=+ -complete=file  BrowserOpen  call userfunc#utils#BrowserOpen(<q-args>)
 command! -nargs=+ -complete=command  TabMessage call userfunc#utils#TabMessage(<q-args>)
 command! -nargs=? -complete=customlist,userfunc#quickrun#Complete QuickRun call userfunc#quickrun#Run(<f-args>)
 command! -nargs=+ -complete=customlist,userfunc#window#Complete SwitchWindow call userfunc#window#SwitchWindow(<q-args>)
-command! -nargs=? Line call userfunc#utils#DelimiterLine('light', <f-args>)
-command! -nargs=? Bline call userfunc#utils#DelimiterLine('bold', <f-args>)
-command! -nargs=? Cline call userfunc#utils#DelimiterLine('comment', <f-args>)
 " }}}
 
 " Mappings: {{{
@@ -436,7 +442,7 @@ vnoremap <silent> ]]  }k
 " Jump:
 noremap <silent> <C-j>      <C-]>
 noremap <silent> <C-W><C-j> <C-W><C-]>
-noremap <silent> <C-k>      :<C-u>call userfunc#utils#ShowDocument()<CR>
+noremap <silent> <C-k>      :<C-u>call userfunc#coc#ShowDocument()<CR>
 " Search:
 " use set shortmess-=S to display searchindex
 nnoremap <silent> n  nzz
@@ -463,6 +469,9 @@ onoremap <silent> iu :normal viu<CR>
 " ip
 xnoremap <silent> iI :<C-u>call userfunc#textobj#ip()<CR>
 onoremap <silent> iI :normal viI<CR>
+" number
+xnoremap <silent> in :<C-u>call userfunc#textobj#number()<CR>
+onoremap <silent> in :normal vin<CR>
 " function argument
 xnoremap <silent> ia :<C-u>call userfunc#textobj#arguments(1, 1)<CR>
 xnoremap <silent> aa :<C-u>call userfunc#textobj#arguments(0, 1)<CR>
@@ -635,8 +644,8 @@ let g:mkdp_auto_close = 0
 let g:semshi#always_update_all_highlights = v:true
 let g:semshi#error_sign = v:false
 " neoclide/coc.nvim
-inoremap <silent><expr> <C-j> coc#util#has_float() ? userfunc#coc#float_scroll(1) : "\<down>"
-inoremap <silent><expr> <C-k> coc#util#has_float() ? userfunc#coc#float_scroll(0) :  "\<up>"
+inoremap <silent><expr> <C-j> coc#util#has_float() ? userfunc#coc#FloatScroll(1) : "\<down>"
+inoremap <silent><expr> <C-k> coc#util#has_float() ? userfunc#coc#FloatScroll(0) :  "\<up>"
 nmap <expr> <silent> <C-c> <SID>select_current_word_and_go_next()
 function! s:select_current_word_and_go_next()
   if !get(g:, 'coc_cursors_activated', 0)
@@ -647,7 +656,7 @@ endfunction
 nmap <silent> <M-n> <Plug>(coc-diagnostic-next)
 nmap <silent> <M-p> <Plug>(coc-diagnostic-prev)
 nmap <silent> <Leader>ca :CocAction<CR>
-nmap <silent> <Leader>cd :call userfunc#utils#GoToDefinition()<CR>
+nmap <silent> <Leader>cd :call userfunc#coc#GoToDefinition()<CR>
 nmap <silent> <Leader>ci <Plug>(coc-implementation)
 nmap <silent> <Leader>cf <Plug>(coc-fix-current)
 nmap <silent> <Leader>rf <Plug>(coc-references)
