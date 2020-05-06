@@ -1,0 +1,34 @@
+" ============================================================================
+" FileName: myhlsearch.vim
+" Author: voldikss <dyzplus@gmail.com>
+" GitHub: https://github.com/voldikss
+" Info: modified from romainl/vim-cool
+" ============================================================================
+
+noremap <silent> <Plug>(StopHL) :<C-U>nohlsearch<cr>
+
+function! userfunc#myhlsearch#start_hl()
+  if !v:hlsearch || mode() isnot 'n'
+    return
+  endif
+  let [pos, rpos] = [winsaveview(), getpos('.')]
+  silent! exe "keepjumps go".(line2byte('.')+col('.')-(v:searchforward ? 2 : 0))
+  try
+    silent keepjumps norm! n
+    if getpos('.') != rpos
+      throw 0
+    endif
+  catch /^\%(0$\|Vim\%(\w\|:Interrupt$\)\@!\)/
+    call s:stop_hl()
+    return
+  finally
+    call winrestview(pos)
+  endtry
+endfunction
+
+function! s:stop_hl()
+  if !v:hlsearch || mode() isnot 'n'
+    return
+  endif
+  silent call feedkeys("\<Plug>(StopHL)", 'm')
+endfunction

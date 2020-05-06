@@ -179,8 +179,8 @@ Plug 'othree/html5.vim'
 Plug 'pangloss/vim-javascript'
 Plug 'plasticboy/vim-markdown'
 Plug 'posva/vim-vue', {'for': 'vue'}
-Plug 'rust-lang/rust.vim'
-Plug 'tpope/vim-dadbod'
+Plug 'rust-lang/rust.vim', {'for': 'rust'}
+Plug 'tpope/vim-dadbod', {'for': ['sql', 'mysql']}
 Plug 'vim-python/python-syntax'
 " Completion
 Plug 'neoclide/coc.nvim', {'do': 'npm install'}
@@ -268,7 +268,7 @@ augroup END
 augroup UserJumpToLastPosition
   autocmd!
   autocmd BufReadPost *
-    \ if line("'\"") > 1 && line("'\"") <= line("$") |
+    \ if line("'\"") > 1 && line("'\"") <= line("$") && &filetype != 'gitcommit' |
       \ exe "normal! g'\"" |
     \ endif
 augroup END
@@ -276,9 +276,12 @@ augroup END
 augroup UserKeywordHighlight
   autocmd!
   autocmd Syntax *
-    \ call matchadd('Todo',  '\W\zs\(TODO\|FIXME\|CHANGED\|XXX\|BUG\|HACK\)') |
-    \ call matchadd('Todo',  '\W\zs\(NOTE\|INFO\|IDEA\|NOTICE\)') |
-    \ call matchadd('Debug', '\W\zs\(Debug\|DEBUG\)') |
+    \ call matchadd('Todo',  '\W\zs\(@TODO\|@FIXME\|@CHANGED\|@XXX\|@BUG\|@HACK\)') |
+    \ call matchadd('Todo',  '\W\zs\(@todo\|@fixme\|@changed\|@xxx\|@bug\|@hack\)') |
+    \ call matchadd('Todo',  '\W\zs\(@NOTE\|@INFO\|@IDEA\|@NOTICE\)') |
+    \ call matchadd('Todo',  '\W\zs\(@note\|@info\|@idea\|@notice\)') |
+    \ call matchadd('Debug', '\W\zs\(@DEBUG\|@Debug\|@debug\)') |
+    \ call matchadd('Tag', '\W\zs\(@VOLDIKSS\|@voldikss\)')
 augroup END
 
 augroup UserAutoChangeDir
@@ -307,6 +310,11 @@ augroup END
 augroup UserStartifyAutocmds
   autocmd!
   autocmd User Startified setlocal buflisted
+augroup END
+
+augroup AutoNohlsearch
+  autocmd!
+  autocmd CursorMoved * call userfunc#myhlsearch#start_hl()
 augroup END
 
 if has('nvim')
@@ -938,6 +946,7 @@ let g:floaterm_keymap_new    = '<F7>'
 let g:floaterm_keymap_prev   = '<F8>'
 let g:floaterm_keymap_next   = '<F9>'
 let g:floaterm_keymap_toggle = '<F12>'
+let g:floaterm_rootmarkers   = ['.git', '.gitignore', '*.pro', 'Cargo.toml']
 hi FloatermBorder guifg=orange
 command! PythonREPL  :FloatermNew --wintype=normal --width=0.5 --position=right python
 " function! s:runner_proc(opts)
