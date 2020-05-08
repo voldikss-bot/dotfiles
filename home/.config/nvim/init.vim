@@ -194,7 +194,6 @@ Plug 'mhinz/vim-startify', {'on': 'Startify'}
 Plug 'ryanoasis/vim-devicons'
 " Git
 Plug 'tpope/vim-fugitive'
-Plug 'rhysd/git-messenger.vim', {'on': 'GitMessenger'}
 " Others
 " Plug 'brglng/vim-im-select'
 " Plug 'puremourning/vimspector'
@@ -677,6 +676,7 @@ nnoremap <silent> <Leader>hs :CocCommand git.chunkStage<CR>
 nnoremap <silent> <Leader>hu :CocCommand git.chunkUndo<CR>
 nnoremap <silent> <Leader>go :CocCommand git.browserOpen<CR>
 nnoremap <silent> <Leader>gv :CocCommand git.chunkInfo<CR>
+nnoremap <silent> <Leader>gm :CocCommand git.showCommit<CR>
 omap ic <Plug>(coc-text-object-inner)
 xmap ic <Plug>(coc-text-object-inner)
 " coc-pairs
@@ -1010,8 +1010,6 @@ noremap <silent> <Leader>aw :ArgWrap<CR>
 " junegunn/vim-easy-align
 xmap <silent> ga <Plug>(EasyAlign)
 nmap <silent> ga <Plug>(EasyAlign)
-" rhysd/git-messenger
-noremap <silent> <Leader>gm :GitMessenger<CR>
 " puremourning/vimspector
 let g:vimspector_enable_mappings = 'HUMAN'
 " easymotion.vim

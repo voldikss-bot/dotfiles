@@ -48,7 +48,7 @@ function! userfunc#buffer#CloseNoBuflistedBuffers() abort
     if getbufvar(b, '&filetype') == 'floaterm'
       continue
     endif
-    if buflisted(b)
+    if !buflisted(b)
       execute 'bwipeout' b
       let tally += 1
     endif

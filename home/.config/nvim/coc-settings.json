@@ -101,6 +101,7 @@
   "git.changedSign.hlGroup": "GitModify",
   "git.enableGutters": true,
   "git.removedSign.hlGroup": "GitDeleteBottom",
+  "git.showCommitInFloating": true,
   "git.topRemovedSign.hlGroup": "GitDeleteTop",
   "languageserver": {
     "bash": {
