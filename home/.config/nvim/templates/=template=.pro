@@ -9,15 +9,15 @@ TARGET   = %FDIR%
 TEMPLATE = app
 
 SOURCES += \
-    src/main.cpp \
-    src/mainwindow.cpp
+    main.cpp \
+    mainwindow.cpp
 
 HEADERS += \
-    src/mainwindow.h
+    mainwindow.h
 
 FORMS += \
-    src/mainwindow.ui
+    mainwindow.ui
 
 RESOURCES += \
-    src/resource.qrc \
-    src/qss.qrc
+    resource.qrc \
+    qss.qrc

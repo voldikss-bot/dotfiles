@@ -125,8 +125,8 @@ endfunction
 function! userfunc#keymap#Command_Pairs(pairs) abort
   let pos = getcmdpos()
   let prechar = getcmdline()[pos-2]
-  if prechar == "'"
-    return "'"
+  if prechar == a:pairs[0]
+    return a:pairs[0]
   else
     return a:pairs . "\<Left>"
   endif

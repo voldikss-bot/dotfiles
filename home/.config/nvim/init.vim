@@ -245,7 +245,6 @@ augroup FileTypeAutocmds
   autocmd FileType floaterm setlocal nocursorline
   autocmd FileType help setlocal number
   autocmd FileType * set formatoptions-=cro
-  autocmd FileType coc-explorer setlocal relativenumber
 augroup END
 
 augroup UserAutoSaveBuffer
@@ -275,12 +274,12 @@ augroup END
 augroup UserKeywordHighlight
   autocmd!
   autocmd Syntax *
-    \ call matchadd('Todo',  '\W\zs\(@TODO\|@FIXME\|@CHANGED\|@XXX\|@BUG\|@HACK\)') |
-    \ call matchadd('Todo',  '\W\zs\(@todo\|@fixme\|@changed\|@xxx\|@bug\|@hack\)') |
-    \ call matchadd('Todo',  '\W\zs\(@NOTE\|@INFO\|@IDEA\|@NOTICE\)') |
-    \ call matchadd('Todo',  '\W\zs\(@note\|@info\|@idea\|@notice\)') |
-    \ call matchadd('Debug', '\W\zs\(@DEBUG\|@Debug\|@debug\)') |
-    \ call matchadd('Tag', '\W\zs\(@VOLDIKSS\|@voldikss\)')
+    \ call matchadd('Special', '\W\zs\(@TODO\|@FIXME\|@CHANGED\|@XXX\|@BUG\|@HACK\)') |
+    \ call matchadd('Special', '\W\zs\(@todo\|@fixme\|@changed\|@xxx\|@bug\|@hack\)') |
+    \ call matchadd('Special', '\W\zs\(@NOTE\|@INFO\|@IDEA\|@NOTICE\|@TMP\)') |
+    \ call matchadd('Special', '\W\zs\(@note\|@info\|@idea\|@notice\|@tmp\)') |
+    \ call matchadd('Special', '\W\zs\(@DEBUG\|@Debug\|@debug\)') |
+    \ call matchadd('Special', '\W\zs\(@VOLDIKSS\|@voldikss\)')
 augroup END
 
 augroup UserAutoChangeDir
@@ -314,6 +313,15 @@ augroup END
 augroup AutoNohlsearch
   autocmd!
   autocmd CursorMoved * call userfunc#myhlsearch#start_hl()
+augroup END
+
+augroup CocExplorerCustom
+  autocmd!
+  autocmd FileType coc-explorer setlocal relativenumber
+  autocmd BufEnter *
+    \ if &ft == 'coc-explorer'
+    \ | call CocAction('runCommand', 'explorer.doAction', 'closest', ['refresh'])
+    \ | endif
 augroup END
 
 if has('nvim')
@@ -396,7 +404,6 @@ call s:SetCommandAbbrs('w!!', '%!sudo tee >/dev/null %')
 
 " Commands: {{{
 command! -nargs=0 AutoFormat call userfunc#file#AutoFormat()
-command! -nargs=0 CloseHiddenBuffers call userfunc#buffer#CloseNoDisplayedBuffers()
 command! -nargs=0 OpenFileExplorer call userfunc#utils#OpenFileExplorer()
 command! -nargs=0 CloseNoBuflistedBuffers call userfunc#buffer#CloseNoBuflistedBuffers()
 command! -nargs=0 CloseNoCurrentBuffers call userfunc#buffer#CloseNoCurrentBuffers()
@@ -535,7 +542,7 @@ cnoremap <expr> {    userfunc#keymap#Command_Pairs('{}')
 cnoremap <expr> <BS> userfunc#keymap#Command_BS()
 " TerminalMode:
 tnoremap <Esc>  <C-\><C-n>
-tnoremap <expr> <C-R> '<C-\><C-N>"'.nr2char(getchar()).'pi'
+" tnoremap <expr> <C-R> '<C-\><C-N>"'.nr2char(getchar()).'pi'
 if has('win32') || has('win64')
   nnoremap <silent> <Leader>n :vert term<CR>
   nnoremap <silent> ,n        :term<CR>
@@ -652,6 +659,7 @@ function! s:select_current_word_and_go_next()
   endif
   return "*\<Plug>(coc-cursors-word):nohlsearch\<CR>"
 endfunction
+nmap <silent> <C-s> :CocSearch <C-r><C-w><Cr>
 nmap <silent> <M-n> <Plug>(coc-diagnostic-next)
 nmap <silent> <M-p> <Plug>(coc-diagnostic-prev)
 nmap <silent> <Leader>ca :CocAction<CR>
@@ -886,8 +894,10 @@ let g:Lf_PreviewResult        = {'Function':0, 'BufTag':0}
 let g:Lf_RgConfig = [
   \"--glob=!OmegaOptions.bak",
   \"--glob=!node_modules",
+  \"--glob=!lib/index.js",
   \"--glob=!target",
   \"--glob=!.git",
+  \"--glob=!build",
   \"--no-ignore",
   \"--hidden"
 \]
@@ -956,7 +966,8 @@ let g:floaterm_keymap_prev   = '<F8>'
 let g:floaterm_keymap_next   = '<F9>'
 let g:floaterm_keymap_toggle = '<F12>'
 let g:floaterm_rootmarkers   = ['.git', '.gitignore', '*.pro', 'Cargo.toml']
-hi FloatermBorder guifg=orange
+hi Floaterm guibg=#444444
+hi FloatermBorder guifg=orange guibg=#444444
 command! PythonREPL  :FloatermNew --wintype=normal --width=0.5 --position=right python
 " function! s:runner_proc(opts)
 "   let curr_bufnr = floaterm#curr()

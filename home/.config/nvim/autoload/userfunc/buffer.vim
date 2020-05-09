@@ -19,8 +19,11 @@ function! userfunc#buffer#CloseNoDisplayedBuffers() abort
       continue
     endif
     if bufexists(b) && !has_key(visible, b)
-      execute 'bwipeout' b
-      let tally += 1
+      try
+        execute 'bwipeout' b
+        let tally += 1
+      catch
+      endtry
     endif
   endfor
   echom 'Closed ' . tally . ' Files'
@@ -34,8 +37,11 @@ function! userfunc#buffer#CloseNoCurrentBuffers() abort
       continue
     endif
     if bufexists(b) && b != bufnr('%')
-      execute 'bwipeout' b
-      let tally += 1
+      try
+        execute 'bwipeout' b
+        let tally += 1
+      catch
+      endtry
     endif
   endfor
   echom 'Closed ' . tally . ' Files'
@@ -49,8 +55,11 @@ function! userfunc#buffer#CloseNoBuflistedBuffers() abort
       continue
     endif
     if !buflisted(b)
-      execute 'bwipeout' b
-      let tally += 1
+      try
+        execute 'bwipeout' b
+        let tally += 1
+      catch
+      endtry
     endif
   endfor
   echom 'Closed ' . tally . ' Files'

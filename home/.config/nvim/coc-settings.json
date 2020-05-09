@@ -103,6 +103,8 @@
   "git.removedSign.hlGroup": "GitDeleteBottom",
   "git.showCommitInFloating": true,
   "git.topRemovedSign.hlGroup": "GitDeleteTop",
+  // "http.proxy": "socks5://127.0.0.1:1081",
+  // "http.proxyStrictSSL": true,
   "languageserver": {
     "bash": {
       "command": "bash-language-server",
@@ -170,6 +172,7 @@
   "prettier.semi": false,
   "prettier.singleQuote": true,
   "prettier.tabWidth": 2,
+  "prettier.bracketSpacing": false,
   "python.autoComplete.addBrackets": true,
   "python.formatting.blackPath": "/usr/bin/black",
   "python.formatting.provider": "black",
@@ -223,7 +226,8 @@
   "template.templatesDirectory": "~/.config/nvim/templates",
   "todolist.monitor": true,
   "todolist.promptForReminder": false,
-  "translator.engines": ["bing", "ciba", "google"],
+  "translator.engines": ["bing", "iciba", "google", "youdao", "haici"],
+  "translator.enableHover": true,
   "tslint.autoFixOnSave": true,
   "typescript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
   "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
