@@ -227,7 +227,7 @@
   "todolist.monitor": true,
   "todolist.promptForReminder": false,
   "translator.engines": ["bing", "iciba", "google", "youdao", "haici"],
-  "translator.enableHover": true,
+  "translator.enableHover": false,
   "tslint.autoFixOnSave": true,
   "typescript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
   "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,

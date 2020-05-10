@@ -16,10 +16,9 @@ function! userfunc#myhlsearch#start_hl()
   try
     silent keepjumps norm! n
     if getpos('.') != rpos
-      throw 0
+      call s:stop_hl()
     endif
-  catch /^\%(0$\|Vim\%(\w\|:Interrupt$\)\@!\)/
-    call s:stop_hl()
+  catch
     return
   finally
     call winrestview(pos)
