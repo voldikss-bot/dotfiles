@@ -453,8 +453,8 @@ noremap <silent> <C-k>      :<C-u>call userfunc#coc#ShowDocument()<CR>
 " use set shortmess-=S to display searchindex
 nnoremap <silent> n  nzz
 nnoremap <silent> N  Nzz
-nnoremap <silent> *  *zz
-nnoremap <silent> #  #zz
+nnoremap * m`:keepjumps normal! *``zz<cr>
+nnoremap # m`:keepjumps normal! #``zz<cr>
 xnoremap * :<C-u>call userfunc#keymap#VisualStarSearch('/')<CR>/<C-R>=@/<CR><CR>
 xnoremap # :<C-u>call userfunc#keymap#VisualStarSearch('?')<CR>?<C-R>=@/<CR><CR>
 " TextObject:
