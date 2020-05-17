@@ -4,7 +4,7 @@
   "coc.preferences.extensionUpdateCheck": "daily",
   "coc.preferences.formatOnSaveFiletypes": [],
   "coc.preferences.hoverTarget": "float",
-  "coc.preferences.jumpCommand": "edit",
+  "coc.preferences.jumpCommand": "wincmd o | vsplit",
   "coc.preferences.messageLevel": "more",
   "coc.preferences.promptWorkspaceEdit": true,
   "coc.preferences.rootPatterns": [
@@ -30,7 +30,7 @@
     "diagnostic.hintSign": "➤",
     "diagnostic.infoSign": "ℹ"
   },
-  "emmet.includeLanguages": { "vue": "html", "vue-html": "html" },
+  "emmet.includeLanguages": {"vue": "html", "vue-html": "html"},
   "eslint.autoFix": false,
   "eslint.autoFixOnSave": false,
   "eslint.enable": true,
@@ -42,8 +42,10 @@
   "explorer.keyMappings": {
     "k": "nodePrev",
     "<C-k>": "nodePrev",
+    "<M-k>": "indentPrev",
     "j": "nodeNext",
     "<C-j>": "nodeNext",
+    "<M-j>": "indentNext",
     "*": "toggleSelection",
     "<tab>": "actionMenu",
     "h": "collapse",
@@ -123,14 +125,14 @@
         },
         "capabilities": {
           "foldingRangeProvider": false,
-          "workspace": { "workspaceFolders": { "supported": false } }
+          "workspace": {"workspaceFolders": {"supported": false}}
         },
         "clang": {
           "extraArgs": ["--gcc-toolchain=/usr"],
           "resourceDir": "/usr/lib/clang/10.0.0"
         },
-        "completion": { "detailedLabel": true },
-        "index": { "onChange": false, "initialNoLinkage": true, "threads": 2 }
+        "completion": {"detailedLabel": true},
+        "index": {"onChange": false, "initialNoLinkage": true, "threads": 2}
       }
     },
     "cmake": {
@@ -146,7 +148,7 @@
       "rootPatterns": ["go.mod", ".vim", ".git"],
       "filetypes": ["go"]
     },
-    "lua": { "command": "lua-lsp", "filetypes": ["lua"] }
+    "lua": {"command": "lua-lsp", "filetypes": ["lua"]}
   },
   "leetcode.language": "cpp",
   "list.source.grep.defaultArgs": ["-smartcase", "-regex"],
@@ -158,6 +160,7 @@
     "<C-r>": "action:preview",
     "<C-t>": "do:toggle"
   },
+  "list.maxPreviewHeight": 15,
   "list.normalMappings": {
     "<C-c>": "do:exit",
     "<C-j>": "do:next",

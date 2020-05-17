@@ -61,16 +61,18 @@ endfunction
 function! userfunc#keymap#Normal_CR() abort
   let line = trim(getline('.'))
   let disable_if_begin_with = ['#', '/']
-  let disable_if_end_with = [',', ';', '{','[', '(', '\', '<', '>']
+  let disable_if_end_with = [',', ';', '{','[', '(', '/', '\', '<', '>']
 
   if line == '' || index(disable_if_begin_with, line[0]) >= 0 || index(disable_if_end_with, line[-1:]) >= 0
     return "\<CR>"
   endif
 
-  if index(['c', 'cpp', 'cs', 'css', 'java', 'rust', 'scss', 'mysql'], &filetype) >= 0
+  if index(['c', 'cpp', 'cs', 'css', 'java', 'rust', 'scss', 'mysql'], &ft) >= 0
     return "A;"
-  elseif index(['json', 'jsonc'], &filetype) >= 0
+  elseif index(['json', 'jsonc'], &ft) >= 0
     return "A,"
+  elseif index(['qmake'], &ft) > 0
+    return "A\\"
   endif
 endfunction
 

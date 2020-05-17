@@ -186,6 +186,7 @@ Plug 'vim-python/python-syntax'
 Plug 'neoclide/coc.nvim', {'do': 'npm install'}
 " Style
 Plug 'Yggdroot/indentLine'
+Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'guns/xterm-color-table.vim', {'on': 'XtermColorTable'}
 Plug 'itchyny/lightline.vim'
 Plug 'kshenoy/vim-signature'
@@ -455,8 +456,8 @@ nnoremap <silent> n  nzz
 nnoremap <silent> N  Nzz
 nnoremap * m`:keepjumps normal! *``zz<cr>
 nnoremap # m`:keepjumps normal! #``zz<cr>
-xnoremap * :<C-u>call userfunc#keymap#VisualStarSearch('/')<CR>/<C-R>=@/<CR><CR>
-xnoremap # :<C-u>call userfunc#keymap#VisualStarSearch('?')<CR>?<C-R>=@/<CR><CR>
+xnoremap * :<C-u>call userfunc#keymap#VisualStarSearch('/')<CR>/<C-R>=@/<CR><CR>N
+xnoremap # :<C-u>call userfunc#keymap#VisualStarSearch('?')<CR>?<C-R>=@/<CR><CR>n
 " TextObject:
 " whole buffer
 xnoremap <silent> ie GoggV
@@ -637,7 +638,12 @@ let g:python_highlight_all = 1
 let g:python_highlight_space_errors = 0
 " lervag/vimtex
 let g:tex_flavor='latex'
-let g:vimtex_view_method='mupdf'
+" let g:vimtex_view_method='general'
+let g:vimtex_view_method='zathura'
+" @todo
+" let g:vimtex_view_general_viewer = 'okular'
+" let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
+" let g:vimtex_view_general_options_latexmk = '--unique'
 let g:vimtex_mappings_enabled = 0
 let g:vimtex_fold_enabled = 1
 let g:vimtex_quickfix_open_on_warning = 0
@@ -866,7 +872,7 @@ let g:asynctasks_term_reuse = 1
 let g:asynctasks_term_rows = 10
 " Yggdroot/LeaderF
 nmap <silent> <Leader>fb :Leaderf buffer<CR>
-nmap <silent> <Leader>fc :Leaderf command<CR>
+nmap <silent> <Leader>fc :Leaderf cmdHistory<CR>
 nmap <silent> <Leader>ff :Leaderf file<CR>
 nmap <silent> <Leader>fg :Leaderf rg<CR>
 nmap <silent> <Leader>fl :Leaderf line<CR>
@@ -897,8 +903,9 @@ let g:Lf_RgConfig = [
   \"--glob=!node_modules",
   \"--glob=!lib/index.js",
   \"--glob=!target",
-  \"--glob=!.git",
   \"--glob=!build",
+  \"--glob=!.git",
+  \"--glob=!.ccls-cache",
   \"--no-ignore",
   \"--hidden"
 \]
@@ -928,7 +935,8 @@ let g:Lf_WildIgnore = {
     \'.android',
     \'.gradle',
     \'.IntelliJIdea*',
-    \'node_modules'
+    \'node_modules',
+    \'build'
   \],
   \'file': [
     \'*.sw?',
@@ -967,8 +975,8 @@ let g:floaterm_keymap_prev   = '<F8>'
 let g:floaterm_keymap_next   = '<F9>'
 let g:floaterm_keymap_toggle = '<F12>'
 let g:floaterm_rootmarkers   = ['.git', '.gitignore', '*.pro', 'Cargo.toml']
-hi Floaterm guibg=#444444
-hi FloatermBorder guifg=orange guibg=#444444
+hi FloatermNC guibg=skyblue
+hi FloatermBorder guifg=orange
 command! PythonREPL  :FloatermNew --wintype=normal --width=0.5 --position=right python
 " function! s:runner_proc(opts)
 "   let curr_bufnr = floaterm#curr()
