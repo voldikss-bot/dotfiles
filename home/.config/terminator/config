@@ -1,6 +1,7 @@
 [global_config]
   window_state = maximise
   scroll_tabbar = True
+  homogeneous_tabbar = False
   suppress_multiple_term_dialog = True
 [keybindings]
   zoom_normal = None
@@ -21,6 +22,8 @@
   layout_launcher = None
 [profiles]
   [[default]]
+    allow_bold = False
+    icon_bell = False
     background_color = "#282828"
     cursor_color = "#aaaaaa"
     font = MonacoB2 Nerd Font Mono Bold 12
@@ -34,7 +37,7 @@
       parent = window0
       type = Terminal
       profile = default
-      directory = /mnt/Data/repo
+      directory = /mnt/repo
     [[[window0]]]
       parent = ""
       type = Window

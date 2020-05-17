@@ -650,6 +650,7 @@ let g:mkdp_auto_close = 0
 let g:semshi#always_update_all_highlights = v:true
 let g:semshi#error_sign = v:false
 " neoclide/coc.nvim
+let g:coc_data_home = '~/.config/coc'
 inoremap <silent><expr> <C-j> coc#util#has_float() ? userfunc#coc#FloatScroll(1) : "\<down>"
 inoremap <silent><expr> <C-k> coc#util#has_float() ? userfunc#coc#FloatScroll(0) :  "\<up>"
 nmap <expr> <silent> <C-c> <SID>select_current_word_and_go_next()
@@ -719,7 +720,7 @@ let g:coc_global_extensions = [
   \ 'coc-highlight',
   \ 'coc-html',
   \ 'coc-json',
-  \ 'coc-kite',
+  \ 'coc-leetcode',
   \ 'coc-lists',
   \ 'coc-marketplace',
   \ 'coc-pairs',

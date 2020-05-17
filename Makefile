@@ -1,4 +1,4 @@
-.PHONY: install sync base update_mirrorlist link nvim oh-my-zsh vim8 fonts nodejs python latex ccls goldendict ctags gtags rg fzf ncdu nnn v2ray peek google-chrome netease-cloud-music sogou-pinyin
+.PHONY: install sync base update_mirrorlist link nvim oh-my-zsh vim8 fonts nodejs python latex ccls goldendict ctags gtags rg fzf ncdu v2ray peek google-chrome netease-cloud-music sogou-pinyin kde_apps yay
 
 OS := $(shell lsb_release -si)
 
@@ -7,6 +7,15 @@ OS := $(shell lsb_release -si)
 .SILENT:
 install:
 	echo 'Use `make [target]`'
+
+.ONESHELL:
+.SILENT:
+yay:
+	git clone https://aur.archlinux.org/yay.git
+	cd yay
+	makepkg -si
+	cd ..
+	rm -r yay
 
 
 .ONESHELL:
@@ -20,7 +29,7 @@ sync:
 .SILENT:
 base:
 	if [ $(OS) == 'Arch' ]; then
-		sudo pacman -S openssh git wget curl unrar unzip tree xclip make cmake htop ranger trash-cli zathura zsh --noconfirm
+		sudo pacman -S openssh git wget curl unrar unzip tree xclip make cmake htop ranger trash-cli zathura zsh dconf-editor lsb-release mlocate --noconfirm
 	elif [ $(OS) == 'Ubuntu' ]; then
 		sudo apt install openssh-client git wget curl unrar unzip tree xclip make cmake htop ranger gnome-tweak-tool zsh -y
 		sudo apt install trash-cli -y
@@ -35,6 +44,10 @@ update_mirrorlist:
 	if [ $(OS) == 'Arch' ]; then
 		sudo cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak
 		sudo cp ./sources/arch/mirrorlist /etc/pacman.d/mirrorlist
+		sudo echo "[archlinuxcn]
+				   SigLevel = Optional TrustAll
+				   Server = https://mirrors.sjtug.sjtu.edu.cn/archlinux-cn/$$arch
+				   " > /etc/pacman.conf
 	elif [ $(OS) == 'Ubuntu' ]; then
 		sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak
 		sudo cp ./sources/ubuntu/sources.list /etc/apt/sources.list
@@ -142,6 +155,12 @@ fonts:
 
 .ONESHELL:
 .SILENT:
+monaco_nerd_fonts: yay
+	yay -S otf-nerd-fonts-monacob-mono --noconfirm
+
+
+.ONESHELL:
+.SILENT:
 nodejs:
 	if ! command -v node >/dev/null; then
 		echo "Installing nodejs..."
@@ -186,7 +205,7 @@ latex:
 	if ! command -v latex >/dev/null; then
 		echo "Installing latex..."
 		if [ $(OS) == 'Arch' ]; then
-			# sudo pacman -S latex --noconfirm
+			sudo pacman -S texlive-core texlive-langchinese --noconfirm
 		elif [ $(OS) == 'Ubuntu' ]; then
 			sudo apt install texlive -y
 			sudo apt install texlive-lang-chinese -y
@@ -262,11 +281,11 @@ ctags:
 
 .ONESHELL:
 .SILENT:
-gtags:
+gtags: yay
 	if ! command -v gtags >/dev/null; then
 		echo "Installing gtags..."
 		if [ $(OS) == 'Arch' ]; then
-			sudo pacman -S gtags --noconfirm
+			yay -S global --noconfirm
 		elif [ $(OS) == 'Ubuntu' ]; then
 			sudo apt install automake autoconf flex bison gperf libtool libtool-bin texinfo -y
 			# The latest version is v6.6.3 for now
@@ -307,10 +326,12 @@ fzf:
 	if ! command -v fzf >/dev/null; then
 		echo "Installing fzf..."
 		if [ $(OS) == 'Arch' ]; then
-			sudo pacman -S fzf --noconfirm
+			# sudo pacman -S fzf --noconfirm
+			git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+			~/.fzf/install
 		elif [ $(OS) == 'Ubuntu' ]; then
 			git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-			~/.fzf/install --all --64
+			~/.fzf/install
 		fi
 	fi
 
@@ -332,25 +353,6 @@ ncdu:
 			sudo make install
 			cd ..
 			rm -rf ncdu*
-		fi
-	fi
-
-
-.ONESHELL:
-.SILENT:
-nnn:
-	if ! command -v nnn >/dev/null; then
-		echo "Installing nnn..."
-		if [ $(OS) == 'Arch' ]; then
-			sudo pacman -S nnn --noconfirm
-		elif [ $(OS) == 'Ubuntu' ]; then
-			git clone https://github.com/jarun/nnn --depth 1
-			cd nnn
-			sudo apt install pkg-config libncursesw5-dev libreadline6-dev -y
-			make
-			sudo make install
-			cd ..
-			rm -rf nnn
 		fi
 	fi
 
@@ -383,11 +385,11 @@ peek:
 
 .ONESHELL:
 .SILENT:
-google-chrome:
+google-chrome: yay
 	if ! command -v google-chrome >/dev/null; then
 		echo "Installing google-chrome..."
 		if [ $(OS) == 'Arch' ]; then
-			sudo pacman -S google-chrome --noconfirm
+			yay -S google-chrome --noconfirm
 		elif [ $(OS) == 'Ubuntu' ]; then
 			sudo wget https://repo.fdzh.org/chrome/google-chrome.list -P /etc/apt/sources.list.d/
 			wget -q -O - https://dl.google.com/linux/linux_signing_key.pub  | sudo apt-key add -
@@ -417,10 +419,15 @@ netease-cloud-music:
 .SILENT:
 sogou-pinyin:
 	if [ $(OS) == 'Arch' ]; then
-		sudo pacman -S fcitx-lilydjwg-git --noconfirm
+		sudo pacman -S fcitx-lilydjwg-git fcitx-sogoupinyin --noconfirm
 	elif [ $(OS) == 'Ubuntu' ]; then
 		wget -O sogou-pinyin.deb http://pinyin.sogou.com/linux/download.php\?f\=linux\&bit\=64
 		sudo dpkg -i sogou-pinyin.deb
 		sudo apt install -f
 		rm sogou-pinyin.deb
 	fi
+
+.ONESHELL:
+.SILENT:
+kde_apps:
+	sudo pacman -S spectacle krunner --noconfirm

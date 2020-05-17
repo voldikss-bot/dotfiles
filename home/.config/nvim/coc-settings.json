@@ -148,6 +148,7 @@
     },
     "lua": { "command": "lua-lsp", "filetypes": ["lua"] }
   },
+  "leetcode.language": "cpp",
   "list.source.grep.defaultArgs": ["-smartcase", "-regex"],
   "list.indicator": "⚡️",
   "list.insertMappings": {
