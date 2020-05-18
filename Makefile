@@ -1,4 +1,4 @@
-.PHONY: install sync base update_mirrorlist link nvim oh-my-zsh vim8 fonts nodejs python latex ccls goldendict ctags gtags rg fzf ncdu v2ray peek google-chrome netease-cloud-music sogou-pinyin kde_apps yay
+.PHONY: install sync base update_mirrorlist link nvim oh-my-zsh vim8 fonts nodejs python latex ccls goldendict ctags gtags rg fzf ncdu v2ray peek google-chrome netease-cloud-music sogou-pinyin kde_apps yay wps
 
 OS := $(shell lsb_release -si)
 
@@ -431,3 +431,9 @@ sogou-pinyin:
 .SILENT:
 kde_apps:
 	sudo pacman -S spectacle krunner --noconfirm
+
+
+.ONESHELL:
+.SILENT:
+wps:
+	sudo pacman -S wps-office-cn wps-office-mui-zh-cn --noconfirm

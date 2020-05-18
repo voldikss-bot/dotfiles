@@ -196,7 +196,7 @@ Plug 'ryanoasis/vim-devicons'
 " Git
 Plug 'tpope/vim-fugitive'
 " Others
-" Plug 'brglng/vim-im-select'
+Plug 'brglng/vim-im-select', {'on': 'ImSelectEnable'}
 " Plug 'puremourning/vimspector'
 Plug 'easymotion/vim-easymotion'
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
@@ -516,8 +516,8 @@ inoremap <silent> <C-d> <Esc>ddi
 
 nnoremap <silent>       <Leader>w :w<CR>
 nnoremap <silent>       <Leader>W :wa<CR>
-nnoremap <silent>       gq        q
-nnoremap <silent>       gQ        Q
+nnoremap <silent>       <Leader>q q
+nnoremap <silent>       <Leader>Q Q
 nnoremap <silent>       q         :q!<CR>
 nnoremap <silent>       Q         :qa!<CR>
 nnoremap <silent><expr> gd        userfunc#keymap#Normal_q()
