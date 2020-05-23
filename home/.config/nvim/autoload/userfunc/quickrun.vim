@@ -17,6 +17,12 @@ function! userfunc#quickrun#Run(...) abort
     return
   elseif expand('%') == 'init.vim'
     source %
+  elseif &filetype == 'tex'
+    if b:vimtex.compiler.is_running()
+      VimtexView
+    else
+      VimtexCompile
+    endif
   else
     AsyncTask start
   endif

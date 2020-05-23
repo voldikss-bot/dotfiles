@@ -214,7 +214,7 @@ Plug 'skywind3000/asyncrun.vim', {'on': ['AsyncRun', 'AsyncStop'] }
 Plug 'skywind3000/asynctasks.vim'
 Plug 'skywind3000/vim-dict'
 Plug 'tommcdo/vim-exchange'
-Plug 'tpope/vim-commentary'
+Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'voldikss/vim-browser-search'
@@ -638,6 +638,7 @@ let g:python_highlight_all = 1
 let g:python_highlight_space_errors = 0
 " lervag/vimtex
 let g:tex_flavor='latex'
+let g:vimtex_quickfix_mode = 0
 " let g:vimtex_view_method='general'
 let g:vimtex_view_method='zathura'
 " @todo
@@ -659,12 +660,14 @@ let g:semshi#error_sign = v:false
 let g:coc_data_home = '~/.config/coc'
 inoremap <silent><expr> <C-j> coc#util#has_float() ? userfunc#coc#FloatScroll(1) : "\<down>"
 inoremap <silent><expr> <C-k> coc#util#has_float() ? userfunc#coc#FloatScroll(0) :  "\<up>"
-nmap <expr> <silent> <C-c> <SID>select_current_word_and_go_next()
+nmap <expr> <silent> <C-x> <SID>select_current_word_and_go_next()
 function! s:select_current_word_and_go_next()
   if !get(g:, 'coc_cursors_activated', 0)
     return "\<Plug>(coc-cursors-word)"
   endif
-  return "*\<Plug>(coc-cursors-word):nohlsearch\<CR>"
+  " based on coc readme, this has been modified
+  " because I have mapped * to m`:keepjumps normal! *``zz<cr>
+  return "*n\<Plug>(coc-cursors-word):nohlsearch\<CR>"
 endfunction
 nmap <silent> <C-s> :CocSearch <C-r><C-w><Cr>
 nmap <silent> <M-n> <Plug>(coc-diagnostic-next)
@@ -800,8 +803,8 @@ let g:lightline = {
     \ 'codelf_status': '%{g:codelf_status}',
     \ 'translator_status': '%{g:translator_status}',
     \ 'asyncrun_status': '%{g:asyncrun_status}',
-    \ 'close': '%{has("nvim") ? " NVIM " : " VIM "}',
-    \ 'vim_logo': "\ue7c5"
+    \ 'close': '%{has("nvim") ? " NVIM 😆" : " VIM "}',
+    \ 'vim_logo': "😆 "
   \ },
   \ 'component_function': {
     \ 'mode': 'userfunc#lightline#Mode',
@@ -932,6 +935,7 @@ let g:Lf_WildIgnore = {
     \'.hg',
     \'.cache',
     \'.idea',
+    \'.ccls-cache',
     \'.android',
     \'.gradle',
     \'.IntelliJIdea*',
@@ -963,7 +967,7 @@ vmap <silent>    ,t        <Plug>TranslateV
 vmap <silent>    ,w        <Plug>TranslateWV
 vmap <silent>    ,r        <Plug>TranslateRV
 let g:translator_history_enable = 1
-let g:translator_default_engines = ['baicizhan', 'bing', 'google', 'haici', 'iciba', 'trans', 'youdao']
+let g:translator_default_engines = ['baicizhan', 'bing', 'google', 'haici', 'iciba', 'youdao']
 let g:translator_window_max_height = 0.8
 let g:translator_window_max_width = 0.8
 " voldikss/vim-floaterm
@@ -1041,4 +1045,6 @@ nmap <Space>k <Plug>(easymotion-k)
 nmap <Space>l <Plug>(easymotion-bd-jk)
 nmap <Space>w <Plug>(easymotion-bd-w)
 nmap <Space>f <Plug>(easymotion-bd-f)
+" brglng/vim-im-select
+let g:im_select_enable_focus_events = 0
 " }}}

@@ -82,6 +82,7 @@ nvim: link
 	sudo pip3 install autopep8
 	sudo pip3 install python-language-server
 	sudo pip3 install pylint
+	sudo pip3 install black
 	sudo pip3 install neovim-remote
 	sudo yarn global add neovim
 	sudo yarn global add bash-language-server

@@ -62,7 +62,11 @@ function! userfunc#file#Rename(new_name) abort
   endif
   if new_name != '' && new_name != old_name
     execute ':saveas ' new_name
-    execute ':silent !rm ' old_name
+    if has('unix')
+      execute 'silent !rm ' fname
+    else
+      execute 'silent !del ' fname
+    endif
     execute 'bdelete ' old_name
     redraw!
   endif
@@ -72,6 +76,10 @@ endfunction
 function! userfunc#file#Remove() abort
   let fname = expand('%')
   execute 'bdelete ' fname
-  execute 'silent !rm ' fname
+  if has('unix')
+    execute 'silent !rm ' fname
+  else
+    execute 'silent !del ' fname
+  endif
   redraw!
 endfunction

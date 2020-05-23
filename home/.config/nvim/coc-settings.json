@@ -1,7 +1,7 @@
 {
   "browser.maxLength": 30,
   "browser.priority": 0,
-  "coc.preferences.extensionUpdateCheck": "daily",
+  "coc.preferences.extensionUpdateCheck": "weekly",
   "coc.preferences.formatOnSaveFiletypes": [],
   "coc.preferences.hoverTarget": "float",
   "coc.preferences.jumpCommand": "wincmd o | vsplit",
@@ -178,7 +178,6 @@
   "prettier.tabWidth": 2,
   "prettier.bracketSpacing": false,
   "python.autoComplete.addBrackets": true,
-  "python.formatting.blackPath": "/usr/bin/black",
   "python.formatting.provider": "black",
   "rust-analyzer.serverPath": "~/.cargo/bin/rust-analyzer",
   "session.directory": "~/.cache/nvim/session",
