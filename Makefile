@@ -30,7 +30,7 @@ sync:
 base:
 	if [ $(OS) == 'Arch' ]; then
 		sudo pacman -S openssh git wget curl unrar unzip tree xclip make cmake htop ranger trash-cli zathura zsh --noconfirm
-		sudo pacman -S dconf-editor lsb-release mlocate cgdb proxychains --noconfirm
+		sudo pacman -S dconf-editor lsb-release mlocate cgdb proxychains zeal --noconfirm
 	elif [ $(OS) == 'Ubuntu' ]; then
 		sudo apt install openssh-client git wget curl unrar unzip tree xclip make cmake htop ranger gnome-tweak-tool zsh -y
 		sudo apt install trash-cli -y

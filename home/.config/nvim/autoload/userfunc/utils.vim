@@ -119,3 +119,14 @@ function! userfunc#utils#DelimiterLine(style, ...) abort
   endif
   call append(line('.'), line)
 endfunction
+
+" Zeal:
+function! userfunc#utils#Zeal(query) abort
+  if empty(a:query)
+    let query = expand('<cword>')
+  else
+    let query = a:query
+  endif
+  let cmd = printf("zeal '%s:%s' 2> /dev/null &", &ft, query)
+  call jobstart(cmd)
+endfunction

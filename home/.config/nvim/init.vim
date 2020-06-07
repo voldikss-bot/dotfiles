@@ -410,6 +410,7 @@ command! -nargs=0 OpenFileExplorer call userfunc#utils#OpenFileExplorer()
 command! -nargs=0 CloseNoBuflistedBuffers call userfunc#buffer#CloseNoBuflistedBuffers()
 command! -nargs=0 CloseNoCurrentBuffers call userfunc#buffer#CloseNoCurrentBuffers()
 command! -nargs=0 CloseNoDisplayedBuffers call userfunc#buffer#CloseNoDisplayedBuffers()
+command! -nargs=* Zeal call userfunc#utils#Zeal(<q-args>)
 command! -nargs=? Bline call userfunc#utils#DelimiterLine('bold', <f-args>)
 command! -nargs=? Cline call userfunc#utils#DelimiterLine('comment', <f-args>)
 command! -nargs=? Line call userfunc#utils#DelimiterLine('light', <f-args>)
@@ -749,8 +750,8 @@ let g:coc_global_extensions = [
   \ 'coc-tsserver',
   \ 'coc-vimlsp',
   \ 'coc-vimtex',
-  \ 'coc-yank',
-  \ 'coc-zi'
+  \ 'coc-word',
+  \ 'coc-yank'
 \ ]
 " Yggdroot/indentLine
 let g:indentLine_char = '│'
@@ -1044,7 +1045,7 @@ let g:vimspector_enable_mappings = 'HUMAN'
 " easymotion.vim
 let g:EasyMotion_do_mapping = 0
 let g:EasyMotion_smartcase = 1
-nmap <M-f> <Plug>(easymotion-bd-w)
+nmap <M-f> <Plug>(easymotion-overwin-w)
 " brglng/vim-im-select
 let g:im_select_enable_focus_events = 0
 " }}}
