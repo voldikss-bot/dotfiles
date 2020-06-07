@@ -38,6 +38,7 @@
       type = Terminal
       profile = default
       directory = /mnt/repo
+      command = ""
     [[[window0]]]
       parent = ""
       type = Window

@@ -37,6 +37,8 @@ augroup filetypedetect
   autocmd BufNewFile,BufRead *.pro              setfiletype qmake
 
   autocmd BufNewFile,BufRead *.toml,Gopkg.lock,Cargo.lock,*/.cargo/config,*/.cargo/credentials,Pipfile setfiletype toml
+
+  autocmd BufNewFile,BufRead cgdbrc             setfiletype vim
 augroup END
 
 let did_load__my_filetypes=1

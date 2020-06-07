@@ -311,10 +311,10 @@ augroup UserStartifyAutocmds
   autocmd User Startified setlocal buflisted
 augroup END
 
-augroup AutoNohlsearch
-  autocmd!
-  autocmd CursorMoved * call userfunc#myhlsearch#start_hl()
-augroup END
+" augroup AutoNohlsearch
+"   autocmd!
+"   autocmd CursorMoved * call userfunc#myhlsearch#start_hl()
+" augroup END
 
 augroup CocExplorerCustom
   autocmd!
@@ -335,7 +335,8 @@ augroup UserTermSettings " neovim only
     \ setlocal modifiable |
     \ nmap <silent><buffer> <Esc> <Cmd>hide<CR>|
     \ nmap <silent><buffer> q :q<CR> |
-    \ hi TermCursor guifg=yellow
+    \ hi TermCursor guifg=yellow |
+    \ call timer_start(10, 'userfunc#asyncrun#term_style')
 augroup END
 
 function! s:OnColorSchemeLoaded() abort
@@ -448,14 +449,14 @@ vnoremap <silent> [[  {j
 vnoremap <silent> ]]  }k
 " Jump:
 noremap <silent> <C-j>      <C-]>
-noremap <silent> <C-W><C-j> <C-W><C-]>
+noremap <silent> <C-W><C-j> <C-W>v<C-]>zz
 noremap <silent> <C-k>      :<C-u>call userfunc#coc#ShowDocument()<CR>
 " Search:
 " use set shortmess-=S to display searchindex
 nnoremap <silent> n  nzz
 nnoremap <silent> N  Nzz
 nnoremap * m`:keepjumps normal! *``zz<cr>
-nnoremap # m`:keepjumps normal! #``zz<cr>
+nnoremap # #zz
 xnoremap * :<C-u>call userfunc#keymap#VisualStarSearch('/')<CR>/<C-R>=@/<CR><CR>N
 xnoremap # :<C-u>call userfunc#keymap#VisualStarSearch('?')<CR>?<C-R>=@/<CR><CR>n
 " TextObject:
@@ -520,7 +521,7 @@ nnoremap <silent>       <Leader>q q
 nnoremap <silent>       <Leader>Q Q
 nnoremap <silent>       q         :q!<CR>
 nnoremap <silent>       Q         :qa!<CR>
-nnoremap <silent><expr> gd        userfunc#keymap#Normal_q()
+nnoremap <silent><expr> <M-d>        userfunc#keymap#Normal_q()
 " nnoremap <silent> <Leader>Q :qa!<CR>
 " noremap  <silent> <Leader>d :bp<bar>sp<bar>bn<bar>bd!<bar>:redraw!<CR>
 " QuickMessage:
@@ -660,7 +661,7 @@ let g:semshi#error_sign = v:false
 let g:coc_data_home = '~/.config/coc'
 inoremap <silent><expr> <C-j> coc#util#has_float() ? userfunc#coc#FloatScroll(1) : "\<down>"
 inoremap <silent><expr> <C-k> coc#util#has_float() ? userfunc#coc#FloatScroll(0) :  "\<up>"
-nmap <expr> <silent> <C-x> <SID>select_current_word_and_go_next()
+nmap <expr> <silent> <C-c> <SID>select_current_word_and_go_next()
 function! s:select_current_word_and_go_next()
   if !get(g:, 'coc_cursors_activated', 0)
     return "\<Plug>(coc-cursors-word)"
@@ -755,7 +756,7 @@ let g:coc_global_extensions = [
 let g:indentLine_char = '│'
 let g:indentLine_enabled = 1
 let g:indentLine_color_term = 238
-let g:indentLine_fileTypeExclude = ['startify', 'vista', 'json', 'codi', 'vtm', 'jsonc', 'coc-explorer']
+let g:indentLine_fileTypeExclude = ['startify', 'vista', 'json', 'codi', 'vtm', 'jsonc', 'coc-explorer', 'man']
 " mhinz/vim-startify
 let g:webdevicons_enable_startify = 1
 noremap <silent> <Space><Space> <Esc>:Startify<CR>
@@ -906,6 +907,7 @@ let g:Lf_RgConfig = [
   \"--glob=!node_modules",
   \"--glob=!lib/index.js",
   \"--glob=!target",
+  \"--glob=!tags",
   \"--glob=!build",
   \"--glob=!.git",
   \"--glob=!.ccls-cache",
@@ -966,11 +968,14 @@ nmap <silent>    ,r        <Plug>TranslateR
 vmap <silent>    ,t        <Plug>TranslateV
 vmap <silent>    ,w        <Plug>TranslateWV
 vmap <silent>    ,r        <Plug>TranslateRV
+let g:translator_status = ''
 let g:translator_history_enable = 1
-let g:translator_default_engines = ['baicizhan', 'bing', 'google', 'haici', 'iciba', 'youdao']
+let g:translator_default_engines = ['baicizhan', 'bing', 'google', 'haici', 'youdao']
 let g:translator_window_max_height = 0.8
 let g:translator_window_max_width = 0.8
 " voldikss/vim-floaterm
+let g:floaterm_width = 0.6
+let g:floaterm_height = 0.6
 let g:floaterm_position = 'center'
 let g:floaterm_gitcommit = 'split'
 let g:floaterm_autoclose = v:true
@@ -1038,13 +1043,8 @@ nmap <silent> ga <Plug>(EasyAlign)
 let g:vimspector_enable_mappings = 'HUMAN'
 " easymotion.vim
 let g:EasyMotion_do_mapping = 0
-nmap <Space>f <Plug>(easymotion-overwin-f2)
 let g:EasyMotion_smartcase = 1
-nmap <Space>j <Plug>(easymotion-j)
-nmap <Space>k <Plug>(easymotion-k)
-nmap <Space>l <Plug>(easymotion-bd-jk)
-nmap <Space>w <Plug>(easymotion-bd-w)
-nmap <Space>f <Plug>(easymotion-bd-f)
+nmap <M-f> <Plug>(easymotion-bd-w)
 " brglng/vim-im-select
 let g:im_select_enable_focus_events = 0
 " }}}

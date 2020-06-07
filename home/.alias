@@ -68,3 +68,7 @@ alias p='sudo pacman'
 
 # dos2unix
 alias dos2unix_all='find . -type f -print0 | xargs -0 dos2unix'
+
+# cgdb nvim
+# might need `echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope`
+alias cgdb_nvim="gdb -p $(ps auxx | grep '[.]/build/bin/nvim' | awk '{print $2}')"
