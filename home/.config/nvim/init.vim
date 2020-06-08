@@ -195,15 +195,16 @@ Plug 'mhinz/vim-startify', {'on': 'Startify'}
 Plug 'ryanoasis/vim-devicons'
 " Git
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-git'
 " Others
 Plug 'brglng/vim-im-select', {'on': 'ImSelectEnable'}
 " Plug 'puremourning/vimspector'
 Plug 'easymotion/vim-easymotion'
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 Plug 'andrewradev/sideways.vim', {'on': ['SidewaysLeft', 'SidewaysRight']}
-Plug 'foosoft/vim-argwrap', {'on': 'ArgWrap'}
+Plug 'foosoft/vim-argwrap', {'on': '<Plug>(ArgWrapToggle)'}
 Plug 'junegunn/vader.vim'
-Plug 'junegunn/vim-easy-align'
+Plug 'junegunn/vim-easy-align', {'on': '<Plug>(EasyAlign)'}
 Plug 'junegunn/vim-peekaboo'
 Plug 'kristijanhusak/vim-carbon-now-sh', {'on': 'CarbonNowSh'}
 Plug 'voldikss/vim-mark', {'on': '<Plug>MarkSet'}
@@ -352,6 +353,7 @@ function! s:OnColorSchemeLoaded() abort
   exe 'hi CocWarningSign        guifg=#ff922b guibg=' . s:scl_guibg
   exe 'hi CocErrorSign          guifg=#ff0000 guibg=' . s:scl_guibg
   exe 'hi CursorLineNr          guibg=' . s:scl_guibg
+  exe 'hi MyBookmarkSign        guifg=#0000FF guibg=' . s:scl_guibg
   exe 'hi NonText               guifg=' . s:scl_guibg
   " coclist will(might) change my cursor highlight
   hi Cursor gui=reverse guifg=NONE guibg=NONE
@@ -450,8 +452,9 @@ vnoremap <silent> [[  {j
 vnoremap <silent> ]]  }k
 " Jump:
 noremap <silent> <C-j>      <C-]>
-noremap <silent> <C-W><C-j> <C-W>v<C-]>zz
 noremap <silent> <C-k>      :<C-u>call userfunc#coc#ShowDocument()<CR>
+nnoremap <silent> <C-w><C-j> <C-W>v<C-]>zz
+nnoremap <silent> <C-w><C-o> :<C-u>call userfunc#utils#Return()<CR>
 " Search:
 " use set shortmess-=S to display searchindex
 nnoremap <silent> n  nzz
@@ -522,7 +525,7 @@ nnoremap <silent>       <Leader>q q
 nnoremap <silent>       <Leader>Q Q
 nnoremap <silent>       q         :q!<CR>
 nnoremap <silent>       Q         :qa!<CR>
-nnoremap <silent><expr> <M-d>        userfunc#keymap#Normal_q()
+nnoremap <silent><expr> <Leader>d userfunc#keymap#Normal_q()
 " nnoremap <silent> <Leader>Q :qa!<CR>
 " noremap  <silent> <Leader>d :bp<bar>sp<bar>bn<bar>bd!<bar>:redraw!<CR>
 " QuickMessage:
@@ -677,6 +680,9 @@ nmap <silent> <M-p> <Plug>(coc-diagnostic-prev)
 nmap <silent> <Leader>ca :CocAction<CR>
 nmap <silent> <Leader>cd :call userfunc#coc#GoToDefinition()<CR>
 nmap <silent> <Leader>ci <Plug>(coc-implementation)
+" nmap <silent> gd :call userfunc#coc#GoToDefinition()<CR>
+" nmap <silent> gr <Plug>(coc-references)
+nmap <silent> <Leader>cf <Plug>(coc-fix-current)
 nmap <silent> <Leader>cf <Plug>(coc-fix-current)
 nmap <silent> <Leader>rf <Plug>(coc-references)
 nmap <silent> <Leader>cr :CocRestart<CR>
@@ -1036,7 +1042,7 @@ xmap as <Plug>SidewaysArgumentTextobjA
 omap is <Plug>SidewaysArgumentTextobjI
 xmap is <Plug>SidewaysArgumentTextobjI
 " foosoft/vim-argwrap
-noremap <silent> <Leader>aw :ArgWrap<CR>
+nmap <silent> <leader>aw <Plug>(ArgWrapToggle)
 " junegunn/vim-easy-align
 xmap <silent> ga <Plug>(EasyAlign)
 nmap <silent> ga <Plug>(EasyAlign)
@@ -1045,7 +1051,7 @@ let g:vimspector_enable_mappings = 'HUMAN'
 " easymotion.vim
 let g:EasyMotion_do_mapping = 0
 let g:EasyMotion_smartcase = 1
-nmap <M-f> <Plug>(easymotion-overwin-w)
+nmap <Leader>e <Plug>(easymotion-overwin-w)
 " brglng/vim-im-select
 let g:im_select_enable_focus_events = 0
 " }}}

@@ -29,3 +29,5 @@
 	program = gpg
 [github]
     user = voldikss
+[pull]
+	rebase = false

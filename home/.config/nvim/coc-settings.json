@@ -1,10 +1,11 @@
 {
   "browser.maxLength": 30,
   "browser.priority": 0,
+  "bookmark.signHl": "MyBookmarkSign",
   "coc.preferences.extensionUpdateCheck": "weekly",
   "coc.preferences.formatOnSaveFiletypes": [],
   "coc.preferences.hoverTarget": "float",
-  "coc.preferences.jumpCommand": "wincmd o | vsplit",
+  // "coc.preferences.jumpCommand": "wincmd o | vsplit",
   "coc.preferences.messageLevel": "more",
   "coc.preferences.promptWorkspaceEdit": true,
   "coc.preferences.rootPatterns": [
