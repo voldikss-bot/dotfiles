@@ -605,7 +605,7 @@ noremap  <silent> <F4>             <Esc>:OpenFileExplorer<CR>
 noremap  <silent> <F5>             <Esc>:QuickRun<CR>
 noremap! <silent> <F5>             <Esc>:QuickRun<CR>
 noremap  <silent> <Leader>x        <Esc>:QuickRun<CR>
-noremap  <silent> <Leader><Space>  <Esc>:SwitchWindow qf<CR>
+noremap  <silent> <Leader>q        <Esc>:SwitchWindow qf<CR>
 " tnoremap <silent> <Leader><Space>  <C-\><C-n>:SwitchWindow qf<CR>
 noremap  <silent> <F6>             <Esc>:AutoFormat<CR>
 noremap  <silent> <Leader><Leader> <Esc>:AutoFormat<CR>
@@ -991,7 +991,7 @@ let g:floaterm_keymap_prev   = '<F8>'
 let g:floaterm_keymap_next   = '<F9>'
 let g:floaterm_keymap_toggle = '<F12>'
 let g:floaterm_rootmarkers   = ['.git', '.gitignore', '*.pro', 'Cargo.toml']
-hi FloatermNC guibg=skyblue
+" hi FloatermNC guibg=skyblue
 hi FloatermBorder guifg=orange
 command! PythonREPL  :FloatermNew --wintype=normal --width=0.5 --position=right python
 " function! s:runner_proc(opts)
@@ -1051,7 +1051,7 @@ let g:vimspector_enable_mappings = 'HUMAN'
 " easymotion.vim
 let g:EasyMotion_do_mapping = 0
 let g:EasyMotion_smartcase = 1
-nmap <Leader>e <Plug>(easymotion-overwin-w)
+nmap <Space>f <Plug>(easymotion-overwin-w)
 " brglng/vim-im-select
 let g:im_select_enable_focus_events = 0
 " }}}

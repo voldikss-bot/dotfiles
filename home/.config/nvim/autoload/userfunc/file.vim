@@ -63,9 +63,9 @@ function! userfunc#file#Rename(new_name) abort
   if new_name != '' && new_name != old_name
     execute ':saveas ' new_name
     if has('unix')
-      execute 'silent !rm ' fname
+      execute 'silent !rm ' old_name
     else
-      execute 'silent !del ' fname
+      execute 'silent !del ' old_name
     endif
     execute 'bdelete ' old_name
     redraw!

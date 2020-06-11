@@ -4,6 +4,8 @@
 " GitHub: https://github.com/voldikss
 " ============================================================================
 
+let s:exclude_filetypes = ['floaterm', 'coc-explorer', 'vista']
+
 " CloseNoDisplayedBuffers: Close buffers which are not opened in window
 function! userfunc#buffer#CloseNoDisplayedBuffers() abort
   let visible = {}
@@ -15,7 +17,7 @@ function! userfunc#buffer#CloseNoDisplayedBuffers() abort
 
   let tally = 0
   for b in range(1, bufnr('$'))
-    if getbufvar(b, '&filetype') == 'floaterm'
+    if index(s:exclude_filetypes, getbufvar(b:, '&filetype')) > -1
       continue
     endif
     if bufexists(b) && !has_key(visible, b)
@@ -33,7 +35,7 @@ endfunction
 function! userfunc#buffer#CloseNoCurrentBuffers() abort
   let tally = 0
   for b in range(1, bufnr('$'))
-    if getbufvar(b, '&filetype') == 'floaterm'
+    if index(s:exclude_filetypes, getbufvar(b:, '&filetype')) > -1
       continue
     endif
     if bufexists(b) && b != bufnr('%')
@@ -51,7 +53,7 @@ endfunction
 function! userfunc#buffer#CloseNoBuflistedBuffers() abort
   let tally = 0
   for b in range(1, bufnr('$'))
-    if getbufvar(b, '&filetype') == 'floaterm'
+    if index(s:exclude_filetypes, getbufvar(b:, '&filetype')) > -1
       continue
     endif
     if !buflisted(b)
