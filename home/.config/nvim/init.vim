@@ -424,6 +424,11 @@ command! -nargs=+ -complete=file  BrowserOpen  call userfunc#utils#BrowserOpen(<
 command! -nargs=+ -complete=command  TabMessage call userfunc#utils#TabMessage(<q-args>)
 command! -nargs=? -complete=customlist,userfunc#quickrun#Complete QuickRun call userfunc#quickrun#Run(<f-args>)
 command! -nargs=+ -complete=customlist,userfunc#window#Complete SwitchWindow call userfunc#window#SwitchWindow(<q-args>)
+command! -nargs=0 YarnWatch call floaterm#new(0, 'yarn watch', {}, {
+  \ 'on_stdout': function('userfunc#floaterm#WatchCallback'),
+  \ 'on_stderr': function('userfunc#floaterm#WatchCallback'),
+  \ 'on_exit': function('userfunc#floaterm#WatchCallback')
+  \ })
 " }}}
 
 " Mappings: {{{
