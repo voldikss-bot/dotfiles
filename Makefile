@@ -1,3 +1,4 @@
+# vim:wrap
 .PHONY: install sync base update_mirrorlist link nvim oh-my-zsh vim8 fonts nodejs python latex ccls goldendict ctags gtags rg fzf ncdu v2ray peek google-chrome netease-cloud-music sogou-pinyin kde_apps yay wps
 
 OS := $(shell lsb_release -si)
@@ -11,11 +12,12 @@ install:
 .ONESHELL:
 .SILENT:
 yay:
-	git clone https://aur.archlinux.org/yay.git
-	cd yay
-	makepkg -si
-	cd ..
-	rm -r yay
+	if ! command -v yay >/dev/null; then
+		git clone https://aur.archlinux.org/yay.git
+		cd yay
+		makepkg -si
+		cd ..
+		rm -r yay
 
 
 .ONESHELL:
@@ -30,7 +32,7 @@ sync:
 base:
 	if [ $(OS) == 'Arch' ]; then
 		sudo pacman -S openssh git wget curl unrar unzip tree xclip make cmake htop ranger trash-cli zathura zsh --noconfirm
-		sudo pacman -S dconf-editor lsb-release mlocate cgdb proxychains zeal --noconfirm
+		sudo pacman -S dconf-editor lsb-release mlocate cgdb proxychains zeal perl-rename vlc --noconfirm
 	elif [ $(OS) == 'Ubuntu' ]; then
 		sudo apt install openssh-client git wget curl unrar unzip tree xclip make cmake htop ranger gnome-tweak-tool zsh -y
 		sudo apt install trash-cli -y
@@ -439,3 +441,10 @@ kde_apps:
 .SILENT:
 wps:
 	sudo pacman -S wps-office-cn wps-office-mui-zh-cn --noconfirm
+
+
+
+.ONESHELL:
+.SILENT:
+cheat: yay
+	yay -S cheat --noconfirm
