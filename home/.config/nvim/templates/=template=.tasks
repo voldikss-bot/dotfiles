@@ -9,6 +9,7 @@ command=:AsyncTask qmake-build-and-run
 command:c=gcc "$(VIM_FILEPATH)" -o "$(VIM_FILEDIR)/a.out" && "$(VIM_FILEDIR)/a.out"
 command:cpp=g++ "$(VIM_FILEPATH)" -o "$(VIM_FILEDIR)/a.out" && "$(VIM_FILEDIR)/a.out"
 command:html=:BrowserOpen %
+command:java=javac "$(VIM_FILEPATH)" && java "$(VIM_FILENOEXT)" && rm "$(VIM_PATHNOEXT).class"
 command:javascript=node "$(VIM_FILEPATH)"
 command:lua=lua "$(VIM_FILEPATH)"
 command:make=make -f "$(VIM_FILEPATH)"

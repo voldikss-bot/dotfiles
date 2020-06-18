@@ -513,7 +513,7 @@ vnoremap <silent> <Leader>D :<C-u>call userfunc#keymap#incdelete()<CR>
 " InsertMode: move
 inoremap <silent> <C-k> <Up>
 inoremap <silent> <C-j> <Down>
-snoremap <silent> <C-j> <Down>
+" snoremap <silent> <C-j> <Down>
 inoremap <silent> <C-h> <Left>
 inoremap <silent> <C-l> <Right>
 inoremap <silent> <C-b> <C-r>=userfunc#keymap#Exec('normal! b')<CR>
@@ -610,7 +610,7 @@ noremap  <silent> <F4>             <Esc>:OpenFileExplorer<CR>
 noremap  <silent> <F5>             <Esc>:QuickRun<CR>
 noremap! <silent> <F5>             <Esc>:QuickRun<CR>
 noremap  <silent> <Leader>x        <Esc>:QuickRun<CR>
-noremap  <silent> <Leader>q        <Esc>:SwitchWindow qf<CR>
+noremap  <silent> <Leader><Space>  <Esc>:SwitchWindow qf<CR>
 " tnoremap <silent> <Leader><Space>  <C-\><C-n>:SwitchWindow qf<CR>
 noremap  <silent> <F6>             <Esc>:AutoFormat<CR>
 noremap  <silent> <Leader><Leader> <Esc>:AutoFormat<CR>
@@ -668,8 +668,10 @@ let g:semshi#always_update_all_highlights = v:true
 let g:semshi#error_sign = v:false
 " neoclide/coc.nvim
 let g:coc_data_home = '~/.config/coc'
-inoremap <silent><expr> <C-j> coc#util#has_float() ? userfunc#coc#FloatScroll(1) : "\<down>"
-inoremap <silent><expr> <C-k> coc#util#has_float() ? userfunc#coc#FloatScroll(0) :  "\<up>"
+nnoremap <silent><expr> <C-f> coc#util#has_float() ? coc#util#float_scroll(1) : "\<C-f>"
+nnoremap <silent><expr> <C-b> coc#util#has_float() ? coc#util#float_scroll(0) : "\<C-b>"
+inoremap <silent><expr> <M-j> coc#util#has_float() ? userfunc#coc#FloatScroll(1) : "\<down>"
+inoremap <silent><expr> <M-k> coc#util#has_float() ? userfunc#coc#FloatScroll(0) :  "\<up>"
 nmap <expr> <silent> <C-c> <SID>select_current_word_and_go_next()
 function! s:select_current_word_and_go_next()
   if !get(g:, 'coc_cursors_activated', 0)
@@ -741,6 +743,7 @@ let g:coc_global_extensions = [
   \ 'coc-git',
   \ 'coc-highlight',
   \ 'coc-html',
+  \ 'coc-java',
   \ 'coc-json',
   \ 'coc-leetcode',
   \ 'coc-lists',
@@ -749,6 +752,7 @@ let g:coc_global_extensions = [
   \ 'coc-post',
   \ 'coc-prettier',
   \ 'coc-python',
+  \ 'coc-rainbow-fart',
   \ 'coc-rust-analyzer',
   \ 'coc-snippets',
   \ 'coc-syntax',
@@ -991,6 +995,7 @@ let g:floaterm_height = 0.6
 let g:floaterm_position = 'center'
 let g:floaterm_gitcommit = 'split'
 let g:floaterm_autoclose = v:true
+let g:floaterm_autohide = v:true
 let g:floaterm_keymap_new    = '<F7>'
 let g:floaterm_keymap_prev   = '<F8>'
 let g:floaterm_keymap_next   = '<F9>'

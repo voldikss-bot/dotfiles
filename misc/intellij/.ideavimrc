@@ -77,7 +77,7 @@ inoremap <C-l> <Right>
 inoremap <C-b> <Esc>bi
 inoremap <C-f> <Esc>ea
 " 另开一行
-" inoremap <C-o> <Esc>o
+inoremap <C-o> <End><CR>
 " 行首行尾:
 inoremap <C-a> <Home>
 inoremap <C-e> <End>

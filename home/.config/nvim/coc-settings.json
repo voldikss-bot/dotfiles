@@ -180,6 +180,10 @@
   "prettier.bracketSpacing": false,
   "python.autoComplete.addBrackets": true,
   "python.formatting.provider": "black",
+  "rainbow-fart.enabled": false,
+  "rainbow-fart.locale": [
+    "zh"
+  ],
   "rust-analyzer.serverPath": "~/.cargo/bin/rust-analyzer",
   "session.directory": "~/.cache/nvim/session",
   "session.saveOnVimLeave": false,

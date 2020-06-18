@@ -17,7 +17,7 @@ function! userfunc#buffer#CloseNoDisplayedBuffers() abort
 
   let tally = 0
   for b in range(1, bufnr('$'))
-    if index(s:exclude_filetypes, getbufvar(b:, '&filetype')) > -1
+    if index(s:exclude_filetypes, getbufvar(b, '&filetype')) > -1
       continue
     endif
     if bufexists(b) && !has_key(visible, b)
@@ -35,7 +35,7 @@ endfunction
 function! userfunc#buffer#CloseNoCurrentBuffers() abort
   let tally = 0
   for b in range(1, bufnr('$'))
-    if index(s:exclude_filetypes, getbufvar(b:, '&filetype')) > -1
+    if index(s:exclude_filetypes, getbufvar(b, '&filetype')) > -1
       continue
     endif
     if bufexists(b) && b != bufnr('%')
@@ -53,7 +53,7 @@ endfunction
 function! userfunc#buffer#CloseNoBuflistedBuffers() abort
   let tally = 0
   for b in range(1, bufnr('$'))
-    if index(s:exclude_filetypes, getbufvar(b:, '&filetype')) > -1
+    if index(s:exclude_filetypes, getbufvar(b, '&filetype')) > -1
       continue
     endif
     if !buflisted(b)
