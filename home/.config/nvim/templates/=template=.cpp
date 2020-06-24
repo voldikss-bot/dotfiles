@@ -11,6 +11,18 @@
 #include <vector>
 using namespace std;
 
+template <typename T>
+ostream &operator<<(ostream &os, const vector<T> &vec) {
+    for (auto x : vec) os << x << " ";
+    return os;
+}
+
+template <typename T>
+ostream &operator<<(ostream &os, const vector<vector<T>> &vec) {
+    for (auto &x : vec) os << x << endl;
+    return os;
+}
+
 int main() {
     %HERE%
     return 0;

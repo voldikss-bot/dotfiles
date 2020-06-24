@@ -230,6 +230,7 @@ call plug#end()
 " }}}
 
 " Autocmds: {{{
+" autocmd CmdlineEnter * call feedkeys("\<C-p>")
 augroup ParenColor
   autocmd!
   autocmd VimEnter,BufWinEnter *
@@ -735,6 +736,7 @@ let g:coc_global_extensions = [
   \ 'coc-css',
   \ 'coc-diagnostic',
   \ 'coc-dictionary',
+  \ 'coc-ecdict',
   \ 'coc-emmet',
   \ 'coc-emoji',
   \ 'coc-eslint',
@@ -1000,7 +1002,7 @@ let g:floaterm_keymap_new    = '<F7>'
 let g:floaterm_keymap_prev   = '<F8>'
 let g:floaterm_keymap_next   = '<F9>'
 let g:floaterm_keymap_toggle = '<F12>'
-let g:floaterm_rootmarkers   = ['.git', '.gitignore', '*.pro', 'Cargo.toml']
+" let g:floaterm_rootmarkers   = ['.git', '.gitignore', '*.pro', 'Cargo.toml']
 " hi FloatermNC guibg=skyblue
 hi FloatermBorder guifg=orange
 command! PythonREPL  :FloatermNew --wintype=normal --width=0.5 --position=right python
