@@ -1,14 +1,1 @@
 voldikss
-VOLDIKSS
-clouduan
-duanyunzhi
-sjtu
-SJTU
-vimpress
-github
-vscode
-vimrc
-deoplete
-GitHub
-StackOverflow
-localhost

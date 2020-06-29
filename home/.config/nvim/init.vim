@@ -2,7 +2,7 @@
 " Author: voldikss <dyzplus@gmail.com>
 " GitHub: https://github.com/voldikss
 
-" Global Variables: {{{
+" {{{ 全局变量，不用改动
 " IndentCont:
 let g:vim_indent_cont = 2
 " BuiltinPlugin:
@@ -19,12 +19,6 @@ let g:loaded_tutor_mode_plugin = 1
 let g:loaded_vimballPlugin     = 1
 let g:loaded_zipPlugin         = 1
 let g:loaded_netrwPlugin       = 1
-" HostProg:
-if has('win32') || has('win64') || has('win32unix')
-  let g:python3_host_prog='C:\Program Files\Python36/python.exe'
-else
-  let g:python3_host_prog='/usr/bin/python3'
-endif
 " NeoVimTerminalColors:
 let g:terminal_color_0  = '#282828'
 let g:terminal_color_1  = '#cc241d'
@@ -42,8 +36,6 @@ let g:terminal_color_12 = '#00afff'
 let g:terminal_color_13 = '#d3869b'
 let g:terminal_color_14 = '#8ec07c'
 let g:terminal_color_15 = '#ebdbb2'
-" Others:
-let g:winmgr_only_one_win = 0
 " }}}
 
 " Basic: {{{
@@ -180,49 +172,32 @@ Plug 'pangloss/vim-javascript'
 Plug 'plasticboy/vim-markdown'
 Plug 'posva/vim-vue', {'for': 'vue'}
 Plug 'rust-lang/rust.vim', {'for': 'rust'}
-Plug 'tpope/vim-dadbod', {'for': ['sql', 'mysql']}
 Plug 'vim-python/python-syntax'
 " Completion
 Plug 'neoclide/coc.nvim', {'do': 'npm install'}
 " Style
 Plug 'Yggdroot/indentLine'
-Plug 'lukas-reineke/indent-blankline.nvim'
-Plug 'guns/xterm-color-table.vim', {'on': 'XtermColorTable'}
 Plug 'itchyny/lightline.vim'
 Plug 'kshenoy/vim-signature'
 Plug 'mengelbrecht/lightline-bufferline'
 Plug 'mhinz/vim-startify', {'on': 'Startify'}
-Plug 'ryanoasis/vim-devicons'
+" Plug 'ryanoasis/vim-devicons'
 " Git
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-git'
 " Others
-Plug 'brglng/vim-im-select', {'on': 'ImSelectEnable'}
-" Plug 'puremourning/vimspector'
 Plug 'easymotion/vim-easymotion'
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
-Plug 'andrewradev/sideways.vim', {'on': ['SidewaysLeft', 'SidewaysRight']}
-Plug 'foosoft/vim-argwrap', {'on': '<Plug>(ArgWrapToggle)'}
-Plug 'junegunn/vader.vim'
-Plug 'junegunn/vim-easy-align', {'on': '<Plug>(EasyAlign)'}
-Plug 'junegunn/vim-peekaboo'
-Plug 'kristijanhusak/vim-carbon-now-sh', {'on': 'CarbonNowSh'}
-Plug 'voldikss/vim-mark', {'on': '<Plug>MarkSet'}
 Plug 'liuchengxu/vista.vim'
 Plug 'matze/vim-move'
 Plug 'simnalamburt/vim-mundo', {'on': 'MundoToggle'}
 Plug 'skywind3000/asyncrun.vim', {'on': ['AsyncRun', 'AsyncStop'] }
 Plug 'skywind3000/asynctasks.vim'
 Plug 'skywind3000/vim-dict'
-Plug 'tommcdo/vim-exchange'
 Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
-Plug 'voldikss/vim-browser-search'
-Plug 'voldikss/vim-codelf'
 Plug 'voldikss/vim-floaterm'
-Plug 'voldikss/vim-fnote'
-Plug 'voldikss/vim-hello-word'
 Plug 'voldikss/vim-translator'
 Plug 'wellle/targets.vim'
 Plug 'yianwillis/vimcdoc'
@@ -272,17 +247,6 @@ augroup UserJumpToLastPosition
     \ if line("'\"") > 1 && line("'\"") <= line("$") && &filetype != 'gitcommit' |
       \ exe "normal! g'\"" |
     \ endif
-augroup END
-
-augroup UserKeywordHighlight
-  autocmd!
-  autocmd Syntax *
-    \ call matchadd('Special', '\W\zs\(@TODO\|@FIXME\|@CHANGED\|@XXX\|@BUG\|@HACK\)') |
-    \ call matchadd('Special', '\W\zs\(@todo\|@fixme\|@changed\|@xxx\|@bug\|@hack\)') |
-    \ call matchadd('Special', '\W\zs\(@NOTE\|@INFO\|@IDEA\|@NOTICE\|@TMP\)') |
-    \ call matchadd('Special', '\W\zs\(@note\|@info\|@idea\|@notice\|@tmp\)') |
-    \ call matchadd('Special', '\W\zs\(@DEBUG\|@Debug\|@debug\)') |
-    \ call matchadd('Special', '\W\zs\(@VOLDIKSS\|@voldikss\)')
 augroup END
 
 augroup UserAutoChangeDir
@@ -715,11 +679,6 @@ omap ic <Plug>(coc-text-object-inner)
 xmap ic <Plug>(coc-text-object-inner)
 " coc-pairs
 let g:coc_pairs_expand = [['（', '）'], ['“', '”'], ['‘', '’'], ['《', '》']]
-" coc-smartf
-" nmap f <Plug>(coc-smartf-forward)
-" nmap F <Plug>(coc-smartf-backward)
-" autocmd User SmartfEnter :hi Conceal ctermfg=220 guifg=#6638F0
-" autocmd User SmartfLeave :hi Conceal ctermfg=239 guifg=#504945
 " coc-bookmark
 nmap <silent> ,b <Plug>(coc-bookmark-toggle)
 nmap <silent> ,a <Plug>(coc-bookmark-annotate)
@@ -776,12 +735,13 @@ let g:indentLine_enabled = 1
 let g:indentLine_color_term = 238
 let g:indentLine_fileTypeExclude = ['startify', 'vista', 'json', 'codi', 'vtm', 'jsonc', 'coc-explorer', 'man']
 " mhinz/vim-startify
-let g:webdevicons_enable_startify = 1
 noremap <silent> <Space><Space> <Esc>:Startify<CR>
-let g:startify_bookmarks = [
-  \ {'c': stdpath('config') . '/coc-settings.json'},
-  \ {'v': stdpath('config') . '/init.vim'}
-\ ]
+if has('nvim')
+  let g:startify_bookmarks = [
+    \ {'c': stdpath('config') . '/coc-settings.json'},
+    \ {'v': stdpath('config') . '/init.vim'}
+  \ ]
+endif
 let g:startify_files_number = 8
 let g:startify_padding_left = 15
 " let g:startify_custom_header = [
@@ -973,12 +933,6 @@ let g:Lf_WildIgnore = {
 \}
 let g:Lf_WindowHeight = 0.4
 let g:Lf_WorkingDirectoryMode = 'Ac'
-" voldikss/vim-browser-search
-nmap <silent> <Leader>s <Plug>SearchNormal
-vmap <silent> <Leader>s <Plug>SearchVisual
-let g:browser_search_engines = {
-  \ 'qt': 'https://doc.qt.io/qt-5/search-results.html?q=%s'
-  \ }
 " voldikss/vim-translator
 nmap <silent>    ,t        <Plug>Translate
 nmap <silent>    ,w        <Plug>TranslateW
@@ -1002,43 +956,12 @@ let g:floaterm_keymap_new    = '<F7>'
 let g:floaterm_keymap_prev   = '<F8>'
 let g:floaterm_keymap_next   = '<F9>'
 let g:floaterm_keymap_toggle = '<F12>'
-" let g:floaterm_rootmarkers   = ['.git', '.gitignore', '*.pro', 'Cargo.toml']
-" hi FloatermNC guibg=skyblue
-hi FloatermBorder guifg=orange
-command! PythonREPL  :FloatermNew --wintype=normal --width=0.5 --position=right python
-" function! s:runner_proc(opts)
-"   let curr_bufnr = floaterm#curr()
-"   if has_key(a:opts, 'silent') && a:opts.silent == 1
-"     call floaterm#hide()
-"   endif
-"   let cmd = 'cd ' . shellescape(getcwd())
-"   call floaterm#terminal#send(curr_bufnr, [cmd])
-"   call floaterm#terminal#send(curr_bufnr, [a:opts.cmd])
-"   stopinsert
-"   if &filetype == 'floaterm' && g:floaterm_autoinsert
-"     call floaterm#util#startinsert()
-"   endif
-" endfunction
-" let g:asyncrun_runner = get(g:, 'asyncrun_runner', {})
-" let g:asyncrun_runner.floaterm = function('s:runner_proc')
-" let g:asynctasks_term_pos='floaterm'
 " simnalamburt/vim-mundo
 let g:mundo_width              = 30
 let g:mundo_preview_height     = 10
 let g:mundo_right              = 0
 let g:mundo_preview_bottom     = 1
 let g:mundo_auto_preview_delay = 10
-" voldikss/vim-codelf
-let g:codelf_status = ''
-" lfv89/vim-interestingwords
-nmap <silent> <Leader>k <Plug>MarkSet
-vmap <silent> <Leader>k <Plug>MarkSet
-nmap <silent> <Leader>K <Plug>MarkClear
-" tommcdo/vim-exchange
-nmap <silent> cx  <Plug>(Exchange)
-xmap <silent> X   <Plug>(Exchange)
-nmap <silent> cxc <Plug>(ExchangeClear)
-nmap <silent> cxx <Plug>(ExchangeLine)
 " matze/vim-move
 let g:move_map_keys    = 0
 let g:move_auto_indent = 1
@@ -1046,24 +969,8 @@ vmap <silent> J <Plug>MoveBlockDown
 vmap <silent> K <Plug>MoveBlockUp
 nmap <silent> J <Plug>MoveLineDown
 nmap <silent> K <Plug>MoveLineUp
-" andrewradev/sideways.vim
-nnoremap <silent> <C-left>  :SidewaysLeft<CR>
-nnoremap <silent> <C-right> :SidewaysRight<CR>
-omap as <Plug>SidewaysArgumentTextobjA
-xmap as <Plug>SidewaysArgumentTextobjA
-omap is <Plug>SidewaysArgumentTextobjI
-xmap is <Plug>SidewaysArgumentTextobjI
-" foosoft/vim-argwrap
-nmap <silent> <leader>aw <Plug>(ArgWrapToggle)
-" junegunn/vim-easy-align
-xmap <silent> ga <Plug>(EasyAlign)
-nmap <silent> ga <Plug>(EasyAlign)
-" puremourning/vimspector
-let g:vimspector_enable_mappings = 'HUMAN'
 " easymotion.vim
 let g:EasyMotion_do_mapping = 0
 let g:EasyMotion_smartcase = 1
 nmap <Space>f <Plug>(easymotion-overwin-w)
-" brglng/vim-im-select
-let g:im_select_enable_focus_events = 0
 " }}}
