@@ -1,7 +1,3 @@
-" 安装
-Plug 'mhinz/vim-startify', {'on': 'Startify'}
-
-" 配置
 noremap <silent> <Space><Space> <Esc>:Startify<CR>
 if has('nvim')
   let g:startify_bookmarks = [

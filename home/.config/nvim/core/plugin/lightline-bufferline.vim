@@ -1,7 +1,3 @@
-" 安装
-Plug 'mengelbrecht/lightline-bufferline'
-
-" 配置
 let g:lightline#bufferline#unnamed = '[No Name]'
 let g:lightline#bufferline#filename_modifier = ':t'
 let g:lightline#bufferline#enable_devicons = 1

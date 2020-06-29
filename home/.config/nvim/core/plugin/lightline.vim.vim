@@ -1,7 +1,3 @@
-" 安装
-Plug 'itchyny/lightline.vim'
-
-" 配置
 let g:lightline = {
   \ 'colorscheme': 'aurora',
   \ 'active': {

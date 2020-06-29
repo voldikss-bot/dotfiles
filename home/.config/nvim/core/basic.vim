@@ -26,9 +26,9 @@ set nowrap
 set fileignorecase
 set formatoptions+=m
 set formatoptions+=B
-set dictionary+=~/.vim/dict/dictionary.txt
+set dictionary+=~/.config/nvim/dict/dictionary.txt
 set nospell
-set spellfile=~/.vim/spell/en.utf-8.add
+set spellfile=~/.config/nvim/spell/en.utf-8.add
 set tags=./tags;,tags
 set tagfunc=CocTagFunc
 " key

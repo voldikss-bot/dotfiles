@@ -31,7 +31,6 @@ vnoremap <silent> ]]  }k
 noremap <silent> <C-j>      <C-]>
 noremap <silent> <C-k>      :<C-u>call userfunc#coc#ShowDocument()<CR>
 nnoremap <silent> <C-w><C-j> <C-W>v<C-]>zz
-nnoremap <silent> <C-w><C-o> :<C-u>call userfunc#utils#Return()<CR>
 " Search:
 " use set shortmess-=S to display searchindex
 nnoremap <silent> n  nzz

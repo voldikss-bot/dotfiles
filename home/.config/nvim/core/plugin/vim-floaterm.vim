@@ -1,7 +1,3 @@
-" 安装
-Plug 'voldikss/vim-floaterm'
-
-" 配置
 let g:floaterm_width = 0.6
 let g:floaterm_height = 0.6
 let g:floaterm_position = 'center'
