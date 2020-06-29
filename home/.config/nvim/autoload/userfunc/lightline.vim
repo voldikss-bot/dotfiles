@@ -76,7 +76,7 @@ function! userfunc#lightline#FileType()
     \ &filetype !=# 'startify' &&
     \ &filetype !=# 'Mundo' &&
     \ expand('%:t') !~ '__vista__' &&
-    \ winwidth(0) > 70 ? (strlen(&filetype) ? WebDevIconsGetFileTypeSymbol() . ' ' . &filetype : 'no ft') : ''
+    \ winwidth(0) > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
 endfunction
 
 " FileEncoding:
