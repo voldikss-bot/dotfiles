@@ -1,22 +1,8 @@
-" 安装
-Plug 'neoclide/coc.nvim', {'do': 'npm install'}
-
-" 配置
-" neoclide/coc.nvim
-let g:coc_data_home = '~/.config/coc'
 nnoremap <silent><expr> <C-f> coc#util#has_float() ? coc#util#float_scroll(1) : "\<C-f>"
 nnoremap <silent><expr> <C-b> coc#util#has_float() ? coc#util#float_scroll(0) : "\<C-b>"
 inoremap <silent><expr> <M-j> coc#util#has_float() ? userfunc#coc#FloatScroll(1) : "\<down>"
 inoremap <silent><expr> <M-k> coc#util#has_float() ? userfunc#coc#FloatScroll(0) :  "\<up>"
 nmap <expr> <silent> <C-c> <SID>select_current_word_and_go_next()
-function! s:select_current_word_and_go_next()
-  if !get(g:, 'coc_cursors_activated', 0)
-    return "\<Plug>(coc-cursors-word)"
-  endif
-  " based on coc readme, this has been modified
-  " because I have mapped * to m`:keepjumps normal! *``zz<cr>
-  return "*n\<Plug>(coc-cursors-word):nohlsearch\<CR>"
-endfunction
 nmap <silent> <C-s> :CocSearch <C-r><C-w><Cr>
 nmap <silent> <M-n> <Plug>(coc-diagnostic-next)
 nmap <silent> <M-p> <Plug>(coc-diagnostic-prev)
@@ -50,42 +36,26 @@ omap ic <Plug>(coc-text-object-inner)
 xmap ic <Plug>(coc-text-object-inner)
 " coc-pairs
 let g:coc_pairs_expand = [['（', '）'], ['“', '”'], ['‘', '’'], ['《', '》']]
-" coc-bookmark
-nmap <silent> ,b <Plug>(coc-bookmark-toggle)
-nmap <silent> ,a <Plug>(coc-bookmark-annotate)
-nmap <silent> gh <Plug>(coc-bookmark-prev)
-nmap <silent> gl <Plug>(coc-bookmark-next)
 " coc-snippets
 let g:coc_snippet_next = '<tab>'
 " coc extensions
 let g:coc_global_extensions = [
-  \ 'coc-bookmark',
-  \ 'coc-browser',
-  \ 'coc-clock',
   \ 'coc-cmake',
   \ 'coc-css',
   \ 'coc-diagnostic',
   \ 'coc-dictionary',
-  \ 'coc-ecdict',
-  \ 'coc-emmet',
   \ 'coc-emoji',
-  \ 'coc-eslint',
   \ 'coc-explorer',
   \ 'coc-floaterm',
   \ 'coc-git',
   \ 'coc-highlight',
   \ 'coc-html',
-  \ 'coc-java',
   \ 'coc-json',
-  \ 'coc-leetcode',
   \ 'coc-lists',
   \ 'coc-marketplace',
   \ 'coc-pairs',
-  \ 'coc-post',
   \ 'coc-prettier',
   \ 'coc-python',
-  \ 'coc-rainbow-fart',
-  \ 'coc-rust-analyzer',
   \ 'coc-snippets',
   \ 'coc-syntax',
   \ 'coc-tag',
@@ -93,10 +63,6 @@ let g:coc_global_extensions = [
   \ 'coc-template',
   \ 'coc-todolist',
   \ 'coc-translator',
-  \ 'coc-tslint-plugin',
-  \ 'coc-tsserver',
-  \ 'coc-vimlsp',
-  \ 'coc-vimtex',
   \ 'coc-word',
   \ 'coc-yank'
 \ ]

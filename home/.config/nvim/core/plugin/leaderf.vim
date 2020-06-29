@@ -1,7 +1,3 @@
-" 安装
-Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
-
-" 配置
 nmap <silent> <Leader>fb :Leaderf buffer<CR>
 nmap <silent> <Leader>fc :Leaderf cmdHistory<CR>
 nmap <silent> <Leader>ff :Leaderf file<CR>
@@ -10,10 +6,6 @@ nmap <silent> <Leader>fl :Leaderf line<CR>
 nmap <silent> <Leader>fm :Leaderf mru<CR>
 nmap <silent> <Leader>ft :Leaderf bufTag<CR>
 nmap <silent> <Leader>fu :Leaderf function<CR>
-noremap <silent> <Leader>fr :<C-U><C-R>=printf("Leaderf! gtags -r %s --auto-jump", expand("<cword>"))<CR><CR>
-noremap <silent> <Leader>fd :<C-U><C-R>=printf("Leaderf! gtags -d %s --auto-jump", expand("<cword>"))<CR><CR>
-noremap <silent> <Leader>fn :<C-U><C-R>=printf("Leaderf gtags --next %s", "")<CR><CR>
-noremap <silent> <Leader>fp :<C-U><C-R>=printf("Leaderf gtags --previous %s", "")<CR><CR>
 let g:Lf_CacheDirectory       = expand('~/.cache/nvim')
 let g:Lf_CommandMap = {
   \'<Up>': ['<C-p>'],

@@ -1,7 +1,3 @@
-" 安装
-Plug 'skywind3000/asyncrun.vim', {'on': ['AsyncRun', 'AsyncStop'] }
-
-" 配置
 let g:asyncrun_status = ''
 let g:asyncrun_open = 9
 let g:asyncrun_rootmarks = [

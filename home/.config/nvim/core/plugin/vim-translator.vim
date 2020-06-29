@@ -1,7 +1,3 @@
-" 安装
-Plug 'voldikss/vim-translator'
-
-" 配置
 nmap <silent>    ,t        <Plug>Translate
 nmap <silent>    ,w        <Plug>TranslateW
 nmap <silent>    ,r        <Plug>TranslateR
