@@ -18,6 +18,7 @@ yay:
 		makepkg -si
 		cd ..
 		rm -r yay
+	fi
 
 
 .ONESHELL:
