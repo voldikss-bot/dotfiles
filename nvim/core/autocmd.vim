@@ -4,18 +4,6 @@
 " GitHub: https://github.com/voldikss
 " ============================================================================
 
-" autocmd CmdlineEnter * call feedkeys("\<C-p>")
-augroup ParenColor
-  autocmd!
-  autocmd VimEnter,BufWinEnter *
-    \ if index(['html', 'htmldjango', 'tex', 'mma', 'vue', 'xml'], &filetype) < 0 |
-      \ syntax match paren1 /[{}]/   | hi paren1 guifg=#FF00FF |
-      \ syntax match paren2 /[()]/   | hi paren2 guifg=#DF8700 |
-      \ syntax match paren3 /[<>]/   | hi paren3 guifg=#0087FF |
-      \ syntax match paren4 /[\[\]]/ | hi paren4 guifg=#00FF5F |
-    \ endif
-augroup END
-
 augroup FileTypeAutocmds
   autocmd!
   autocmd FileType startify nmap <buffer> l <CR>

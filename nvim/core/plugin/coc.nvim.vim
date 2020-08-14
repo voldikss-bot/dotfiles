@@ -43,7 +43,6 @@ let g:coc_global_extensions = [
   \ 'coc-cmake',
   \ 'coc-css',
   \ 'coc-diagnostic',
-  \ 'coc-dictionary',
   \ 'coc-emoji',
   \ 'coc-explorer',
   \ 'coc-floaterm',
@@ -54,15 +53,10 @@ let g:coc_global_extensions = [
   \ 'coc-lists',
   \ 'coc-marketplace',
   \ 'coc-pairs',
-  \ 'coc-prettier',
   \ 'coc-python',
   \ 'coc-snippets',
   \ 'coc-syntax',
   \ 'coc-tag',
   \ 'coc-tasks',
-  \ 'coc-template',
-  \ 'coc-todolist',
-  \ 'coc-translator',
   \ 'coc-word',
-  \ 'coc-yank'
 \ ]
