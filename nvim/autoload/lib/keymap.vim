@@ -2,12 +2,12 @@
 " GitHub: https://github.com/voldikss
 
 " FlyOutPairs:
-function! userfunc#keymap#FlyOutPairs(key)
+function! lib#keymap#FlyOutPairs(key)
   return "\<ESC>:call search("."'".a:key."'".")\<CR>a"
 endfunction
 
 " Insert: <BS>
-function! userfunc#keymap#Insert_BS() abort
+function! lib#keymap#Insert_BS() abort
   if col('.') == 1
     if line('.')  != 1
       return  "\<ESC>kA\<Del>"
@@ -33,7 +33,7 @@ function! userfunc#keymap#Insert_BS() abort
 endfunction
 
 " Insert: <CR>
-function! userfunc#keymap#Insert_CR() abort
+function! lib#keymap#Insert_CR() abort
   let line = getline('.') " can not use trim
   if pumvisible()
     return "\<C-y>"
@@ -47,7 +47,7 @@ function! userfunc#keymap#Insert_CR() abort
 endfunction
 
 " Insert: <Esc>
-function! userfunc#keymap#Insert_ESC()
+function! lib#keymap#Insert_ESC()
   let colnr = getpos('.')[2]
   let linelen = len(getline('.'))
   if colnr == (linelen + 1)
@@ -58,7 +58,7 @@ function! userfunc#keymap#Insert_ESC()
 endfunction
 
 " Normal: <CR>
-function! userfunc#keymap#Normal_CR() abort
+function! lib#keymap#Normal_CR() abort
   let line = trim(getline('.'))
   let disable_if_begin_with = ['#', '/']
   let disable_if_end_with = [',', ';', '{','[', '(', '/', '\', '<', '>']
@@ -77,7 +77,7 @@ function! userfunc#keymap#Normal_CR() abort
 endfunction
 
 " Normal: q
-function! userfunc#keymap#Normal_q() abort
+function! lib#keymap#Normal_q() abort
   " is the last buffer
   if len(getbufinfo({'buflisted':1})) == 1 && winnr('$') == 1 && bufname() == ''
     return ":q!\<CR>"
@@ -87,7 +87,7 @@ function! userfunc#keymap#Normal_q() abort
 endfunction
 
 " Normal: [[
-function! userfunc#keymap#Square_Brackets_Left() abort
+function! lib#keymap#Square_Brackets_Left() abort
   let curline = line('.')
   if empty(getline(curline-1))
     normal! {
@@ -100,7 +100,7 @@ function! userfunc#keymap#Square_Brackets_Left() abort
 endfunction
 
 " Normal: ]]
-function! userfunc#keymap#Square_Brackets_Right() abort
+function! lib#keymap#Square_Brackets_Right() abort
   let curline = line('.')
   if empty(getline(curline+1))
     normal! }
@@ -113,7 +113,7 @@ function! userfunc#keymap#Square_Brackets_Right() abort
 endfunction
 
 " Command: <BS>
-function! userfunc#keymap#Command_BS() abort
+function! lib#keymap#Command_BS() abort
   let pos = getcmdpos()
   let surround = getcmdline()[pos-2:pos-1]
   if index(["''", '<>', '()', '[]', '{}'], surround) >=0
@@ -124,7 +124,7 @@ function! userfunc#keymap#Command_BS() abort
 endfunction
 
 " Command: ''|<>|()|[]|{}
-function! userfunc#keymap#Command_Pairs(pairs) abort
+function! lib#keymap#Command_Pairs(pairs) abort
   let pos = getcmdpos()
   let prechar = getcmdline()[pos-2]
   if prechar == a:pairs[0]
@@ -135,7 +135,7 @@ function! userfunc#keymap#Command_Pairs(pairs) abort
 endfunction
 
 " VisualStarSearch:
-function! userfunc#keymap#VisualStarSearch(cmdtype, ...) abort
+function! lib#keymap#VisualStarSearch(cmdtype, ...) abort
   let temp = @"
   normal! gvy
   if !a:0 || a:1 != 'raw'
@@ -146,12 +146,12 @@ function! userfunc#keymap#VisualStarSearch(cmdtype, ...) abort
   let @/ = substitute(@/, '\~', '\\~', 'g')
 endfunction
 
-function! userfunc#keymap#Exec(cmd)
+function! lib#keymap#Exec(cmd)
   execute a:cmd
   return ''
 endfunction
 
-function! userfunc#keymap#incyank() abort
+function! lib#keymap#incyank() abort
   let old = getreg('"')
   let tmp = getreg('a')
   normal! gv"ay
@@ -160,7 +160,7 @@ function! userfunc#keymap#incyank() abort
   call setreg('a', tmp)
 endfunction
 
-function! userfunc#keymap#incdelete() abort
+function! lib#keymap#incdelete() abort
   let old = getreg('"')
   let tmp = getreg('a')
   normal! gv"ad

@@ -5,7 +5,7 @@ setlocal commentstring=\"\ %s
 setlocal foldmethod=indent
 setlocal nospell
 
-" For userfunc#keymap#Square_Brackets_Left and userfunc#keymap#Square_Brackets_Right
+" For lib#keymap#Square_Brackets_Left and lib#keymap#Square_Brackets_Right
 " solve conflicts with runtime/ftplugin/vim.vim line71
 unmap <buffer> ]]
 unmap <buffer> [[

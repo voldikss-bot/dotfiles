@@ -9,9 +9,9 @@ let g:mapleader = ';'
 noremap  H  ^
 noremap  L  $
 " Esc:
-inoremap <C-c> <C-R>=userfunc#keymap#Insert_ESC()<CR>
-inoremap <C-[> <C-R>=userfunc#keymap#Insert_ESC()<CR>
-inoremap <Esc> <C-r>=userfunc#keymap#Insert_ESC()<CR>
+inoremap <C-c> <C-R>=lib#keymap#Insert_ESC()<CR>
+inoremap <C-[> <C-R>=lib#keymap#Insert_ESC()<CR>
+inoremap <Esc> <C-r>=lib#keymap#Insert_ESC()<CR>
 "cannot use noremap
 nmap     M  %
 omap     M  %
@@ -23,13 +23,13 @@ vnoremap >  >gv
 noremap <C-u> <C-u>zz
 noremap <C-d> <C-d>zz
 " Move:
-nnoremap <silent> [[  :<C-u>call userfunc#keymap#Square_Brackets_Left()<CR>
-nnoremap <silent> ]]  :<C-u>call userfunc#keymap#Square_Brackets_Right()<CR>
+nnoremap <silent> [[  :<C-u>call lib#keymap#Square_Brackets_Left()<CR>
+nnoremap <silent> ]]  :<C-u>call lib#keymap#Square_Brackets_Right()<CR>
 vnoremap <silent> [[  {j
 vnoremap <silent> ]]  }k
 " Jump:
 noremap <silent> <C-j>      <C-]>
-noremap <silent> <C-k>      :<C-u>call userfunc#coc#ShowDocument()<CR>
+noremap <silent> <C-k>      :<C-u>call lib#coc#ShowDocument()<CR>
 nnoremap <silent> <C-w><C-j> <C-W>v<C-]>zz
 " Search:
 " use set shortmess-=S to display searchindex
@@ -37,8 +37,8 @@ nnoremap <silent> n  nzz
 nnoremap <silent> N  Nzz
 nnoremap * m`:keepjumps normal! *``zz<cr>
 nnoremap # #zz
-xnoremap * :<C-u>call userfunc#keymap#VisualStarSearch('/')<CR>/<C-R>=@/<CR><CR>N
-xnoremap # :<C-u>call userfunc#keymap#VisualStarSearch('?')<CR>?<C-R>=@/<CR><CR>n
+xnoremap * :<C-u>call lib#keymap#VisualStarSearch('/')<CR>/<C-R>=@/<CR><CR>N
+xnoremap # :<C-u>call lib#keymap#VisualStarSearch('?')<CR>?<C-R>=@/<CR><CR>n
 " TextObject:
 " whole buffer
 xnoremap <silent> ie GoggV
@@ -52,19 +52,19 @@ onoremap <silent> al :normal val<CR>
 xnoremap i? [*o]*
 onoremap i? :<C-u>normal va?V<CR>
 " url
-xnoremap <silent> iu :<C-u>call userfunc#textobj#url()<CR>
+xnoremap <silent> iu :<C-u>call lib#textobj#url()<CR>
 onoremap <silent> iu :normal viu<CR>
 " ip
-xnoremap <silent> iI :<C-u>call userfunc#textobj#ip()<CR>
+xnoremap <silent> iI :<C-u>call lib#textobj#ip()<CR>
 onoremap <silent> iI :normal viI<CR>
 " number
-xnoremap <silent> in :<C-u>call userfunc#textobj#number()<CR>
+xnoremap <silent> in :<C-u>call lib#textobj#number()<CR>
 onoremap <silent> in :normal vin<CR>
 " function argument
-xnoremap <silent> ia :<C-u>call userfunc#textobj#arguments(1, 1)<CR>
-xnoremap <silent> aa :<C-u>call userfunc#textobj#arguments(0, 1)<CR>
-onoremap <silent> ia :<C-u>call userfunc#textobj#arguments(1, 0)<CR>
-onoremap <silent> aa :<C-u>call userfunc#textobj#arguments(0, 0)<CR>
+xnoremap <silent> ia :<C-u>call lib#textobj#arguments(1, 1)<CR>
+xnoremap <silent> aa :<C-u>call lib#textobj#arguments(0, 1)<CR>
+onoremap <silent> ia :<C-u>call lib#textobj#arguments(1, 0)<CR>
+onoremap <silent> aa :<C-u>call lib#textobj#arguments(0, 0)<CR>
 " BufferOperation:
 nnoremap <expr> <silent> <C-h>  (&filetype == 'floaterm') ? ':FloatermPrev<CR>' : ':bprev<CR>'
 nnoremap <expr> <silent> <C-l>  (&filetype == 'floaterm') ? ':FloatermNext<CR>' : ':bnext<CR>'
@@ -79,16 +79,16 @@ vnoremap <silent> <Leader>y "+y
 nnoremap <silent> <Leader>Y "+y$
 nnoremap <silent> <Leader>p "+p
 nnoremap <silent> <Leader>P "+P
-vnoremap <silent> <Leader>Y :<C-u>call userfunc#keymap#incyank()<CR>
-vnoremap <silent> <Leader>D :<C-u>call userfunc#keymap#incdelete()<CR>
+vnoremap <silent> <Leader>Y :<C-u>call lib#keymap#incyank()<CR>
+vnoremap <silent> <Leader>D :<C-u>call lib#keymap#incdelete()<CR>
 " InsertMode: move
 inoremap <silent> <C-k> <Up>
 inoremap <silent> <C-j> <Down>
 " snoremap <silent> <C-j> <Down>
 inoremap <silent> <C-h> <Left>
 inoremap <silent> <C-l> <Right>
-inoremap <silent> <C-b> <C-r>=userfunc#keymap#Exec('normal! b')<CR>
-inoremap <silent> <C-f> <C-r>=userfunc#keymap#Exec('normal! w')<CR>
+inoremap <silent> <C-b> <C-r>=lib#keymap#Exec('normal! b')<CR>
+inoremap <silent> <C-f> <C-r>=lib#keymap#Exec('normal! w')<CR>
 inoremap <silent> <C-a> <Home>
 inoremap <silent> <C-e> <End>
 inoremap <silent> <C-o> <End><CR>
@@ -101,7 +101,7 @@ nnoremap <silent>       <Leader>q q
 nnoremap <silent>       <Leader>Q Q
 nnoremap <silent>       q         :q!<CR>
 nnoremap <silent>       Q         :qa!<CR>
-nnoremap <silent><expr> <Leader>d userfunc#keymap#Normal_q()
+nnoremap <silent><expr> <Leader>d lib#keymap#Normal_q()
 " nnoremap <silent> <Leader>Q :qa!<CR>
 " noremap  <silent> <Leader>d :bp<bar>sp<bar>bn<bar>bd!<bar>:redraw!<CR>
 " QuickMessage:
@@ -116,12 +116,12 @@ cnoremap <C-b> <S-Left>
 cnoremap <C-f> <S-Right>
 cnoremap <C-h> <Left>
 cnoremap <C-l> <Right>
-" cnoremap <expr> '    userfunc#keymap#Command_Pairs("''")
-cnoremap <expr> <    userfunc#keymap#Command_Pairs('<>')
-" cnoremap <expr> (    userfunc#keymap#Command_Pairs('()')
-cnoremap <expr> [    userfunc#keymap#Command_Pairs('[]')
-cnoremap <expr> {    userfunc#keymap#Command_Pairs('{}')
-cnoremap <expr> <BS> userfunc#keymap#Command_BS()
+" cnoremap <expr> '    lib#keymap#Command_Pairs("''")
+cnoremap <expr> <    lib#keymap#Command_Pairs('<>')
+" cnoremap <expr> (    lib#keymap#Command_Pairs('()')
+cnoremap <expr> [    lib#keymap#Command_Pairs('[]')
+cnoremap <expr> {    lib#keymap#Command_Pairs('{}')
+cnoremap <expr> <BS> lib#keymap#Command_BS()
 " TerminalMode:
 tnoremap <Esc>  <C-\><C-n>
 " tnoremap <expr> <C-R> '<C-\><C-N>"'.nr2char(getchar()).'pi'
@@ -150,9 +150,9 @@ if has('nvim')
   cnoremap <expr> <C-p>  pumvisible() ? '<Left>' : '<Up>'
   cnoremap <expr> <Up>   pumvisible() ? '<C-p>' : '<up>'
   cnoremap <expr> <Down> pumvisible() ? '<C-n>' : '<down>'
-  inoremap <silent> <M-]> <C-R>=userfunc#keymap#FlyOutPairs(']')<CR>
-  inoremap <silent> <M-}> <C-R>=userfunc#keymap#FlyOutPairs('}')<CR>
-  inoremap <silent> <M-)> <C-R>=userfunc#keymap#FlyOutPairs(')')<CR>
+  inoremap <silent> <M-]> <C-R>=lib#keymap#FlyOutPairs(']')<CR>
+  inoremap <silent> <M-}> <C-R>=lib#keymap#FlyOutPairs('}')<CR>
+  inoremap <silent> <M-)> <C-R>=lib#keymap#FlyOutPairs(')')<CR>
 endif
 " WindowSize:
 if has('nvim')
@@ -192,6 +192,6 @@ tnoremap <silent> <F10>            <C-\><C-n>:SwitchWindow vista<CR>
 noremap  <silent> <F12>            <Esc>:SwitchWindow floaterm<CR>
 noremap! <silent> <F12>            <Esc>:SwitchWindow floaterm<CR>
 tnoremap <silent> <F12>            <C-\><C-n>:SwitchWindow floaterm<CR>
-nnoremap <expr>   <CR>             userfunc#keymap#Normal_CR() . "\<Esc>"
-inoremap <expr>   <CR>             userfunc#keymap#Insert_CR()
-inoremap <expr>   <BS>             userfunc#keymap#Insert_BS()
+nnoremap <expr>   <CR>             lib#keymap#Normal_CR() . "\<Esc>"
+inoremap <expr>   <CR>             lib#keymap#Insert_CR()
+inoremap <expr>   <BS>             lib#keymap#Insert_BS()

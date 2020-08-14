@@ -1,15 +1,15 @@
 nnoremap <silent><expr> <C-f> coc#util#has_float() ? coc#util#float_scroll(1) : "\<C-f>"
 nnoremap <silent><expr> <C-b> coc#util#has_float() ? coc#util#float_scroll(0) : "\<C-b>"
-inoremap <silent><expr> <M-j> coc#util#has_float() ? userfunc#coc#FloatScroll(1) : "\<down>"
-inoremap <silent><expr> <M-k> coc#util#has_float() ? userfunc#coc#FloatScroll(0) :  "\<up>"
+inoremap <silent><expr> <M-j> coc#util#has_float() ? lib#coc#FloatScroll(1) : "\<down>"
+inoremap <silent><expr> <M-k> coc#util#has_float() ? lib#coc#FloatScroll(0) :  "\<up>"
 nmap <expr> <silent> <C-c> <SID>select_current_word_and_go_next()
 nmap <silent> <C-s> :CocSearch <C-r><C-w><Cr>
 nmap <silent> <M-n> <Plug>(coc-diagnostic-next)
 nmap <silent> <M-p> <Plug>(coc-diagnostic-prev)
 nmap <silent> <Leader>ca :CocAction<CR>
-nmap <silent> <Leader>cd :call userfunc#coc#GoToDefinition()<CR>
+nmap <silent> <Leader>cd :call lib#coc#GoToDefinition()<CR>
 nmap <silent> <Leader>ci <Plug>(coc-implementation)
-" nmap <silent> gd :call userfunc#coc#GoToDefinition()<CR>
+" nmap <silent> gd :call lib#coc#GoToDefinition()<CR>
 " nmap <silent> gr <Plug>(coc-references)
 nmap <silent> <Leader>cf <Plug>(coc-fix-current)
 nmap <silent> <Leader>cf <Plug>(coc-fix-current)

@@ -30,7 +30,7 @@ endfunction
 "-----------------------------------------------------------------------------
 " URL
 "-----------------------------------------------------------------------------
-function! userfunc#textobj#url() abort
+function! lib#textobj#url() abort
     let pattern = '\(http\|https\|ftp\)://[a-zA-Z0-9][a-zA-Z0-9_-]*\(\.[a-zA-Z0-9][a-zA-Z0-9_-]*\)*\(:\d\+\)\?\(/[a-zA-Z0-9_/.\-+%?&=;@$,!''*~]*\)\?\(#[a-zA-Z0-9_/.\-+%#?&=;@$,!''*~]*\)\?'
   call s:textobj(pattern)
 endfunction
@@ -38,7 +38,7 @@ endfunction
 "-----------------------------------------------------------------------------
 " IP
 "-----------------------------------------------------------------------------
-function! userfunc#textobj#ip() abort
+function! lib#textobj#ip() abort
   " pattern from https://github.com/deris/vim-textobj-ipmac/blob/master/plugin/textobj/ipmac.vim
   let pattern =
     \ '\%(\%(\%('
@@ -213,7 +213,7 @@ function! s:MoveRight(num)
   endif
 endfunction
 
-function! userfunc#textobj#arguments(inner, visual)
+function! lib#textobj#arguments(inner, visual)
   let cnt = v:count1
   let current_c = getline('.')[getpos('.')[2]-1]
   if current_c==',' || current_c=='('
@@ -318,6 +318,6 @@ endfunction
 "-----------------------------------------------------------------------------
 " Numbers
 "-----------------------------------------------------------------------------
-function! userfunc#textobj#number() abort
+function! lib#textobj#number() abort
   call s:textobj('\v[0-9]+')
 endfunction

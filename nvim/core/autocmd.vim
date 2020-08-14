@@ -14,7 +14,7 @@ augroup END
 
 augroup UserAutoSaveBuffer
   autocmd!
-  autocmd FocusLost,InsertLeave * call userfunc#file#AutoSave()
+  autocmd FocusLost,InsertLeave * call lib#file#AutoSave()
 augroup END
 
 augroup UserLineNumber
@@ -66,7 +66,7 @@ augroup END
 
 " augroup AutoNohlsearch
 "   autocmd!
-"   autocmd CursorMoved * call userfunc#myhlsearch#start_hl()
+"   autocmd CursorMoved * call lib#myhlsearch#start_hl()
 " augroup END
 
 augroup CocExplorerCustom
@@ -89,7 +89,7 @@ augroup UserTermSettings " neovim only
     \ nmap <silent><buffer> <Esc> <Cmd>hide<CR>|
     \ nmap <silent><buffer> q :q<CR> |
     \ hi TermCursor guifg=yellow |
-    \ call timer_start(10, 'userfunc#asyncrun#term_style')
+    \ call timer_start(10, 'lib#asyncrun#term_style')
 augroup END
 
 function! s:OnColorSchemeLoaded() abort

@@ -4,7 +4,7 @@
 " GitHub: https://github.com/voldikss
 " ============================================================================
 
-function! userfunc#floaterm#WatchCallback(job, data, event) abort
+function! lib#floaterm#WatchCallback(job, data, event) abort
   if a:event == 'stdout'
     if match(a:data, '\CERROR') > -1
       let g:asyncrun_status = 'yarn watch error'

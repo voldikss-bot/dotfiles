@@ -5,7 +5,7 @@
 " ============================================================================
 
 " AutoFormat:
-function! userfunc#file#AutoFormat() abort
+function! lib#file#AutoFormat() abort
   if &readonly || !&modifiable | return | endif
   let curr_pos = getpos('.')
   " 1. use coc
@@ -19,7 +19,7 @@ function! userfunc#file#AutoFormat() abort
 endfunction
 
 " AutoSave:
-function! userfunc#file#AutoSave() abort
+function! lib#file#AutoSave() abort
   if &readonly || !&modifiable | return | endif
   " resolve CocSearch acwrite invcompatibility
   if &buftype == 'acwrite' | return | endif
@@ -53,7 +53,7 @@ function! s:RemoveWhiteSpaces()
 endfunction
 
 " RenameFile:
-function! userfunc#file#Rename(new_name) abort
+function! lib#file#Rename(new_name) abort
   let old_name = expand('%')
   if empty(a:new_name)
     let new_name = input('New file name: ', expand('%'), 'file')
@@ -73,7 +73,7 @@ function! userfunc#file#Rename(new_name) abort
 endfunction
 
 " RemoveFile: remove current file
-function! userfunc#file#Remove() abort
+function! lib#file#Remove() abort
   let fname = expand('%')
   execute 'bdelete ' fname
   if has('unix')

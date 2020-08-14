@@ -7,7 +7,7 @@
 
 noremap <silent> <Plug>(StopHL) :<C-U>nohlsearch<cr>
 
-function! userfunc#myhlsearch#start_hl()
+function! lib#myhlsearch#start_hl()
   if !v:hlsearch || mode() isnot 'n'
     return
   endif

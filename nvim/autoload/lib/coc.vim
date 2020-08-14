@@ -4,7 +4,7 @@
 " GitHub: https://github.com/voldikss
 " ============================================================================
 
-function! userfunc#coc#FloatScroll(forward) abort
+function! lib#coc#FloatScroll(forward) abort
   let float = coc#util#get_float()
   if !float | return '' | endif
   let buf = nvim_win_get_buf(float)
@@ -34,7 +34,7 @@ function! userfunc#coc#FloatScroll(forward) abort
 endfunction
 
 " ShowDocument:
-function! userfunc#coc#ShowDocument() abort
+function! lib#coc#ShowDocument() abort
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
   else
@@ -43,7 +43,7 @@ function! userfunc#coc#ShowDocument() abort
 endfunction
 
 " GoToDefinition:
-function! userfunc#coc#GoToDefinition()
+function! lib#coc#GoToDefinition()
   if CocAction('jumpDefinition')
     return v:true
   endif

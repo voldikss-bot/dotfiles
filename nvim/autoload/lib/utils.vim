@@ -5,7 +5,7 @@
 " ============================================================================
 
 " BrowserOpen:
-function! userfunc#utils#BrowserOpen(obj) abort
+function! lib#utils#BrowserOpen(obj) abort
   if has('win32') || has('win64') || has('win32unix')
     let cmd = 'rundll32 url.dll,FileProtocolHandler ' . a:obj
   elseif has('mac') || has('macunix') || has('gui_macvim') || system('uname') =~? '^darwin'
@@ -19,13 +19,13 @@ function! userfunc#utils#BrowserOpen(obj) abort
 endfunction
 
 " OpenFileExplore:
-function! userfunc#utils#OpenFileExplorer() abort
+function! lib#utils#OpenFileExplorer() abort
   let path = expand(getcwd())
-  call userfunc#utils#BrowserOpen(path)
+  call lib#utils#BrowserOpen(path)
 endfunction
 
 " Grep:
-function! userfunc#utils#Grep(string) abort
+function! lib#utils#Grep(string) abort
   if executable('rg')
     execute "AsyncRun! rg -n " . a:string . " * "
     " execute "AsyncRun! -post=copen\ 8 rg -n " . a:string . " * "
@@ -44,12 +44,12 @@ function! userfunc#utils#Grep(string) abort
 endfunction
 
 " TabMessage:
-function! userfunc#utils#TabMessage(cmd) abort
+function! lib#utils#TabMessage(cmd) abort
   redir => message
   silent execute a:cmd
   redir END
   if empty(message)
-    call userfunc#utils#ShowMsg('No Output', 'warning')
+    call lib#utils#ShowMsg('No Output', 'warning')
   else
     new
     setlocal buftype=nofile bufhidden=wipe noswapfile nobuflisted nomodified
@@ -58,7 +58,7 @@ function! userfunc#utils#TabMessage(cmd) abort
 endfunction
 
 " ShowMessage:
-function! userfunc#utils#ShowMsg(message, ...) abort
+function! lib#utils#ShowMsg(message, ...) abort
   if a:0 == 0
     let msg_type = 'more'
   else
@@ -81,7 +81,7 @@ function! userfunc#utils#ShowMsg(message, ...) abort
 endfunction
 
 " SyntaxAt:
-function! userfunc#utils#SyntaxAt(...)
+function! lib#utils#SyntaxAt(...)
   syntax sync fromstart
   if a:0 < 2
     let l:pos = getpos('.')
@@ -103,7 +103,7 @@ function! userfunc#utils#SyntaxAt(...)
 endfunction
 
 " DelimiterLine:
-function! userfunc#utils#DelimiterLine(style, ...) abort
+function! lib#utils#DelimiterLine(style, ...) abort
   if a:0 > 0
     let count = a:1
   else
@@ -121,7 +121,7 @@ function! userfunc#utils#DelimiterLine(style, ...) abort
 endfunction
 
 " Zeal:
-function! userfunc#utils#Zeal(query) abort
+function! lib#utils#Zeal(query) abort
   if empty(a:query)
     let query = expand('<cword>')
   else
@@ -133,7 +133,7 @@ endfunction
 
 
 " Delete buffer and go back:
-function! userfunc#utils#Return() abort
+function! lib#utils#Return() abort
   let buf = bufnr('%')
   let jumplst = getjumplist()
   let pos = jumplst[0][jumplst[-1]-1]
