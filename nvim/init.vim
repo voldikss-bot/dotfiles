@@ -15,7 +15,6 @@ Load ./core/autocmd.vim
 Load ./core/basic.vim
 Load ./core/command.vim
 Load ./core/keymap.vim
-Load ./core/variable.vim
 
 "=============================================================================
 " 插件

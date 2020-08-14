@@ -1,37 +1,6 @@
 " Author: voldikss <dyzplus@gmail.com>
 " GitHub: https://github.com/voldikss
 
-" FlyOutPairs:
-function! lib#keymap#FlyOutPairs(key)
-  return "\<ESC>:call search("."'".a:key."'".")\<CR>a"
-endfunction
-
-" Insert: <BS>
-function! lib#keymap#Insert_BS() abort
-  if col('.') == 1
-    if line('.')  != 1
-      return  "\<ESC>kA\<Del>"
-    else
-      return ""
-    endif
-  endif
-
-  let line = getline('.')       " don't use trim() here
-  let colnr = getpos('.')[2]
-  let paren = strcharpart(line, colnr-2, 2)
-  let pairs = ['()', '[]', '{}', '<>', '%%', '$$', '**', '""', "''", '~~', '``']
-  if index(pairs, paren) >=0
-    return "\<Left>\<Del>\<Del>"
-  else
-    let prefix = line[:colnr-2]
-    if prefix =~ '^\s\+$' && len(prefix) % &shiftwidth == 0
-      return "\<BS>"
-    else
-      return "\<Left>\<Del>"
-    endif
-  endif
-endfunction
-
 " Insert: <CR>
 function! lib#keymap#Insert_CR() abort
   let line = getline('.') " can not use trim
@@ -46,36 +15,6 @@ function! lib#keymap#Insert_CR() abort
   endif
 endfunction
 
-" Insert: <Esc>
-function! lib#keymap#Insert_ESC()
-  let colnr = getpos('.')[2]
-  let linelen = len(getline('.'))
-  if colnr == (linelen + 1)
-    return "\<Esc>"
-  else
-    return "\<Esc>\<Right>"
-  endif
-endfunction
-
-" Normal: <CR>
-function! lib#keymap#Normal_CR() abort
-  let line = trim(getline('.'))
-  let disable_if_begin_with = ['#', '/']
-  let disable_if_end_with = [',', ';', '{','[', '(', '/', '\', '<', '>']
-
-  if line == '' || index(disable_if_begin_with, line[0]) >= 0 || index(disable_if_end_with, line[-1:]) >= 0
-    return "\<CR>"
-  endif
-
-  if index(['c', 'cpp', 'cs', 'css', 'java', 'rust', 'scss', 'mysql'], &ft) >= 0
-    return "A;"
-  elseif index(['json', 'jsonc'], &ft) >= 0
-    return "A,"
-  elseif index(['qmake'], &ft) > 0
-    return "A\\"
-  endif
-endfunction
-
 " Normal: q
 function! lib#keymap#Normal_q() abort
   " is the last buffer
@@ -86,85 +25,7 @@ function! lib#keymap#Normal_q() abort
   endif
 endfunction
 
-" Normal: [[
-function! lib#keymap#Square_Brackets_Left() abort
-  let curline = line('.')
-  if empty(getline(curline-1))
-    normal! {
-  else
-    normal! {
-    if empty(getline('.'))
-      normal! j
-    endif
-  endif
-endfunction
-
-" Normal: ]]
-function! lib#keymap#Square_Brackets_Right() abort
-  let curline = line('.')
-  if empty(getline(curline+1))
-    normal! }
-  else
-    normal! }
-    if empty(getline('.'))
-      normal! k
-    endif
-  endif
-endfunction
-
-" Command: <BS>
-function! lib#keymap#Command_BS() abort
-  let pos = getcmdpos()
-  let surround = getcmdline()[pos-2:pos-1]
-  if index(["''", '<>', '()', '[]', '{}'], surround) >=0
-    return "\<Right>\<BS>\<BS>"
-  else
-    return "\<BS>"
-  endif
-endfunction
-
-" Command: ''|<>|()|[]|{}
-function! lib#keymap#Command_Pairs(pairs) abort
-  let pos = getcmdpos()
-  let prechar = getcmdline()[pos-2]
-  if prechar == a:pairs[0]
-    return a:pairs[0]
-  else
-    return a:pairs . "\<Left>"
-  endif
-endfunction
-
-" VisualStarSearch:
-function! lib#keymap#VisualStarSearch(cmdtype, ...) abort
-  let temp = @"
-  normal! gvy
-  if !a:0 || a:1 != 'raw'
-    let @" = escape(@", a:cmdtype.'\*')
-  endif
-  let @/ = substitute(@", '\n', '\\n', 'g')
-  let @/ = substitute(@/, '\[', '\\[', 'g')
-  let @/ = substitute(@/, '\~', '\\~', 'g')
-endfunction
-
 function! lib#keymap#Exec(cmd)
   execute a:cmd
   return ''
-endfunction
-
-function! lib#keymap#incyank() abort
-  let old = getreg('"')
-  let tmp = getreg('a')
-  normal! gv"ay
-  let new = trim(old) . "\n" . trim(getreg('"'))
-  call setreg('"', new)
-  call setreg('a', tmp)
-endfunction
-
-function! lib#keymap#incdelete() abort
-  let old = getreg('"')
-  let tmp = getreg('a')
-  normal! gv"ad
-  let new = trim(old) . "\n" . trim(getreg('"'))
-  call setreg('"', new)
-  call setreg('a', tmp)
 endfunction

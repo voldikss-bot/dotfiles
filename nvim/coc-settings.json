@@ -198,6 +198,5 @@
   "suggest.numberSelect": false,
   "suggest.removeDuplicateItems": false,
   "suggest.triggerAfterInsertEnter": false,
-  "template.templatesDirectory": "~/.config/nvim/templates",
   // vim:ft=jsonc
 }
