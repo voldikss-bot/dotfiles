@@ -15,7 +15,6 @@
   ],
   "coc.source.around.priority": 8,
   "coc.source.buffer.priority": 1,
-  "coc.source.dictionary.priority": 1,
   "coc.source.emoji.filetypes": ["markdown", "gitcommit"],
   "coc.source.emoji.priority": 3,
   "coc.source.emoji.shortcut": "E",

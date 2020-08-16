@@ -189,10 +189,6 @@ Tag 显示插件
 
 - 该插件不需要另外配置
 
-### [targets.vim](https://github.com/wellle/targets.vim)
-
-扩展文本对象，很实用
-
 ### [tcomment_vim](https://github.com/tomtom/tcomment_vim)
 
 注释插件

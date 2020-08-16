@@ -88,9 +88,6 @@ Plug 'tpope/vim-fugitive'
 " 在侧边栏显示相关信息
 Plug 'kshenoy/vim-signature'
 
-" 扩展文本对象，很实用
-Plug 'wellle/targets.vim'
-
 " 注释插件
 Plug 'tomtom/tcomment_vim'
 
