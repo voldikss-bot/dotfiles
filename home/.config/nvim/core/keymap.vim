@@ -19,7 +19,6 @@ noremap <C-u> <C-u>zz
 noremap <C-d> <C-d>zz
 
 nnoremap <silent> <C-j>      <C-]>
-nnoremap <silent> <C-k>      :<C-u>call lib#coc#ShowDocument()<CR>
 nnoremap <silent> <C-w><C-j> <C-W>v<C-]>zz
 
 " BufferOperation:
