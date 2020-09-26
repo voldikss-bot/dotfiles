@@ -21,15 +21,15 @@ let g:lightline = {
     \ 'vim_logo': "😆 "
   \ },
   \ 'component_function': {
-    \ 'mode': 'userfunc#lightline#Mode',
-    \ 'fugitive': 'userfunc#lightline#GitBranch',
+    \ 'mode': 'lib#lightline#Mode',
+    \ 'fugitive': 'lib#lightline#GitBranch',
     \ 'cocstatus': 'coc#status',
-    \ 'readonly': 'userfunc#lightline#ReadOnly',
-    \ 'filename': 'userfunc#lightline#FileName',
-    \ 'fileformat': 'userfunc#lightline#FileFormat',
-    \ 'fileencoding': 'userfunc#lightline#FileEncoding',
-    \ 'filetype': 'userfunc#lightline#FileType',
-    \ 'absolutepath': 'userfunc#lightline#AbsPath'
+    \ 'readonly': 'lib#lightline#ReadOnly',
+    \ 'filename': 'lib#lightline#FileName',
+    \ 'fileformat': 'lib#lightline#FileFormat',
+    \ 'fileencoding': 'lib#lightline#FileEncoding',
+    \ 'filetype': 'lib#lightline#FileType',
+    \ 'absolutepath': 'lib#lightline#AbsPath'
   \ },
   \ 'tabline': {
     \ 'left': [['vim_logo', 'buffers']],

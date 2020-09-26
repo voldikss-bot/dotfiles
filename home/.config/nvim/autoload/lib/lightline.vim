@@ -2,7 +2,7 @@
 " GitHub: https://github.com/voldikss
 
 " AbsPath:
-function! userfunc#lightline#AbsPath()
+function! lib#lightline#AbsPath()
   let path = substitute(expand('%:p'), $HOME, '~', 'g')
   if len(path) > winwidth(0)/2.5
     let path = pathshorten(path)
@@ -14,7 +14,7 @@ function! userfunc#lightline#AbsPath()
 endfunction
 
 " Mode:
-function! userfunc#lightline#Mode()
+function! lib#lightline#Mode()
   return &filetype ==# 'coc-explorer' ? 'coc-explorer' :
     \ &filetype ==# 'denite' ? 'Denite' :
     \ &filetype ==# 'gitv' ? 'GitV' :
@@ -30,7 +30,7 @@ function! userfunc#lightline#Mode()
 endfunction
 
 " FileName:
-function! userfunc#lightline#FileName()
+function! lib#lightline#FileName()
   let filename = &filetype ==# 'denite' ? '' :
     \ &filetype ==# 'gitv' ? '' :
     \ &filetype ==# 'help' ? '' :
@@ -44,7 +44,7 @@ function! userfunc#lightline#FileName()
 endfunction
 
 " GitBranch:
-function! userfunc#lightline#GitBranch()
+function! lib#lightline#GitBranch()
   if exists('*FugitiveHead') && &filetype !~# '\v(denite|help|man|qf|tagbar|Mundo|vista)'
     let branch = FugitiveHead()
     return branch !=# '' ? ''. branch : ''
@@ -53,7 +53,7 @@ function! userfunc#lightline#GitBranch()
 endfunction
 
 " FileFormat:
-function! userfunc#lightline#FileFormat()
+function! lib#lightline#FileFormat()
   return &filetype !=# 'denite' &&
     \ &filetype !=# 'gitv' &&
     \ &filetype !=# 'help' &&
@@ -67,7 +67,7 @@ function! userfunc#lightline#FileFormat()
 endfunction
 
 " FileType:
-function! userfunc#lightline#FileType()
+function! lib#lightline#FileType()
   return &filetype !=# 'denite' &&
     \ &filetype !=# 'gitv' &&
     \ &filetype !=# 'help' &&
@@ -80,7 +80,7 @@ function! userfunc#lightline#FileType()
 endfunction
 
 " FileEncoding:
-function! userfunc#lightline#FileEncoding()
+function! lib#lightline#FileEncoding()
   return &filetype !=# 'denite' &&
     \ &filetype !=# 'gitv' &&
     \ &filetype !=# 'help' &&
@@ -94,6 +94,6 @@ function! userfunc#lightline#FileEncoding()
 endfunction
 
 " ReadOnly:
-function! userfunc#lightline#ReadOnly()
+function! lib#lightline#ReadOnly()
   return &readonly && &filetype !~# '\v(denite|help|man|qf|startify)' && expand('%:t') !~ ('__vista__') ? '' : ''
 endfunction

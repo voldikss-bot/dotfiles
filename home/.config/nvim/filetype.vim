@@ -18,14 +18,7 @@ augroup filetypedetect
   autocmd BufNewFile,BufRead  coc-settings.json setfiletype jsonc
   autocmd BufNewFile,BufRead  config*.json       setfiletype jsonc
 
-  autocmd BufNewFile,BufRead  *.wl              setfiletype mma
-  autocmd BufNewFile,BufRead  *.wls             setfiletype mma
-
   autocmd BufNewFile,BufRead  *.gitignore       setfiletype gitignore
-
-  autocmd BufNewFile,BufRead *.lmp              setfiletype lammps
-  autocmd BufNewFile,BufRead *.lammps           setfiletype lammps
-  autocmd BufNewFile,BufRead in.*               setfiletype lammps
 
   autocmd BufNewFile,BufRead *.log              setfiletype log
   autocmd BufNewFile,BufRead *_log              setfiletype log

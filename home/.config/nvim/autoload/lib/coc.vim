@@ -1,7 +1,14 @@
 " ============================================================================
-" FileName: %FFILE%
+" FileName: coc.vim
 " Author: voldikss <dyzplus@gmail.com>
 " GitHub: https://github.com/voldikss
 " ============================================================================
 
-%HERE%
+" ShowDocument:
+function! lib#coc#ShowDocument() abort
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction

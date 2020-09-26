@@ -18,6 +18,7 @@ yay:
 		makepkg -si
 		cd ..
 		rm -r yay
+	fi
 
 
 .ONESHELL:
@@ -101,10 +102,13 @@ oh-my-zsh:
 		echo "Installing oh-my-zsh..."
 		sh -c "$$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 		# plugins
-		curl -L git.io/antigen > ~/.antigen.zsh
+		ln -svf "$(PWD)/home/.antigen.zsh" "$(HOME)"
 		git clone https://github.com/zsh-users/zsh-autosuggestions "$(HOME)/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
 		git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$(HOME)/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
-		# linking
+		# backup and linking
+		mv "$(HOME)/.zshrc" "$(HOME)/.zshrc.bak"
+		mv "$(HOME)/.bashrc" "$(HOME)/.inputrc.bak"
+		mv "$(HOME)/.inputrc" "$(HOME)/.inputrc.bak"
 		for f in $(DOTFILES); do ln -svf "$(PWD)/home/$$f" "$(HOME)"; done
 		source ~/.zshrc
 	fi
@@ -375,7 +379,7 @@ v2ray:
 .ONESHELL:
 .SILENT:
 peek:
-	if ! command -v peek >/dev/null then
+	if ! command -v peek >/dev/null; then
 		echo "Installing peek..."
 		if [ $(OS) == 'Arch' ]; then
 			sudo pacman -S peek --noconfirm
@@ -406,7 +410,7 @@ google-chrome: yay
 .ONESHELL:
 .SILENT:
 netease-cloud-music:
-	if ! command -v netease-cloud-music dev/null then
+	if ! command -v netease-cloud-music dev/null; then
 		echo "Installing netease-cloud-music..."
 		if [ $(OS) == 'Arch' ]; then
 			sudo pacman -S netease-cloud-music --noconfirm

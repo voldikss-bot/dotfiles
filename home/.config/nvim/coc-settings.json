@@ -1,5 +1,5 @@
 {
-  "coc.preferences.extensionUpdateCheck": "weekly",
+  "coc.preferences.extensionUpdateCheck": "never",
   "coc.preferences.formatOnSaveFiletypes": [],
   "coc.preferences.hoverTarget": "float",
   "coc.preferences.messageLevel": "more",
@@ -15,7 +15,6 @@
   ],
   "coc.source.around.priority": 8,
   "coc.source.buffer.priority": 1,
-  "coc.source.dictionary.priority": 1,
   "coc.source.emoji.filetypes": ["markdown", "gitcommit"],
   "coc.source.emoji.priority": 3,
   "coc.source.emoji.shortcut": "E",
@@ -150,16 +149,8 @@
     "<C-t>": "do:toggle"
   },
   "list.previewSplitRight": false,
-  "prettier.disableLanguages": ["typescript", "html"],
-  "prettier.formatterPriority": 1,
-  "prettier.printWidth": 85,
-  "prettier.semi": false,
-  "prettier.singleQuote": true,
-  "prettier.tabWidth": 2,
-  "prettier.bracketSpacing": false,
   "python.autoComplete.addBrackets": true,
   "python.formatting.provider": "black",
-  "rust-analyzer.serverPath": "~/.cargo/bin/rust-analyzer",
   "session.directory": "~/.cache/nvim/session",
   "session.saveOnVimLeave": false,
   "snippets.extends": {
@@ -206,9 +197,5 @@
   "suggest.numberSelect": false,
   "suggest.removeDuplicateItems": false,
   "suggest.triggerAfterInsertEnter": false,
-  "template.templatesDirectory": "~/.config/nvim/templates",
-  "yank.enableCompletion": false,
-  "yank.highlight.enable": false,
-  "yank.priority": 4
   // vim:ft=jsonc
 }

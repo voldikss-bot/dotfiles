@@ -4,42 +4,20 @@
 " GitHub: https://github.com/voldikss
 " ============================================================================
 
-" autocmd CmdlineEnter * call feedkeys("\<C-p>")
-augroup ParenColor
-  autocmd!
-  autocmd VimEnter,BufWinEnter *
-    \ if index(['html', 'htmldjango', 'tex', 'mma', 'vue', 'xml'], &filetype) < 0 |
-      \ syntax match paren1 /[{}]/   | hi paren1 guifg=#FF00FF |
-      \ syntax match paren2 /[()]/   | hi paren2 guifg=#DF8700 |
-      \ syntax match paren3 /[<>]/   | hi paren3 guifg=#0087FF |
-      \ syntax match paren4 /[\[\]]/ | hi paren4 guifg=#00FF5F |
-    \ endif
-augroup END
-
-augroup FileTypeAutocmds
-  autocmd!
-  autocmd FileType startify nmap <buffer> l <CR>
-  autocmd FileType floaterm setlocal nocursorline
-  autocmd FileType help setlocal number
-  autocmd FileType * set formatoptions-=cro
-augroup END
-
+" 退出插入模式或者窗口失去焦点，自动写入保存
 augroup UserAutoSaveBuffer
   autocmd!
-  autocmd FocusLost,InsertLeave * call userfunc#file#AutoSave()
+  autocmd FocusLost,InsertLeave * call lib#file#AutoSave()
 augroup END
 
+" 根据所在模式自动切换相对行号和绝对行号
 augroup UserLineNumber
   autocmd!
   autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu | set rnu   | endif
   autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu | set nornu | endif
 augroup END
 
-" augroup UserEqualWindowSize
-"   autocmd!
-"   autocmd VimResized * exec "normal \<C-w>="
-" augroup END
-
+" 打开文件时跳转到上次编辑的位置
 augroup UserJumpToLastPosition
   autocmd!
   autocmd BufReadPost *
@@ -48,16 +26,7 @@ augroup UserJumpToLastPosition
     \ endif
 augroup END
 
-augroup UserAutoChangeDir
-  autocmd!
-  autocmd BufEnter * silent! lcd %:p:h
-augroup END
-
-augroup UserAutoTemplate
-  autocmd!
-  autocmd BufNewFile .gitignore,.tasks,.clang-format CocCommand template.templateTop
-augroup END
-
+" Vim 获取窗口焦点之后，若发现文件在外部没修改，则自动载入修改后的内容
 augroup UserChecktime
   autocmd!
   autocmd FocusGained * checktime
@@ -65,7 +34,6 @@ augroup END
 
 augroup UserCocAutocmds
   autocmd!
-  autocmd User Startified setlocal buflisted
   autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
   autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
@@ -76,11 +44,6 @@ augroup UserStartifyAutocmds
   autocmd User Startified setlocal buflisted
 augroup END
 
-" augroup AutoNohlsearch
-"   autocmd!
-"   autocmd CursorMoved * call userfunc#myhlsearch#start_hl()
-" augroup END
-
 augroup CocExplorerCustom
   autocmd!
   autocmd FileType coc-explorer setlocal relativenumber
@@ -88,20 +51,6 @@ augroup CocExplorerCustom
     \ if &ft == 'coc-explorer'
     \ | call CocAction('runCommand', 'explorer.doAction', 'closest', ['refresh'])
     \ | endif
-augroup END
-
-if has('nvim')
-augroup UserTermSettings " neovim only
-  autocmd!
-  autocmd TermOpen *
-    \ setlocal signcolumn=no |
-    \ setlocal nobuflisted |
-    \ setlocal nospell |
-    \ setlocal modifiable |
-    \ nmap <silent><buffer> <Esc> <Cmd>hide<CR>|
-    \ nmap <silent><buffer> q :q<CR> |
-    \ hi TermCursor guifg=yellow |
-    \ call timer_start(10, 'userfunc#asyncrun#term_style')
 augroup END
 
 function! s:OnColorSchemeLoaded() abort
@@ -127,4 +76,3 @@ augroup UserGitSignColumnColor
   autocmd!
   autocmd ColorScheme * call s:OnColorSchemeLoaded()
 augroup END
-endif

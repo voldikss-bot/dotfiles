@@ -28,8 +28,6 @@ by [voldikss](https://github.com/voldikss)
 - [`filetype.vim`](./filetype.vim) 文件类型检测，无需改动
 - [`init.vim`](./init.vim) 配置文件入口，可以选择是否加载或不加载某些插件
 - [`tasks.ini`](./tasks.ini) 快速运行的配置文件，非特殊需要无需改动
-- [`templates`](./templates) 文件模板，可以自己改
-- [`UltiSnips`](./UltiSnips) Snippets，用于补全，无需改动
 
 ## 依赖
 
@@ -190,10 +188,6 @@ Tag 显示插件
 在侧边栏显示相关信息
 
 - 该插件不需要另外配置
-
-### [targets.vim](https://github.com/wellle/targets.vim)
-
-扩展文本对象，很实用
 
 ### [tcomment_vim](https://github.com/tomtom/tcomment_vim)
 

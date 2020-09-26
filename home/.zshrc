@@ -1,72 +1,3 @@
-# vim:ft=sh
-#!/bin/zsh
-# Author: VOLDIKSS
-# Date  : 2019-03-22
-
-
-#=============================================================================
-# Functions
-#=============================================================================
-backup_sys() {
-    cd /
-    sudo tar -cvpzf backup.tar.gz \
-        --one-file-system \
-        --exclude=/backup.tar.gz \
-        --exclude=/proc \
-        --exclude=/tmp \
-        --exclude=/mnt \
-        --exclude=/dev \
-        --exclude=/sys \
-        --exclude=/run \
-        --exclude=/media \
-        --exclude=/var/log \
-        --exclude=/var/cache/apt/archives \
-        --exclude=/usr/src/linux-headers* \
-        --exclude=/home/*/.gvfs \
-        --exclude=/home/*/.cache \
-        --exclude=/home/*/.local/share/Trash /
-}
-
-deploy_blog() {
-    echo -e "\033[0;32mDeploying updates to GitHub...\033[0m"
-    hugo -t even
-
-    cd public
-    git add .
-
-    msg="rebuilding site `date`"
-    if [ $# -eq 1 ]; then
-        msg="$1"
-    fi
-
-    git commit -m "$msg"
-    git push origin master
-
-    cd ..
-    git add .
-    git commit -m "$msg"
-    git push origin master
-}
-
-release_coc_extension() {
-    version=$(json version < package.json)
-    name=$(json name < package.json)
-    echo "$name/$version"
-    git commit -a -m "v$version"
-    git tag -a "$version" -m "v$version"
-    npm publish
-    git push --tags
-    git push
-}
-
-vim_starttime() {
-    if [ -f "vim_startup.log" ]; then
-        rm ./vim_startup.log
-    fi
-    nvim --startuptime ./vim_startup.log && awk -F'[ /]' '/\.vim\/plugged/ {print $3,$12}' vim_startup.log | awk '{plug[$2]++; time[$2]+=$1} END {for (i in plug) {printf "%30s %20.3f ms\n", i, time[i] | "sort -k2nr"}}'
-}
-
-
 #=============================================================================
 # antigen
 #=============================================================================
@@ -112,22 +43,95 @@ antigen apply
 # oh-my-zsh
 #=============================================================================
 export ZSH=$HOME/.oh-my-zsh
-ZSH_THEME="gnzh"
 source $ZSH/oh-my-zsh.sh
-# source $HOME/.af-magic.zsh-theme    # theme
-source $HOME/.alias
 
 
 #=============================================================================
-# misc
+# alias
 #=============================================================================
-export VISUAL=/usr/bin/nvim
-export EDITOR=/usr/bin/nvim
-export MANPAGER="nvim '+set ft=man' -"
+# ls
+alias ll='ls -laFh'
+alias la='ls -laF'
+alias lh='ls -lh'
+alias lR='ls -lR'
+alias l='ls -l'
 
-# Uncomment the following line to enable command auto-correction.
-ENABLE_CORRECTION="true"
+# vim
+alias vim=nvim
+alias vi=nvim
 
+# python
+alias python=python3
+alias pip=pip3
+alias pip_upgrade_all_packages="pip list --outdated --format=freeze | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 sudo -H pip install -U"
+
+# git
+alias ga='git add'
+alias gcm='git commit -v'
+alias gcma='git commit --amend'
+alias gco='git checkout'
+alias gcl='git clone --depth 1'
+alias gd='git diff'
+alias gf='git fetch'
+alias gr='git reset --hard HEAD'
+alias gp='git push'
+alias gpf='git push -f'
+alias gri='git rebase -i'
+alias grc='git rebase --continue'
+alias gs='git status'
+alias gacp='git add . && git commit -m "$(date)" && git push -u origin master'
+
+# rm 进 trash
+alias rm='trash -r'
+
+# fasd
+alias v='f -e vim' # quick opening files with vim
+alias m='f -e mplayer' # quick opening files with mplayer
+alias o='a -e xdg-open' # quick opening files with xdg-open
+
+# fzf
+alias fzfvim='vim $(fzf)'
+alias fzf="fzf --preview 'bat --style=numbers --color=always {} | head -500'"
+
+# prettyping
+# alias ping='prettyping'
+
+# htop
+alias top='htop'
+
+# ncdu
+alias du='ncdu --color dark -rr -x --exclude .git --exclude node_modules'
+
+# nnn
+alias nnn='nnn -d'
+
+# where proxy
+alias proxy='export all_proxy=https://127.0.0.1:1081'
+alias unproxy='unset all_proxy'
+
+# npm registry
+alias npm_taobao='npm config set registry https://registry.npm.taobao.org'
+alias npm_origin='npm config set registry https://registry.npmjs.org'
+alias ncu_check='ncu -u && npm i' # need `npm install -g npm-check-updates`
+
+# arch
+alias p='sudo pacman'
+
+# dos2unix
+alias dos2unix_all='find . -type f -print0 | xargs -0 dos2unix'
+
+# cgdb nvim
+# might need `echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope`
+alias cgdb_nvim="gdb -p $(ps auxx | grep '[.]/build/bin/nvim' | awk '{print $2}')"
+
+# pacman package list backup and restore
+alias pacman_pkglist_backup='pacman -Qqe > $HOME/dotfiles/misc/pacman/package_list.txt'
+alias pacman_pkglist_restore='for x in $(cat $HOME/dotfiles/misc/pacman/package_list.txt); do pacman -S $x; done'
+
+
+#=============================================================================
+# variables
+#=============================================================================
 # You may need to manually set your language environment
 export LANG=zh_CN.UTF-8
 export LANGUAGE=zh_CN:en_US
@@ -144,23 +148,3 @@ export LESS_TERMCAP_se=$'\e[0m'
 export LESS_TERMCAP_so=$'\e[01;33m'
 export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[1;4;31m'
-
-# fzf integrated with rg
-export FZF_DEFAULT_COMMAND='rg --hidden -l ""'
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-
-#=============================================================================
-# path
-#=============================================================================
-export PATH="/usr/local/bin:$PATH"
-export PATH="/home/voldikss/.local/bin:$PATH"
-# Yarn
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-# GoLang
-export GOROOT=/usr/lib/go
-export GOBIN=$GOPATH/bin
-export PATH=$PATH:$GOBIN
-export GOPATH="$HOME/go"
-# Cargo
-export PATH="$HOME/.cargo/bin:$PATH"

@@ -11,18 +11,14 @@ let g:Lf_CommandMap = {
   \'<Up>': ['<C-p>'],
   \'<Down>': ['<C-n>']
 \}
-let g:Lf_Ctags                = "/usr/local/bin/ctags"
 let g:Lf_DefaultExternalTool = ""
 let g:Lf_FilerShowDevIcons = 1
-let g:Lf_GtagsAutoGenerate = 1
-let g:Lf_Gtagslabel = 'native-pygments'
 let g:Lf_HideHelp             = 1
 let g:Lf_IndexTimeLimit       = 10
 let g:Lf_MruFileExclude = ['*.so','*.py[c0]','*.exe','*.sw?']
 let g:Lf_PreviewInPopup = 1
 let g:Lf_PreviewResult        = {'Function':0, 'BufTag':0}
 let g:Lf_RgConfig = [
-  \"--glob=!OmegaOptions.bak",
   \"--glob=!node_modules",
   \"--glob=!lib/index.js",
   \"--glob=!target",
@@ -32,7 +28,7 @@ let g:Lf_RgConfig = [
   \"--glob=!.ccls-cache",
   \"--no-ignore",
   \"--hidden"
-\]
+\ ]
 let g:Lf_RootMarkers    = [
   \'.project',
   \'.svn',
@@ -43,7 +39,7 @@ let g:Lf_RootMarkers    = [
   \'.clang-format',
   \'CMakeLists.txt',
   \'compile_commands.json'
-\]
+\ ]
 let g:Lf_ShowHidden           = 1
 let g:Lf_ShowRelativePath     = 1
 let g:Lf_StlColorscheme = 'powerline'
