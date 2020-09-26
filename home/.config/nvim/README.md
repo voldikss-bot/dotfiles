@@ -16,15 +16,11 @@ by [voldikss](https://github.com/voldikss)
 - [`autoload`](./autoload) 自定义的一些功能函数等，无需改动
 - [`colors`](./colors) 内置主题，无需改动
 - [`core`](./core) 核心文件，包含了一系列设置和插件配置等，可以根据自己的需求改动
-  - [`abbrev.vim`](./core/abbrev.vim) 设置命令缩写
   - [`autocmd.vim`](./core/autocmd.vim) 包含自动命令
   - [`basic.vim`](./core/basic.vim) 基本设置，我已经设置为正常编辑器的模式，如非必须，不需要再进行设置
-  - [`command.vim`](./core/command.vim) 自定义命令
   - [`keymap.vim`](./core/keymap.vim) 自定义快捷键
   - [`plugin`](./core/plugin) 插件的安装和配置
-  - [`variable.vim`](./core/variable.vim) 全局变量，不用改动
 - [`coc-settings.json`](./coc-settings.json) coc 插件极其扩展的配置文件
-- [`dict`](./dict) 个人补全候选词，里面的词是可以加入自动补全的
 - [`filetype.vim`](./filetype.vim) 文件类型检测，无需改动
 - [`init.vim`](./init.vim) 配置文件入口，可以选择是否加载或不加载某些插件
 - [`tasks.ini`](./tasks.ini) 快速运行的配置文件，非特殊需要无需改动
@@ -209,76 +205,29 @@ Tag 显示插件
 
 ## 快捷键
 
-注：Leader 键我设置成了`;`
-
-- 窗口切换类
-
-| 按键              | 描述                                         | 来源 |
-| ----------------- | -------------------------------------------- | ---- |
-| `Ctrl-W-h/j/k/l`  | 分别移动光标到当前窗口的左/下/上/右侧窗口    |      |
-| `Alt-h/j/k/l`     | 分别移动光标到当前窗口的左/下/上/右侧窗口    |      |
-| `Alt-上/下/左/右` | 存在分割窗口的时候，调整所在窗口的高度和宽度 |      |
-
-- 文件切换类
-
-| 按键        | 描述                                         | 来源 |
-| ----------- | -------------------------------------------- | ---- |
-| `Ctrl-h/l`  | 切换到 tab 栏左/右边的文件（buffer）         |      |
-| `q`         | 关闭文件                                     |      |
-| `<Leader>d` | 关闭文件（删除当前 buffer 但是保留窗口布局） |      |
-
-- 光标移动类
-
-| 模式 | 按键     | 描述               | 来源    |
-| ---- | -------- | ------------------ | ------- |
-| n    | `H`      | 跳到行首           |         |
-| n    | `L`      | 跳到行尾           |         |
-| n    | `M`      | 成对括号之间跳转   |         |
-| n    | `gj`     | git next           | coc-git |
-| n    | `gk`     | git previous       | coc-git |
-| i    | `Ctrl-h` | 左                 |         |
-| i    | `Ctrl-j` | 下                 |         |
-| i    | `Ctrl-k` | 上                 |         |
-| i    | `Ctrl-l` | 右                 |         |
-| i    | `Ctrl-b` | 跳到前一个单词前面 |         |
-| i    | `Ctrl-f` | 跳到后一个单词后面 |         |
-
-- 文件编辑类
-
-| 模式 | 按键        | 描述                         | 来源 |
-| ---- | ----------- | ---------------------------- | ---- |
-| n    | `u`         | 撤销                         |      |
-| n    | `U`         | 重做                         |      |
-| n    | `M`         | 成对括号之间跳转             |      |
-| n    | `<Leader>y` | 将选中内容复制到系统剪切板   |      |
-| n    | `<Leader>p` | 将系统剪切板内容插入到文本中 |      |
-| n    | `<Leader>w` | 保存当前文件                 |      |
-| n    | `<Leader>W` | 保存所有打开的文件           |      |
-| i    | `Ctrl-d`    | 删除当前行                   |      |
-
 - 常用插件快捷键
 
-| 按键                          | 描述                           | 来源                  |
-| ----------------------------- | ------------------------------ | --------------------- |
-| `<F1>`                        | 帮助                           |                       |
-| `<F2>`                        | 文件树浏览器                   | coc-explorer          |
-| `<F3>`                        | 历史记录树                     | vim-mudo              |
-| `<F4>`                        | 从系统文件浏览器中打开当前路径 |                       |
-| `<F5>`或者 `<Leader>x`        | 快速运行                       | asyncrun & asynctasks |
-| `<F6>`或者 `<Leader><Leader>` | 格式化                         | 需要配置格式化工具    |
-| `<F7>`                        | 新建一个浮动终端               | vim-floaterm          |
-| `<F8>`                        | 切换到前一个浮动终端           | vim-floaterm          |
-| `<F9>`                        | 切换到后一个浮动终端           | vim-floaterm          |
-| `<F10>`                       | 打开 tag 列表                  | vista                 |
-| `<F12>`                       | 切换当前浮动终端               | vim-floaterm          |
-| `<Leader>cd` 或者 `<C-j>`     | 跳转到函数定义                 | coc                   |
-| `<Leader>rf`                  | 跳转到函数调用                 | coc                   |
-| `<Leader>ff`                  | 模糊查找文件                   | LeaderF               |
-| `<Space>f`                    | 文件跳转                       | easymotion            |
-| `J`                           | 向下移动整行或整块             | vim-movee             |
-| `K`                           | 向上移动整行或整块             | vim-move              |
-| `<Space><Space>`              | 打开最近编辑的文件界面         | vim-startify          |
-| `<Leader>w`                   | 翻译光标下单词                 | vim-startify          |
+| 按键                          | 描述                           | 来源                      |
+| ----------------------------- | ------------------------------ | ------------------------- |
+| `<F1>`                        | 帮助                           |                           |
+| `<F2>`                        | 文件树浏览器                   | coc-explorer 或 defx.nvim |
+| `<F3>`                        | 历史记录树                     | vim-mudo                  |
+| `<F4>`                        | 从系统文件浏览器中打开当前路径 |                           |
+| `<F5>`或者 `<Leader>x`        | 快速运行                       | asyncrun & asynctasks     |
+| `<F6>`或者 `<Leader><Leader>` | 格式化                         | 需要配置格式化工具        |
+| `<F7>`                        | 新建一个浮动终端               | vim-floaterm              |
+| `<F8>`                        | 切换到前一个浮动终端           | vim-floaterm              |
+| `<F9>`                        | 切换到后一个浮动终端           | vim-floaterm              |
+| `<F10>`                       | 打开 tag 列表                  | vista                     |
+| `<F12>`                       | 切换当前浮动终端               | vim-floaterm              |
+| `<Leader>cd` 或者 `<C-j>`     | 跳转到函数定义                 | coc                       |
+| `<Leader>rf`                  | 跳转到函数调用                 | coc                       |
+| `<Leader>ff`                  | 模糊查找文件                   | LeaderF                   |
+| `<Space>f`                    | 文件跳转                       | easymotion                |
+| `J`                           | 向下移动整行或整块             | vim-movee                 |
+| `K`                           | 向上移动整行或整块             | vim-move                  |
+| `<Space><Space>`              | 打开最近编辑的文件界面         | vim-startify              |
+| `<Leader>w`                   | 翻译光标下单词                 | vim-startify              |
 
 ## 自动命令
 
@@ -289,22 +238,3 @@ Tag 显示插件
 - 新打开一个文件时，会自动从上次离开的地方开始
 
 - 文件 A 在外部作了改动，当从文件 B 切换到 A 时，自动更新
-
-## 命令缩写
-
-参见 [abbrev.vim](./core/abbrev.vim)
-
-以 `ar` 为例，当你输入 `:ar` 然后按一次空格，它就会自动扩展为 `:AsyncRun`
-
-其它同理
-
-## 自定义命令
-
-- `AutoFormat` 删除空行，删除行尾的空白字符，如果配置了格式化工具则再格式化当前文本
-- `OpenFileExplorer` 打开系统文件浏览器
-- `CloseNoCurrentBuffers` 关闭已经打开其它文件，只保留当前文件
-- `Line` 插入分割线
-- `Bline` 插入分割线
-- `Cline` 插入分割线
-- `RenameFile` 重命名当前文件
-- `RemoveFile` 删除当前文件

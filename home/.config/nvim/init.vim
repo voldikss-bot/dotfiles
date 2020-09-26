@@ -4,7 +4,6 @@ command! -nargs=1 Load exec 'so '.s:home.'/'.'<args>'
 "=============================================================================
 " 基本
 "=============================================================================
-Load ./core/abbrev.vim
 Load ./core/autocmd.vim
 Load ./core/basic.vim
 Load ./core/command.vim
@@ -68,20 +67,6 @@ Load ./core/plugin/vim-mundo.vim
 Plug 'mhinz/vim-startify'
 Load ./core/plugin/vim-startify.vim
 
-" 浮动内置终端
-Plug 'voldikss/vim-floaterm'
-Load ./core/plugin/vim-floaterm.vim
-
-" 翻译插件
-Plug 'voldikss/vim-translator'
-Load ./core/plugin/vim-translator.vim
-
-" 杀手级插件，不知道该怎么介绍，建议去GitHub自己查看其介绍
-Plug 'tpope/vim-surround'
-
-" 重复上一次修改
-Plug 'tpope/vim-repeat'
-
 " Git 操作相关
 Plug 'tpope/vim-fugitive'
 
@@ -99,6 +84,7 @@ Plug 'yianwillis/vimcdoc'
 
 " 函数列表
 Plug 'liuchengxu/vista.vim'
+Load ./core/plugin/vista.vim.vim
 
 " Tags 跳转
 Plug 'ludovicchabant/vim-gutentags'

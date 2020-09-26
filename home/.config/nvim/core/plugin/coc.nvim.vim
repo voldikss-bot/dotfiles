@@ -1,4 +1,6 @@
 set tagfunc=CocTagFunc
+noremap  <silent> <F2>             <Esc>:CocCommand explorer<CR>
+noremap! <silent> <F2>             <Esc>:CocCommand explorer<CR>
 nnoremap <silent><expr> <C-f> coc#util#has_float() ? coc#util#float_scroll(1) : "\<C-f>"
 nnoremap <silent><expr> <C-b> coc#util#has_float() ? coc#util#float_scroll(0) : "\<C-b>"
 nmap <expr> <silent> <C-c> <SID>select_current_word_and_go_next()
