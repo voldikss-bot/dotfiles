@@ -1,9 +1,3 @@
-" ============================================================================
-" FileName: init.vim
-" Author: voldikss <dyzplus@gmail.com>
-" GitHub: https://github.com/voldikss
-" ============================================================================
-
 let s:home = fnamemodify(resolve(expand('<sfile>:p')), ':h')
 command! -nargs=1 Load exec 'so '.s:home.'/'.'<args>'
 
@@ -15,7 +9,6 @@ Load ./core/autocmd.vim
 Load ./core/basic.vim
 Load ./core/command.vim
 Load ./core/keymap.vim
-Load ./core/variable.vim
 
 "=============================================================================
 " 插件
@@ -30,8 +23,18 @@ Plug 'skywind3000/asyncrun.vim', {'on': ['AsyncRun', 'AsyncStop'] }
 Load ./core/plugin/asyncrun.vim.vim
 
 " coc 全家桶，提供全部 LSP 体验
-Plug 'neoclide/coc.nvim', {'do': 'npm install'}
-Load ./core/plugin/coc.nvim.vim
+" Plug 'neoclide/coc.nvim', {'do': 'npm install'}
+" Load ./core/plugin/coc.nvim.vim
+
+" Defx 文件树
+if has('nvim')
+  Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/defx.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+Load ./core/plugin/defx.nvim.vim
 
 " 缩进线
 Plug 'Yggdroot/indentLine'
@@ -52,10 +55,6 @@ Load ./core/plugin/lightline-bufferline.vim
 " markdown 预览
 Plug 'iamcco/markdown-preview.nvim', {'for': 'markdown', 'do': 'cd app && npm install'}
 Load ./core/plugin/markdown-preview.nvim.vim
-
-" 快速位置跳转
-Plug 'easymotion/vim-easymotion'
-Load ./core/plugin/vim-easymotion.vim
 
 " 移动整行
 Plug 'matze/vim-move'
@@ -89,9 +88,6 @@ Plug 'tpope/vim-fugitive'
 " 在侧边栏显示相关信息
 Plug 'kshenoy/vim-signature'
 
-" 扩展文本对象，很实用
-Plug 'wellle/targets.vim'
-
 " 注释插件
 Plug 'tomtom/tcomment_vim'
 
@@ -101,6 +97,9 @@ Plug 'skywind3000/vim-dict'
 " 中文文档
 Plug 'yianwillis/vimcdoc'
 
-" Tag 显示插件
+" 函数列表
 Plug 'liuchengxu/vista.vim'
+
+" Tags 跳转
+Plug 'ludovicchabant/vim-gutentags'
 call plug#end()

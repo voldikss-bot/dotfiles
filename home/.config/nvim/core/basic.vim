@@ -30,7 +30,6 @@ set dictionary+=~/.config/nvim/dict/dictionary.txt
 set nospell
 set spellfile=~/.config/nvim/spell/en.utf-8.add
 set tags=./tags;,tags
-set tagfunc=CocTagFunc
 " key
 set ttimeout
 set timeoutlen=500
